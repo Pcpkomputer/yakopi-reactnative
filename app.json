@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "yakopi-reactnative",
+    "slug": "yakopi-reactnative",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "yakopi-reactnative"
+}
