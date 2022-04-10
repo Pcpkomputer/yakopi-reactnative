@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState,useEffect,useCallback} from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import DashboardScreen from './screen/DashboardScreen';
+import LoginScreen from './screen/LoginScreen';
+
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -67,16 +73,73 @@ function MyTabBar({ state, descriptors, navigation }) {
 const entireScreenWidth = Dimensions.get('window').width;
 EStyleSheet.build({$rem: entireScreenWidth / 380});
 
-export default function App() {
+function TabNavigator(){
   return (
-    <NavigationContainer>
-    <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
-      <Tab.Screen 
-      options={{
-        headerShown:false
-      }}
-      name="Home" component={DashboardScreen} />
-    </Tab.Navigator>
+    <Tab.Navigator tabBar={props => null}>
+        <Tab.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="Home" component={DashboardScreen} />
+  </Tab.Navigator>
+  )
+}
+
+function AuthNavigator(){
+  return (
+    <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="Login" component={LoginScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="Dashboard" component={TabNavigator} />
+      </Stack.Navigator>
+  )
+}
+
+
+export default function App() {
+
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await Font.loadAsync({
+          Poppins: require('./fonts/Poppins-Regular.ttf'),
+          PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+  
+  return (
+    <NavigationContainer
+    onReady={onLayoutRootView}
+    >
+      <AuthNavigator/>
   </NavigationContainer>
   );
 }

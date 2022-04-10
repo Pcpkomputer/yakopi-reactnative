@@ -18,6 +18,7 @@ export const typography = () => {
 const styles = StyleSheet.create({
 	defaultText: {
 		fontSize: EStyleSheet.value("14rem"),
-		color: "black"
+		color: "black",
+		fontFamily:"Poppins"
 	}
 });
