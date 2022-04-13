@@ -44,7 +44,10 @@ export default function DashboardScreen() {
 
   const globalContext = useContext(GlobalContext);
 
-  const [presensi,setPresensi] = useState(null);
+  const [presensi,setPresensi] = useState({
+      jam_masuk_absen:null,
+      jam_keluar_absen:null
+  });
 
   const [presensiLoading, setPresensiLoading] = useState(true);
   const [smokeScreenOpened, setSmokeScreenOpened] = useState(true);
@@ -187,8 +190,58 @@ export default function DashboardScreen() {
                                 (presensi?.jam_masuk_absen && !presensi?.jam_keluar_absen) &&
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
-                                onPress={()=>{
-                                    alert("!32");
+                                onPress={async ()=>{
+                                    let image = await ImagePicker.launchCameraAsync();
+                                    if(!image.cancelled){
+                                        setPresensiLoading(true);
+
+                                        var photo = {
+                                            uri: image.uri,
+                                            type: 'image/jpeg',
+                                            name: `presensipulang-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
+                                        };
+
+                                        let formdata = new FormData();
+                                        formdata.append("foto_absen_keluar",photo);
+
+                                        let request = await fetch(`https://sispro-yakopi.org/api/fotoAbsenPulang`,{
+                                            method:"POST",
+                                            body:formdata
+                                        });
+                                        let response = await request.json();
+                                        
+                                        let filename = response.result.file_name;
+
+                                        let time = new Date();
+                                        let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+                                        
+
+                                        let presensi = await fetch(`${endpoint}/presensi-pulang`,{
+                                            method:"POST",
+                                            headers:{
+                                                "content-type":"application/json",
+                                                "Authorization":`Bearer ${globalContext.credentials.token}`
+                                            },
+                                            body:JSON.stringify({
+                                                filename:filename,
+                                                timezone:timezone
+                                            })
+                                        });
+                                        let responsepresensi = await presensi.json();
+
+                                        if(responsepresensi.success){
+                                            alert(responsepresensi.msg);
+                                            setPresensiLoading(false);
+
+                                            await fetchPresensi();
+                                        }
+                                        else{
+                                            alert(responsepresensi.msg);
+                                            setPresensiLoading(false);
+
+                                            await fetchPresensi();
+                                        }
+                                    }
                                 }}
                                 style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("10rem")}}>
                                     <Text>Pulang</Text>
@@ -205,7 +258,7 @@ export default function DashboardScreen() {
                         </View>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
                             <Entypo name="time-slot" size={EStyleSheet.value("20rem")} color="white" />
-                            <Text style={{color:"white",marginLeft:EStyleSheet.value("10rem")}}>Pulang :</Text>
+                            <Text style={{color:"white",marginLeft:EStyleSheet.value("10rem")}}>Pulang : {presensi.jam_keluar_absen}</Text>
                         </View>
                     </View>
                 </LinearGradient>
