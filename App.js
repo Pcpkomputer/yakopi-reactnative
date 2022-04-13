@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useCallback, createContext} from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, AsyncStorage } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -126,6 +126,18 @@ export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [credentials,setCredentials] = useState(null);
 
+
+  let fetchCredentials = async()=>{
+    let credentials = await AsyncStorage.getItem("credentials");
+    if(credentials){
+        let parsed = JSON.parse(credentials);
+        setCredentials(parsed);
+    }
+    else{
+        setCredentials(null);
+    }
+  }
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -134,6 +146,7 @@ export default function App() {
           Poppins: require('./fonts/Poppins-Regular.ttf'),
           PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
         });
+        await fetchCredentials();
       } catch (e) {
         console.warn(e);
       } finally {
@@ -146,7 +159,9 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      await SplashScreen.hideAsync();
+      setTimeout(async () => {
+        await SplashScreen.hideAsync();
+      }, 1000);
     }
   }, [appIsReady]);
 
