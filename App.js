@@ -96,11 +96,6 @@ function AuthNavigator(){
           headerShown:false
         }}
         name="Login" component={LoginScreen} />
-        <Stack.Screen 
-        options={{
-          headerShown:false
-        }}
-        name="Dashboard" component={TabNavigator} />
       </Stack.Navigator>
   )
 }

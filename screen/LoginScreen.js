@@ -68,7 +68,7 @@ export default function LoginScreen(props) {
                    }}
                    >
                        <LinearGradient 
-                       colors={['#2ec5a2','#33c668','#33c668']}
+                        colors={['#1e915a', '#5daa5f']}
                        start={{ x: 0, y: 1 }}
                        end={{ x: 1, y: 1 }}
                        style={{paddingVertical:EStyleSheet.value("13rem"),paddingHorizontal:EStyleSheet.value("20rem"),height:EStyleSheet.value("50rem"),justifyContent:"center",alignItems:"center",marginTop:EStyleSheet.value("25rem"),borderRadius:EStyleSheet.value("5rem"),backgroundColor:"#2bc3a7",width:Dimensions.get("screen").width-EStyleSheet.value("50rem")}}>
@@ -101,15 +101,6 @@ export default function LoginScreen(props) {
 
                             if(response.success){
                                 globalContext.setCredentials(response);
-                                AsyncStorage.setItem("credentials",JSON.stringify(response));
-                                props.navigation.dispatch(
-                                    CommonActions.reset({
-                                      index: 0,
-                                      routes: [
-                                        { name: 'Dashboard' },
-                                      ],
-                                    })
-                                  );
                             }
                             else{
                                 alert(response.msg);
@@ -120,7 +111,7 @@ export default function LoginScreen(props) {
                    }}
                    >
                        <LinearGradient 
-                       colors={['#2ec5a2','#33c668','#33c668']}
+                        colors={['#1e915a', '#5daa5f']}
                        start={{ x: 0, y: 1 }}
                        end={{ x: 1, y: 1 }}
                        style={{paddingVertical:EStyleSheet.value("13rem"),paddingHorizontal:EStyleSheet.value("20rem"),height:EStyleSheet.value("50rem"),justifyContent:"center",alignItems:"center",marginTop:EStyleSheet.value("25rem"),borderRadius:EStyleSheet.value("5rem"),backgroundColor:"#2bc3a7",width:Dimensions.get("screen").width-EStyleSheet.value("50rem")}}>

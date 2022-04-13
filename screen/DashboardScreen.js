@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, AsyncStorage, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -13,6 +13,8 @@ import {GlobalContext} from '../App';
 import { endpoint } from '../utils/endpoint';
 
 import * as Location from 'expo-location';
+
+import { CommonActions } from '@react-navigation/native';
 
 let shadow = {
     shadowColor: "#000",
@@ -40,7 +42,7 @@ let shadow2 = {
 }
 
 
-export default function DashboardScreen() {
+export default function DashboardScreen(props) {
 
   const globalContext = useContext(GlobalContext);
 
@@ -72,8 +74,8 @@ export default function DashboardScreen() {
   return (
      <View style={{flex:1,backgroundColor:"#edf0f4"}}>
         <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
-            <View style={{height:StatusBarHeight,backgroundColor:"#17bd9f"}}></View>
-            <View style={{backgroundColor:"#17bd9f",height:EStyleSheet.value("100rem"),flexDirection:"row",alignItems:"center",paddingHorizontal:EStyleSheet.value("15rem")}}>
+            <View style={{height:StatusBarHeight,backgroundColor:"#1e915a"}}></View>
+            <View style={{backgroundColor:"#1e915a",height:EStyleSheet.value("100rem"),flexDirection:"row",alignItems:"center",paddingHorizontal:EStyleSheet.value("15rem")}}>
                 <Feather style={{opacity:0}} name="menu" size={24} color="white" />
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
                     <Text style={{color:"white",fontFamily:"PoppinsMedium",fontSize:EStyleSheet.value("23rem")}}>YAKOPI</Text>
@@ -81,11 +83,11 @@ export default function DashboardScreen() {
                 <FontAwesome style={{opacity:0}} name="user" size={24} color="white" />
             </View>
             <View style={{backgroundColor:"whitesmoke",paddingTop:0,paddingBottom:0}}>
-                <View style={{position:"absolute",backgroundColor:"#17bd9f",height:"50%",right:0,width:"100%"}}>
+                <View style={{position:"absolute",backgroundColor:"#1e915a",height:"50%",right:0,width:"100%"}}>
                 </View>
                 
                 <LinearGradient
-                colors={['#33c668', '#2ec5a2']}
+                colors={['#1e915a', '#5daa5f']}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 1 }}
                 style={{...shadow,overflow:"hidden",marginHorizontal:EStyleSheet.value("15rem"),backgroundColor:"#2ec5a2",borderRadius:EStyleSheet.value("10rem")}}>
@@ -318,9 +320,15 @@ export default function DashboardScreen() {
                     <Image resizeMode="stretch" style={{width:"50%",height:"70%"}} source={{uri:"https://devjobsindo.org/wp-content/uploads/2022/02/WhatsApp-Image-2022-02-25-at-5.14.01-PM-200x287.jpeg"}}/>
                 </View>
             </View>
-            <View>
+            <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={async ()=>{
+                await AsyncStorage.removeItem("credentials");
+                globalContext.setCredentials(null);
+            }}
+            >
                 <MaterialCommunityIcons name="logout" size={24} color="black" />
-            </View>
+            </TouchableOpacity>
         </View>
      </View>
   );
