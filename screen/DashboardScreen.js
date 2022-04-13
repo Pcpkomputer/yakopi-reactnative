@@ -1,12 +1,18 @@
-import React from 'react';
-import { StyleSheet, ScrollView, Text, View, Dimensions, Image } from 'react-native';
+import React, {useState, useContext, useEffect} from 'react';
+import { StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as ImagePicker from 'expo-image-picker';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
+
+import {GlobalContext} from '../App';
+import { endpoint } from '../utils/endpoint';
+
+import * as Location from 'expo-location';
 
 let shadow = {
     shadowColor: "#000",
@@ -33,17 +39,43 @@ let shadow2 = {
     elevation: 5,
 }
 
+
 export default function DashboardScreen() {
+
+  const globalContext = useContext(GlobalContext);
+
+  const [presensi,setPresensi] = useState(null);
+
+  const [presensiLoading, setPresensiLoading] = useState(true);
+  const [smokeScreenOpened, setSmokeScreenOpened] = useState(true);
+
+  const fetchPresensi = async()=>{
+      setPresensiLoading(true);
+      let request = await fetch(`${endpoint}/cek-presensi`,{
+          method:"POST",
+          headers:{
+              "authorization":`Bearer ${globalContext.credentials.token}`
+          }
+      });
+      let response = await request.json();
+      setPresensiLoading(false);
+      setPresensi(response.data);
+  };
+
+  useEffect(()=>{
+    fetchPresensi();
+  },[]);
+
   return (
      <View style={{flex:1,backgroundColor:"#edf0f4"}}>
         <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
             <View style={{height:StatusBarHeight,backgroundColor:"#17bd9f"}}></View>
             <View style={{backgroundColor:"#17bd9f",height:EStyleSheet.value("100rem"),flexDirection:"row",alignItems:"center",paddingHorizontal:EStyleSheet.value("15rem")}}>
-                <Feather name="menu" size={24} color="white" />
+                <Feather style={{opacity:0}} name="menu" size={24} color="white" />
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-                    <Text style={{color:"white",fontSize:EStyleSheet.value("23rem")}}>Yakopi</Text>
+                    <Text style={{color:"white",fontFamily:"PoppinsMedium",fontSize:EStyleSheet.value("23rem")}}>YAKOPI</Text>
                 </View>
-                <FontAwesome name="user" size={24} color="white" />
+                <FontAwesome style={{opacity:0}} name="user" size={24} color="white" />
             </View>
             <View style={{backgroundColor:"whitesmoke",paddingTop:0,paddingBottom:0}}>
                 <View style={{position:"absolute",backgroundColor:"#17bd9f",height:"50%",right:0,width:"100%"}}>
@@ -54,22 +86,122 @@ export default function DashboardScreen() {
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 1 }}
                 style={{...shadow,overflow:"hidden",marginHorizontal:EStyleSheet.value("15rem"),backgroundColor:"#2ec5a2",borderRadius:EStyleSheet.value("10rem")}}>
+                    
+                    {
+                        (presensiLoading) &&
+                        <View style={{position:"absolute",width:"100%",height:"100%",justifyContent:"center",alignItems:"center",zIndex:100}}>
+                            <View style={{position:"absolute",width:"100%",height:"100%",backgroundColor:"grey",opacity:0.4}}></View>
+                            <ActivityIndicator size="large" color="white"/>
+                        </View>
+                    }
+                    
                     <View style={{padding:EStyleSheet.value("15rem"),flexDirection:"row"}}>
                         <View style={{backgroundColor:"whitesmoke",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),width:EStyleSheet.value("80rem"),height:EStyleSheet.value("100rem")}}>
-                            <Image style={{width:"100%",height:"100%"}} source={{uri:"https://cdn1-production-images-kly.akamaized.net/Ox45KRSgCbfZleEyxdswoqKJcTw=/535x710/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/3350868/original/056911700_1610786361-20210116-potret-keluarga-manusia-perak-ARBAS-6.jpg"}}/>
+                            <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={globalContext?.credentials?.data?.foto_pengguna ? {uri:globalContext?.credentials?.data?.foto_pengguna || ""}:require("../assets/logo.jpeg")}/>
                         </View>
-                        <View style={{paddingLeft:EStyleSheet.value("20rem"),flex:1,justifyContent:"center"}}>
-                            <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>Selamat pagi!</Text>
-                            <Text style={{marginTop:EStyleSheet.value("5rem"),flex:1,textAlignVertical:"center",color:"white",fontFamily:"PoppinsMedium",fontSize:EStyleSheet.value("20rem")}}>Padang Perwira Yudha</Text>
-                            <View style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("10rem")}}>
-                                <Text>Presensi</Text>
-                            </View>
+                        <View
+                        style={{paddingLeft:EStyleSheet.value("20rem"),flex:1,justifyContent:"center"}}>
+                            <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>Halo!</Text>
+                            <Text style={{marginTop:EStyleSheet.value("5rem"),flex:1,textAlignVertical:"center",color:"white",fontFamily:"PoppinsMedium",fontSize:EStyleSheet.value("20rem")}}>{globalContext?.credentials?.data?.nama_lengkap || ""}</Text>
+                            {
+                                (!presensi?.jam_masuk_absen && !presensi?.jam_keluar_absen) &&
+                                <TouchableOpacity 
+                                activeOpacity={0.8}
+                                onPress={async ()=>{
+                                    let { status } = await Location.requestForegroundPermissionsAsync();
+                                    if (status !== 'granted') {
+                                       alert("Akses permissions lokasi diperlukan");
+                                    }
+                                    else{
+                                        let image = await ImagePicker.launchCameraAsync();
+                                        if(!image.cancelled){
+                                                setPresensiLoading(true);
+    
+                                                // const manipResult = await manipulateAsync(
+                                                //     pick.uri,
+                                                //     [
+                                                //     { resize:{height:1200,width:600} },
+                                                //     ],
+                                                //     { compress: 1, format: SaveFormat.JPEG }
+                                                // );
+    
+                                                let location = await Location.getLastKnownPositionAsync();
+    
+                                                var photo = {
+                                                    uri: image.uri,
+                                                    type: 'image/jpeg',
+                                                    name: `presensi-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
+                                                };
+    
+                                                let formdata = new FormData();
+                                                formdata.append("foto_absen_masuk",photo);
+    
+                                                let request = await fetch(`https://sispro-yakopi.org/api/fotoAbsenMasuk`,{
+                                                    method:"POST",
+                                                    body:formdata
+                                                });
+                                                let response = await request.json();
+                                                
+                                                let filename = response.result.file_name;
+    
+                                                let time = new Date();
+                                                let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+    
+                                                
+                                                let presensi = await fetch(`${endpoint}/presensi-masuk`,{
+                                                    method:"POST",
+                                                    headers:{
+                                                        "content-type":"application/json",
+                                                        "Authorization":`Bearer ${globalContext.credentials.token}`
+                                                    },
+                                                    body:JSON.stringify({
+                                                        filename:filename,
+                                                        timezone:timezone,
+                                                        latitude:location.coords.latitude,
+                                                        longitude:location.coords.longitude
+                                                    })
+                                                });
+                                                let responsepresensi = await presensi.json();
+
+                                                if(responsepresensi.success){
+                                                    alert(responsepresensi.msg);
+                                                    setPresensiLoading(false);
+    
+                                                    await fetchPresensi();
+                                                }
+                                                else{
+                                                    alert(responsepresensi.msg);
+                                                    setPresensiLoading(false);
+    
+                                                    await fetchPresensi();
+                                                }
+                                        }
+                                    }
+                                   
+                                }}
+                                style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("10rem")}}>
+                                    <Text>Presensi</Text>
+                                </TouchableOpacity> 
+                            }
+                            {
+                                (presensi?.jam_masuk_absen && !presensi?.jam_keluar_absen) &&
+                                <TouchableOpacity 
+                                activeOpacity={0.8}
+                                onPress={()=>{
+                                    alert("!32");
+                                }}
+                                style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("10rem")}}>
+                                    <Text>Pulang</Text>
+                                </TouchableOpacity>
+                            }
                         </View>
+                        
+                        
                     </View>
                     <View style={{height:EStyleSheet.value("40rem"),paddingBottom:EStyleSheet.value("10rem"),justifyContent:"space-evenly",paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",alignItems:"center"}}>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
                             <Entypo name="time-slot" size={EStyleSheet.value("20rem")} color="white" />
-                            <Text style={{color:"white",marginLeft:EStyleSheet.value("10rem")}}>Presensi :</Text>
+                            <Text style={{color:"white",marginLeft:EStyleSheet.value("10rem")}}>Presensi : {presensi.jam_masuk_absen}</Text>
                         </View>
                         <View style={{flexDirection:"row",alignItems:"center"}}>
                             <Entypo name="time-slot" size={EStyleSheet.value("20rem")} color="white" />

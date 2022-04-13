@@ -1,4 +1,4 @@
-import React, {useState,useEffect,useCallback} from 'react';
+import React, {useState,useEffect,useCallback, createContext} from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -15,6 +15,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+export const GlobalContext = createContext();
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -87,6 +89,7 @@ function TabNavigator(){
 
 function AuthNavigator(){
   return (
+   
     <Stack.Navigator initialRouteName="Home">
         <Stack.Screen 
         options={{
@@ -94,7 +97,7 @@ function AuthNavigator(){
         }}
         name="Login" component={LoginScreen} />
         <Stack.Screen 
-         options={{
+        options={{
           headerShown:false
         }}
         name="Dashboard" component={TabNavigator} />
@@ -103,9 +106,25 @@ function AuthNavigator(){
 }
 
 
+function MasterNavigator(){
+  return (
+   
+    <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="Dashboard" component={TabNavigator} />
+      </Stack.Navigator>
+  )
+}
+
+
+
 export default function App() {
 
   const [appIsReady, setAppIsReady] = useState(false);
+  const [credentials,setCredentials] = useState(null);
 
   useEffect(() => {
     async function prepare() {
@@ -134,13 +153,30 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
+
+  if(!credentials){
+    return (
+      <GlobalContext.Provider value={{credentials,setCredentials}}>
+            <NavigationContainer
+            onReady={onLayoutRootView}
+            >
+              <AuthNavigator/>
+          </NavigationContainer>
+    </GlobalContext.Provider>
+    );
+  }
+  else{
+    return (
+        <GlobalContext.Provider value={{credentials,setCredentials}}>
+              <NavigationContainer
+              onReady={onLayoutRootView}
+              >
+                <MasterNavigator/>
+            </NavigationContainer>
+      </GlobalContext.Provider>
+      );
+  }
   
-  return (
-    <NavigationContainer
-    onReady={onLayoutRootView}
-    >
-      <AuthNavigator/>
-  </NavigationContainer>
-  );
+  
 }
 
