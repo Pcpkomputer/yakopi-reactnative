@@ -73,7 +73,9 @@ export default function DashboardScreen(props) {
 
   return (
      <View style={{flex:1,backgroundColor:"#edf0f4"}}>
-        <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
+        <ScrollView 
+        contentContainerStyle={{paddingBottom:EStyleSheet.value("95rem")}}
+        keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
             <View style={{height:StatusBarHeight,backgroundColor:"#1e915a"}}></View>
             <View style={{backgroundColor:"#1e915a",height:EStyleSheet.value("100rem"),flexDirection:"row",alignItems:"center",paddingHorizontal:EStyleSheet.value("15rem")}}>
                 <Feather style={{opacity:0}} name="menu" size={24} color="white" />
@@ -269,7 +271,7 @@ export default function DashboardScreen(props) {
                 <View style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginRight:EStyleSheet.value("10rem")}}>
                     <View style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
                         <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
-                            <Text numberOfLines={2} style={{color:"white",fontSize:EStyleSheet.value("22rem"),textAlign:"center"}}>Restoration</Text>
+                            <Text numberOfLines={2} style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Restoration</Text>
                         </View>
 
                         <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:"https://media.istockphoto.com/photos/mangroove-tree-detail-view-picture-id830059752?k=20&m=830059752&s=170667a&w=0&h=B2XDDDbhsJTxP7OcpFspMnQbhZ6xXAJ_MKDUHjPR2jM="}}/>
@@ -283,7 +285,7 @@ export default function DashboardScreen(props) {
                 <View style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginLeft:EStyleSheet.value("10rem")}}>
                     <View style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
                         <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
-                            <Text style={{color:"white",fontSize:EStyleSheet.value("22rem"),textAlign:"center"}}>Community Development</Text>
+                            <Text style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Community Development</Text>
                         </View>
 
                         <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:"https://islandsafarimergui.com/wp-content/uploads/2012/06/Mangroove-Trees-in-Lampi-Island-1.jpg"}}/>
@@ -298,7 +300,7 @@ export default function DashboardScreen(props) {
             <View style={{paddingHorizontal:EStyleSheet.value("15rem"),marginTop:EStyleSheet.value("30rem")}}>
                 <View style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
                     <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
-                        <Text style={{color:"white",fontSize:EStyleSheet.value("40rem")}}>Simulation</Text>
+                        <Text style={{color:"white",fontSize:EStyleSheet.value("40rem")}}>Research</Text>
                     </View>
 
                     <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:"https://lingkarjateng.com/wp-content/uploads/2020/03/Mangroove.jpg"}}/>
@@ -311,11 +313,11 @@ export default function DashboardScreen(props) {
             </View>
         </ScrollView>
 
-        <View style={{position:"absolute",alignItems:"center",width:"100%",flexDirection:"row",justifyContent:"space-between",bottom:EStyleSheet.value("30rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
+        <View style={{...shadow,position:"absolute",height:EStyleSheet.value("50rem"),backgroundColor:"white",alignItems:"center",width:"100%",flexDirection:"row",justifyContent:"space-between",bottom:0,paddingHorizontal:EStyleSheet.value("20rem")}}>
             <View>
                 <Feather name="user" size={24} color="black" />
             </View>
-            <View>
+            <View style={{position:"absolute",bottom:EStyleSheet.value("20rem"),right:(Dimensions.get("screen").width/2)-EStyleSheet.value("30rem")}}>
                 <View style={{...shadow2,overflow:"hidden",justifyContent:"center",alignItems:"center",backgroundColor:"white",borderRadius:999,width:EStyleSheet.value("60rem"),height:EStyleSheet.value("60rem")}}>
                     <Image resizeMode="stretch" style={{width:"50%",height:"70%"}} source={{uri:"https://devjobsindo.org/wp-content/uploads/2022/02/WhatsApp-Image-2022-02-25-at-5.14.01-PM-200x287.jpeg"}}/>
                 </View>

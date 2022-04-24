@@ -33,17 +33,18 @@ export default function LoginScreen(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginLoading, setLoginLoading] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(true);
 
     return (
         <View style={{flex:1,backgroundColor:"#fbfbfb"}}>
              <View style={{height:StatusBarHeight,backgroundColor:"#17bd9f"}}></View>
              <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
                 <Text style={{fontSize:EStyleSheet.value("24rem"),color:"#8c8d90"}}>Masuk</Text>
-                <Text style={{color:"#565e6f",fontSize:EStyleSheet.value("14rem"),marginTop:EStyleSheet.value("10rem"),marginBottom:EStyleSheet.value("10rem")}}>Masuk menggunakan email dan password</Text>
+                <Text style={{color:"#565e6f",fontSize:EStyleSheet.value("14rem"),marginTop:EStyleSheet.value("10rem"),marginBottom:EStyleSheet.value("10rem")}}>Masuk menggunakan username dan password</Text>
                 <Entypo name="chevron-small-down" size={EStyleSheet.value("20rem")} color="#565e6f" />
                 <View style={{...shadow,borderRadius:EStyleSheet.value("5rem"),padding:EStyleSheet.value("15rem"),marginTop:EStyleSheet.value("20rem"),width:Dimensions.get("screen").width-EStyleSheet.value("50rem"),backgroundColor:"white"}}>
                     <View style={{borderBottomWidth:1,borderColor:"#dadada",paddingBottom:EStyleSheet.value("5rem")}}>
-                        <Text style={{color:"#acacb1"}}>Email</Text>
+                        <Text style={{color:"#acacb1"}}>Username</Text>
                         <TextInput 
                         onChangeText={(text)=>{
                             setEmail(text);
@@ -52,11 +53,34 @@ export default function LoginScreen(props) {
                     </View>
                     <View style={{borderBottomWidth:0,marginTop:EStyleSheet.value("10rem"),borderColor:"#dadada",paddingBottom:EStyleSheet.value("5rem")}}>
                         <Text style={{color:"#acacb1"}}>Password</Text>
-                        <TextInput 
-                        onChangeText={(text)=>{
-                            setPassword(text);
-                        }}
-                        value={password} secureTextEntry={true} style={{color:"#383b40",fontFamily:"PoppinsMedium"}} placeholder="Email"/>
+                        <View style={{flexDirection:"row",alignItems:"center"}}>
+                                <TextInput 
+                                onChangeText={(text)=>{
+                                    setPassword(text);
+                                }}
+                                value={password} secureTextEntry={(passwordVisible) ? true:false} style={{color:"#383b40",flex:1,fontFamily:"PoppinsMedium"}} placeholder="Password"/>
+                                {
+                                    (passwordVisible) ?
+                                    <TouchableOpacity
+                                    activeOpacity={0.7}
+                                    onPress={()=>{
+                                        setPasswordVisible(!passwordVisible);
+                                    }}
+                                    >
+                                        <Entypo style={{marginHorizontal:EStyleSheet.value("10rem")}} name="eye-with-line" size={EStyleSheet.value("20rem")} color="grey" />
+                                    </TouchableOpacity>
+                                     :
+                                     <TouchableOpacity
+                                    activeOpacity={0.7}
+                                    onPress={()=>{
+                                        setPasswordVisible(!passwordVisible);
+                                    }}
+                                    >
+                                        <Entypo style={{marginHorizontal:EStyleSheet.value("10rem")}} name="eye" size={EStyleSheet.value("20rem")} color="grey" />
+                                    </TouchableOpacity>
+
+                                }
+                        </View>
                     </View>
                 </View>
                {
