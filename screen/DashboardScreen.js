@@ -143,7 +143,7 @@ export default function DashboardScreen(props) {
                                                 let formdata = new FormData();
                                                 formdata.append("foto_absen_masuk",photo);
     
-                                                let request = await fetch(`https://sispro-yakopi.org/api/fotoAbsenMasuk`,{
+                                                let request = await fetch(`https://sispro-yakopi.org/endpoint/fotoAbsenMasuk`,{
                                                     method:"POST",
                                                     body:formdata
                                                 });
@@ -208,7 +208,7 @@ export default function DashboardScreen(props) {
                                         let formdata = new FormData();
                                         formdata.append("foto_absen_keluar",photo);
 
-                                        let request = await fetch(`https://sispro-yakopi.org/api/fotoAbsenPulang`,{
+                                        let request = await fetch(`https://sispro-yakopi.org/endpoint/fotoAbsenPulang`,{
                                             method:"POST",
                                             body:formdata
                                         });
