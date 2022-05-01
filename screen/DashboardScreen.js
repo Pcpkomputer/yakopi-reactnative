@@ -198,6 +198,7 @@ export default function DashboardScreen(props) {
                                     let image = await ImagePicker.launchCameraAsync();
                                     if(!image.cancelled){
                                         setPresensiLoading(true);
+                                        let location = await Location.getLastKnownPositionAsync();
 
                                         var photo = {
                                             uri: image.uri,
@@ -228,7 +229,9 @@ export default function DashboardScreen(props) {
                                             },
                                             body:JSON.stringify({
                                                 filename:filename,
-                                                timezone:timezone
+                                                timezone:timezone,
+                                                latitude:location.coords.latitude,
+                                                longitude:location.coords.longitude
                                             })
                                         });
                                         let responsepresensi = await presensi.json();

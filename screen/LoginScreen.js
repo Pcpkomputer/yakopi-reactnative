@@ -49,7 +49,7 @@ export default function LoginScreen(props) {
                         onChangeText={(text)=>{
                             setEmail(text);
                         }}
-                        value={email} style={{color:"#383b40",fontFamily:"PoppinsMedium"}} placeholder="Email"/>
+                        value={email} style={{color:"#383b40",fontFamily:"PoppinsMedium"}} placeholder="Username"/>
                     </View>
                     <View style={{borderBottomWidth:0,marginTop:EStyleSheet.value("10rem"),borderColor:"#dadada",paddingBottom:EStyleSheet.value("5rem")}}>
                         <Text style={{color:"#acacb1"}}>Password</Text>
