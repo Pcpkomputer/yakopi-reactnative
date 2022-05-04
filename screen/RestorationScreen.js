@@ -27,7 +27,7 @@ export default function RestorationScreen(props){
                         <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={()=>{
-                            props.navigation.navigate("DetailRestoration");
+                            props.navigation.navigate("InputLandAssessment");
                         }}
                         >
                              <LinearGradient

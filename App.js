@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import DashboardScreen from './screen/DashboardScreen';
 import LoginScreen from './screen/LoginScreen';
 import RestorationScreen from './screen/RestorationScreen';
-import DetailRestorationScreen from './screen/DetailRestorationScreen';
+import InputLandAssessmentScreen from './screen/restoration-screens/InputLandAssessmentScreen';
 
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -121,7 +121,7 @@ function MasterNavigator(){
         options={{
           headerShown:false
         }}
-        name="DetailRestoration" component={DetailRestorationScreen} />
+        name="InputLandAssessment" component={InputLandAssessmentScreen} />
       </Stack.Navigator>
   )
 }

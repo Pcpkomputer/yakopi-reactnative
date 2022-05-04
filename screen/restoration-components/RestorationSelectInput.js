@@ -25,7 +25,7 @@ export default function RestorationSelectInput(props){
             activeOpacity={0.6}
             onPress={props.onSelectPress}
             style={{flex:1,backgroundColor:"white",flexDirection:"row",alignItems:"center",paddingVertical:EStyleSheet.value("15rem"),paddingRight:EStyleSheet.value("25rem")}}>
-                <Text style={{flex:1}}>{props.getter[props.index].value}</Text>
+                <Text style={{flex:1}}>{props.getter[props.index].value.value}</Text>
                 <AntDesign name="caretdown" size={EStyleSheet.value("10rem")} color="grey" />
             </TouchableOpacity>
         </View>
