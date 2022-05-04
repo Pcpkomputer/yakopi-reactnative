@@ -1,10 +1,12 @@
 import React, {useState,useEffect,useCallback, createContext} from 'react';
-import { StyleSheet, Text, View, Dimensions, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, AsyncStorage, Button } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import DashboardScreen from './screen/DashboardScreen';
 import LoginScreen from './screen/LoginScreen';
+import RestorationScreen from './screen/RestorationScreen';
+import DetailRestorationScreen from './screen/DetailRestorationScreen';
 
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -110,6 +112,16 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="Dashboard" component={TabNavigator} />
+          <Stack.Screen 
+        options={{
+          headerShown:true,
+        }}
+        name="Restoration" component={RestorationScreen} />
+           <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="DetailRestoration" component={DetailRestorationScreen} />
       </Stack.Navigator>
   )
 }

@@ -16,6 +16,7 @@ import * as Location from 'expo-location';
 
 import { CommonActions } from '@react-navigation/native';
 
+
 let shadow = {
     shadowColor: "#000",
     shadowOffset: {
@@ -268,7 +269,12 @@ export default function DashboardScreen(props) {
                 </LinearGradient>
             </View>
             <View style={{marginTop:EStyleSheet.value("30rem"),flexDirection:"row",paddingHorizontal:EStyleSheet.value("15rem")}}>
-                <View style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginRight:EStyleSheet.value("10rem")}}>
+                <TouchableOpacity 
+                activeOpacity={0.8}
+                onPress={()=>{
+                    props.navigation.navigate("Restoration");
+                }}
+                style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginRight:EStyleSheet.value("10rem")}}>
                     <View style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
                         <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
                             <Text numberOfLines={2} style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Restoration</Text>
@@ -281,7 +287,7 @@ export default function DashboardScreen(props) {
                         colors={['transparent', 'rgba(0,0,0,1)']}>
                         </LinearGradient>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginLeft:EStyleSheet.value("10rem")}}>
                     <View style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
                         <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>

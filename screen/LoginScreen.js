@@ -124,6 +124,7 @@ export default function LoginScreen(props) {
                             let response = await request.json();
 
                             if(response.success){
+                                await AsyncStorage.setItem("credentials",JSON.stringify(response));
                                 globalContext.setCredentials(response);
                             }
                             else{
