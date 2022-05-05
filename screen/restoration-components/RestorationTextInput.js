@@ -23,6 +23,7 @@ export default function RestorationTextInput(props){
             </View>
             <View style={{flex:1,backgroundColor:"white",flexDirection:"row",alignItems:"center",paddingVertical:EStyleSheet.value("15rem"),paddingRight:EStyleSheet.value("25rem")}}>
                 <TextInput 
+                editable={props.disable ? false:true}
                 keyboardType={(props.keyboardType ? props.keyboardType:"default")}
                 onChangeText={(text)=>{
                     props.setter((prev)=>{

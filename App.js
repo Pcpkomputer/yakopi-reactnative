@@ -6,7 +6,10 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import DashboardScreen from './screen/DashboardScreen';
 import LoginScreen from './screen/LoginScreen';
 import RestorationScreen from './screen/RestorationScreen';
+
 import InputLandAssessmentScreen from './screen/restoration-screens/InputLandAssessmentScreen';
+import ListLandAssessmentScreen from './screen/restoration-screens/ListLandAssessmentScreen';
+import DetailLandAssessmentScreen from './screen/restoration-screens/DetailLandAssessmentScreen';
 
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -122,6 +125,17 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="InputLandAssessment" component={InputLandAssessmentScreen} />
+           <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Land Assessment"
+        }}
+        name="ListLandAssessment" component={ListLandAssessmentScreen} />
+          <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailLandAssessment" component={DetailLandAssessmentScreen} />
       </Stack.Navigator>
   )
 }

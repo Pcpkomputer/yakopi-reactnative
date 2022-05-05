@@ -6,6 +6,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { StatusBarHeight } from '../../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import * as Location from 'expo-location';
+
 import { CommonActions } from '@react-navigation/native';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -23,6 +25,7 @@ export default function RestorationCoordsInput(props){
             </View>
             <View style={{flex:1,backgroundColor:"white",flexDirection:"column",alignItems:"center",paddingVertical:EStyleSheet.value("15rem"),paddingRight:EStyleSheet.value("25rem")}}>
                 <TextInput 
+                editable={props.disable ? false:true}
                 keyboardType={(props.keyboardType ? props.keyboardType:"default")}
                 onChangeText={(text)=>{
                     props.setter((prev)=>{
@@ -43,6 +46,7 @@ export default function RestorationCoordsInput(props){
                 value={props.getter[props.index].value.latitude}
                 style={{flex:1}} placeholder={"Latitude"}/>
                  <TextInput 
+                editable={props.disable ? false:true}
                 keyboardType={(props.keyboardType ? props.keyboardType:"default")}
                 onChangeText={(text)=>{
                     props.setter((prev)=>{
@@ -62,14 +66,26 @@ export default function RestorationCoordsInput(props){
                 }}
                 value={props.getter[props.index].value.longitude}
                 style={{flex:1}} placeholder={"Longitude"}/>
-                <TouchableOpacity 
-                activeOpacity={0.8}
-                onPress={()=>{
-                    alert("123");
-                }}
-                style={{backgroundColor:"#1e915a",marginTop:EStyleSheet.value("10rem"),width:"100%",borderRadius:EStyleSheet.value("5rem")}}>
-                    <Text style={{textAlign:"center",color:"white"}}>Get Coordinate</Text>
-                </TouchableOpacity>
+                {
+                    (!props.disable) &&
+                    <TouchableOpacity 
+                    activeOpacity={0.8}
+                    onPress={async ()=>{
+                        let { status } = await Location.requestForegroundPermissionsAsync();
+                        if (status !== 'granted') {
+                          alert("Need permissions");
+                        }
+                        else{
+                            let location = await Location.getLastKnownPositionAsync();
+                            props.onGetLocation(location);
+                        }
+                  
+                       
+                    }}
+                    style={{backgroundColor:"#1e915a",marginTop:EStyleSheet.value("10rem"),width:"100%",borderRadius:EStyleSheet.value("5rem")}}>
+                        <Text style={{textAlign:"center",color:"white"}}>Get Coordinate</Text>
+                    </TouchableOpacity>
+                }
             </View>
          
         </View>

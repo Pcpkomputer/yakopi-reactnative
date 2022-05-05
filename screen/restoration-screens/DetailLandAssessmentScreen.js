@@ -21,7 +21,11 @@ import RestorationCoordsInput from '../restoration-components/RestorationCoordsI
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function InputLandAssessmentScreen(props){
+export default function DetailLandAssessmentScreen(props){
+
+    useEffect(()=>{
+        console.log(props.route.params.item);
+    },[])
 
     const globalContext = useContext(GlobalContext);
 
@@ -112,7 +116,7 @@ export default function InputLandAssessmentScreen(props){
         {
             type:"textinput",
             label:"Site Code",
-            value:"",
+            value:props.route.params.item.site_code || "",
             form:"site_code",
             required:true
         },
@@ -120,8 +124,8 @@ export default function InputLandAssessmentScreen(props){
             type:"selectinput",
             label:"Project",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_project || -1,
+                value:props.route.params.item.nama_project || "",
             },
             form:"project",
             required:true
@@ -129,14 +133,14 @@ export default function InputLandAssessmentScreen(props){
         {
             type:"textinput",
             label:"Surveyor",
-            value:"",
+            value:props.route.params.item.nama_surveyor || "",
             form:"surveyor",
             required:true
         },
         {
             type:"dateinput",
             label:"Date Land Assessment",
-            value:"",
+            value:props.route.params.item.date_land_assessment || "",
             form:"date_land_assessment",
             required:true
         },
@@ -144,8 +148,8 @@ export default function InputLandAssessmentScreen(props){
             type:"coordsinput",
             label:"Coordinate",
             value:{
-                latitude:"",
-                longitude:""
+                latitude:props.route.params.item.lat_land_assessment || "",
+                longitude:props.route.params.item.long_land_assessment || "",
             },
             form:"coordinate",
             required:false
@@ -158,8 +162,8 @@ export default function InputLandAssessmentScreen(props){
             type:"selectinput",
             label:"Province",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_province || -1,
+                value:props.route.params.item.prov_name || "",
             },
             form:"province",
             required:true
@@ -168,8 +172,8 @@ export default function InputLandAssessmentScreen(props){
             type:"selectinput",
             label:"City",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_cities || -1,
+                value:props.route.params.item.city_name || "",
             },
             form:"city",
             required:true
@@ -178,8 +182,8 @@ export default function InputLandAssessmentScreen(props){
             type:"selectinput",
             label:"District",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_districts || -1,
+                value:props.route.params.item.dis_name || "",
             },
             form:"district",
             required:true
@@ -187,14 +191,14 @@ export default function InputLandAssessmentScreen(props){
         {
             type:"textinput",
             label:"Village",
-            value:"",
+            value:props.route.params.item.nama_desa || "",
             form:"village",
             required:true
         },
         {
             type:"textinput",
             label:"Backwood",
-            value:"",
+            value:props.route.params.item.nama_dusun || "",
             form:"backwood",
             required:true
         },
@@ -203,7 +207,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Site Position",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.posisi_site || "",
             },
             form:"site_position",
             required:true
@@ -211,7 +215,7 @@ export default function InputLandAssessmentScreen(props){
         {
             type:"textinput",
             label:"Estimated number of plots per site",
-            value:"",
+            value:props.route.params.item.perkiraan_jumlah_plot.toString() || "",
             form:"estimated_number_of_plots_per_site",
             required:true
         },
@@ -220,7 +224,7 @@ export default function InputLandAssessmentScreen(props){
             label:"History Location",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.sejarah_lokasi || "",
             },
             form:"history_location",
             required:true
@@ -230,7 +234,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Road Access",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.akses_jalan || "",
             },
             form:"road_access",
             required:true
@@ -244,7 +248,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Land Condition",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.kondisi_lahan || "",
             },
             form:"land_condition",
             required:true
@@ -252,7 +256,7 @@ export default function InputLandAssessmentScreen(props){
         {
             type:"textinput",
             label:"The presence of mangrove stands (amount of % and types present)",
-            value:"",
+            value:props.route.params.item.tegakan_mangrove.toString() || "",
             form:"the_presence_of_mangrove_stands",
             required:false
         },
@@ -261,7 +265,7 @@ export default function InputLandAssessmentScreen(props){
             label:"There are shrubs",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.adanya_perdu || "",
             },
             form:"shrubs",
             required:false
@@ -271,7 +275,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Potential Pet Nuisance",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.potensi_gangguan_hewan_peliharaan || "",
             },
             form:"pet_nuisance",
             required:false
@@ -281,7 +285,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Pest potential",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.potensi_hama || "",
             },
             form:"pest_potential",
             required:false
@@ -291,7 +295,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Tritype disorder potential",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.potensi_gangguan_tritip || "",
             },
             form:"tritype_disorder_potential",
             required:false
@@ -301,7 +305,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Crab interference potential",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.potensi_gangguan_kepiting || "",
             },
             form:"crab_interference_potential",
             required:false
@@ -311,7 +315,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Potential for waves or currents from the sea/coastal",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.potensi_gempuran_ombak || "",
             },
             form:"potential_for_waves",
             required:false
@@ -321,7 +325,7 @@ export default function InputLandAssessmentScreen(props){
             label:"Type of soil",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.jenis_tanah || "",
             },
             form:"type_of_soil",
             required:true
@@ -333,14 +337,14 @@ export default function InputLandAssessmentScreen(props){
         {
             type:"textinput",
             label:"Important information from group members",
-            value:"",
+            value:props.route.params.item.catatan_khusus_1 || "",
             form:"important_information_from_group_members",
             required:false
         },
         {
             type:"textinput",
             label:"Other important information that is not available in the table of contents",
-            value:"",
+            value:props.route.params.item.catatan_khusus_2 || "",
             form:"other_important_information_from_group_members",
             required:false
         },
@@ -495,7 +499,7 @@ export default function InputLandAssessmentScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Isikan form restoration berikut</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Detail Land Assessment</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
@@ -508,6 +512,7 @@ export default function InputLandAssessmentScreen(props){
                             getter={schema}
                             setter={setSchema}
                             index={index}
+                            disable={true}
                             label={item.label}/>
                            )
                        }
@@ -517,6 +522,7 @@ export default function InputLandAssessmentScreen(props){
                             getter={schema}
                             setter={setSchema}
                             index={index}
+                            disable={true}
                             item={data[item.label]}
                             onSelectPress={()=>{
                                 setShowSelectInput(true);
@@ -545,6 +551,7 @@ export default function InputLandAssessmentScreen(props){
                         getter={schema}
                         setter={setSchema}
                         index={index}
+                        disable={true}
                         onSelectPress={()=>{
                             setShowSelectDateInput(true);
                             setIndexSelectDateInput(index);
@@ -556,25 +563,10 @@ export default function InputLandAssessmentScreen(props){
                         return (
                         <RestorationCoordsInput  
                         getter={schema}
+                        disable={true}
                         setter={setSchema}
                         keyboardType="numeric"
                         index={index}
-                        onGetLocation={(location)=>{
-                            setSchema((prev)=>{
-                                return prev.map((item,i)=>{
-                                    if(index===i){
-                                        return {
-                                            ...item,
-                                            value:{
-                                                latitude:location.coords.latitude.toString(),
-                                                longitude:location.coords.longitude.toString()
-                                            }
-                                        }
-                                    }
-                                    return item;
-                                })
-                            })
-                        }}
                         label={item.label}/>
                        )
                     }
@@ -588,7 +580,8 @@ export default function InputLandAssessmentScreen(props){
                        
                    })
                }
-               <TouchableOpacity 
+               <View style={{height:EStyleSheet.value("30rem")}}></View>
+               {/* <TouchableOpacity 
                activeOpacity={0.8}
                onPress={()=>{
                    let required = schema.filter((item)=>item.required);
@@ -622,7 +615,7 @@ export default function InputLandAssessmentScreen(props){
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>
-               </TouchableOpacity>
+               </TouchableOpacity> */}
             </ScrollView>
         </View>
     )

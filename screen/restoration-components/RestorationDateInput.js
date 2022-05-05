@@ -22,6 +22,7 @@ export default function RestorationDateInput(props){
                 <Text>{props.label}</Text>
             </View>
             <TouchableOpacity 
+            disabled={props.disable ? true:false}
             activeOpacity={0.6}
             onPress={props.onSelectPress}
             style={{flex:1,backgroundColor:"white",flexDirection:"row",alignItems:"center",paddingVertical:EStyleSheet.value("15rem"),paddingRight:EStyleSheet.value("25rem")}}>
