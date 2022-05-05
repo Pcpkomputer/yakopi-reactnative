@@ -107,20 +107,36 @@ export default function ListLandAssessmentScreen(props){
                                 </TouchableOpacity>
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
-                                <View style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                <TouchableOpacity 
+                                onPress={()=>{
+                                    props.navigation.navigate("AssetLandAssessment",{type:"image",site_code:item.site_code});
+                                }}
+                                style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
-                                </View>
-                                <View style={{backgroundColor:"#F59C1B",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                 onPress={()=>{
+                                    props.navigation.navigate("AssetLandAssessment",{type:"video",site_code:item.site_code});
+                                }}
+                                style={{backgroundColor:"#F59C1B",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Feather name="video" size={EStyleSheet.value("15rem")} color="white" />
-                                </View>
-                                <View style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                 onPress={()=>{
+                                    props.navigation.navigate("AssetLandAssessment",{type:"drone",site_code:item.site_code});
+                                }}
+                                style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="drone" size={EStyleSheet.value("15rem")} color="white" />
-                                </View>
+                                </TouchableOpacity>
                                 {
                                     (item.status===0) &&
-                                        <View style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                    <TouchableOpacity 
+                                    onPress={()=>{
+                                        alert("delete");
+                                    }}
+                                    style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                         <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
-                                    </View>
+                                    </TouchableOpacity>
                                 }
                                 {
                                     (item.status===0 && item.created_by===globalContext.credentials.data.id_pengguna) &&

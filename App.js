@@ -10,6 +10,7 @@ import RestorationScreen from './screen/RestorationScreen';
 import InputLandAssessmentScreen from './screen/restoration-screens/InputLandAssessmentScreen';
 import ListLandAssessmentScreen from './screen/restoration-screens/ListLandAssessmentScreen';
 import DetailLandAssessmentScreen from './screen/restoration-screens/DetailLandAssessmentScreen';
+import AssetsLandAssessmentScreen from './screen/restoration-screens/AssetsLandAssesmentScreen';
 
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -136,6 +137,12 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="DetailLandAssessment" component={DetailLandAssessmentScreen} />
+           <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Land Assessment"
+        }}
+        name="AssetLandAssessment" component={AssetsLandAssessmentScreen} />
       </Stack.Navigator>
   )
 }

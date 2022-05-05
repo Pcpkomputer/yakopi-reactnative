@@ -103,8 +103,10 @@ export default function InputLandAssessmentScreen(props){
     }
 
     useEffect(()=>{
-        fetchProject();
-        fetchProvince();
+        setSmokeScreenOpened(true);
+        Promise.all([fetchProject(),fetchProvince()]).then(()=>{
+            setSmokeScreenOpened(false);
+        })
     },[]);
 
 

@@ -42,7 +42,9 @@ export default function RestorationScreen(props){
                         <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={()=>{
-                            props.navigation.navigate("ListLandAssessment");
+                             if(item==="Land Assessment"){
+                                props.navigation.navigate("ListLandAssessment");
+                             }
                         }}
                         >
                              <LinearGradient
