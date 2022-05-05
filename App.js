@@ -6,6 +6,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import DashboardScreen from './screen/DashboardScreen';
 import LoginScreen from './screen/LoginScreen';
 import RestorationScreen from './screen/RestorationScreen';
+import ComdevScreen from './screen/ComdevScreen';
+import ResearchScreen from './screen/ResearchScreen';
 
 import InputLandAssessmentScreen from './screen/restoration-screens/InputLandAssessmentScreen';
 import ListLandAssessmentScreen from './screen/restoration-screens/ListLandAssessmentScreen';
@@ -143,6 +145,16 @@ function MasterNavigator(){
           headerTitle:"Asset Land Assessment"
         }}
         name="AssetLandAssessment" component={AssetsLandAssessmentScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:true,
+        }}
+        name="Comdev" component={ComdevScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:true,
+        }}
+        name="Research" component={ResearchScreen} />
       </Stack.Navigator>
   )
 }
