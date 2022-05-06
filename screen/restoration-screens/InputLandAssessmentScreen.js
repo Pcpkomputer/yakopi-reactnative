@@ -592,7 +592,7 @@ export default function InputLandAssessmentScreen(props){
                }
                <TouchableOpacity 
                activeOpacity={0.8}
-               onPress={()=>{
+               onPress={async ()=>{
                    let required = schema.filter((item)=>item.required);
                    let check = required.every((item)=>{
                         if(item.type==="selectinput"){
@@ -605,6 +605,7 @@ export default function InputLandAssessmentScreen(props){
                    
                    });
                    if(check){   
+                        setSmokeScreenOpened(true);
                         let filtered = schema.filter((item)=>item.type!=="spacer");
                         let payload = {};
                         filtered.forEach((item,index)=>{
@@ -616,7 +617,19 @@ export default function InputLandAssessmentScreen(props){
                             }
                            
                         });
-                        console.log(payload);
+                        let request = await fetch(`${endpoint}/land-assessment`,{
+                            method:"POST",
+                            headers:{
+                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                "content-type":"application/json"
+                            },
+                            body:JSON.stringify(payload)
+                        });
+                        let response = await request.json();
+                        if(response.success){
+                            setSmokeScreenOpened(false);
+                            props.navigation.goBack();
+                        }
                    }
                    else{
                        alert("Isikan semua data yang diperlukan");

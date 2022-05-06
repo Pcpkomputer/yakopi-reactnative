@@ -1,12 +1,12 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, Platform, ScrollView, ActivityIndicator, Linking, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, Platform, ScrollView, ActivityIndicator, Alert, Linking, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useIsFocused } from '@react-navigation/native';
 
 import { toLocaleTimestamp } from '../../utils/utils';
 
@@ -16,7 +16,10 @@ import {endpoint} from '../../utils/endpoint';
 
 import {GlobalContext} from '../../App';
 
+
 export default function ListLandAssessmentScreen(props){
+
+    const focused = useIsFocused();
 
     const globalContext = useContext(GlobalContext);
 
@@ -39,11 +42,14 @@ export default function ListLandAssessmentScreen(props){
     }
 
     useEffect(()=>{
-        fetchList();
-    },[]);
+        if(focused){
+            fetchList();
+        }
+    },[focused]);
 
     return (
         <View style={{flex:1}}>
+            
 
             <TouchableOpacity 
             activeOpacity={0.6}
@@ -109,21 +115,21 @@ export default function ListLandAssessmentScreen(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                 onPress={()=>{
-                                    props.navigation.navigate("AssetLandAssessment",{type:"image",site_code:item.site_code});
+                                    props.navigation.navigate("AssetLandAssessment",{type:"image",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
                                 }}
                                 style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetLandAssessment",{type:"video",site_code:item.site_code});
+                                    props.navigation.navigate("AssetLandAssessment",{type:"video",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
                                 }}
                                 style={{backgroundColor:"#F59C1B",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Feather name="video" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetLandAssessment",{type:"drone",site_code:item.site_code});
+                                    props.navigation.navigate("AssetLandAssessment",{type:"drone",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
                                 }}
                                 style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="drone" size={EStyleSheet.value("15rem")} color="white" />
@@ -131,8 +137,45 @@ export default function ListLandAssessmentScreen(props){
                                 {
                                     (item.status===0) &&
                                     <TouchableOpacity 
-                                    onPress={()=>{
-                                        alert("delete");
+                                    onPress={async ()=>{
+
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menghapus data ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+
+                                                    setListLoading(true);
+
+                                                    let id = item.id_land_assessment;
+                                                    let request = await fetch(`${endpoint}/delete-land-assessment`,{
+                                                        method:"DELETE",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_land_assessment:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        await fetchList();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
+
+
+                                      
+
                                     }}
                                     style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                         <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
@@ -141,8 +184,40 @@ export default function ListLandAssessmentScreen(props){
                                 {
                                     (item.status===0 && item.created_by===globalContext.credentials.data.id_pengguna) &&
                                     <TouchableOpacity 
-                                    onPress={()=>{
-                                        alert("approve");
+                                    onPress={async ()=>{
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menyetujui data ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+
+                                                    setListLoading(true);
+
+                                                    let id = item.id_land_assessment;
+                                                    let request = await fetch(`${endpoint}/approve-land-assessment`,{
+                                                        method:"POST",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_land_assessment:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        await fetchList();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
                                     }}
                                     style={{backgroundColor:"#5daa5f",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                       <FontAwesome name="check"  size={EStyleSheet.value("15rem")} color="white" />
