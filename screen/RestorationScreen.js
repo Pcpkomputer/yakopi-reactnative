@@ -45,6 +45,33 @@ export default function RestorationScreen(props){
                              if(item==="Land Assessment"){
                                 props.navigation.navigate("ListLandAssessment");
                              }
+                             else if(item==="Seed Collecting"){
+                                 props.navigation.navigate("ListSeedCollecting");
+                             }
+                             else if(item==="Nursery Activity"){
+                                props.navigation.navigate("ListNurseryActivity");
+                            }
+                            else if(item==="Planting Action"){
+                                props.navigation.navigate("ListPlantingAction");
+                            }
+                            else if(item==="Transport"){
+                                props.navigation.navigate("ListTransport");
+                            }
+                            else if(item==="Growth"){
+                                props.navigation.navigate("ListGrowth");
+                            }
+                            else if(item==="Replanting"){
+                                props.navigation.navigate("ListReplanting");
+                            }
+                            else if(item==="Subtitute Plot"){
+                                props.navigation.navigate("ListSubtitutePlot");
+                            }
+                            else if(item==="Replacement Plot"){
+                                props.navigation.navigate("ListReplacementPlot");
+                            }
+                            else if(item==="Plot Boundaring"){
+                                props.navigation.navigate("ListPlotBoundaring");
+                            }
                         }}
                         >
                              <LinearGradient

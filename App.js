@@ -14,6 +14,11 @@ import ListLandAssessmentScreen from './screen/restoration-screens/ListLandAsses
 import DetailLandAssessmentScreen from './screen/restoration-screens/DetailLandAssessmentScreen';
 import AssetsLandAssessmentScreen from './screen/restoration-screens/AssetsLandAssesmentScreen';
 
+import InputSeedCollectingScreen from './screen/restoration-screens/InputSeedCollectingScreen';
+import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedCollectingScreen';
+import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
+import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
+
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
@@ -145,6 +150,32 @@ function MasterNavigator(){
           headerTitle:"Asset Land Assessment"
         }}
         name="AssetLandAssessment" component={AssetsLandAssessmentScreen} />
+
+
+      <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputSeedCollecting" component={InputSeedCollectingScreen} />
+           <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Seed Collecting"
+        }}
+        name="ListSeedCollecting" component={ListSeedCollectingScreen} />
+          <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailSeedCollecting" component={DetailSeedCollectingScreen} />
+           <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Seed Collecting"
+        }}
+        name="AssetSeedCollecting" component={AssetsSeedCollectingScreen} />
+
+
         <Stack.Screen 
         options={{
           headerShown:true,
