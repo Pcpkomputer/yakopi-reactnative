@@ -292,7 +292,12 @@ export default function DashboardScreen(props) {
                     </View>
                 </TouchableOpacity>
                 <View style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginLeft:EStyleSheet.value("10rem")}}>
-                    <View style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
+                    <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={()=>{
+                        props.navigation.navigate("Comdev");
+                    }}
+                    style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
                         <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
                             <Text style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Community Development</Text>
                         </View>
@@ -303,11 +308,16 @@ export default function DashboardScreen(props) {
                         style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
                         colors={['transparent', 'rgba(0,0,0,1)']}>
                         </LinearGradient>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={{paddingHorizontal:EStyleSheet.value("15rem"),marginTop:EStyleSheet.value("30rem")}}>
-                <View style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
+                <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={()=>{
+                    props.navigation.navigate("Research");
+                }}
+                style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
                     <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
                         <Text style={{color:"white",fontSize:EStyleSheet.value("40rem")}}>Research</Text>
                     </View>
@@ -318,7 +328,7 @@ export default function DashboardScreen(props) {
                     style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
                     colors={['transparent', 'rgba(0,0,0,1)']}>
                     </LinearGradient>
-                </View>
+                </TouchableOpacity>
             </View>
         </ScrollView>
 
