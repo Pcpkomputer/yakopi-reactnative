@@ -33,9 +33,11 @@ export default function ComdevScreen(props){
                         <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={()=>{
-                             if(item==="Community"){
+                            if(item==="Community"){
                                 props.navigation.navigate("ListCommunityRegister");
-                             }
+                            }else if(item==="Silvoshery"){
+                                props.navigation.navigate("ListSilvoshery");
+                            }
                         }}
                         >
                              <LinearGradient

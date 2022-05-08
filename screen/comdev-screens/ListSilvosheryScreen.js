@@ -17,7 +17,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 
-export default function ListCommunityScreen(props){
+export default function ListSilvosheryScreen(props){
 
     const focused = useIsFocused();
 
@@ -28,7 +28,7 @@ export default function ListCommunityScreen(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let request = await fetch(`${endpoint}/community-register`,{
+        let request = await fetch(`${endpoint}/silvoshery`,{
             method:"GET",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`
@@ -54,7 +54,7 @@ export default function ListCommunityScreen(props){
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
-                props.navigation.navigate("InputCommunityRegister");
+                props.navigation.navigate("InputSilvoshery");
             }}
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
@@ -74,27 +74,27 @@ export default function ListCommunityScreen(props){
                             style={{marginBottom:EStyleSheet.value("20rem")}}
                             activeOpacity={0.7}
                             onPress={()=>{
-                                props.navigation.navigate("DetailCommunityRegister",{item:item});
+                                props.navigation.navigate("DetailSilvoshery",{item:item});
                             }}
-                            key={item.id_community_register}>
+                            key={item.id_silvoshery}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}
                             end={{ x: 1, y: 1 }}
                             style={{flexDirection:"row",marginHorizontal:EStyleSheet.value("20rem"),borderRadius:EStyleSheet.value("5rem")}}>
                                 <View style={{paddingHorizontal:EStyleSheet.value("20rem"),justifyContent:"center",alignItems:"center",paddingVertical:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_community_register}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_silvoshery}</Text>
                                 </View>
                                 <View style={{flexDirection:"column",flex:1}}>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem")}}>{item.nomor_mou}</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem")}}>{item.kode_silvoshery}</Text>
                                     </View>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row"}}>
                                         <View style={{backgroundColor:"#446A46",marginRight:EStyleSheet.value("5rem"),alignSelf:"flex-start",borderRadius:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem")}}>
                                         <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.nama_project}</Text>
                                         </View>
                                         <View style={{backgroundColor:"#125B50",marginRight:EStyleSheet.value("25rem"),alignSelf:"flex-start",borderRadius:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem")}}>
-                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.nama_kelompok}</Text>
+                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.pemilik_tambak}</Text>
                                     </View>
                                     </ScrollView>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingTop:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row",paddingBottom:EStyleSheet.value("10rem")}}>
@@ -120,15 +120,15 @@ export default function ListCommunityScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_community_register;
-                                                    let request = await fetch(`${endpoint}/delete-community-register`,{
+                                                    let id = item.id_silvoshery;
+                                                    let request = await fetch(`${endpoint}/delete-silvoshery`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_community_register:id
+                                                            id_silvoshery:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -166,15 +166,15 @@ export default function ListCommunityScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_community_register;
-                                                    let request = await fetch(`${endpoint}/approve-community-register`,{
+                                                    let id = item.id_silvoshery;
+                                                    let request = await fetch(`${endpoint}/approve-silvoshery`,{
                                                         method:"POST",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_community_register:id
+                                                            id_silvoshery:id
                                                         })
                                                     });
                                                     let response = await request.json();

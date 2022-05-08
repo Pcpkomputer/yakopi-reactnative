@@ -19,11 +19,7 @@ import ComdevSelectInput from '../comdev-components/ComdevSelectInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function DetailCommunityScreen(props){
-
-    useEffect(()=>{
-        console.log(props.route.params.item);
-    },[])
+export default function InputSilvosheryScreen(props){
 
     const globalContext = useContext(GlobalContext);
 
@@ -94,8 +90,10 @@ export default function DetailCommunityScreen(props){
     }
 
     useEffect(()=>{
-        fetchProject();
-        fetchProvince();
+        setSmokeScreenOpened(true);
+        Promise.all([fetchProject(),fetchProvince()]).then(()=>{
+            setSmokeScreenOpened(false);
+        })
     },[]);
 
 
@@ -104,31 +102,31 @@ export default function DetailCommunityScreen(props){
             type:"selectinput",
             label:"Project",
             value:{
-                id:props.route.params.item.id_project || -1,
-                value:props.route.params.item.nama_project || "",
+                id:"",
+                value:""
             },
             form:"project",
             required:true
         },
         {
             type:"textinput",
-            label:"MOU",
-            value:props.route.params.item.nomor_mou || "",
-            form:"nomor_mou",
+            label:"Code Silvoshery",
+            value:"",
+            form:"kode_silvoshery",
             required:true
         },
         {
             type:"textinput",
-            label:"Group Name",
-            value:props.route.params.item.nama_kelompok || "",
-            form:"nama_kelompok",
+            label:"Owner",
+            value:"",
+            form:"pemilik_tambak",
             required:true
         },
         {
             type:"textinput",
-            label:"Leader",
-            value:props.route.params.item.ketua_kelompok || "",
-            form:"ketua_kelompok",
+            label:"Number of Plant",
+            value:"",
+            form:"jumlah_tanaman",
             required:true
         },
         {
@@ -139,8 +137,8 @@ export default function DetailCommunityScreen(props){
             type:"selectinput",
             label:"Province",
             value:{
-                id:props.route.params.item.id_province || -1,
-                value:props.route.params.item.prov_name || "",
+                id:"",
+                value:""
             },
             form:"province",
             required:true
@@ -149,8 +147,8 @@ export default function DetailCommunityScreen(props){
             type:"selectinput",
             label:"City",
             value:{
-                id:props.route.params.item.id_cities || -1,
-                value:props.route.params.item.city_name || "",
+                id:"",
+                value:""
             },
             form:"city",
             required:true
@@ -159,8 +157,8 @@ export default function DetailCommunityScreen(props){
             type:"selectinput",
             label:"District",
             value:{
-                id:props.route.params.item.id_districts || -1,
-                value:props.route.params.item.dis_name || "",
+                id:"",
+                value:""
             },
             form:"district",
             required:true
@@ -168,37 +166,16 @@ export default function DetailCommunityScreen(props){
         {
             type:"textinput",
             label:"Village",
-            value:props.route.params.item.nama_desa || "",
+            value:"",
             form:"village",
             required:true
         },
         {
             type:"textinput",
             label:"Backwood",
-            value:props.route.params.item.nama_dusun || "",
+            value:"",
             form:"backwood",
             required:true
-        },
-        {
-            type:"textinput",
-            label:"Number of sites",
-            value:props.route.params.item.jumlah_site.toString() || "",
-            form:"jumlah_site",
-            required:true
-        },
-        {
-            type:"textinput",
-            label:"Number of plot",
-            value:props.route.params.item.jumlah_plot.toString() || "",
-            form:"jumlah_plot",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Area",
-            value:props.route.params.item.luas_area_mou.toString() || "",
-            form:"luas_area_mou",
-            required:false
         },
     ]);
 
@@ -318,7 +295,7 @@ export default function DetailCommunityScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Detail Community Register</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Isikan form silvoshery berikut</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
@@ -331,7 +308,6 @@ export default function DetailCommunityScreen(props){
                             getter={schema}
                             setter={setSchema}
                             index={index}
-                            disable={true}
                             label={item.label}/>
                            )
                        }
@@ -341,7 +317,6 @@ export default function DetailCommunityScreen(props){
                             getter={schema}
                             setter={setSchema}
                             index={index}
-                            disable={true}
                             item={data[item.label]}
                             onSelectPress={()=>{
                                 setShowSelectInput(true);
@@ -374,8 +349,54 @@ export default function DetailCommunityScreen(props){
                        
                    })
                }
-               <View style={{height:EStyleSheet.value("30rem")}}></View>
-               
+               <TouchableOpacity 
+               activeOpacity={0.8}
+               onPress={async ()=>{
+                   let required = schema.filter((item)=>item.required);
+                   let check = required.every((item)=>{
+                        if(item.type==="selectinput"){
+                            return item.value.value.length>0;
+                        }
+                        else{   
+                            return item.value.length>0;
+                        }
+                      
+                   
+                   });
+                   if(check){   
+                        setSmokeScreenOpened(true);
+                        let filtered = schema.filter((item)=>item.type!=="spacer");
+                        let payload = {};
+                        filtered.forEach((item,index)=>{
+                            if(item.type==="selectinput"){
+                                payload[item.form]=item.value.id;
+                            }
+                            else{   
+                                payload[item.form]=item.value;
+                            }
+                           
+                        });
+                        let request = await fetch(`${endpoint}/silvoshery`,{
+                            method:"POST",
+                            headers:{
+                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                "content-type":"application/json"
+                            },
+                            body:JSON.stringify(payload)
+                        });
+                        let response = await request.json();
+                        if(response.success){
+                            setSmokeScreenOpened(false);
+                            props.navigation.goBack();
+                        }
+                   }
+                   else{
+                       alert("Isikan semua data yang diperlukan");
+                   }
+               }}
+               style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
+                   <Text style={{color:"white"}}>Proses</Text>
+               </TouchableOpacity>
             </ScrollView>
         </View>
     )

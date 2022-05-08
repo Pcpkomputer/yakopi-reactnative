@@ -23,6 +23,10 @@ import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunity
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
 
+import InputSilvosheryScreen from './screen/comdev-screens/InputSilvosheryScreen';
+import ListSilvosheryScreen from './screen/comdev-screens/ListSilvosheryScreen';
+import DetailSilvosheryScreen from './screen/comdev-screens/DetailSilvosheryScreen';
+
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
@@ -202,9 +206,24 @@ function MasterNavigator(){
         name="ListCommunityRegister" component={ListCommunityRegisterScreen} />
         <Stack.Screen
         options={{
-          headerShown:true,
+          headerShown:false,
         }}
         name="DetailCommunityRegister" component={DetailCommunityRegisterScreen} />
+        <Stack.Screen
+        options={{
+          headerShown:true,
+        }}
+        name="InputSilvoshery" component={InputSilvosheryScreen} />
+        <Stack.Screen
+        options={{
+          headerShown:true,
+        }}
+        name="ListSilvoshery" component={ListSilvosheryScreen} />
+        <Stack.Screen
+        options={{
+          headerShown:false,
+        }}
+        name="DetailSilvoshery" component={DetailSilvosheryScreen} />
       </Stack.Navigator>
   )
 }

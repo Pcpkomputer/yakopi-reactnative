@@ -19,7 +19,7 @@ import ComdevSelectInput from '../comdev-components/ComdevSelectInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function DetailCommunityScreen(props){
+export default function DetailSilvosheryScreen(props){
 
     useEffect(()=>{
         console.log(props.route.params.item);
@@ -112,23 +112,23 @@ export default function DetailCommunityScreen(props){
         },
         {
             type:"textinput",
-            label:"MOU",
-            value:props.route.params.item.nomor_mou || "",
-            form:"nomor_mou",
+            label:"Code Silvoshery",
+            value:props.route.params.item.kode_silvoshery || "",
+            form:"kode_silvoshery",
             required:true
         },
         {
             type:"textinput",
-            label:"Group Name",
-            value:props.route.params.item.nama_kelompok || "",
-            form:"nama_kelompok",
+            label:"Owner",
+            value:props.route.params.item.pemilik_tambak || "",
+            form:"pemilik_tambak",
             required:true
         },
         {
             type:"textinput",
-            label:"Leader",
-            value:props.route.params.item.ketua_kelompok || "",
-            form:"ketua_kelompok",
+            label:"Number of Plant",
+            value:props.route.params.item.jumlah_tanaman.toString() || "",
+            form:"jumlah_tanaman",
             required:true
         },
         {
@@ -178,27 +178,6 @@ export default function DetailCommunityScreen(props){
             value:props.route.params.item.nama_dusun || "",
             form:"backwood",
             required:true
-        },
-        {
-            type:"textinput",
-            label:"Number of sites",
-            value:props.route.params.item.jumlah_site.toString() || "",
-            form:"jumlah_site",
-            required:true
-        },
-        {
-            type:"textinput",
-            label:"Number of plot",
-            value:props.route.params.item.jumlah_plot.toString() || "",
-            form:"jumlah_plot",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Area",
-            value:props.route.params.item.luas_area_mou.toString() || "",
-            form:"luas_area_mou",
-            required:false
         },
     ]);
 
@@ -318,7 +297,7 @@ export default function DetailCommunityScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Detail Community Register</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Detail Silvoshery</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
