@@ -19,6 +19,10 @@ import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedColle
 import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
 import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
 
+import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
+import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
+import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
+
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
@@ -186,6 +190,21 @@ function MasterNavigator(){
           headerShown:true,
         }}
         name="Research" component={ResearchScreen} />
+        <Stack.Screen
+        options={{
+          headerShown:true,
+        }}
+        name="InputCommunityRegister" component={InputCommunityRegisterScreen} />
+        <Stack.Screen
+        options={{
+          headerShown:true,
+        }}
+        name="ListCommunityRegister" component={ListCommunityRegisterScreen} />
+        <Stack.Screen
+        options={{
+          headerShown:true,
+        }}
+        name="DetailCommunityRegister" component={DetailCommunityRegisterScreen} />
       </Stack.Navigator>
   )
 }

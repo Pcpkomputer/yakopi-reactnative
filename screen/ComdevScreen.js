@@ -34,7 +34,7 @@ export default function ComdevScreen(props){
                         activeOpacity={0.8}
                         onPress={()=>{
                              if(item==="Community"){
-                                props.navigation.navigate("ListCommunity");
+                                props.navigation.navigate("ListCommunityRegister");
                              }
                         }}
                         >
