@@ -18,6 +18,7 @@ import RestorationTextInput from '../restoration-components/RestorationTextInput
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
+import RestorationNumberInput from '../restoration-components/RestorationNumberInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
@@ -211,7 +212,7 @@ export default function InputLandAssessmentScreen(props){
             required:true
         },
         {
-            type:"textinput",
+            type:"numberinput",
             label:"Estimated number of plots per site",
             value:"",
             form:"estimated_number_of_plots_per_site",
@@ -252,7 +253,7 @@ export default function InputLandAssessmentScreen(props){
             required:true
         },
         {
-            type:"textinput",
+            type:"numberinput",
             label:"The presence of mangrove stands (amount of % and types present)",
             value:"",
             form:"the_presence_of_mangrove_stands",
@@ -513,6 +514,15 @@ export default function InputLandAssessmentScreen(props){
                             label={item.label}/>
                            )
                        }
+                       else if(item.type==="numberinput"){
+                            return (
+                            <RestorationNumberInput
+                            getter={schema}
+                            setter={setSchema}
+                            index={index}
+                            label={item.label}/>
+                            )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  

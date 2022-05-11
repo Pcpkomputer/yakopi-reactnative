@@ -16,6 +16,7 @@ import {GlobalContext} from '../../App';
 
 import ComdevTextInput from '../comdev-components/ComdevTextInput';
 import ComdevSelectInput from '../comdev-components/ComdevSelectInput';
+import ComdevNumberInput from '../comdev-components/ComdevNumberInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
@@ -123,7 +124,7 @@ export default function InputSilvosheryScreen(props){
             required:true
         },
         {
-            type:"textinput",
+            type:"numberinput",
             label:"Number of Plant",
             value:"",
             form:"jumlah_tanaman",
@@ -311,6 +312,15 @@ export default function InputSilvosheryScreen(props){
                             label={item.label}/>
                            )
                        }
+                        else if(item.type==="numberinput"){
+                            return (
+                                <ComdevNumberInput
+                                getter={schema}
+                                setter={setSchema}
+                                index={index}
+                                label={item.label}/>
+                            )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <ComdevSelectInput  

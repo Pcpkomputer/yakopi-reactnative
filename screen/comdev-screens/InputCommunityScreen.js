@@ -16,6 +16,7 @@ import {GlobalContext} from '../../App';
 
 import ComdevTextInput from '../comdev-components/ComdevTextInput';
 import ComdevSelectInput from '../comdev-components/ComdevSelectInput';
+import ComdevNumberInput from '../comdev-components/ComdevNumberInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
@@ -178,21 +179,21 @@ export default function InputComunnityScreen(props){
             required:true
         },
         {
-            type:"textinput",
+            type:"numberinput",
             label:"Number of sites",
             value:"",
             form:"jumlah_site",
             required:true
         },
         {
-            type:"textinput",
+            type:"numberinput",
             label:"Number of plot",
             value:"",
             form:"jumlah_plot",
             required:false
         },
         {
-            type:"textinput",
+            type:"numberinput",
             label:"Area",
             value:"",
             form:"luas_area_mou",
@@ -332,6 +333,15 @@ export default function InputComunnityScreen(props){
                             label={item.label}/>
                            )
                        }
+                        else if(item.type==="numberinput"){
+                            return (
+                                <ComdevNumberInput
+                                getter={schema}
+                                setter={setSchema}
+                                index={index}
+                                label={item.label}/>
+                            )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <ComdevSelectInput  

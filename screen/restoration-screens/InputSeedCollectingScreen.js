@@ -18,6 +18,7 @@ import RestorationTextInput from '../restoration-components/RestorationTextInput
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
+import RestorationNumberInput from '../restoration-components/RestorationNumberInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
