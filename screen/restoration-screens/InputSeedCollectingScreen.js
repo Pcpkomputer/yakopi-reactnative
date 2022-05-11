@@ -128,7 +128,7 @@ export default function InputSeedCollectingScreen(props){
             type:"textinput",
             label:"Reporter",
             value:"",
-            form:"Reporter",
+            form:"dilaporkan_oleh",
             required:true
         },
         {
@@ -382,7 +382,7 @@ export default function InputSeedCollectingScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Isikan form restoration berikut</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Isikan form seed collecting berikut</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
@@ -503,19 +503,19 @@ export default function InputSeedCollectingScreen(props){
                            
                         });
                         console.log(payload);
-                        // let request = await fetch(`${endpoint}/land-assessment`,{
-                        //     method:"POST",
-                        //     headers:{
-                        //         "authorization":`Bearer ${globalContext.credentials.token}`,
-                        //         "content-type":"application/json"
-                        //     },
-                        //     body:JSON.stringify(payload)
-                        // });
-                        // let response = await request.json();
-                        // if(response.success){
-                        //     setSmokeScreenOpened(false);
-                        //     props.navigation.goBack();
-                        // }
+                        let request = await fetch(`${endpoint}/seed-collecting`,{
+                            method:"POST",
+                            headers:{
+                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                "content-type":"application/json"
+                            },
+                            body:JSON.stringify(payload)
+                        });
+                        let response = await request.json();
+                        if(response.success){
+                            setSmokeScreenOpened(false);
+                            props.navigation.goBack();
+                        }
                    }
                    else{
                        alert("Isikan semua data yang diperlukan");

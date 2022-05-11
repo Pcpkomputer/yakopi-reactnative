@@ -83,27 +83,27 @@ export default function ListSeedCollectingScreen(props){
                             end={{ x: 1, y: 1 }}
                             style={{flexDirection:"row",marginHorizontal:EStyleSheet.value("20rem"),borderRadius:EStyleSheet.value("5rem")}}>
                                 <View style={{paddingHorizontal:EStyleSheet.value("20rem"),justifyContent:"center",alignItems:"center",paddingVertical:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_land_assessment}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_collecting_seed}</Text>
                                 </View>
                                 <View style={{flexDirection:"column",flex:1}}>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingTop:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row"}}>
                                         <View style={{backgroundColor:"#446A46",marginRight:EStyleSheet.value("5rem"),alignSelf:"flex-start",borderRadius:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem")}}>
-                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{toLocaleTimestamp(item.date_land_assessment.replace(/\-/g,"/"))}</Text>
+                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.nama_project}</Text>
                                         </View>
                                         <View style={{backgroundColor:"#125B50",marginRight:EStyleSheet.value("25rem"),alignSelf:"flex-start",borderRadius:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem")}}>
-                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.nama_surveyor}</Text>
+                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.dilaporkan_oleh}</Text>
                                         </View>
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>{item.site_code}</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>Seed Collecting</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
                                 onPress={()=>{
                                     var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-                                    var url = scheme + `${item.lat_land_assessment},${item.long_land_assessment}`;
+                                    var url = scheme + `${item.lat_collecting_seed},${item.long_collecting_seed}`;
                                     Linking.openURL(url);
                                 }}
                                 style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
@@ -115,21 +115,21 @@ export default function ListSeedCollectingScreen(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                 onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"image",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
+                                    props.navigation.navigate("AssetSeedCollecting",{type:"image",id_collecting_seed:item.id_collecting_seed});
                                 }}
                                 style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"video",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
+                                    props.navigation.navigate("AssetSeedCollecting",{type:"video",id_collecting_seed:item.id_collecting_seed});
                                 }}
                                 style={{backgroundColor:"#F59C1B",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Feather name="video" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"drone",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
+                                    props.navigation.navigate("AssetSeedCollecting",{type:"drone",id_collecting_seed:item.id_collecting_seed});
                                 }}
                                 style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="drone" size={EStyleSheet.value("15rem")} color="white" />
