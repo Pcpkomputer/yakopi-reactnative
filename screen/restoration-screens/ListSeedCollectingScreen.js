@@ -35,6 +35,8 @@ export default function ListSeedCollectingScreen(props){
             }
         });
         let response = await request.json();
+        console.log(response);
+
         if(response.success){
             setList(response.data);
             setListLoading(false);

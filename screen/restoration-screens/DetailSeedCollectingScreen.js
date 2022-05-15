@@ -114,42 +114,28 @@ export default function DetailSeedCollectingScreen(props){
 
     const [schema, setSchema] = useState([
         {
-            type:"textinput",
-            label:"Site Code",
-            value:props.route.params.item.site_code || "",
-            form:"site_code",
-            required:true
-        },
-        {
             type:"selectinput",
             label:"Project",
             value:{
-                id:props.route.params.item.id_project || -1,
-                value:props.route.params.item.nama_project || "",
+                id:"",
+                value:""
             },
             form:"project",
             required:true
         },
         {
             type:"textinput",
-            label:"Surveyor",
-            value:props.route.params.item.nama_surveyor || "",
-            form:"surveyor",
-            required:true
-        },
-        {
-            type:"dateinput",
-            label:"Date Land Assessment",
-            value:props.route.params.item.date_land_assessment || "",
-            form:"date_land_assessment",
+            label:"Reporter",
+            value:"",
+            form:"dilaporkan_oleh",
             required:true
         },
         {
             type:"coordsinput",
             label:"Coordinate",
             value:{
-                latitude:props.route.params.item.lat_land_assessment || "",
-                longitude:props.route.params.item.long_land_assessment || "",
+                latitude:"",
+                longitude:""
             },
             form:"coordinate",
             required:false
@@ -162,8 +148,8 @@ export default function DetailSeedCollectingScreen(props){
             type:"selectinput",
             label:"Province",
             value:{
-                id:props.route.params.item.id_province || -1,
-                value:props.route.params.item.prov_name || "",
+                id:"",
+                value:""
             },
             form:"province",
             required:true
@@ -172,8 +158,8 @@ export default function DetailSeedCollectingScreen(props){
             type:"selectinput",
             label:"City",
             value:{
-                id:props.route.params.item.id_cities || -1,
-                value:props.route.params.item.city_name || "",
+                id:"",
+                value:""
             },
             form:"city",
             required:true
@@ -182,8 +168,8 @@ export default function DetailSeedCollectingScreen(props){
             type:"selectinput",
             label:"District",
             value:{
-                id:props.route.params.item.id_districts || -1,
-                value:props.route.params.item.dis_name || "",
+                id:"",
+                value:""
             },
             form:"district",
             required:true
@@ -191,143 +177,39 @@ export default function DetailSeedCollectingScreen(props){
         {
             type:"textinput",
             label:"Village",
-            value:props.route.params.item.nama_desa || "",
+            value:"",
             form:"village",
             required:true
         },
         {
             type:"textinput",
             label:"Backwood",
-            value:props.route.params.item.nama_dusun || "",
+            value:"",
             form:"backwood",
             required:true
         },
         {
-            type:"selectinput",
-            label:"Site Position",
-            value:{
-                id:"",
-                value:props.route.params.item.posisi_site || "",
-            },
-            form:"site_position",
-            required:true
-        },
-        {
-            type:"textinput",
-            label:"Estimated number of plots per site",
-            value:props.route.params.item.perkiraan_jumlah_plot.toString() || "",
-            form:"estimated_number_of_plots_per_site",
-            required:true
-        },
-        {
-            type:"selectinput",
-            label:"History Location",
-            value:{
-                id:"",
-                value:props.route.params.item.sejarah_lokasi || "",
-            },
-            form:"history_location",
-            required:true
-        },
-        {
-            type:"selectinput",
-            label:"Road Access",
-            value:{
-                id:"",
-                value:props.route.params.item.akses_jalan || "",
-            },
-            form:"road_access",
-            required:true
-        },
-        {
             type:"spacer",
-            label:"Land Suitability",
+            label:"Transportation Type",
         },
         {
             type:"selectinput",
-            label:"Land Condition",
+            label:"Transportation used to transport seedlings to the nursery site",
             value:{
                 id:"",
-                value:props.route.params.item.kondisi_lahan || "",
+                value:""
             },
-            form:"land_condition",
+            form:"transportation_used_1",
             required:true
         },
         {
-            type:"textinput",
-            label:"The presence of mangrove stands (amount of % and types present)",
-            value:props.route.params.item.tegakan_mangrove.toString() || "",
-            form:"the_presence_of_mangrove_stands",
-            required:false
-        },
-        {
             type:"selectinput",
-            label:"There are shrubs",
+            label:"The transportation used to transport the seeds to the planting location is directly plugged in",
             value:{
                 id:"",
-                value:props.route.params.item.adanya_perdu || "",
+                value:""
             },
-            form:"shrubs",
-            required:false
-        },
-        {
-            type:"selectinput",
-            label:"Potential Pet Nuisance",
-            value:{
-                id:"",
-                value:props.route.params.item.potensi_gangguan_hewan_peliharaan || "",
-            },
-            form:"pet_nuisance",
-            required:false
-        },
-        {
-            type:"selectinput",
-            label:"Pest potential",
-            value:{
-                id:"",
-                value:props.route.params.item.potensi_hama || "",
-            },
-            form:"pest_potential",
-            required:false
-        },
-        {
-            type:"selectinput",
-            label:"Tritype disorder potential",
-            value:{
-                id:"",
-                value:props.route.params.item.potensi_gangguan_tritip || "",
-            },
-            form:"tritype_disorder_potential",
-            required:false
-        },
-        {
-            type:"selectinput",
-            label:"Crab interference potential",
-            value:{
-                id:"",
-                value:props.route.params.item.potensi_gangguan_kepiting || "",
-            },
-            form:"crab_interference_potential",
-            required:false
-        },
-        {
-            type:"selectinput",
-            label:"Potential for waves or currents from the sea/coastal",
-            value:{
-                id:"",
-                value:props.route.params.item.potensi_gempuran_ombak || "",
-            },
-            form:"potential_for_waves",
-            required:false
-        },
-        {
-            type:"selectinput",
-            label:"Type of soil",
-            value:{
-                id:"",
-                value:props.route.params.item.jenis_tanah || "",
-            },
-            form:"type_of_soil",
+            form:"transportation_used_2",
             required:true
         },
         {
@@ -337,14 +219,14 @@ export default function DetailSeedCollectingScreen(props){
         {
             type:"textinput",
             label:"Important information from group members",
-            value:props.route.params.item.catatan_khusus_1 || "",
+            value:"",
             form:"important_information_from_group_members",
             required:false
         },
         {
             type:"textinput",
             label:"Other important information that is not available in the table of contents",
-            value:props.route.params.item.catatan_khusus_2 || "",
+            value:"",
             form:"other_important_information_from_group_members",
             required:false
         },
