@@ -16,6 +16,7 @@ import AssetsLandAssessmentScreen from './screen/restoration-screens/AssetsLandA
 
 import InputSeedCollectingScreen from './screen/restoration-screens/InputSeedCollectingScreen';
 import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedCollectingScreen';
+import KindSeedCollectingScreen from './screen/restoration-screens/KindSeedCollectingScreen';
 import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
 import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
 
@@ -182,6 +183,12 @@ function MasterNavigator(){
           headerTitle:"Asset Seed Collecting"
         }}
         name="AssetSeedCollecting" component={AssetsSeedCollectingScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Kind Of Seed"
+        }}
+        name="KindSeedCollecting" component={KindSeedCollectingScreen} />
 
 
         <Stack.Screen 

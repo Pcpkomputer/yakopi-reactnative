@@ -116,6 +116,13 @@ export default function ListSeedCollectingScreen(props){
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
+                                 onPress={()=>{
+                                    props.navigation.navigate("KindSeedCollecting",{id_collecting_seed:item.id_collecting_seed});
+                                }}
+                                style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                    <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
+                                </TouchableOpacity>
+                                <TouchableOpacity 
                                 onPress={()=>{
                                     props.navigation.navigate("AssetSeedCollecting",{type:"image",id_collecting_seed:item.id_collecting_seed});
                                 }}
