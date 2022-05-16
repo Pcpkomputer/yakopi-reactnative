@@ -115,7 +115,7 @@ export default function DetailLandAssessmentScreen(props){
     const [schema, setSchema] = useState([
         {
             type:"textinput",
-            label:"Site Code",
+            label:"Kode Site",
             value:props.route.params.item.site_code || "",
             form:"site_code",
             required:true
@@ -139,14 +139,14 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"dateinput",
-            label:"Date Land Assessment",
+            label:"Tanggal",
             value:props.route.params.item.date_land_assessment || "",
             form:"date_land_assessment",
             required:true
         },
         {
             type:"coordsinput",
-            label:"Coordinate",
+            label:"Koordinat",
             value:{
                 latitude:props.route.params.item.lat_land_assessment || "",
                 longitude:props.route.params.item.long_land_assessment || "",
@@ -156,11 +156,11 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"spacer",
-            label:"Location",
+            label:"Lokasi",
         },
         {
             type:"selectinput",
-            label:"Province",
+            label:"Provinsi",
             value:{
                 id:props.route.params.item.id_province || -1,
                 value:props.route.params.item.prov_name || "",
@@ -170,7 +170,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"City",
+            label:"Kota/Kabupaten",
             value:{
                 id:props.route.params.item.id_cities || -1,
                 value:props.route.params.item.city_name || "",
@@ -180,7 +180,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"District",
+            label:"Kecamatan",
             value:{
                 id:props.route.params.item.id_districts || -1,
                 value:props.route.params.item.dis_name || "",
@@ -190,21 +190,21 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"textinput",
-            label:"Village",
+            label:"Desa",
             value:props.route.params.item.nama_desa || "",
             form:"village",
             required:true
         },
         {
             type:"textinput",
-            label:"Backwood",
+            label:"Dusun",
             value:props.route.params.item.nama_dusun || "",
             form:"backwood",
             required:true
         },
         {
             type:"selectinput",
-            label:"Site Position",
+            label:"Posisi Site",
             value:{
                 id:"",
                 value:props.route.params.item.posisi_site || "",
@@ -214,14 +214,14 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"textinput",
-            label:"Estimated number of plots per site",
+            label:"Perkiraan jumlah plot per site",
             value:props.route.params.item.perkiraan_jumlah_plot.toString() || "",
             form:"estimated_number_of_plots_per_site",
             required:true
         },
         {
             type:"selectinput",
-            label:"History Location",
+            label:"Sejarah lokasi",
             value:{
                 id:"",
                 value:props.route.params.item.sejarah_lokasi || "",
@@ -231,7 +231,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Road Access",
+            label:"Akses jalan",
             value:{
                 id:"",
                 value:props.route.params.item.akses_jalan || "",
@@ -241,11 +241,11 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"spacer",
-            label:"Land Suitability",
+            label:"Kesesuaian Lahan",
         },
         {
             type:"selectinput",
-            label:"Land Condition",
+            label:"Kondisi lahan",
             value:{
                 id:"",
                 value:props.route.params.item.kondisi_lahan || "",
@@ -255,14 +255,14 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"textinput",
-            label:"The presence of mangrove stands (amount of % and types present)",
+            label:"Adanya tegakan mangrove (jumlah % dan jenis-jenis yang ada)   ",
             value:props.route.params.item.tegakan_mangrove.toString() || "",
             form:"the_presence_of_mangrove_stands",
             required:false
         },
         {
             type:"selectinput",
-            label:"There are shrubs",
+            label:"Adanya perdu",
             value:{
                 id:"",
                 value:props.route.params.item.adanya_perdu || "",
@@ -272,7 +272,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Potential Pet Nuisance",
+            label:"Potensi gangguan hewan peliharaan",
             value:{
                 id:"",
                 value:props.route.params.item.potensi_gangguan_hewan_peliharaan || "",
@@ -282,7 +282,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Pest potential",
+            label:"Potensi hama",
             value:{
                 id:"",
                 value:props.route.params.item.potensi_hama || "",
@@ -292,7 +292,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Tritype disorder potential",
+            label:"Potensi gangguan tritip",
             value:{
                 id:"",
                 value:props.route.params.item.potensi_gangguan_tritip || "",
@@ -302,7 +302,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Crab interference potential",
+            label:"Potensi gangguan kepiting",
             value:{
                 id:"",
                 value:props.route.params.item.potensi_gangguan_kepiting || "",
@@ -312,7 +312,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Potential for waves or currents from the sea/coastal",
+            label:"Potensi gempuran ombak atau arus dari laut/pesisir",
             value:{
                 id:"",
                 value:props.route.params.item.potensi_gempuran_ombak || "",
@@ -322,7 +322,7 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Type of soil",
+            label:"Jenis tanah",
             value:{
                 id:"",
                 value:props.route.params.item.jenis_tanah || "",
@@ -332,18 +332,18 @@ export default function DetailLandAssessmentScreen(props){
         },
         {
             type:"spacer",
-            label:"Special Note",
+            label:"Catatan Khusus",
         },
         {
             type:"textinput",
-            label:"Important information from group members",
+            label:"Informasi penting dari anggota kelompok",
             value:props.route.params.item.catatan_khusus_1 || "",
             form:"important_information_from_group_members",
             required:false
         },
         {
             type:"textinput",
-            label:"Other important information that is not available in the table of contents",
+            label:"Informasi penting lainnya yang tidak tersedia di daftar isian (biodiversity)",
             value:props.route.params.item.catatan_khusus_2 || "",
             form:"other_important_information_from_group_members",
             required:false
@@ -499,7 +499,7 @@ export default function DetailLandAssessmentScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Detail Land Assessment</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>DETAIL KT-1. SITE AND PLOT ASSESSMENT</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"

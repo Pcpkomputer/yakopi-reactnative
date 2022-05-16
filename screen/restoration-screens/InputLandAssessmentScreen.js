@@ -114,7 +114,7 @@ export default function InputLandAssessmentScreen(props){
     const [schema, setSchema] = useState([
         {
             type:"textinput",
-            label:"Site Code",
+            label:"Kode Site",
             value:"",
             form:"site_code",
             required:true
@@ -138,14 +138,14 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"dateinput",
-            label:"Date Land Assessment",
+            label:"Tanggal",
             value:"",
             form:"date_land_assessment",
             required:true
         },
         {
             type:"coordsinput",
-            label:"Coordinate",
+            label:"Koordinat",
             value:{
                 latitude:"",
                 longitude:""
@@ -155,11 +155,11 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"spacer",
-            label:"Location",
+            label:"Lokasi",
         },
         {
             type:"selectinput",
-            label:"Province",
+            label:"Provinsi",
             value:{
                 id:"",
                 value:""
@@ -169,7 +169,7 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"City",
+            label:"Kota / Kabupaten",
             value:{
                 id:"",
                 value:""
@@ -179,7 +179,7 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"District",
+            label:"Kecamatan",
             value:{
                 id:"",
                 value:""
@@ -189,79 +189,79 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"textinput",
-            label:"Village",
+            label:"Desa",
             value:"",
             form:"village",
             required:true
         },
         {
             type:"textinput",
-            label:"Backwood",
+            label:"Dusun",
             value:"",
             form:"backwood",
             required:true
         },
         {
             type:"selectinput",
-            label:"Site Position",
+            label:"Posisi Site",
             value:{
                 id:"",
                 value:""
             },
             form:"site_position",
-            required:true
+            required:false
         },
         {
             type:"numberinput",
-            label:"Estimated number of plots per site",
+            label:"Perkiraan jumlah plot per site",
             value:"",
             form:"estimated_number_of_plots_per_site",
-            required:true
+            required:false
         },
         {
             type:"selectinput",
-            label:"History Location",
+            label:"Sejarah lokasi",
             value:{
                 id:"",
                 value:""
             },
             form:"history_location",
-            required:true
+            required:false
         },
         {
             type:"selectinput",
-            label:"Road Access",
+            label:"Akses jalan",
             value:{
                 id:"",
                 value:""
             },
             form:"road_access",
-            required:true
+            required:false
         },
         {
             type:"spacer",
-            label:"Land Suitability",
+            label:"Kesesuaian Lahan",
         },
         {
             type:"selectinput",
-            label:"Land Condition",
+            label:"Kondisi lahan",
             value:{
                 id:"",
                 value:""
             },
             form:"land_condition",
-            required:true
+            required:false
         },
         {
             type:"numberinput",
-            label:"The presence of mangrove stands (amount of % and types present)",
+            label:"Adanya tegakan mangrove (jumlah % dan jenis-jenis yang ada)",
             value:"",
             form:"the_presence_of_mangrove_stands",
             required:false
         },
         {
             type:"selectinput",
-            label:"There are shrubs",
+            label:"Adanya perdu",
             value:{
                 id:"",
                 value:""
@@ -271,7 +271,7 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Potential Pet Nuisance",
+            label:"Potensi gangguan hewan peliharaan",
             value:{
                 id:"",
                 value:""
@@ -281,7 +281,7 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Pest potential",
+            label:"Potensi hama",
             value:{
                 id:"",
                 value:""
@@ -291,7 +291,7 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Tritype disorder potential",
+            label:"Potensi gangguan tritip",
             value:{
                 id:"",
                 value:""
@@ -301,7 +301,7 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Crab interference potential",
+            label:"Potensi gangguan kepiting",
             value:{
                 id:"",
                 value:""
@@ -311,7 +311,7 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Potential for waves or currents from the sea/coastal",
+            label:"Potensi gempuran ombak atau arus dari laut/pesisir",
             value:{
                 id:"",
                 value:""
@@ -321,28 +321,28 @@ export default function InputLandAssessmentScreen(props){
         },
         {
             type:"selectinput",
-            label:"Type of soil",
+            label:"Jenis tanah",
             value:{
                 id:"",
                 value:""
             },
             form:"type_of_soil",
-            required:true
+            required:false
         },
         {
             type:"spacer",
-            label:"Special Note",
+            label:"Catatan Khusus",
         },
         {
             type:"textinput",
-            label:"Important information from group members",
+            label:"Informasi penting dari anggota kelompok",
             value:"",
             form:"important_information_from_group_members",
             required:false
         },
         {
             type:"textinput",
-            label:"Other important information that is not available in the table of contents",
+            label:"Informasi penting lainnya yang tidak tersedia di daftar isian (biodiversity)",
             value:"",
             form:"other_important_information_from_group_members",
             required:false
@@ -498,7 +498,7 @@ export default function InputLandAssessmentScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Isikan form restoration berikut</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>KT-1. SITE AND PLOT ASSESSMENT</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
