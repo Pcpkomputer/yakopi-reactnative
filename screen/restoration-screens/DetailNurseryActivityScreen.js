@@ -21,7 +21,7 @@ import RestorationCoordsInput from '../restoration-components/RestorationCoordsI
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function DetailSeedCollectingScreen(props){
+export default function DetailNurseryActivityScreen(props){
 
     useEffect(()=>{
         console.log(props.route.params.item);
@@ -50,17 +50,6 @@ export default function DetailSeedCollectingScreen(props){
         province:[],
         city:[],
         district:[],
-        site_position:["Pond","Riverine","Coast-line"].map((item,_)=>{return {id:item,value:item}}),
-        history_location:["Former Intensive Pond","Former Oil Palm","Shrubs","Other"].map((item,_)=>{return {id:item,value:item}}),
-        road_access:["Car + Motorbike + Boat","Car + Motorbike","Motorbike","Boat"].map((item,_)=>{return {id:item,value:item}}),
-        land_condition:["Dry","Sometimes it's flooded","Permanently inundated"].map((item,_)=>{return {id:item,value:item}}),
-        shrubs:["Pie-pie/paku laut","Teruntun","Nipah","Biduri","Legundi"].map((item,_)=>{return {id:item,value:item}}),
-        pet_nuisance:["Cow","Goat","Sheep","Buffalo","There is not any"].map((item,_)=>{return {id:item,value:item}}),
-        pest_potential:["Caterpillar","Grasshopper","Other"].map((item,_)=>{return {id:item,value:item}}),
-        tritype_disorder_potential:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        crab_interference_potential:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        potential_for_waves:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        type_of_soil:["Soft mud","Sticky","Sandy","Other"].map((item,_)=>{return {id:item,value:item}}),
     });
 
     let fetchProject = async ()=>{
@@ -134,8 +123,8 @@ export default function DetailSeedCollectingScreen(props){
             type:"coordsinput",
             label:"Koordinat",
             value:{
-                latitude:props.route.params.item.lat_collecting_seed || "",
-                longitude:props.route.params.item.long_collecting_seed || "",
+                latitude:props.route.params.item.lat_nursery_activity || "",
+                longitude:props.route.params.item.long_nursery_activity || "",
             },
             form:"coordinate",
             required:false
@@ -190,44 +179,20 @@ export default function DetailSeedCollectingScreen(props){
         },
         {
             type:"spacer",
-            label:"Jenis Transportasi",
-        },
-        {
-            type:"selectinput",
-            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi pembibitan",
-            value:{
-                id:"",
-                value:props.route.params.item.trasportasi_1 || "",
-            },
-            form:"transportation_used_1",
-            required:true
-        },
-        {
-            type:"selectinput",
-            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi tanam langsung colok",
-            value:{
-                id:"",
-                value:props.route.params.item.trasportasi_2 || "",
-            },
-            form:"transportation_used_2",
-            required:true
-        },
-        {
-            type:"spacer",
             label:"Catatan Khusus",
         },
         {
             type:"textinput",
             label:"Informasi penting dari anggota kelompok",
             value:props.route.params.item.catatan_1 || "",
-            form:"important_information_from_group_members",
+            form:"catatan_1",
             required:false
         },
         {
             type:"textinput",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:props.route.params.item.catatan_2 || "",
-            form:"other_important_information_from_group_members",
+            form:"catatan_2",
             required:false
         },
     ]);
@@ -381,7 +346,7 @@ export default function DetailSeedCollectingScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>DETAIL KT-2</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>DETAIL KT-3</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"

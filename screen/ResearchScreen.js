@@ -31,7 +31,7 @@ export default function ResearchScreen(props){
            keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
            contentContainerStyle={{paddingTop:EStyleSheet.value("15rem")}}>
                {
-                   restoration.map((item)=>{
+                   restoration.map((item,index)=>{
                        return (
                         <TouchableOpacity
                         activeOpacity={0.8}

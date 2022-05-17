@@ -17,7 +17,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 
-export default function ListSeedCollectingScreen(props){
+export default function ListNurseryActivityScreen(props){
 
     const focused = useIsFocused();
 
@@ -28,7 +28,7 @@ export default function ListSeedCollectingScreen(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let request = await fetch(`${endpoint}/seed-collecting`,{
+        let request = await fetch(`${endpoint}/nursery-activity`,{
             method:"GET",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`
@@ -56,7 +56,7 @@ export default function ListSeedCollectingScreen(props){
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
-                props.navigation.navigate("InputSeedCollecting");
+                props.navigation.navigate("InputNurseryActivity");
             }}
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
@@ -76,16 +76,16 @@ export default function ListSeedCollectingScreen(props){
                             style={{marginBottom:EStyleSheet.value("20rem")}}
                             activeOpacity={0.7}
                             onPress={()=>{
-                                props.navigation.navigate("DetailSeedCollecting",{item:item});
+                                props.navigation.navigate("DetailNurseryActivity",{item:item});
                             }}
-                            key={item.id_collecting_seed}>
+                            key={item.id_nursery_activity}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}
                             end={{ x: 1, y: 1 }}
                             style={{flexDirection:"row",marginHorizontal:EStyleSheet.value("20rem"),borderRadius:EStyleSheet.value("5rem")}}>
                                 <View style={{paddingHorizontal:EStyleSheet.value("20rem"),justifyContent:"center",alignItems:"center",paddingVertical:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_collecting_seed}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_nursery_activity}</Text>
                                 </View>
                                 <View style={{flexDirection:"column",flex:1}}>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingTop:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row"}}>
@@ -98,14 +98,14 @@ export default function ListSeedCollectingScreen(props){
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>Seed Collecting</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>Nursery Activity</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
                                 onPress={()=>{
                                     var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-                                    var url = scheme + `${item.lat_collecting_seed},${item.long_collecting_seed}`;
+                                    var url = scheme + `${item.lat_nursery_activity},${item.long_nursery_activity}`;
                                     Linking.openURL(url);
                                 }}
                                 style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
@@ -117,28 +117,28 @@ export default function ListSeedCollectingScreen(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("KindSeedCollecting",{id_collecting_seed:item.id_collecting_seed,status:item.status});
+                                    props.navigation.navigate("KindNurseryActivity",{id_nursery_activity:item.id_nursery_activity,status:item.status});
                                 }}
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                 onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"image",id_collecting_seed:item.id_collecting_seed,status:item.status});
+                                    props.navigation.navigate("AssetNurseryActivity",{type:"image",id_nursery_activity:item.id_nursery_activity,status:item.status});
                                 }}
                                 style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"video",id_collecting_seed:item.id_collecting_seed,status:item.status});
+                                    props.navigation.navigate("AssetNurseryActivity",{type:"video",id_nursery_activity:item.id_nursery_activity,status:item.status});
                                 }}
                                 style={{backgroundColor:"#F59C1B",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Feather name="video" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"drone",id_collecting_seed:item.id_collecting_seed,status:item.status});
+                                    props.navigation.navigate("AssetNurseryActivity",{type:"drone",id_nursery_activity:item.id_nursery_activity,status:item.status});
                                 }}
                                 style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="drone" size={EStyleSheet.value("15rem")} color="white" />
@@ -160,15 +160,15 @@ export default function ListSeedCollectingScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_collecting_seed;
-                                                    let request = await fetch(`${endpoint}/delete-seed-collecting`,{
+                                                    let id = item.id_nursery_activity;
+                                                    let request = await fetch(`${endpoint}/delete-nursery-activity`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_collecting_seed:id
+                                                            id_nursery_activity:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -206,15 +206,15 @@ export default function ListSeedCollectingScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_collecting_seed;
-                                                    let request = await fetch(`${endpoint}/approve-seed-collecting`,{
+                                                    let id = item.id_nursery_activity;
+                                                    let request = await fetch(`${endpoint}/approve-nursery-activity`,{
                                                         method:"POST",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_collecting_seed:id
+                                                            id_nursery_activity:id
                                                         })
                                                     });
                                                     let response = await request.json();

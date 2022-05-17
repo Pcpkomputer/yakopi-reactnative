@@ -19,7 +19,7 @@ import { DataTable } from 'react-native-paper';
 
 
 
-export default function KindSeedCollecting(props){
+export default function KindNurseryActivity(props){
 
     const globalContext = useContext(GlobalContext);
 
@@ -28,15 +28,15 @@ export default function KindSeedCollecting(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let id = props.route.params.id_collecting_seed;
-        let request = await fetch(`${endpoint}/kind-seed-collecting`,{
+        let id = props.route.params.id_nursery_activity;
+        let request = await fetch(`${endpoint}/kind-nursery-activity`,{
             method:"POST",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`,
                 "content-type":"application/json"
             },
             body:JSON.stringify({
-                id_collecting_seed:id
+                id_nursery_activity:id
             })
         });
         let response = await request.json();

@@ -20,6 +20,12 @@ import KindSeedCollectingScreen from './screen/restoration-screens/KindSeedColle
 import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
 import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
 
+import ListNurseryActivityScreen from './screen/restoration-screens/ListNurseryActivityScreen';
+import InputNurseryActivityScreen from './screen/restoration-screens/InputNurseryActivityScreen';
+import KindNurseryActivityScreen from './screen/restoration-screens/KindNurseryActivityScreen';
+import DetailNurseryActivityScreen from './screen/restoration-screens/DetailNurseryActivityScreen';
+import AssetsNurseryActivityScreen from './screen/restoration-screens/AssetsNurseryActivityScreen';
+
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
@@ -34,6 +40,9 @@ import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -166,7 +175,7 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="InputSeedCollecting" component={InputSeedCollectingScreen} />
-           <Stack.Screen 
+        <Stack.Screen 
          options={{
           headerShown:true,
           headerTitle:"KT-2"
@@ -186,10 +195,38 @@ function MasterNavigator(){
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Kind Of Seed"
+          headerTitle:"Jenis dan Jumlah Bibit"
         }}
         name="KindSeedCollecting" component={KindSeedCollectingScreen} />
 
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-3"
+        }}
+        name="ListNurseryActivity" component={ListNurseryActivityScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputNurseryActivity" component={InputNurseryActivityScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailNurseryActivity" component={DetailNurseryActivityScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Nursery Activity"
+        }}
+        name="AssetNurseryActivity" component={AssetsNurseryActivityScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Jenis dan Jumlah Bibit yang Dibibitkan per Hari "
+        }}
+        name="KindNurseryActivity" component={KindNurseryActivityScreen} />
 
         <Stack.Screen 
         options={{
