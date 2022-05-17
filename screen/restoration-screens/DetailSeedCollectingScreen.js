@@ -117,115 +117,115 @@ export default function DetailSeedCollectingScreen(props){
             type:"selectinput",
             label:"Project",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_project || -1,
+                value:props.route.params.item.nama_project || "",
             },
             form:"project",
             required:true
         },
         {
             type:"textinput",
-            label:"Reporter",
-            value:"",
+            label:"Dilaporkan Oleh",
+            value:props.route.params.item.dilaporkan_oleh || "",
             form:"dilaporkan_oleh",
             required:true
         },
         {
             type:"coordsinput",
-            label:"Coordinate",
+            label:"Koordinat",
             value:{
-                latitude:"",
-                longitude:""
+                latitude:props.route.params.item.lat_collecting_seed || "",
+                longitude:props.route.params.item.long_collecting_seed || "",
             },
             form:"coordinate",
             required:false
         },
         {
             type:"spacer",
-            label:"Location",
+            label:"Lokasi",
         },
         {
             type:"selectinput",
-            label:"Province",
+            label:"Provinsi",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_province || -1,
+                value:props.route.params.item.prov_name || "",
             },
             form:"province",
             required:true
         },
         {
             type:"selectinput",
-            label:"City",
+            label:"Kota/Kabupaten",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_cities || -1,
+                value:props.route.params.item.city_name || "",
             },
             form:"city",
             required:true
         },
         {
             type:"selectinput",
-            label:"District",
+            label:"Kecamatan",
             value:{
-                id:"",
-                value:""
+                id:props.route.params.item.id_districts || -1,
+                value:props.route.params.item.dis_name || "",
             },
             form:"district",
             required:true
         },
         {
             type:"textinput",
-            label:"Village",
-            value:"",
+            label:"Desa",
+            value:props.route.params.item.nama_desa || "",
             form:"village",
             required:true
         },
         {
             type:"textinput",
-            label:"Backwood",
-            value:"",
+            label:"Dusun",
+            value:props.route.params.item.nama_dusun || "",
             form:"backwood",
             required:true
         },
         {
             type:"spacer",
-            label:"Transportation Type",
+            label:"Jenis Transportasi",
         },
         {
             type:"selectinput",
-            label:"Transportation used to transport seedlings to the nursery site",
+            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi pembibitan",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.trasportasi_1 || "",
             },
             form:"transportation_used_1",
             required:true
         },
         {
             type:"selectinput",
-            label:"The transportation used to transport the seeds to the planting location is directly plugged in",
+            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi tanam langsung colok",
             value:{
                 id:"",
-                value:""
+                value:props.route.params.item.trasportasi_2 || "",
             },
             form:"transportation_used_2",
             required:true
         },
         {
             type:"spacer",
-            label:"Special Note",
+            label:"Catatan Khusus",
         },
         {
             type:"textinput",
-            label:"Important information from group members",
+            label:"Informasi penting dari anggota kelompok",
             value:"",
             form:"important_information_from_group_members",
             required:false
         },
         {
             type:"textinput",
-            label:"Other important information that is not available in the table of contents",
+            label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:"",
             form:"other_important_information_from_group_members",
             required:false
@@ -381,7 +381,7 @@ export default function DetailSeedCollectingScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Detail Land Assessment</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>DETAIL KT-2</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"

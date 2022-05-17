@@ -498,7 +498,7 @@ export default function InputLandAssessmentScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>KT-1. SITE AND PLOT ASSESSMENT</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>TAMBAH KT-1</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
@@ -535,13 +535,13 @@ export default function InputLandAssessmentScreen(props){
                                 setListSelectInput(data[item.form]);
                                 setLabelSelectInput(item.label);
                                 setIndexSelectInput(index);
-                                if(item.label==="Province"){
+                                if(item.label==="Provinsi"){
                                     setLocationMode("province");
                                 }
-                                else if(item.label==="City"){
+                                else if(item.label==="Kota / Kabupaten"){
                                     setLocationMode("city");
                                 }
-                                else if(item.label==="District"){
+                                else if(item.label==="Kecamatan"){
                                     setLocationMode("district");
                                 }
                                 else {

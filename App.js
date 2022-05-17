@@ -145,7 +145,7 @@ function MasterNavigator(){
            <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Land Assessment"
+          headerTitle:"KT-1"
         }}
         name="ListLandAssessment" component={ListLandAssessmentScreen} />
           <Stack.Screen 
@@ -169,7 +169,7 @@ function MasterNavigator(){
            <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Seed Collecting"
+          headerTitle:"KT-2"
         }}
         name="ListSeedCollecting" component={ListSeedCollectingScreen} />
           <Stack.Screen 

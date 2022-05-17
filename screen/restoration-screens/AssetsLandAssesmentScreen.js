@@ -80,6 +80,7 @@ function AssetsVideo(props){
     const [imageLoading, setImageLoading] = useState(true);
 
     const [video, setVideo] = useState([]);
+    
 
     const fetchVideo = async()=>{
         setImageLoading(true);
@@ -196,15 +197,18 @@ function AssetsVideo(props){
             }
 
 
-
-            <TouchableOpacity 
-            activeOpacity={0.6}
-            onPress={()=>{
-                setModalKeteranganOpened(true);
-            }}
-            style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
-                <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
-            </TouchableOpacity>
+            {
+                (props.route.params.status=="0") &&
+                <TouchableOpacity 
+                activeOpacity={0.6}
+                onPress={()=>{
+                    setModalKeteranganOpened(true);
+                }}
+                style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
+                    <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
+                </TouchableOpacity>
+            }
+            
 
             {
                 (imageLoading) ?
@@ -366,7 +370,7 @@ function AssetsDrone(props){
                                 });
                                 let response = await request.json();
             
-                                let url = `/assets/img/videoLandAssessment/${response.result.orig_name}`;
+                                let url = `/assets/img/droneLandAssessment/${response.result.orig_name}`;
 
                                 let id = props.route.params.id_land_assessment;
 
@@ -405,15 +409,17 @@ function AssetsDrone(props){
                 </View>
             }
 
-
-            <TouchableOpacity 
-            activeOpacity={0.6}
-            onPress={()=>{
-                setModalKeteranganOpened(true);
-            }}
-            style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
-                <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
-            </TouchableOpacity>
+            {
+                (props.route.params.status=="0") &&
+                    <TouchableOpacity 
+                    activeOpacity={0.6}
+                    onPress={()=>{
+                        setModalKeteranganOpened(true);
+                    }}
+                    style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
+                        <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
+                    </TouchableOpacity>
+            }
 
 
 
@@ -603,15 +609,17 @@ function AssetsImage(props){
                 </View>
             }
 
-
-            <TouchableOpacity 
-            activeOpacity={0.6}
-            onPress={async ()=>{
-               setModalKeteranganOpened(true);
-            }}
-            style={{position:"absolute",zIndex:99,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
-                <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
-            </TouchableOpacity>
+            {
+                (props.route.params.status=="0") &&
+                    <TouchableOpacity 
+                    activeOpacity={0.6}
+                    onPress={async ()=>{
+                    setModalKeteranganOpened(true);
+                    }}
+                    style={{position:"absolute",zIndex:99,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
+                        <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
+                    </TouchableOpacity>
+            }
 
             {
                 (imageLoading) ?

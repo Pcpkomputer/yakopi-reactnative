@@ -116,21 +116,21 @@ export default function ListLandAssessmentScreen(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                 onPress={()=>{
-                                    props.navigation.navigate("AssetLandAssessment",{type:"image",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
+                                    props.navigation.navigate("AssetLandAssessment",{type:"image",site_code:item.site_code,id_land_assessment:item.id_land_assessment,status:item.status});
                                 }}
                                 style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetLandAssessment",{type:"video",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
+                                    props.navigation.navigate("AssetLandAssessment",{type:"video",site_code:item.site_code,id_land_assessment:item.id_land_assessment,status:item.status});
                                 }}
                                 style={{backgroundColor:"#F59C1B",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Feather name="video" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetLandAssessment",{type:"drone",site_code:item.site_code,id_land_assessment:item.id_land_assessment});
+                                    props.navigation.navigate("AssetLandAssessment",{type:"drone",site_code:item.site_code,id_land_assessment:item.id_land_assessment,status:item.status});
                                 }}
                                 style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="drone" size={EStyleSheet.value("15rem")} color="white" />

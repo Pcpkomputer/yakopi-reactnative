@@ -18,16 +18,16 @@ import {GlobalContext} from '../App';
 export default function RestorationScreen(props){
 
     const [restoration,setRestoration] = useState([
-        "Land Assessment",
-        "Seed Collecting",
-        "Nursery Activity",
-        "Planting Action",
-        "Transport",
-        "Growth",
-        "Replanting",
-        "Subtitute Plot",
-        "Replacement Plot",
-        "Plot Boundaring",
+        "Land Assessment (KT-1)",
+        "Seed Collecting (KT-2)",
+        "Nursery Activity (KT-3)",
+        "Planting Action (KT-4)",
+        "Transport (KT-5)",
+        "Plot Boundaring (KT-6)",
+        "Growth (KT-7)",
+        "Replanting (KT-8)",
+        "Subtitute Plot (KT-9)",
+        "Replacement Plot (KT-10)",
         
     ]);
 
@@ -37,41 +37,42 @@ export default function RestorationScreen(props){
            keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
            contentContainerStyle={{paddingTop:EStyleSheet.value("15rem")}}>
                {
-                   restoration.map((item)=>{
+                   restoration.map((item,index)=>{
                        return (
                         <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={()=>{
-                             if(item==="Land Assessment"){
+                             if(item==="Land Assessment (KT-1)"){
                                 props.navigation.navigate("ListLandAssessment");
                              }
-                             else if(item==="Seed Collecting"){
+                             else if(item==="Seed Collecting (KT-2)"){
                                  props.navigation.navigate("ListSeedCollecting");
                              }
-                             else if(item==="Nursery Activity"){
+                             else if(item==="Nursery Activity (KT-3)"){
                                 props.navigation.navigate("ListNurseryActivity");
                             }
-                            else if(item==="Planting Action"){
+                            else if(item==="Planting Action (KT-4)"){
                                 props.navigation.navigate("ListPlantingAction");
                             }
-                            else if(item==="Transport"){
+                            else if(item==="Transport (KT-5)"){
                                 props.navigation.navigate("ListTransport");
                             }
-                            else if(item==="Growth"){
-                                props.navigation.navigate("ListGrowth");
-                            }
-                            else if(item==="Replanting"){
-                                props.navigation.navigate("ListReplanting");
-                            }
-                            else if(item==="Subtitute Plot"){
-                                props.navigation.navigate("ListSubtitutePlot");
-                            }
-                            else if(item==="Replacement Plot"){
-                                props.navigation.navigate("ListReplacementPlot");
-                            }
-                            else if(item==="Plot Boundaring"){
+                            else if(item==="Plot Boundaring (KT-6)"){
                                 props.navigation.navigate("ListPlotBoundaring");
                             }
+                            else if(item==="Growth (KT-7)"){
+                                props.navigation.navigate("ListGrowth");
+                            }
+                            else if(item==="Replanting (KT-8)"){
+                                props.navigation.navigate("ListReplanting");
+                            }
+                            else if(item==="Subtitute Plot (KT-9)"){
+                                props.navigation.navigate("ListSubtitutePlot");
+                            }
+                            else if(item==="Replacement Plot (KT-10)"){
+                                props.navigation.navigate("ListReplacementPlot");
+                            }
+                           
                         }}
                         >
                              <LinearGradient

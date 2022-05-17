@@ -126,14 +126,14 @@ export default function InputSeedCollectingScreen(props){
         },
         {
             type:"textinput",
-            label:"Reporter",
+            label:"Dilaporkan Oleh",
             value:"",
             form:"dilaporkan_oleh",
             required:true
         },
         {
             type:"coordsinput",
-            label:"Coordinate",
+            label:"Koordinat",
             value:{
                 latitude:"",
                 longitude:""
@@ -147,7 +147,7 @@ export default function InputSeedCollectingScreen(props){
         },
         {
             type:"selectinput",
-            label:"Province",
+            label:"Provinsi",
             value:{
                 id:"",
                 value:""
@@ -157,7 +157,7 @@ export default function InputSeedCollectingScreen(props){
         },
         {
             type:"selectinput",
-            label:"City",
+            label:"Kota / Kabupaten",
             value:{
                 id:"",
                 value:""
@@ -167,7 +167,7 @@ export default function InputSeedCollectingScreen(props){
         },
         {
             type:"selectinput",
-            label:"District",
+            label:"Kecamatan",
             value:{
                 id:"",
                 value:""
@@ -177,56 +177,56 @@ export default function InputSeedCollectingScreen(props){
         },
         {
             type:"textinput",
-            label:"Village",
+            label:"Desa",
             value:"",
             form:"village",
             required:true
         },
         {
             type:"textinput",
-            label:"Backwood",
+            label:"Dusun",
             value:"",
             form:"backwood",
             required:true
         },
         {
             type:"spacer",
-            label:"Transportation Type",
+            label:"Jenis Transportasi",
         },
         {
             type:"selectinput",
-            label:"Transportation used to transport seedlings to the nursery site",
+            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi pembibitan",
             value:{
                 id:"",
                 value:""
             },
             form:"transportation_used_1",
-            required:true
+            required:false
         },
         {
             type:"selectinput",
-            label:"The transportation used to transport the seeds to the planting location is directly plugged in",
+            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi tanam langsung colok",
             value:{
                 id:"",
                 value:""
             },
             form:"transportation_used_2",
-            required:true
+            required:false
         },
         {
             type:"spacer",
-            label:"Special Note",
+            label:"Catatan Khusus",
         },
         {
             type:"textinput",
-            label:"Important information from group members",
+            label:"Informasi penting dari anggota kelompok",
             value:"",
             form:"important_information_from_group_members",
             required:false
         },
         {
             type:"textinput",
-            label:"Other important information that is not available in the table of contents",
+            label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:"",
             form:"other_important_information_from_group_members",
             required:false
@@ -382,7 +382,7 @@ export default function InputSeedCollectingScreen(props){
 
             <View style={{height:StatusBarHeight}}></View>
             <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Isikan form seed collecting berikut</Text>
+                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>TAMBAH KT-2</Text>
             </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
@@ -410,13 +410,13 @@ export default function InputSeedCollectingScreen(props){
                                 setListSelectInput(data[item.form]);
                                 setLabelSelectInput(item.label);
                                 setIndexSelectInput(index);
-                                if(item.label==="Province"){
+                                if(item.label==="Provinsi"){
                                     setLocationMode("province");
                                 }
-                                else if(item.label==="City"){
+                                else if(item.label==="Kota / Kabupaten"){
                                     setLocationMode("city");
                                 }
-                                else if(item.label==="District"){
+                                else if(item.label==="Kecamatan"){
                                     setLocationMode("district");
                                 }
                                 else {

@@ -83,7 +83,7 @@ export default function RestorationCoordsInput(props){
                        
                     }}
                     style={{backgroundColor:"#1e915a",marginTop:EStyleSheet.value("10rem"),width:"100%",borderRadius:EStyleSheet.value("5rem")}}>
-                        <Text style={{textAlign:"center",color:"white"}}>Get Coordinate</Text>
+                        <Text style={{textAlign:"center",color:"white"}}>Lokasi Terkini</Text>
                     </TouchableOpacity>
                 }
             </View>

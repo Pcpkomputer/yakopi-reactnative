@@ -117,28 +117,28 @@ export default function ListSeedCollectingScreen(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("KindSeedCollecting",{id_collecting_seed:item.id_collecting_seed});
+                                    props.navigation.navigate("KindSeedCollecting",{id_collecting_seed:item.id_collecting_seed,status:item.status});
                                 }}
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                 onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"image",id_collecting_seed:item.id_collecting_seed});
+                                    props.navigation.navigate("AssetSeedCollecting",{type:"image",id_collecting_seed:item.id_collecting_seed,status:item.status});
                                 }}
                                 style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"video",id_collecting_seed:item.id_collecting_seed});
+                                    props.navigation.navigate("AssetSeedCollecting",{type:"video",id_collecting_seed:item.id_collecting_seed,status:item.status});
                                 }}
                                 style={{backgroundColor:"#F59C1B",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <Feather name="video" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("AssetSeedCollecting",{type:"drone",id_collecting_seed:item.id_collecting_seed});
+                                    props.navigation.navigate("AssetSeedCollecting",{type:"drone",id_collecting_seed:item.id_collecting_seed,status:item.status});
                                 }}
                                 style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="drone" size={EStyleSheet.value("15rem")} color="white" />
