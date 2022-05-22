@@ -1,7 +1,9 @@
 import React, {useState,useEffect,useCallback, createContext} from 'react';
-import { StyleSheet, Text, View, Dimensions, AsyncStorage, Button } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, AsyncStorage, Button, Image} from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { endpoint } from './utils/endpoint';
+import * as Application from 'expo-application';
 
 import DashboardScreen from './screen/DashboardScreen';
 import ProfileScreen from './screen/ProfileScreen';
@@ -51,6 +53,8 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export const GlobalContext = createContext();
+
+
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -296,58 +300,86 @@ function MasterNavigator(){
 
 export default function App() {
 
-  const [appIsReady, setAppIsReady] = useState(false);
-  const [credentials,setCredentials] = useState(null);
+  let [appLoaded, setAppLoaded] = useState(false);
+  let [credentials, setCredentials] = useState(null);
+  let checkCredentials = async ()=>{
+    try {
+        await SplashScreen.preventAutoHideAsync();
+    } catch (error) {
+          let credentials = await AsyncStorage.getItem("credentials");
+          if(credentials===null){
+            setCredentials(null);
+          }
+          else{
+            let parsed = JSON.parse(credentials);
+            setCredentials(parsed);
+          }
+          await fetchNeedUpdate();
+          setAppLoaded(true);
+      }
 
-
-  let fetchCredentials = async()=>{
     let credentials = await AsyncStorage.getItem("credentials");
-    if(credentials){
-        let parsed = JSON.parse(credentials);
-        setCredentials(parsed);
+    if(credentials===null){
+      setCredentials(null);
     }
     else{
-        setCredentials(null);
+      let parsed = JSON.parse(credentials);
+      setCredentials(parsed);
     }
+    await fetchNeedUpdate();
+    setAppLoaded(true);
+
   }
-
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await SplashScreen.preventAutoHideAsync();
-        await Font.loadAsync({
-          Poppins: require('./fonts/Poppins-Regular.ttf'),
-          PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
-        });
-        await fetchCredentials();
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setAppIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      setTimeout(async () => {
-        await SplashScreen.hideAsync();
+  useEffect(()=>{
+    checkCredentials();
+  },[])
+  useEffect(()=>{
+    if(appLoaded){
+      setTimeout(() => {
+        SplashScreen.hideAsync();
       }, 1000);
     }
-  }, [appIsReady]);
+  },[appLoaded])
 
-  if (!appIsReady) {
+  let [changelog, setChangelog] = useState("");
+
+
+  let fetchNeedUpdate = async()=>{
+
+    let request = await fetch(`${endpoint}/mobilebuildnumber`);
+    let response = await request.json();
+
+    if(response.buildnumber.toString()!==Application.nativeBuildVersion.toString()){
+      setIsNeedUpdate(true);
+      setChangelog(response.changelog_mobile);
+    }
+
+
+  };
+
+  let [isNeedUpdate, setIsNeedUpdate] = useState(false);
+
+
+  if(isNeedUpdate){
+    return (
+      <View style={{flex:1,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
+          <Image style={{width:EStyleSheet.value("140rem"),height:EStyleSheet.value("200rem")}} source={require("./assets/logo.jpeg")}></Image>
+          <Text style={{marginTop:EStyleSheet.value("30rem"),fontWeight:"bold",textAlign:"center",paddingHorizontal:EStyleSheet.value("50rem"),fontSize:EStyleSheet.value("14rem")}}>Terdapat update aplikasi baru, tolong segera lakukan update pada playstore</Text>
+          <Text style={{paddingTop:EStyleSheet.value("20rem"),fontWeight:"bold"}}>Changelog :</Text>
+          <Text style={{fontSize:EStyleSheet.value("10rem"),textAlign:"center",marginHorizontal:EStyleSheet.value("50rem"),marginTop:EStyleSheet.value("5rem")}}>{changelog}</Text>
+      </View>
+    )
+
+  }
+
+  if(!appLoaded){
     return null;
   }
 
   if(!credentials){
     return (
       <GlobalContext.Provider value={{credentials,setCredentials}}>
-            <NavigationContainer
-            onReady={onLayoutRootView}
-            >
+            <NavigationContainer>
               <AuthNavigator/>
           </NavigationContainer>
     </GlobalContext.Provider>
@@ -356,9 +388,7 @@ export default function App() {
   else{
     return (
         <GlobalContext.Provider value={{credentials,setCredentials}}>
-              <NavigationContainer
-              onReady={onLayoutRootView}
-              >
+              <NavigationContainer>
                 <MasterNavigator/>
             </NavigationContainer>
       </GlobalContext.Provider>
