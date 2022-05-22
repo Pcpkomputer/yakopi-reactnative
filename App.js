@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Dimensions, AsyncStorage, Button } from 'react-
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import DashboardScreen from './screen/DashboardScreen';
+import ProfileScreen from './screen/ProfileScreen';
 import LoginScreen from './screen/LoginScreen';
 import RestorationScreen from './screen/RestorationScreen';
 import ComdevScreen from './screen/ComdevScreen';
@@ -115,6 +116,11 @@ function TabNavigator(){
           headerShown:false
         }}
         name="Home" component={DashboardScreen} />
+        <Tab.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="Profil" component={ProfileScreen} />
   </Tab.Navigator>
   )
 }

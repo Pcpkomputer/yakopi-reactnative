@@ -47,6 +47,8 @@ export default function DashboardScreen(props) {
 
   const globalContext = useContext(GlobalContext);
 
+  console.log(globalContext);
+
   const [presensi,setPresensi] = useState({
       jam_masuk_absen:null,
       jam_keluar_absen:null
@@ -104,8 +106,8 @@ export default function DashboardScreen(props) {
                     }
                     
                     <View style={{padding:EStyleSheet.value("15rem"),flexDirection:"row"}}>
-                        <View style={{backgroundColor:"whitesmoke",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),width:EStyleSheet.value("80rem"),height:EStyleSheet.value("100rem")}}>
-                            <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={globalContext?.credentials?.data?.foto_pengguna ? {uri:globalContext?.credentials?.data?.foto_pengguna || ""}:require("../assets/logo.jpeg")}/>
+                        <View style={{backgroundColor:"whitesmoke",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),width:EStyleSheet.value("100rem"),height:EStyleSheet.value("100rem")}}>
+                            <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={'https://sispro-yakopi.org/'+globalContext?.credentials?.data?.foto_pengguna ? {uri:'https://sispro-yakopi.org/'+globalContext?.credentials?.data?.foto_pengguna || ""}:require("../assets/logo.jpeg")}/>
                         </View>
                         <View
                         style={{paddingLeft:EStyleSheet.value("20rem"),flex:1,justifyContent:"center"}}>
@@ -269,6 +271,16 @@ export default function DashboardScreen(props) {
                             <Text style={{color:"white",marginLeft:EStyleSheet.value("10rem")}}>Pulang : {presensi.jam_keluar_absen}</Text>
                         </View>
                     </View>
+                    <View style={{height:EStyleSheet.value("50rem"),paddingBottom:EStyleSheet.value("10rem"),justifyContent:"space-evenly",paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",alignItems:"center"}}>
+                    <TouchableOpacity 
+                                activeOpacity={0.8}
+                                onPress={async ()=>{
+                                    alert("Fitur Ini Belum Tersedia");
+                                }}
+                                style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("0rem"),height:EStyleSheet.value("35rem")}}>
+                                    <Text style={{color:"black"}}>Ajukan Cuti</Text>
+                                </TouchableOpacity> 
+                    </View>
                 </LinearGradient>
             </View>
             <View style={{marginTop:EStyleSheet.value("30rem"),flexDirection:"row",paddingHorizontal:EStyleSheet.value("15rem")}}>
@@ -333,13 +345,22 @@ export default function DashboardScreen(props) {
         </ScrollView>
 
         <View style={{...shadow,position:"absolute",height:EStyleSheet.value("50rem"),backgroundColor:"white",alignItems:"center",width:"100%",flexDirection:"row",justifyContent:"space-between",bottom:0,paddingHorizontal:EStyleSheet.value("20rem")}}>
-            <View>
-                <Feather name="user" size={24} color="black" />
-            </View>
+           <TouchableOpacity
+              activeOpacity={0.8}  
+                onPress={()=>{
+                    props.navigation.navigate("Profil");
+                }}>
+                    <Feather name="user" size={24} color="black" />
+            </TouchableOpacity>
             <View style={{position:"absolute",bottom:EStyleSheet.value("20rem"),right:(Dimensions.get("screen").width/2)-EStyleSheet.value("30rem")}}>
-                <View style={{...shadow2,overflow:"hidden",justifyContent:"center",alignItems:"center",backgroundColor:"white",borderRadius:999,width:EStyleSheet.value("60rem"),height:EStyleSheet.value("60rem")}}>
+                <TouchableOpacity
+                activeOpacity={0.8}
+                style = {{...shadow2,overflow:"hidden",justifyContent:"center",alignItems:"center",backgroundColor:"white",borderRadius:999,width:EStyleSheet.value("60rem"),height:EStyleSheet.value("60rem")}}
+                onPress={()=>{
+                    props.navigation.navigate("Home");
+                }}>
                     <Image resizeMode="stretch" style={{width:"50%",height:"70%"}} source={{uri:"https://devjobsindo.org/wp-content/uploads/2022/02/WhatsApp-Image-2022-02-25-at-5.14.01-PM-200x287.jpeg"}}/>
-                </View>
+                </TouchableOpacity>
             </View>
             <TouchableOpacity
             activeOpacity={0.6}
