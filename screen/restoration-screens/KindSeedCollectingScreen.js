@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { CommonActions } from '@react-navigation/native';
 
-import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Entypo, Feather, FontAwesome, MaterialCommunityIcons,AntDesign } from '@expo/vector-icons'; 
 
 import {endpoint} from '../../utils/endpoint';
 
@@ -67,6 +67,21 @@ export default function KindSeedCollecting(props){
 
 
     return (
+      <View style={{flex:1, backgroundColor:'#fff'}}>
+        <TouchableOpacity 
+            activeOpacity={0.6}
+            onPress={()=>{
+                props.navigation.navigate("InputDetailSeedCollecting",{ id_collecting_seed:props.route.params.id_collecting_seed });
+            }}
+            style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
+                <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
+        </TouchableOpacity>
+        {
+                (listLoading) ?
+                <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+                    <ActivityIndicator color="black" size="large"/>
+                </View>
+                :
       <ScrollView horizontal>
         <DataTable style={styles.container}>
         <DataTable.Header style={styles.tableHeader}>
@@ -109,36 +124,38 @@ export default function KindSeedCollecting(props){
           <DataTable.Row key={index}>
             <DataTable.Cell>{item.tanggal_collecting}</DataTable.Cell>
             <DataTable.Cell>{item.jumlah_pekerja}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.r_mucronoto}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.r_styloso}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.r_apiculata}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.avicennia_spp}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.ceriops_spp}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.xylocarpus_spp}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.bruguiera_spp}</DataTable.Cell>
-            <DataTable.Cell numeric>{item.sonneratia_spp}</DataTable.Cell>
-            <DataTable.Cell numeric>
+            <DataTable.Cell>{item.r_mucronoto}</DataTable.Cell>
+            <DataTable.Cell>{item.r_styloso}</DataTable.Cell>
+            <DataTable.Cell>{item.r_apiculata}</DataTable.Cell>
+            <DataTable.Cell>{item.avicennia_spp}</DataTable.Cell>
+            <DataTable.Cell>{item.ceriops_spp}</DataTable.Cell>
+            <DataTable.Cell>{item.xylocarpus_spp}</DataTable.Cell>
+            <DataTable.Cell>{item.bruguiera_spp}</DataTable.Cell>
+            <DataTable.Cell>{item.sonneratia_spp}</DataTable.Cell>
+            <DataTable.Cell>
               {item.r_mucronoto + item.r_styloso + item.r_apiculata + item.avicennia_spp + item.ceriops_spp + item.xylocarpus_spp + item.bruguiera_spp + item.sonneratia_spp}
             </DataTable.Cell>
           </DataTable.Row>
         ))}
         <DataTable.Row style={styles.tableTotal}>
           <DataTable.Cell>Total</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.jumlah_pekerja, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.r_mucronoto, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.r_styloso, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.r_apiculata, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.avicennia_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.ceriops_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.xylocarpus_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.bruguiera_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>{list.reduce((a, b) => a + b.sonneratia_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell numeric>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.jumlah_pekerja, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.r_mucronoto, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.r_styloso, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.r_apiculata, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.avicennia_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.ceriops_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.xylocarpus_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.bruguiera_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell >{list.reduce((a, b) => a + b.sonneratia_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell >
             {list.reduce((a, b) => a + b.r_mucronoto + b.r_styloso + b.r_apiculata + b.avicennia_spp + b.ceriops_spp + b.xylocarpus_spp + b.bruguiera_spp + b.sonneratia_spp, 0)}
           </DataTable.Cell>
         </DataTable.Row>
         </DataTable>
       </ScrollView>
+        }
+      </View>
     
     )
 }

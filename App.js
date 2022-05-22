@@ -18,6 +18,7 @@ import InputSeedCollectingScreen from './screen/restoration-screens/InputSeedCol
 import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedCollectingScreen';
 import KindSeedCollectingScreen from './screen/restoration-screens/KindSeedCollectingScreen';
 import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
+import InputDetailSeedCollectingScreen from './screen/restoration-screens/InputDetailSeedCollecting';
 import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
 
 import ListNurseryActivityScreen from './screen/restoration-screens/ListNurseryActivityScreen';
@@ -186,6 +187,12 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="DetailSeedCollecting" component={DetailSeedCollectingScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Tambah Jenis & Jumlah Bibit"
+        }}
+        name="InputDetailSeedCollecting" component={InputDetailSeedCollectingScreen} />
            <Stack.Screen 
          options={{
           headerShown:true,
