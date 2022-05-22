@@ -22,7 +22,7 @@ import RestorationNumberInput from '../restoration-components/RestorationNumberI
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function InputDetailSeedCollectingScreen(props){
+export default function InputDetailNurseryActivity(props){
 
     const globalContext = useContext(GlobalContext);
 
@@ -41,8 +41,8 @@ export default function InputDetailSeedCollectingScreen(props){
 
     const [schema, setSchema] = useState([
         {
-            form:"id_collecting_seed",
-            value:props.route.params.id_collecting_seed,
+            form:"id_nursery_activity",
+            value:props.route.params.id_nursery_activity,
         },
         {
             type:"dateinput",
@@ -230,7 +230,7 @@ export default function InputDetailSeedCollectingScreen(props){
                            
                         });
                         console.log(payload);
-                        let request = await fetch(`${endpoint}/add-kind-seed-collecting`,{
+                        let request = await fetch(`${endpoint}/add-kind-nursery-activity`,{
                             method:"POST",
                             headers:{
                                 "authorization":`Bearer ${globalContext.credentials.token}`,

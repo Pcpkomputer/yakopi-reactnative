@@ -26,6 +26,7 @@ import ListNurseryActivityScreen from './screen/restoration-screens/ListNurseryA
 import InputNurseryActivityScreen from './screen/restoration-screens/InputNurseryActivityScreen';
 import KindNurseryActivityScreen from './screen/restoration-screens/KindNurseryActivityScreen';
 import DetailNurseryActivityScreen from './screen/restoration-screens/DetailNurseryActivityScreen';
+import InputDetailNurseryActivityScreen from './screen/restoration-screens/InputDetailNurseryActivityScreen';
 import AssetsNurseryActivityScreen from './screen/restoration-screens/AssetsNurseryActivityScreen';
 
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
@@ -228,6 +229,12 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="DetailNurseryActivity" component={DetailNurseryActivityScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Jenis & Jumlah Bibit"
+          }}
+          name="InputDetailNurseryActivity" component={InputDetailNurseryActivityScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
@@ -237,7 +244,7 @@ function MasterNavigator(){
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Jenis dan Jumlah Bibit yang Dibibitkan per Hari "
+          headerTitle:"Jenis dan Jumlah Bibit"
         }}
         name="KindNurseryActivity" component={KindNurseryActivityScreen} />
 
