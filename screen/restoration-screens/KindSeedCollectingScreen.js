@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator,Alert, Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -68,6 +68,8 @@ export default function KindSeedCollecting(props){
 
     return (
       <View style={{flex:1, backgroundColor:'#fff'}}>
+        {
+        (props.route.params.status == "0") &&
         <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -76,6 +78,7 @@ export default function KindSeedCollecting(props){
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
         </TouchableOpacity>
+        }
         {
                 (listLoading) ?
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
@@ -85,6 +88,8 @@ export default function KindSeedCollecting(props){
       <ScrollView horizontal>
         <DataTable style={styles.container}>
         <DataTable.Header style={styles.tableHeader}>
+          <DataTable.Title
+          sortDirection='descending'>No</DataTable.Title>
           <DataTable.Title 
           sortDirection='descending'
           >Tanggal</DataTable.Title>
@@ -122,6 +127,59 @@ export default function KindSeedCollecting(props){
         {listLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
         list.map((item, index) => (
           <DataTable.Row key={index}>
+            <DataTable.Cell>
+            {
+              (props.route.params.status == "0") &&
+              <TouchableOpacity 
+              onPress={async ()=>{
+
+                  Alert.alert(
+                      "Dialog Konfirmasi",
+                      "Anda yakin ingin menghapus data ini?",
+                      [
+                        {
+                          text: "Tidak",
+                          style: "cancel"
+                        },
+                        { text: "Iya", onPress: async () => {
+
+                              setListLoading(true);
+
+                              let id = item.id_detail_collecting_seed;
+                              let request = await fetch(`${endpoint}/delete-kind-seed-collecting`,{
+                                  method:"DELETE",
+                                  headers:{
+                                      "authorization":`Bearer ${globalContext.credentials.token}`,
+                                      "content-type":"application/json"
+                                  },
+                                  body:JSON.stringify({
+                                    id_detail_collecting_seed:id
+                                  })
+                              });
+                              let response = await request.json();
+                              if(response.success){
+                                  await fetchList();
+                              }
+                              else{
+                                  alert(response.msg);
+                              }
+                        } }
+                      ]
+                    );
+
+
+                
+
+              }}
+              style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                  <Text style={{color:"#fff"}}>{index+1}</Text>
+              </TouchableOpacity>
+          }
+          {
+              (props.route.params.status != "0") &&
+              <Text>{index+1}</Text>
+          }
+          </DataTable.Cell>
             <DataTable.Cell>{item.tanggal_collecting}</DataTable.Cell>
             <DataTable.Cell>{item.jumlah_pekerja}</DataTable.Cell>
             <DataTable.Cell>{item.r_mucronoto}</DataTable.Cell>
@@ -139,6 +197,7 @@ export default function KindSeedCollecting(props){
         ))}
         <DataTable.Row style={styles.tableTotal}>
           <DataTable.Cell>Total</DataTable.Cell>
+          <DataTable.Cell />
           <DataTable.Cell >{list.reduce((a, b) => a + b.jumlah_pekerja, 0)}</DataTable.Cell>
           <DataTable.Cell >{list.reduce((a, b) => a + b.r_mucronoto, 0)}</DataTable.Cell>
           <DataTable.Cell >{list.reduce((a, b) => a + b.r_styloso, 0)}</DataTable.Cell>
