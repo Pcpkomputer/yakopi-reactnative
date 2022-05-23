@@ -2,6 +2,11 @@
 #
 .DS_Store
 
+#keystore
+credentials.json
+android/keystore/
+@rizkifatihah__yakopi-reactnative.bak.jks
+
 # Xcode
 #
 build/
