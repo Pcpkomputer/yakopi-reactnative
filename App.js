@@ -1,9 +1,12 @@
 import React, {useState,useEffect,useCallback, createContext} from 'react';
-import { StyleSheet, Text, View, Dimensions, AsyncStorage, Button } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, AsyncStorage, Button, Image} from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { endpoint } from './utils/endpoint';
+import * as Application from 'expo-application';
 
 import DashboardScreen from './screen/DashboardScreen';
+import ProfileScreen from './screen/ProfileScreen';
 import LoginScreen from './screen/LoginScreen';
 import RestorationScreen from './screen/RestorationScreen';
 import ComdevScreen from './screen/ComdevScreen';
@@ -18,12 +21,14 @@ import InputSeedCollectingScreen from './screen/restoration-screens/InputSeedCol
 import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedCollectingScreen';
 import KindSeedCollectingScreen from './screen/restoration-screens/KindSeedCollectingScreen';
 import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
+import InputDetailSeedCollectingScreen from './screen/restoration-screens/InputDetailSeedCollecting';
 import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
 
 import ListNurseryActivityScreen from './screen/restoration-screens/ListNurseryActivityScreen';
 import InputNurseryActivityScreen from './screen/restoration-screens/InputNurseryActivityScreen';
 import KindNurseryActivityScreen from './screen/restoration-screens/KindNurseryActivityScreen';
 import DetailNurseryActivityScreen from './screen/restoration-screens/DetailNurseryActivityScreen';
+import InputDetailNurseryActivityScreen from './screen/restoration-screens/InputDetailNurseryActivityScreen';
 import AssetsNurseryActivityScreen from './screen/restoration-screens/AssetsNurseryActivityScreen';
 
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
@@ -48,6 +53,8 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export const GlobalContext = createContext();
+
+
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -114,6 +121,11 @@ function TabNavigator(){
           headerShown:false
         }}
         name="Home" component={DashboardScreen} />
+        <Tab.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="Profil" component={ProfileScreen} />
   </Tab.Navigator>
   )
 }
@@ -186,6 +198,12 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="DetailSeedCollecting" component={DetailSeedCollectingScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Tambah Jenis & Jumlah Bibit"
+        }}
+        name="InputDetailSeedCollecting" component={InputDetailSeedCollectingScreen} />
            <Stack.Screen 
          options={{
           headerShown:true,
@@ -215,6 +233,12 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="DetailNurseryActivity" component={DetailNurseryActivityScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Jenis & Jumlah Bibit"
+          }}
+          name="InputDetailNurseryActivity" component={InputDetailNurseryActivityScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
@@ -224,7 +248,7 @@ function MasterNavigator(){
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Jenis dan Jumlah Bibit yang Dibibitkan per Hari "
+          headerTitle:"Jenis dan Jumlah Bibit"
         }}
         name="KindNurseryActivity" component={KindNurseryActivityScreen} />
 
@@ -276,58 +300,86 @@ function MasterNavigator(){
 
 export default function App() {
 
-  const [appIsReady, setAppIsReady] = useState(false);
-  const [credentials,setCredentials] = useState(null);
+  let [appLoaded, setAppLoaded] = useState(false);
+  let [credentials, setCredentials] = useState(null);
+  let checkCredentials = async ()=>{
+    try {
+        await SplashScreen.preventAutoHideAsync();
+    } catch (error) {
+          let credentials = await AsyncStorage.getItem("credentials");
+          if(credentials===null){
+            setCredentials(null);
+          }
+          else{
+            let parsed = JSON.parse(credentials);
+            setCredentials(parsed);
+          }
+          await fetchNeedUpdate();
+          setAppLoaded(true);
+      }
 
-
-  let fetchCredentials = async()=>{
     let credentials = await AsyncStorage.getItem("credentials");
-    if(credentials){
-        let parsed = JSON.parse(credentials);
-        setCredentials(parsed);
+    if(credentials===null){
+      setCredentials(null);
     }
     else{
-        setCredentials(null);
+      let parsed = JSON.parse(credentials);
+      setCredentials(parsed);
     }
+    await fetchNeedUpdate();
+    setAppLoaded(true);
+
   }
-
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await SplashScreen.preventAutoHideAsync();
-        await Font.loadAsync({
-          Poppins: require('./fonts/Poppins-Regular.ttf'),
-          PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
-        });
-        await fetchCredentials();
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setAppIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      setTimeout(async () => {
-        await SplashScreen.hideAsync();
+  useEffect(()=>{
+    checkCredentials();
+  },[])
+  useEffect(()=>{
+    if(appLoaded){
+      setTimeout(() => {
+        SplashScreen.hideAsync();
       }, 1000);
     }
-  }, [appIsReady]);
+  },[appLoaded])
 
-  if (!appIsReady) {
+  let [changelog, setChangelog] = useState("");
+
+
+  let fetchNeedUpdate = async()=>{
+
+    let request = await fetch(`${endpoint}/mobilebuildnumber`);
+    let response = await request.json();
+
+    if(response.buildnumber.toString()!==Application.nativeBuildVersion.toString()){
+      setIsNeedUpdate(true);
+      setChangelog(response.changelog_mobile);
+    }
+
+
+  };
+
+  let [isNeedUpdate, setIsNeedUpdate] = useState(false);
+
+
+  if(isNeedUpdate){
+    return (
+      <View style={{flex:1,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
+          <Image style={{width:EStyleSheet.value("140rem"),height:EStyleSheet.value("200rem")}} source={require("./assets/logo.jpeg")}></Image>
+          <Text style={{marginTop:EStyleSheet.value("30rem"),fontWeight:"bold",textAlign:"center",paddingHorizontal:EStyleSheet.value("50rem"),fontSize:EStyleSheet.value("14rem")}}>Terdapat update aplikasi baru, tolong segera lakukan update pada playstore</Text>
+          <Text style={{paddingTop:EStyleSheet.value("20rem"),fontWeight:"bold"}}>Changelog :</Text>
+          <Text style={{fontSize:EStyleSheet.value("10rem"),textAlign:"center",marginHorizontal:EStyleSheet.value("50rem"),marginTop:EStyleSheet.value("5rem")}}>{changelog}</Text>
+      </View>
+    )
+
+  }
+
+  if(!appLoaded){
     return null;
   }
 
   if(!credentials){
     return (
       <GlobalContext.Provider value={{credentials,setCredentials}}>
-            <NavigationContainer
-            onReady={onLayoutRootView}
-            >
+            <NavigationContainer>
               <AuthNavigator/>
           </NavigationContainer>
     </GlobalContext.Provider>
@@ -336,9 +388,7 @@ export default function App() {
   else{
     return (
         <GlobalContext.Provider value={{credentials,setCredentials}}>
-              <NavigationContainer
-              onReady={onLayoutRootView}
-              >
+              <NavigationContainer>
                 <MasterNavigator/>
             </NavigationContainer>
       </GlobalContext.Provider>

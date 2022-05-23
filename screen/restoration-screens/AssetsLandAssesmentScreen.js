@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, Platform, FlatList, ScrollView, BackHandler, ActivityIndicator, Linking, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, Platform, FlatList, ScrollView,Alert, BackHandler, ActivityIndicator, Linking, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -250,6 +250,47 @@ function AssetsVideo(props){
                                 style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
+                                {
+                                    (props.route.params.status=="0") &&
+                                    <TouchableOpacity
+                                    onPress={async ()=>{
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menghapus data ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+                      
+                                                    let id = item.id_land_assessment_video;
+                                                    let request = await fetch(`${endpoint}/delete-video-land-assessment`,{
+                                                        method:"DELETE",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_land_assessment_video:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        await fetchVideo();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
+                                    }
+                                    }
+                                    style={{position:"absolute",top:EStyleSheet.value("20rem"),right:EStyleSheet.value("20rem"),backgroundColor:"red",paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("10rem"),borderRadius:EStyleSheet.value("5rem")}}>
+                                        <Text style={{color:"white"}}>Hapus</Text>
+                                    </TouchableOpacity>
+                                }
                                 
                             </View>
                         )
@@ -452,6 +493,47 @@ function AssetsDrone(props){
                                 style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
+                                {
+                                    (props.route.params.status=="0") &&
+                                    <TouchableOpacity
+                                    onPress={async ()=>{
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menghapus data ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+                      
+                                                    let id = item.id_land_assessment_drone;
+                                                    let request = await fetch(`${endpoint}/delete-drone-land-assessment`,{
+                                                        method:"DELETE",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_land_assessment_drone:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        await fetchImage();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
+                                    }
+                                    }
+                                    style={{position:"absolute",top:EStyleSheet.value("20rem"),right:EStyleSheet.value("20rem"),backgroundColor:"red",paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("10rem"),borderRadius:EStyleSheet.value("5rem")}}>
+                                        <Text style={{color:"white"}}>Hapus</Text>
+                                    </TouchableOpacity>
+                                }
                             </View>
                         )
                     }}
@@ -649,6 +731,47 @@ function AssetsImage(props){
                                 style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
+                                {
+                                    (props.route.params.status=="0") &&
+                                    <TouchableOpacity
+                                    onPress={async ()=>{
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menghapus data ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+                      
+                                                    let id = item.id_land_assessment_photo;
+                                                    let request = await fetch(`${endpoint}/delete-photo-land-assessment`,{
+                                                        method:"DELETE",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_land_assessment_photo:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        await fetchImage();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
+                                    }
+                                    }
+                                    style={{position:"absolute",top:EStyleSheet.value("20rem"),right:EStyleSheet.value("20rem"),backgroundColor:"red",paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("10rem"),borderRadius:EStyleSheet.value("5rem")}}>
+                                        <Text style={{color:"white"}}>Hapus</Text>
+                                    </TouchableOpacity>
+                                }
                             </View>
                         )
                     }}
