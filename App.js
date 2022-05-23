@@ -38,6 +38,13 @@ import DetailPlantingActionScreen from './screen/restoration-screens/DetailPlant
 import InputDetailPlantingActionScreen from './screen/restoration-screens/InputDetailPlantingActionScreen';
 import AssetsPlantingActionScreen from './screen/restoration-screens/AssetsPlantingActionScreen';
 
+import ListTransportScreen from './screen/restoration-screens/ListTransportScreen';
+import InputTransportScreen from './screen/restoration-screens/InputTransportScreen';
+import KindTransportScreen from './screen/restoration-screens/KindTransportScreen';
+import DetailTransportScreen from './screen/restoration-screens/DetailTransportScreen';
+import InputDetailTransportScreen from './screen/restoration-screens/InputDetailTransportScreen';
+import AssetsTransportScreen from './screen/restoration-screens/AssetsTransportScreen';
+
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
@@ -296,6 +303,41 @@ function MasterNavigator(){
           headerTitle:"Jenis dan Jumlah Bibit"
         }}
         name="KindPlantingAction" component={KindPlantingActionScreen} />
+
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-5"
+        }}
+        name="ListTransport" component={ListTransportScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputTransport" component={InputTransportScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailTransport" component={DetailTransportScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Lokasi Tujuan"
+          }}
+          name="InputDetailTransport" component={InputDetailTransportScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Transport"
+        }}
+        name="AssetsTransport" component={AssetsTransportScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Lokasi Tujuan"
+        }}
+        name="KindTransport" component={KindTransportScreen} />
 
 
 

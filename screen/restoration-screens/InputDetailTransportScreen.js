@@ -22,7 +22,7 @@ import RestorationNumberInput from '../restoration-components/RestorationNumberI
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function InputDetailPlantingActionScreen(props){
+export default function InputDetailTransportScreen(props){
 
     const globalContext = useContext(GlobalContext);
 
@@ -41,14 +41,14 @@ export default function InputDetailPlantingActionScreen(props){
 
     const [schema, setSchema] = useState([
         {
-            form:"id_planting_action",
-            value:props.route.params.id_planting_action,
+            form:"id_transport",
+            value:props.route.params.id_transport,
         },
         {
             type:"dateinput",
             label:"Tanggal",
             value:"",
-            form:"date_planting_action",
+            form:"date_transport",
             required:true
         },
         {
@@ -56,20 +56,6 @@ export default function InputDetailPlantingActionScreen(props){
             label:"Jumlah Pekerja",
             value:"",
             form:"jumlah_pekerja",
-            required:true
-        },
-        {
-            type:"textinput",
-            label:"Kode Site",
-            value:"",
-            form:"kode_site",
-            required:true
-        },
-        {
-            type:"textinput",
-            label:"Kode Plot",
-            value:"",
-            form:"kode_plot",
             required:true
         },
         {
@@ -81,20 +67,6 @@ export default function InputDetailPlantingActionScreen(props){
             },
             form:"coordinate",
             required:false
-        },
-        {
-            type:"textinput",
-            label:"Colok/Propagul",
-            value:"",
-            form:"sistem_tanam_1",
-            required:true
-        },
-        {
-            type:"textinput",
-            label:"Nursery",
-            value:"",
-            form:"sistem_tanam_2",
-            required:true
         },
         {
             type:"textNumber",
@@ -303,7 +275,7 @@ export default function InputDetailPlantingActionScreen(props){
                            
                         });
                         console.log(payload);
-                        let request = await fetch(`${endpoint}/add-kind-planting-action`,{
+                        let request = await fetch(`${endpoint}/add-kind-transport`,{
                             method:"POST",
                             headers:{
                                 "authorization":`Bearer ${globalContext.credentials.token}`,
