@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage,Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -43,34 +43,44 @@ export default function RestorationScreen(props){
                         activeOpacity={0.8}
                         onPress={()=>{
                              if(item==="Land Assessment (KT-1)"){
+                                // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListLandAssessment");
                              }
                              else if(item==="Seed Collecting (KT-2)"){
+                                // alert("Fitur Ini Belum Tersedia");
                                  props.navigation.navigate("ListSeedCollecting");
                              }
                              else if(item==="Nursery Activity (KT-3)"){
+                                // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListNurseryActivity");
                             }
                             else if(item==="Planting Action (KT-4)"){
+                                // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListPlantingAction");
                             }
                             else if(item==="Transport (KT-5)"){
+                                // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListTransport");
                             }
                             else if(item==="Plot Boundaring (KT-6)"){
-                                props.navigation.navigate("ListPlotBoundaring");
+                                alert("Fitur Ini Belum Tersedia");
+                                // props.navigation.navigate("ListPlotBoundaring");
                             }
                             else if(item==="Growth (KT-7)"){
-                                props.navigation.navigate("ListGrowth");
+                                alert("Fitur Ini Belum Tersedia");
+                                // props.navigation.navigate("ListGrowth");
                             }
                             else if(item==="Replanting (KT-8)"){
-                                props.navigation.navigate("ListReplanting");
+                                alert("Fitur Ini Belum Tersedia");
+                                // props.navigation.navigate("ListReplanting");
                             }
                             else if(item==="Subtitute Plot (KT-9)"){
-                                props.navigation.navigate("ListSubtitutePlot");
+                                alert("Fitur Ini Belum Tersedia");
+                                // props.navigation.navigate("ListSubtitutePlot");
                             }
                             else if(item==="Replacement Plot (KT-10)"){
-                                props.navigation.navigate("ListReplacementPlot");
+                                alert("Fitur Ini Belum Tersedia");
+                                // props.navigation.navigate("ListReplacementPlot");
                             }
                            
                         }}

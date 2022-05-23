@@ -31,6 +31,13 @@ import DetailNurseryActivityScreen from './screen/restoration-screens/DetailNurs
 import InputDetailNurseryActivityScreen from './screen/restoration-screens/InputDetailNurseryActivityScreen';
 import AssetsNurseryActivityScreen from './screen/restoration-screens/AssetsNurseryActivityScreen';
 
+import ListPlantingActionScreen from './screen/restoration-screens/ListPlantingActionScreen';
+import InputPlantingActionScreen from './screen/restoration-screens/InputPlantingActionScreen';
+import KindPlantingActionScreen from './screen/restoration-screens/KindPlantingActionScreen';
+import DetailPlantingActionScreen from './screen/restoration-screens/DetailPlantingActionScreen';
+import InputDetailPlantingActionScreen from './screen/restoration-screens/InputDetailPlantingActionScreen';
+import AssetsPlantingActionScreen from './screen/restoration-screens/AssetsPlantingActionScreen';
+
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
@@ -217,6 +224,8 @@ function MasterNavigator(){
         }}
         name="KindSeedCollecting" component={KindSeedCollectingScreen} />
 
+
+
         <Stack.Screen 
          options={{
           headerShown:true,
@@ -251,6 +260,45 @@ function MasterNavigator(){
           headerTitle:"Jenis dan Jumlah Bibit"
         }}
         name="KindNurseryActivity" component={KindNurseryActivityScreen} />
+
+
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-4"
+        }}
+        name="ListPlantingAction" component={ListPlantingActionScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputPlantingAction" component={InputPlantingActionScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailPlantingAction" component={DetailPlantingActionScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Jenis & Jumlah Bibit"
+          }}
+          name="InputDetailPlantingAction" component={InputDetailPlantingActionScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Planting Action"
+        }}
+        name="AssetPlantingAction" component={AssetsPlantingActionScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Jenis dan Jumlah Bibit"
+        }}
+        name="KindPlantingAction" component={KindPlantingActionScreen} />
+
+
+
 
         <Stack.Screen 
         options={{
@@ -350,7 +398,7 @@ export default function App() {
     let response = await request.json();
 
     if(response.buildnumber.toString()!==Application.nativeBuildVersion.toString()){
-      setIsNeedUpdate(true);
+      setIsNeedUpdate(false);
       setChangelog(response.changelog_mobile);
     }
 

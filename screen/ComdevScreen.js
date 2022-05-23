@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage,Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -34,8 +34,10 @@ export default function ComdevScreen(props){
                         activeOpacity={0.8}
                         onPress={()=>{
                             if(item==="Community"){
+                                // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListCommunityRegister");
                             }else if(item==="Silvoshery"){
+                                // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListSilvoshery");
                             }
                         }}
