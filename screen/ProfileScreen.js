@@ -218,7 +218,7 @@ export default function ProfileScreen(props){
                         <View style={{...shadow,flexDirection:"row",marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
                             <Text style={{marginRight:EStyleSheet.value("5rem"),color:"#5daa5f",fontWeight:"bold"}}>Email :</Text>
                             <TextInput 
-                               onChangeText={(text)=>{
+                               onChangeText={(email)=>{
                                 setEmail(email);
                             }}
                             style={{fontSize:EStyleSheet.value("15rem"),flex:1,color:"grey"}} value={email}/>
