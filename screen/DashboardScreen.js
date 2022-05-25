@@ -275,7 +275,8 @@ export default function DashboardScreen(props) {
                     <TouchableOpacity 
                                 activeOpacity={0.8}
                                 onPress={async ()=>{
-                                    alert("Fitur Ini Belum Tersedia");
+                                    // alert("Fitur Ini Belum Tersedia");
+                                    props.navigation.navigate("ListCuti");
                                 }}
                                 style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("0rem"),height:EStyleSheet.value("35rem")}}>
                                     <Text style={{color:"black"}}>Ajukan Cuti</Text>

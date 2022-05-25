@@ -12,6 +12,10 @@ import RestorationScreen from './screen/RestorationScreen';
 import ComdevScreen from './screen/ComdevScreen';
 import ResearchScreen from './screen/ResearchScreen';
 
+import InputCutiScreen from './screen/cuti-screens/InputCutiScreen';
+import ListCutiScreen from './screen/cuti-screens/ListCutiScreen';
+import DetailCutiScreen from './screen/cuti-screens/DetailCutiScreen';
+
 import InputLandAssessmentScreen from './screen/restoration-screens/InputLandAssessmentScreen';
 import ListLandAssessmentScreen from './screen/restoration-screens/ListLandAssessmentScreen';
 import DetailLandAssessmentScreen from './screen/restoration-screens/DetailLandAssessmentScreen';
@@ -167,6 +171,24 @@ function MasterNavigator(){
           headerShown:false
         }}
         name="Dashboard" component={TabNavigator} />
+
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputCuti" component={InputCutiScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"List Cuti"
+        }}
+        name="ListCuti" component={ListCutiScreen} />
+          <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailCuti" component={DetailCutiScreen} />
+
           <Stack.Screen 
         options={{
           headerShown:true,
