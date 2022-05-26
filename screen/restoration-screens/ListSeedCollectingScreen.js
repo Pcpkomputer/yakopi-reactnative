@@ -98,7 +98,7 @@ export default function ListSeedCollectingScreen(props){
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>Seed Collecting</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>PENGUMPULAN BIBIT PROPAGUL & TRANSPORTASI</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity 

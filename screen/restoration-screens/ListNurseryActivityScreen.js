@@ -98,7 +98,7 @@ export default function ListNurseryActivityScreen(props){
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>Nursery Activity</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>KEGIATAN PEMBIBITAN/NURSERY</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity 

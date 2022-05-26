@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator,Alert, Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator,Alert, Linking,Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -95,6 +95,12 @@ export default function KindPlantingAction(props){
           <DataTable.Title
           sortDirection='descending'
           >Jumlah Pekerja</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Pria</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Wanita</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
           >Kode Site</DataTable.Title>
@@ -218,6 +224,8 @@ export default function KindPlantingAction(props){
             </DataTable.Cell>
             <DataTable.Cell>{item.date_planting_action}</DataTable.Cell>
             <DataTable.Cell>{item.jumlah_pekerja}</DataTable.Cell>
+            <DataTable.Cell>{item.pria}</DataTable.Cell>
+            <DataTable.Cell>{item.wanita}</DataTable.Cell>
             <DataTable.Cell>{item.kode_site}</DataTable.Cell>
             <DataTable.Cell>{item.kode_plot}</DataTable.Cell>
             <DataTable.Cell>
@@ -253,6 +261,8 @@ export default function KindPlantingAction(props){
           <DataTable.Cell>Total</DataTable.Cell>
           <DataTable.Cell></DataTable.Cell>
           <DataTable.Cell>{list.reduce((a, b) => a + b.jumlah_pekerja, 0)}</DataTable.Cell>
+          <DataTable.Cell>{list.reduce((a, b) => a + b.pria, 0)}</DataTable.Cell>
+          <DataTable.Cell>{list.reduce((a, b) => a + b.wanita, 0)}</DataTable.Cell>
           <DataTable.Cell></DataTable.Cell>
           <DataTable.Cell></DataTable.Cell>
           <DataTable.Cell></DataTable.Cell>

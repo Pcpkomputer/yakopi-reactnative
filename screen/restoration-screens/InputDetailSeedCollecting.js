@@ -60,6 +60,20 @@ export default function InputDetailSeedCollectingScreen(props){
         },
         {
             type:"textNumber",
+            label:"Jumlah Pria",
+            value:"",
+            form:"pria",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Jumlah Wanita",
+            value:"",
+            form:"wanita",
+            required:true
+        },
+        {
+            type:"textNumber",
             label:"R.mucronata",
             value:"",
             form:"r_mucronoto",

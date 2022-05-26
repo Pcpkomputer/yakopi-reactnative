@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator,Alert, Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator,Alert,Linking, Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -19,7 +19,7 @@ import { DataTable } from 'react-native-paper';
 
 
 
-export default function KindSeedCollecting(props){
+export default function KindGrowthScreen(props){
 
     const globalContext = useContext(GlobalContext);
 
@@ -28,15 +28,15 @@ export default function KindSeedCollecting(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let id = props.route.params.id_collecting_seed;
-        let request = await fetch(`${endpoint}/kind-seed-collecting`,{
+        let id = props.route.params.id_growth;
+        let request = await fetch(`${endpoint}/kind-growth`,{
             method:"POST",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`,
                 "content-type":"application/json"
             },
             body:JSON.stringify({
-                id_collecting_seed:id
+              id_growth:id
             })
         });
         let response = await request.json();
@@ -73,7 +73,7 @@ export default function KindSeedCollecting(props){
         <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
-                props.navigation.navigate("InputDetailSeedCollecting",{ id_collecting_seed:props.route.params.id_collecting_seed });
+                props.navigation.navigate("InputDetailGrowth",{ id_growth:props.route.params.id_growth });
             }}
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
@@ -88,47 +88,37 @@ export default function KindSeedCollecting(props){
       <ScrollView horizontal>
         <DataTable style={styles.container}>
         <DataTable.Header style={styles.tableHeader}>
-          <DataTable.Title
-          sortDirection='descending'>No</DataTable.Title>
+          <DataTable.Title>No</DataTable.Title>
           <DataTable.Title 
           sortDirection='descending'
-          >Tanggal</DataTable.Title>
+          >Kode Site</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Pekerja</DataTable.Title>
+          >Kode Plot</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Pria</DataTable.Title>
+          >Luas (ha)</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Wanita</DataTable.Title>
+          >Koordinat</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >R.mucronata</DataTable.Title>
+          >Jenis mangrove yang di tanam</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >R.stylosa</DataTable.Title>
+          >Kematian (%)</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >R.apiculata</DataTable.Title>
+          >Penyebab kematian</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Avicennia spp</DataTable.Title>
+          >Jenis tanah</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Ceriops spp</DataTable.Title>
+          >Status tambak</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Xylocarpus spp</DataTable.Title>
-          <DataTable.Title
-          sortDirection='descending'
-          >Bruguiera spp</DataTable.Title>
-          <DataTable.Title
-          sortDirection='descending'
-          >Sonneratia spp</DataTable.Title>
-          <DataTable.Title
-          sortDirection='descending'
-          >Sub-total Bibit</DataTable.Title>
+          >Biodiversity</DataTable.Title>
         </DataTable.Header>
         {listLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
         list.map((item, index) => (
@@ -136,6 +126,7 @@ export default function KindSeedCollecting(props){
             <DataTable.Cell>
             {
               (props.route.params.status == "0") &&
+              <View style={{flexDirection:"row",alignItems:"center"}}>
               <TouchableOpacity 
               onPress={async ()=>{
 
@@ -151,15 +142,15 @@ export default function KindSeedCollecting(props){
 
                               setListLoading(true);
 
-                              let id = item.id_detail_collecting_seed;
-                              let request = await fetch(`${endpoint}/delete-kind-seed-collecting`,{
+                              let id = item.id_detail_growth;
+                              let request = await fetch(`${endpoint}/delete-kind-growth`,{
                                   method:"DELETE",
                                   headers:{
                                       "authorization":`Bearer ${globalContext.credentials.token}`,
                                       "content-type":"application/json"
                                   },
                                   body:JSON.stringify({
-                                    id_detail_collecting_seed:id
+                                    id_detail_growth:id
                                   })
                               });
                               let response = await request.json();
@@ -172,59 +163,47 @@ export default function KindSeedCollecting(props){
                         } }
                       ]
                     );
-
-
-                
-
               }}
               style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                   <Text style={{color:"#fff"}}>{index+1}</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>        
+              </View>
+              
           }
           {
               (props.route.params.status != "0") &&
               <Text>{index+1}</Text>
           }
-          </DataTable.Cell>
-            <DataTable.Cell>{item.tanggal_collecting}</DataTable.Cell>
-            <DataTable.Cell>{item.jumlah_pekerja}</DataTable.Cell>
-            <DataTable.Cell>{item.pria}</DataTable.Cell>
-            <DataTable.Cell>{item.wanita}</DataTable.Cell>
-            <DataTable.Cell>{item.r_mucronoto}</DataTable.Cell>
-            <DataTable.Cell>{item.r_styloso}</DataTable.Cell>
-            <DataTable.Cell>{item.r_apiculata}</DataTable.Cell>
-            <DataTable.Cell>{item.avicennia_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.ceriops_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.xylocarpus_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.bruguiera_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.sonneratia_spp}</DataTable.Cell>
-            <DataTable.Cell>
-              {item.r_mucronoto + item.r_styloso + item.r_apiculata + item.avicennia_spp + item.ceriops_spp + item.xylocarpus_spp + item.bruguiera_spp + item.sonneratia_spp}
             </DataTable.Cell>
+            <DataTable.Cell>{item.site_code}</DataTable.Cell>
+            <DataTable.Cell>{item.plot_code}</DataTable.Cell>
+            <DataTable.Cell>{item.luas}</DataTable.Cell>
+            <DataTable.Cell>
+            <TouchableOpacity 
+              activeOpacity={0.8}
+              onPress={()=>{
+                  var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+                  var url = scheme + `${item.lat_detail_growth},${item.long_detail_growth}`;
+                  Linking.openURL(url);
+              }}
+              style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
+                  <View style={{backgroundColor:"#B4E197",borderRadius:EStyleSheet.value("5rem"),padding:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
+                    <Text style={{color:"#fff"}}>Lokasi</Text>
+                  </View>
+              </TouchableOpacity>
+            </DataTable.Cell>
+            <DataTable.Cell>{item.jenis_magrove}</DataTable.Cell>
+            <DataTable.Cell>{item.kematian}</DataTable.Cell>
+            <DataTable.Cell>{item.penyebab_kematian}</DataTable.Cell>
+            <DataTable.Cell>{item.jenis_tanah}</DataTable.Cell>
+            <DataTable.Cell>{item.status_tambak}</DataTable.Cell>
+            <DataTable.Cell>{item.biodiversity}</DataTable.Cell>
+            <DataTable.Cell>{item.bruguiera_spp}</DataTable.Cell>
           </DataTable.Row>
         ))}
-        <DataTable.Row style={styles.tableTotal}>
-          <DataTable.Cell>Total</DataTable.Cell>
-          <DataTable.Cell />
-          <DataTable.Cell >{list.reduce((a, b) => a + b.jumlah_pekerja, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.pria, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.wanita, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.r_mucronoto, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.r_styloso, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.r_apiculata, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.avicennia_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.ceriops_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.xylocarpus_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.bruguiera_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell >{list.reduce((a, b) => a + b.sonneratia_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell >
-            {list.reduce((a, b) => a + b.r_mucronoto + b.r_styloso + b.r_apiculata + b.avicennia_spp + b.ceriops_spp + b.xylocarpus_spp + b.bruguiera_spp + b.sonneratia_spp, 0)}
-          </DataTable.Cell>
-        </DataTable.Row>
         </DataTable>
       </ScrollView>
-        }
+    }
       </View>
-    
     )
 }

@@ -95,6 +95,12 @@ export default function KindNurseryActivity(props){
           <DataTable.Title
           sortDirection='descending'
           >Pekerja</DataTable.Title>
+           <DataTable.Title
+          sortDirection='descending'
+          >Pria</DataTable.Title>
+           <DataTable.Title
+          sortDirection='descending'
+          >Wanita</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
           >R.mucronata</DataTable.Title>
@@ -181,6 +187,8 @@ export default function KindNurseryActivity(props){
             </DataTable.Cell>
             <DataTable.Cell>{item.tanggal_collecting}</DataTable.Cell>
             <DataTable.Cell>{item.jumlah_pekerja}</DataTable.Cell>
+            <DataTable.Cell>{item.pria}</DataTable.Cell>
+            <DataTable.Cell>{item.wanita}</DataTable.Cell>
             <DataTable.Cell>{item.r_mucronoto}</DataTable.Cell>
             <DataTable.Cell>{item.r_styloso}</DataTable.Cell>
             <DataTable.Cell>{item.r_apiculata}</DataTable.Cell>
@@ -198,6 +206,8 @@ export default function KindNurseryActivity(props){
           <DataTable.Cell>Total</DataTable.Cell>
           <DataTable.Cell></DataTable.Cell>
           <DataTable.Cell>{list.reduce((a, b) => a + b.jumlah_pekerja, 0)}</DataTable.Cell>
+          <DataTable.Cell>{list.reduce((a, b) => a + b.pria, 0)}</DataTable.Cell>
+          <DataTable.Cell>{list.reduce((a, b) => a + b.wanita, 0)}</DataTable.Cell>
           <DataTable.Cell>{list.reduce((a, b) => a + b.r_mucronoto, 0)}</DataTable.Cell>
           <DataTable.Cell>{list.reduce((a, b) => a + b.r_styloso, 0)}</DataTable.Cell>
           <DataTable.Cell>{list.reduce((a, b) => a + b.r_apiculata, 0)}</DataTable.Cell>

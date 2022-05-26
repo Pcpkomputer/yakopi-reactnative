@@ -98,7 +98,7 @@ export default function ListTransportScreen(props){
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>Transport</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>KEGIATAN PENANAMAN BIBIT & TRANSPORTASI</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity 

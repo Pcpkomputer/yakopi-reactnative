@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator,Alert, Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator,Alert, Linking,Pressable, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -95,6 +95,12 @@ export default function KindTransportScreen(props){
           <DataTable.Title
           sortDirection='descending'
           >Jumlah Pekerja</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Pria</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Wanita</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
           >Koordinat</DataTable.Title>
@@ -206,6 +212,8 @@ export default function KindTransportScreen(props){
             </DataTable.Cell>
             <DataTable.Cell>{item.date_transport}</DataTable.Cell>
             <DataTable.Cell>{item.jumlah_pekerja}</DataTable.Cell>
+            <DataTable.Cell>{item.pria}</DataTable.Cell>
+            <DataTable.Cell>{item.wanita}</DataTable.Cell>
             <DataTable.Cell>
             <TouchableOpacity 
               activeOpacity={0.8}

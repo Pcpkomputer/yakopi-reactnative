@@ -49,6 +49,12 @@ import DetailTransportScreen from './screen/restoration-screens/DetailTransportS
 import InputDetailTransportScreen from './screen/restoration-screens/InputDetailTransportScreen';
 import AssetsTransportScreen from './screen/restoration-screens/AssetsTransportScreen';
 
+import ListGrowthScreen from './screen/restoration-screens/ListGrowthScreen';
+import InputGrowthScreen from './screen/restoration-screens/InputGrowthScreen';
+import KindGrowthScreen from './screen/restoration-screens/KindGrowthScreen';
+import DetailGrowthScreen from './screen/restoration-screens/DetailGrowthScreen';
+import InputDetailGrowthScreen from './screen/restoration-screens/InputDetailGrowthScreen';
+
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
@@ -361,6 +367,35 @@ function MasterNavigator(){
         }}
         name="KindTransport" component={KindTransportScreen} />
 
+<Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-7"
+        }}
+        name="ListGrowth" component={ListGrowthScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputGrowth" component={InputGrowthScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailGrowth" component={DetailGrowthScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Data Plot"
+          }}
+          name="InputDetailGrowth" component={InputDetailGrowthScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot"
+        }}
+        name="KindGrowth" component={KindGrowthScreen} />
+
 
 
 
@@ -462,7 +497,7 @@ export default function App() {
     let response = await request.json();
 
     if(response.buildnumber.toString()!==Application.nativeBuildVersion.toString()){
-      setIsNeedUpdate(true);
+      setIsNeedUpdate(false);
       setChangelog(response.changelog_mobile);
     }
 

@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 import React,{useState,useEffect, useContext} from 'react';
 import { StyleSheet, Platform, ScrollView, ActivityIndicator, Alert, Linking, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
@@ -25,7 +17,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 
-export default function ListPlantingActionScreen(props){
+export default function ListGrowthScreen(props){
 
     const focused = useIsFocused();
 
@@ -36,7 +28,7 @@ export default function ListPlantingActionScreen(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let request = await fetch(`${endpoint}/planting-action`,{
+        let request = await fetch(`${endpoint}/growth`,{
             method:"GET",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`
@@ -64,7 +56,7 @@ export default function ListPlantingActionScreen(props){
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
-                props.navigation.navigate("InputPlantingAction");
+                props.navigation.navigate("InputGrowth");
             }}
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
@@ -84,16 +76,16 @@ export default function ListPlantingActionScreen(props){
                             style={{marginBottom:EStyleSheet.value("20rem")}}
                             activeOpacity={0.7}
                             onPress={()=>{
-                                props.navigation.navigate("DetailPlantingAction",{item:item});
+                                props.navigation.navigate("DetailGrowth",{item:item});
                             }}
-                            key={item.id_nursery_activity}>
+                            key={item.id_transport}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}
                             end={{ x: 1, y: 1 }}
                             style={{flexDirection:"row",marginHorizontal:EStyleSheet.value("20rem"),borderRadius:EStyleSheet.value("5rem")}}>
                                 <View style={{paddingHorizontal:EStyleSheet.value("20rem"),justifyContent:"center",alignItems:"center",paddingVertical:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_planting_action}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_transport}</Text>
                                 </View>
                                 <View style={{flexDirection:"column",flex:1}}>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingTop:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row"}}>
@@ -101,19 +93,19 @@ export default function ListPlantingActionScreen(props){
                                         <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.nama_project}</Text>
                                         </View>
                                         <View style={{backgroundColor:"#125B50",marginRight:EStyleSheet.value("25rem"),alignSelf:"flex-start",borderRadius:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem")}}>
-                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.dilaporkan_oleh}</Text>
+                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.nama_surveyor}</Text>
                                         </View>
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>KEGIATAN PENANAMAN MANGROVE</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>MONITORING PERTUMBUHAN TANAMAN</Text>
                                     </View>
                                 </View>
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("KindPlantingAction",{id_planting_action:item.id_planting_action,status:item.status});
+                                    props.navigation.navigate("KindGrowth",{id_growth:item.id_growth,status:item.status});
                                 }}
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
@@ -135,15 +127,15 @@ export default function ListPlantingActionScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_planting_action;
-                                                    let request = await fetch(`${endpoint}/delete-planting-action`,{
+                                                    let id = item.id_growth;
+                                                    let request = await fetch(`${endpoint}/delete-growth`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_planting_action:id
+                                                            id_growth:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -181,15 +173,15 @@ export default function ListPlantingActionScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_planting_action;
-                                                    let request = await fetch(`${endpoint}/approve-planting-action`,{
+                                                    let id = item.id_growth;
+                                                    let request = await fetch(`${endpoint}/approve-growth`,{
                                                         method:"POST",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_planting_action:id
+                                                            id_growth:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -217,32 +209,3 @@ export default function ListPlantingActionScreen(props){
         </View>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

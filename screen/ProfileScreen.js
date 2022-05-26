@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect, useRef, useContext} from 'react';
-import { StyleSheet, Modal, Text, View, Dimensions, ScrollView, FlatList, Image, Pressable, BackHandler, ActivityIndicator, Linking, TextInput, AsyncStorage, ToastAndroid } from 'react-native';
+import { StyleSheet, Modal,TouchableOpacity, Text, View, Dimensions, ScrollView, FlatList, Image, Pressable, BackHandler, ActivityIndicator, Linking, TextInput, AsyncStorage, ToastAndroid } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Entypo, Feather, Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons'; 
 import Svg, { Path, Circle } from "react-native-svg"
@@ -15,7 +15,6 @@ import {Picker} from '@react-native-picker/picker';
 import { useIsFocused } from '@react-navigation/native';
 
 import { StatusBarHeight } from '../utils/HeightUtils';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -105,6 +104,7 @@ export default function ProfileScreen(props){
         setUsername(response.username);
         setNamaLengkap(response.nama_lengkap);
         setJenkel(response.jenkel);
+        setTanggalLahir(new Date(response.tgl_lahir.replace(/-/g,"/")));
         setAlamat(response.alamat);
         setEmail(response.email);
         setNoTelepon(response.no_hp);
@@ -207,6 +207,16 @@ export default function ProfileScreen(props){
                                 <Picker.Item label="Perempuan" value="P" />
                                 </Picker>
                         </View>
+                        <TouchableOpacity 
+                        activeOpacity={0.9}
+                        onPress={()=>{
+                            setCalendarOpened(true);
+                        }}
+                        style={{...shadow,flexDirection:"row",height:EStyleSheet.value("48rem"),marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
+                            <Text style={{marginRight:EStyleSheet.value("5rem"),color:"#5daa5f",fontWeight:"bold"}}>Tanggal Lahir :</Text>
+                            <Text style={{color:"grey"}}>
+                            {toLocaleTimestamp(tanggalLahir.getTime())}</Text>
+                        </TouchableOpacity>
                         <View style={{...shadow,flexDirection:"row",marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
                             <Text style={{marginRight:EStyleSheet.value("5rem"),color:"#5daa5f",fontWeight:"bold"}}>Alamat :</Text>
                             <TextInput 
@@ -262,7 +272,7 @@ export default function ProfileScreen(props){
 
                                 try {
                                     setSimpanLoading(true);
-                                    if(username.length===0 || namaLengkap.length===0 || jenkel.length===0 || tanggalLahir.length===0 || alamat.length===0 || email.length===0 || notelepon.length===0){
+                                    if(username.length===0 || namaLengkap.length===0){
                                         throw new Error("Masukkan semua data");
                                     }
 
@@ -399,7 +409,7 @@ export default function ProfileScreen(props){
             </Modal>
 
 
-        {
+            {
             (calendarOpened) &&
             <DateTimePicker
             testID="dateTimePicker"

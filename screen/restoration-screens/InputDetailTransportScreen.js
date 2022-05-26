@@ -59,6 +59,20 @@ export default function InputDetailTransportScreen(props){
             required:true
         },
         {
+            type:"textNumber",
+            label:"Jumlah Pria",
+            value:"",
+            form:"pria",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Jumlah Wanita",
+            value:"",
+            form:"wanita",
+            required:true
+        },
+        {
             type:"coordsinput",
             label:"Koordinat",
             value:{
