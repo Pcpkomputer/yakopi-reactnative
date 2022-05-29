@@ -624,7 +624,7 @@ export default function App() {
     let response = await request.json();
 
     if(response.buildnumber.toString()!==Application.nativeBuildVersion.toString()){
-      setIsNeedUpdate(false);
+      setIsNeedUpdate(true);
       setChangelog(response.changelog_mobile);
     }
 
