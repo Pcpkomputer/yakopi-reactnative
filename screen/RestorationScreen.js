@@ -75,8 +75,8 @@ export default function RestorationScreen(props){
                                 props.navigation.navigate("ListReplanting");
                             }
                             else if(item==="Subtitute Plot (KT-9)"){
-                                alert("Fitur Ini Belum Tersedia");
-                                // props.navigation.navigate("ListSubtitutePlot");
+                                // alert("Fitur Ini Belum Tersedia");
+                                props.navigation.navigate("ListSubtitutePlot");
                             }
                             else if(item==="Replacement Plot (KT-10)"){
                                 alert("Fitur Ini Belum Tersedia");

@@ -83,15 +83,15 @@ function AssetsVideo(props){
 
     const fetchVideo = async()=>{
         setImageLoading(true);
-        let id = props.route.params.id_detail_replanting;
-        let request = await fetch(`${endpoint}/video-replanting`,{
+        let id = props.route.params.id_detail_subtitute_plot;
+        let request = await fetch(`${endpoint}/video-subtitute-plot`,{
             method:"POST",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`,
                 "content-type":"application/json"
             },
             body:JSON.stringify({
-                id_detail_replanting:id
+                id_detail_subtitute_plot:id
             })
         });
         let response = await request.json();
@@ -108,7 +108,7 @@ function AssetsVideo(props){
 
     useEffect(()=>{
         props.navigation.setOptions({
-            headerTitle: `Video - ${props.route.params.id_detail_replanting}`,
+            headerTitle: `Video - ${props.route.params.id_detail_subtitute_plot}`,
         });
     },[])
 
@@ -149,29 +149,29 @@ function AssetsVideo(props){
             
                                 let form = new FormData();
             
-                                form.append("file_replanting_video",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoReplanting`,{
+                                form.append("file_subtitute_plot_video",photo);
+                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoSubtitutePlot`,{
                                     method:"POST",
                                     body:form
                                 });
                                 let response = await request.json();
             
-                                let url = `/assets/img/videoReplanting/${response.result.orig_name}`;
+                                let url = `/assets/img/videoSubtitutePlot/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_detail_replanting;
+                                let id = props.route.params.id_detail_subtitute_plot;
 
                                 
-                                let req2 = await fetch(`${endpoint}/add-video-replanting`,{
+                                let req2 = await fetch(`${endpoint}/add-video-subtitute-plot`,{
                                     method:"POST",
                                     headers:{
                                         "authorization":`Bearer ${globalContext.credentials.token}`,
                                         "content-type":"application/json"
                                     },
                                     body:JSON.stringify({
-                                        id_detail_replanting:id,
-                                        keterangan_replanting_video:keterangan,
-                                        link_replanting_video:"",
-                                        file_replanting_video:url
+                                        id_detail_subtitute_plot:id,
+                                        keterangan_subtitute_plot_video:keterangan,
+                                        link_subtitute_plot_video:"",
+                                        file_subtitute_plot_video:url
                                     })
                                 });
                                 let res2 = await req2.json();
@@ -220,11 +220,11 @@ function AssetsVideo(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),overflow:"hidden",borderRadius:EStyleSheet.value("3rem"),marginBottom:EStyleSheet.value("15rem")}}>
                                 <View style={{backgroundColor:"#e8e8e8",height:EStyleSheet.value("200rem")}}>
                                     {
-                                        (item.link_replanting_video===null || item.link_replanting_video==="") ?
+                                        (item.link_subtitute_plot_video===null || item.link_subtitute_plot_video==="") ?
                                         <Video
                                         style={{flex:1}}
                                         source={{
-                                        uri: `${endpoint.replace(/api(.?)/g,"")}${item.file_replanting_video}`,
+                                        uri: `${endpoint.replace(/api(.?)/g,"")}${item.file_subtitute_plot_video}`,
                                         }}
                                         useNativeControls
                                         resizeMode="contain"/>
@@ -232,14 +232,14 @@ function AssetsVideo(props){
                                         <Video
                                         style={{flex:1}}
                                         source={{
-                                        uri: item.link_replanting_video,
+                                        uri: item.link_subtitute_plot_video,
                                         }}
                                         useNativeControls
                                         resizeMode="contain"/>
                                     }
                                 </View>
                                 <View style={{zIndex:10,paddingHorizontal:EStyleSheet.value("20rem"),paddingVertical:EStyleSheet.value("15rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem")}}>{item.keterangan_replanting_video}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem")}}>{item.keterangan_subtitute_plot_video}</Text>
                                 </View>
                                 <LinearGradient
                                 style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
@@ -259,15 +259,15 @@ function AssetsVideo(props){
                                               },
                                               { text: "Iya", onPress: async () => {
                       
-                                                    let id = item.id_replanting_video;
-                                                    let request = await fetch(`${endpoint}/delete-video-replanting`,{
+                                                    let id = item.id_subtitute_plot_video;
+                                                    let request = await fetch(`${endpoint}/delete-video-subtitute-plot`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_replanting_video:id
+                                                            id_subtitute_plot_video:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -333,15 +333,15 @@ function AssetsDrone(props){
 
     const fetchImage = async()=>{
         setImageLoading(true);
-        let id = props.route.params.id_detail_replanting;
-        let request = await fetch(`${endpoint}/drone-replanting`,{
+        let id = props.route.params.id_detail_subtitute_plot;
+        let request = await fetch(`${endpoint}/drone-subtitute-plot`,{
             method:"POST",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`,
                 "content-type":"application/json"
             },
             body:JSON.stringify({
-                id_detail_replanting:id
+                id_detail_subtitute_plot:id
             })
         });
         let response = await request.json();
@@ -358,7 +358,7 @@ function AssetsDrone(props){
 
     useEffect(()=>{
         props.navigation.setOptions({
-            headerTitle: `Drone - ${props.route.params.id_detail_replanting}`,
+            headerTitle: `Drone - ${props.route.params.id_detail_subtitute_plot}`,
         });
     },[])
 
@@ -399,29 +399,29 @@ function AssetsDrone(props){
             
                                 let form = new FormData();
             
-                                form.append("file_replanting_drone",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiDroneReplanting`,{
+                                form.append("file_subtitute_plot_drone",photo);
+                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiDroneSubtitutePlot`,{
                                     method:"POST",
                                     body:form
                                 });
                                 let response = await request.json();
             
-                                let url = `/assets/img/droneReplanting/${response.result.orig_name}`;
+                                let url = `/assets/img/droneSubtitutePlot/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_detail_replanting;
+                                let id = props.route.params.id_detail_subtitute_plot;
 
                                 
-                                let req2 = await fetch(`${endpoint}/add-drone-replanting`,{
+                                let req2 = await fetch(`${endpoint}/add-drone-subtitute-plot`,{
                                     method:"POST",
                                     headers:{
                                         "authorization":`Bearer ${globalContext.credentials.token}`,
                                         "content-type":"application/json"
                                     },
                                     body:JSON.stringify({
-                                        id_detail_replanting:id,
-                                        keterangan_replanting_drone:keterangan,
-                                        link_replanting_drone:"",
-                                        file_replanting_drone:url
+                                        id_detail_subtitute_plot:id,
+                                        keterangan_subtitute_plot_drone:keterangan,
+                                        link_subtitute_plot_drone:"",
+                                        file_subtitute_plot_drone:url
                                     })
                                 });
                                 let res2 = await req2.json();
@@ -467,19 +467,19 @@ function AssetsDrone(props){
                     keyExtractor={(item,index)=>`image-${index}`}
                     data={image}
                     renderItem={({item,index})=>{
-                        console.log(`${endpoint.replace(/api(.?)/g,"")}${item.file_replanting_drone}`);
+                        console.log(`${endpoint.replace(/api(.?)/g,"")}${item.file_subtitute_plot_drone}`);
                         return (
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),overflow:"hidden",borderRadius:EStyleSheet.value("3rem"),marginBottom:EStyleSheet.value("15rem")}}>
                                 <View style={{backgroundColor:"#e8e8e8",height:EStyleSheet.value("200rem")}}>
                                     {
-                                        (item.link_replanting_drone===null || item.link_replanting_drone==="") ?
-                                        <Image style={{width:"100%",height:"100%"}} source={{uri:`${endpoint.replace(/api(.?)/g,"")}${item.file_replanting_drone}`}}></Image>
+                                        (item.link_subtitute_plot_drone===null || item.link_subtitute_plot_drone==="") ?
+                                        <Image style={{width:"100%",height:"100%"}} source={{uri:`${endpoint.replace(/api(.?)/g,"")}${item.file_subtitute_plot_drone}`}}></Image>
                                         :
-                                        <Image style={{width:"100%",height:"100%"}} source={{uri:item.link_replanting_drone}}></Image>
+                                        <Image style={{width:"100%",height:"100%"}} source={{uri:item.link_subtitute_plot_drone}}></Image>
                                     }
                                 </View>
                                 <View style={{position:"absolute",zIndex:10,bottom:EStyleSheet.value("20rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem")}}>{item.keterangan_replanting_video}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem")}}>{item.keterangan_subtitute_plot_video}</Text>
                                 </View>
                                 <LinearGradient
                                 style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
@@ -499,15 +499,15 @@ function AssetsDrone(props){
                                               },
                                               { text: "Iya", onPress: async () => {
                       
-                                                    let id = item.id_replanting_drone;
-                                                    let request = await fetch(`${endpoint}/delete-drone-replanting`,{
+                                                    let id = item.id_subtitute_plot_drone;
+                                                    let request = await fetch(`${endpoint}/delete-drone-subtitute-plot`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_replanting_drone:id
+                                                            id_subtitute_plot_drone:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -571,15 +571,15 @@ function AssetsImage(props){
 
     const fetchImage = async()=>{
         setImageLoading(true);
-        let id = props.route.params.id_detail_replanting;
-        let request = await fetch(`${endpoint}/photo-replanting`,{
+        let id = props.route.params.id_detail_subtitute_plot;
+        let request = await fetch(`${endpoint}/photo-subtitute-plot`,{
             method:"POST",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`,
                 "content-type":"application/json"
             },
             body:JSON.stringify({
-                id_detail_replanting:id
+                id_detail_subtitute_plot:id
             })
         });
         let response = await request.json();
@@ -596,7 +596,7 @@ function AssetsImage(props){
 
     useEffect(()=>{
         props.navigation.setOptions({
-            headerTitle: `Photo - ${props.route.params.id_detail_replanting}`,
+            headerTitle: `Photo - ${props.route.params.id_detail_subtitute_plot}`,
         });
     },[])
 
@@ -637,28 +637,28 @@ function AssetsImage(props){
             
                                 let form = new FormData();
             
-                                form.append("file_replanting_photo",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoReplanting`,{
+                                form.append("file_subtitute_plot_photo",photo);
+                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoSubtitutePlot`,{
                                     method:"POST",
                                     body:form
                                 });
                                 let response = await request.json();
             
-                                let url = `/assets/img/photoReplanting/${response.result.orig_name}`;
+                                let url = `/assets/img/photoSubtitutePlot/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_detail_replanting;
+                                let id = props.route.params.id_detail_subtitute_plot;
 
-                                 let req2 = await fetch(`${endpoint}/add-photo-replanting`,{
+                                 let req2 = await fetch(`${endpoint}/add-photo-subtitute-plot`,{
                                     method:"POST",
                                     headers:{
                                         "authorization":`Bearer ${globalContext.credentials.token}`,
                                         "content-type":"application/json"
                                     },
                                     body:JSON.stringify({
-                                        id_detail_replanting:id,
-                                        keterangan_replanting_photo:keterangan,
-                                        link_replanting_photo:"",
-                                        file_replanting_photo:url
+                                        id_detail_subtitute_plot:id,
+                                        keterangan_subtitute_plot_photo:keterangan,
+                                        link_subtitute_plot_photo:"",
+                                        file_subtitute_plot_photo:url
                                     })
                                 });
                                 let res2 = await req2.json();
@@ -705,14 +705,14 @@ function AssetsImage(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),overflow:"hidden",borderRadius:EStyleSheet.value("3rem"),marginBottom:EStyleSheet.value("15rem")}}>
                                 <View style={{backgroundColor:"#e8e8e8",height:EStyleSheet.value("200rem")}}>
                                     {
-                                        (item.link_replanting_photo===null || item.link_replanting_photo==="") ?
-                                        <Image style={{width:"100%",height:"100%"}} source={{uri:`${endpoint.replace(/api(.?)/g,"")}${item.file_replanting_photo}`}}></Image>
+                                        (item.link_subtitute_plot_photo===null || item.link_subtitute_plot_photo==="") ?
+                                        <Image style={{width:"100%",height:"100%"}} source={{uri:`${endpoint.replace(/api(.?)/g,"")}${item.file_subtitute_plot_photo}`}}></Image>
                                         :
-                                        <Image style={{width:"100%",height:"100%"}} source={{uri:item.link_replanting_photo}}></Image>
+                                        <Image style={{width:"100%",height:"100%"}} source={{uri:item.link_subtitute_plot_photo}}></Image>
                                     }
                                 </View>
                                 <View style={{position:"absolute",zIndex:10,bottom:EStyleSheet.value("20rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem")}}>{item.keterangan_replanting_photo}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem")}}>{item.keterangan_subtitute_plot_photo}</Text>
                                 </View>
                                 <LinearGradient
                                 style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
@@ -732,15 +732,15 @@ function AssetsImage(props){
                                               },
                                               { text: "Iya", onPress: async () => {
                       
-                                                    let id = item.id_replanting_photo;
-                                                    let request = await fetch(`${endpoint}/delete-photo-replanting`,{
+                                                    let id = item.id_subtitute_plot_photo;
+                                                    let request = await fetch(`${endpoint}/delete-photo-subtitute-plot`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_replanting_photo:id
+                                                            id_subtitute_plot_photo:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -769,7 +769,7 @@ function AssetsImage(props){
 }
 
 
-export default function AssetsReplantingScreen(props){
+export default function AssetsSubtitutePlotScreen(props){
 
     if(props.route.params.type==="image"){
         return <AssetsImage {...props}/>

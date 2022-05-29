@@ -62,6 +62,13 @@ import DetailReplantingScreen from './screen/restoration-screens/DetailReplantin
 import InputDetailReplantingScreen from './screen/restoration-screens/InputDetailReplantingScreen';
 import AssetsReplantingScreen from './screen/restoration-screens/AssetsReplantingScreen';
 
+import ListSubtitutePlotScreen from './screen/restoration-screens/ListSubtitutePlotScreen';
+import InputSubtitutePlotScreen from './screen/restoration-screens/InputSubtitutePlotScreen';
+import KindSubtitutePlotScreen from './screen/restoration-screens/KindSubtitutePlotScreen';
+import DetailSubtitutePlotScreen from './screen/restoration-screens/DetailSubtitutePlotScreen';
+import InputDetailSubtitutePlotScreen from './screen/restoration-screens/InputDetailSubtitutePlotScreen';
+import AssetsSubtitutePlotScreen from './screen/restoration-screens/AssetsSubtitutePlotScreen';
+
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
@@ -437,6 +444,41 @@ function MasterNavigator(){
           headerTitle:"Data Plot"
         }}
         name="KindReplanting" component={KindReplantingScreen} />
+
+<Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-9"
+        }}
+        name="ListSubtitutePlot" component={ListSubtitutePlotScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputSubtitutePlot" component={InputSubtitutePlotScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailSubtitutePlot" component={DetailSubtitutePlotScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Plot"
+          }}
+          name="InputDetailSubtitutePlot" component={InputDetailSubtitutePlotScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Subtitute Plot"
+        }}
+        name="AssetSubtitutePlot" component={AssetsSubtitutePlotScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot"
+        }}
+        name="KindSubtitutePlot" component={KindSubtitutePlotScreen} />
 
 
 
