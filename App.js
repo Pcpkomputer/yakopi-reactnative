@@ -55,6 +55,13 @@ import KindGrowthScreen from './screen/restoration-screens/KindGrowthScreen';
 import DetailGrowthScreen from './screen/restoration-screens/DetailGrowthScreen';
 import InputDetailGrowthScreen from './screen/restoration-screens/InputDetailGrowthScreen';
 
+import ListReplantingScreen from './screen/restoration-screens/ListReplantingScreen';
+import InputReplantingScreen from './screen/restoration-screens/InputReplantingScreen';
+import KindReplantingScreen from './screen/restoration-screens/KindReplantingScreen';
+import DetailReplantingScreen from './screen/restoration-screens/DetailReplantingScreen';
+import InputDetailReplantingScreen from './screen/restoration-screens/InputDetailReplantingScreen';
+import AssetsReplantingScreen from './screen/restoration-screens/AssetsReplantingScreen';
+
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
@@ -396,6 +403,41 @@ function MasterNavigator(){
         }}
         name="KindGrowth" component={KindGrowthScreen} />
 
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-8"
+        }}
+        name="ListReplanting" component={ListReplantingScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputReplanting" component={InputReplantingScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailReplanting" component={DetailReplantingScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Plot"
+          }}
+          name="InputDetailReplanting" component={InputDetailReplantingScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Replanting"
+        }}
+        name="AssetReplanting" component={AssetsReplantingScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot"
+        }}
+        name="KindReplanting" component={KindReplantingScreen} />
+
 
 
 
@@ -511,7 +553,7 @@ export default function App() {
     return (
       <View style={{flex:1,backgroundColor:"white",justifyContent:"center",alignItems:"center"}}>
           <Image style={{width:EStyleSheet.value("140rem"),height:EStyleSheet.value("200rem")}} source={require("./assets/logo.jpeg")}></Image>
-          <Text style={{marginTop:EStyleSheet.value("30rem"),fontWeight:"bold",textAlign:"center",paddingHorizontal:EStyleSheet.value("50rem"),fontSize:EStyleSheet.value("14rem")}}>Terdapat update aplikasi baru, tolong segera lakukan update pada playstore</Text>
+          <Text style={{marginTop:EStyleSheet.value("30rem"),fontWeight:"bold",textAlign:"center",paddingHorizontal:EStyleSheet.value("50rem"),fontSize:EStyleSheet.value("14rem")}}>Terdapat Perubahan pada aplikasi, Tolong Segera Lakukan Update</Text>
           <Text style={{paddingTop:EStyleSheet.value("20rem"),fontWeight:"bold"}}>Changelog :</Text>
           <Text style={{fontSize:EStyleSheet.value("10rem"),textAlign:"center",marginHorizontal:EStyleSheet.value("50rem"),marginTop:EStyleSheet.value("5rem")}}>{changelog}</Text>
       </View>

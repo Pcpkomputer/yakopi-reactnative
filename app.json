@@ -3,15 +3,15 @@
     "name": "yakopi-reactnative",
     "slug": "yakopi-reactnative",
     "icon": "./assets/icon.png",
-    "version": "1.0.6",
+    "version": "1.0.9",
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "bundleIdentifier": "com.yayasan.konservasi.pesisir.indonesia.yakopi"
-    },
     "android": {
       "package": "com.yayasan.konservasi.pesisir.indonesia.yakopi"
+    },
+    "ios": {
+      "bundleIdentifier": "com.yayasan.konservasi.pesisir.indonesia.yakopi"
     }
   },
   "name": "yakopi-reactnative"
