@@ -79,8 +79,8 @@ export default function RestorationScreen(props){
                                 props.navigation.navigate("ListSubtitutePlot");
                             }
                             else if(item==="Replacement Plot (KT-10)"){
-                                alert("Fitur Ini Belum Tersedia");
-                                // props.navigation.navigate("ListReplacementPlot");
+                                // alert("Fitur Ini Belum Tersedia");
+                                props.navigation.navigate("ListReplacementPlot");
                             }
                            
                         }}

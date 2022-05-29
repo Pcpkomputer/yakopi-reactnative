@@ -69,6 +69,13 @@ import DetailSubtitutePlotScreen from './screen/restoration-screens/DetailSubtit
 import InputDetailSubtitutePlotScreen from './screen/restoration-screens/InputDetailSubtitutePlotScreen';
 import AssetsSubtitutePlotScreen from './screen/restoration-screens/AssetsSubtitutePlotScreen';
 
+import ListReplacementPlotScreen from './screen/restoration-screens/ListReplacementPlotScreen';
+import InputReplacementPlotScreen from './screen/restoration-screens/InputReplacementPlotScreen';
+import KindReplacementPlotScreen from './screen/restoration-screens/KindReplacementPlotScreen';
+import DetailReplacementPlotScreen from './screen/restoration-screens/DetailReplacementPlotScreen';
+import InputDetailReplacementPlotScreen from './screen/restoration-screens/InputDetailReplacementPlotScreen';
+import AssetsReplacementPlotScreen from './screen/restoration-screens/AssetsReplacementPlotScreen';
+
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
@@ -445,7 +452,7 @@ function MasterNavigator(){
         }}
         name="KindReplanting" component={KindReplantingScreen} />
 
-<Stack.Screen 
+        <Stack.Screen 
          options={{
           headerShown:true,
           headerTitle:"KT-9"
@@ -479,6 +486,42 @@ function MasterNavigator(){
           headerTitle:"Data Plot"
         }}
         name="KindSubtitutePlot" component={KindSubtitutePlotScreen} />
+
+
+<Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-10"
+        }}
+        name="ListReplacementPlot" component={ListReplacementPlotScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputReplacementPlot" component={InputReplacementPlotScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailReplacementPlot" component={DetailReplacementPlotScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:true,
+            headerTitle:"Tambah Plot"
+          }}
+          name="InputDetailReplacementPlot" component={InputDetailReplacementPlotScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Replacement Plot"
+        }}
+        name="AssetReplacementPlot" component={AssetsReplacementPlotScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot"
+        }}
+        name="KindReplacementPlot" component={KindReplacementPlotScreen} />
 
 
 
