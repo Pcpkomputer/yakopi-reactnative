@@ -112,6 +112,12 @@ import DetailHamaScreen from './screen/research-screens/DetailHamaScreen';
 import InputDetailHamaScreen from './screen/research-screens/InputDetailHamaScreen';
 import AssetsHamaScreen from './screen/research-screens/AssetsHamaScreen';
 
+import ListFiskimScreen from './screen/research-screens/ListFiskimScreen';
+import InputFiskimScreen from './screen/research-screens/InputFiskimScreen';
+import KindFiskimScreen from './screen/research-screens/KindFiskimScreen';
+import DetailFiskimScreen from './screen/research-screens/DetailFiskimScreen';
+import InputDetailFiskimScreen from './screen/research-screens/InputDetailFiskimScreen';
+
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
@@ -731,6 +737,34 @@ function MasterNavigator(){
           headerTitle:"Data Plot Hama"
         }}
         name="KindHama" component={KindHamaScreen} />
+
+<Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-16"
+        }}
+        name="ListFiskim" component={ListFiskimScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputFiskim" component={InputFiskimScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailFiskim" component={DetailFiskimScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:false
+          }}
+          name="InputDetailFiskim" component={InputDetailFiskimScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot Fiskim"
+        }}
+        name="KindFiskim" component={KindFiskimScreen} />
 
       </Stack.Navigator>
   )

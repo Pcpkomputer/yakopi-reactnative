@@ -49,8 +49,8 @@ export default function ResearchScreen(props){
                                 // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListHama");
                              }else if (item==="Fiskim"){
-                                alert("Fitur Ini Belum Tersedia");
-                                // props.navigation.navigate("ListFiskim");
+                                // alert("Fitur Ini Belum Tersedia");
+                                props.navigation.navigate("ListFiskim");
                              }
 
                         }}
