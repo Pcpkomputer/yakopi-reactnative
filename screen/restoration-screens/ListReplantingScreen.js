@@ -86,7 +86,7 @@ export default function ListReplantingScreen(props){
                             onPress={()=>{
                                 props.navigation.navigate("DetailReplanting",{item:item});
                             }}
-                            key={item.id_nursery_activity}>
+                            key={item.id_replanting}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}

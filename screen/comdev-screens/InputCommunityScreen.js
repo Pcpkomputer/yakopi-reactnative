@@ -22,6 +22,18 @@ import DatePicker from 'react-native-modern-datepicker';
 
 export default function InputComunnityScreen(props){
 
+    let shadow = {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    
+        elevation: 5,
+    }
+
     const globalContext = useContext(GlobalContext);
 
     const [showSelectDateInput, setShowSelectDateInput] = useState(false);

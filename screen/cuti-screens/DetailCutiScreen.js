@@ -120,6 +120,18 @@ export default function DetailCutiScreen(props){
         fetchProvince();
     },[]);
 
+    let shadow = {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    
+        elevation: 5,
+    }
+
 
     const [schema, setSchema] = useState([
         {
@@ -188,6 +200,20 @@ export default function DetailCutiScreen(props){
                     <ActivityIndicator color="white" size="large"/>
                 </View>
             } 
+            <View style={{height:StatusBarHeight}}></View>
+            <View style={{...shadow,backgroundColor:"white",flexDirection:"row",paddingHorizontal:EStyleSheet.value("20rem"),alignItems:"center",height:EStyleSheet.value("55rem")}}>
+                 <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={()=>{
+                    props.navigation.goBack();
+                }}
+                >
+                    <Entypo name="chevron-left" size={EStyleSheet.value("20rem")} color="black" />
+                </TouchableOpacity>
+                <View style={{position:"absolute",justifyContent:"center",alignItems:"center",width:Dimensions.get("screen").width}}>
+                    <Text style={{fontWeight:"bold",color:"black"}}>Detail Cuti</Text>
+                </View>
+            </View>
 
         {
             (showSelectInput) &&
@@ -290,10 +316,6 @@ export default function DetailCutiScreen(props){
         }
 
 
-            <View style={{height:StatusBarHeight}}></View>
-            <View style={{backgroundColor:"#f6f7fb",justifyContent:"center",alignItems:"center",height:EStyleSheet.value("50rem")}}>
-                <Text style={{fontSize:EStyleSheet.value("16rem"),color:"#a9adb8"}}>Detail Cuti</Text>
-            </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
             >

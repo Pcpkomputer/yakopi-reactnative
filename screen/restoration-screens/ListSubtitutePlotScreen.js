@@ -86,7 +86,7 @@ export default function ListSubtitutePlotScreen(props){
                             onPress={()=>{
                                 props.navigation.navigate("DetailSubtitutePlot",{item:item});
                             }}
-                            key={item.id_nursery_activity}>
+                            key={item.id_subtitute_plot}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}

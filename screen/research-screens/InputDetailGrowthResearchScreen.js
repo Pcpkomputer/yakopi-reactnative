@@ -22,7 +22,7 @@ import RestorationNumberInput from '../restoration-components/RestorationNumberI
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function InputDetailPlantingActionScreen(props){
+export default function InputDetailGrowthGrowthScreen(props){
 
     let shadow = {
         shadowColor: "#000",
@@ -53,131 +53,51 @@ export default function InputDetailPlantingActionScreen(props){
 
     const [schema, setSchema] = useState([
         {
-            form:"id_planting_action",
-            value:props.route.params.id_planting_action,
+            form:"id_growth_research",
+            value:props.route.params.id_growth_research,
         },
         {
-            type:"dateinput",
-            label:"Tanggal",
+            type:"textinput",
+            label:"No Tagging",
             value:"",
-            form:"date_planting_action",
+            form:"no_tagging",
             required:true
         },
         {
             type:"textNumber",
-            label:"Jumlah Pekerja",
+            label:"Tinggi ",
             value:"",
-            form:"jumlah_pekerja",
+            form:"tinggi",
             required:true
         },
         {
             type:"textNumber",
-            label:"Jumlah Pria",
+            label:"Diameter",
             value:"",
-            form:"pria",
+            form:"diameter",
             required:true
         },
         {
             type:"textNumber",
-            label:"Jumlah Wanita",
+            label:"Jumlah Daun ",
             value:"",
-            form:"wanita",
+            form:"jumlah_daun",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Jumlah Percabangan",
+            value:"",
+            form:"jumlah_percabangan",
             required:true
         },
         {
             type:"textinput",
-            label:"Kode Site",
+            label:"Keterangan ",
             value:"",
-            form:"kode_site",
+            form:"keterangan",
             required:true
-        },
-        {
-            type:"textinput",
-            label:"Kode Plot",
-            value:"",
-            form:"kode_plot",
-            required:true
-        },
-        {
-            type:"coordsinput",
-            label:"Koordinat",
-            value:{
-                latitude:"",
-                longitude:""
-            },
-            form:"coordinate",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Colok/Propagul",
-            value:"",
-            form:"sistem_tanam_1",
-            required:true
-        },
-        {
-            type:"textinput",
-            label:"Nursery",
-            value:"",
-            form:"sistem_tanam_2",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"R.mucronata",
-            value:"",
-            form:"r_mucronota",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"R.stylosa",
-            value:"",
-            form:"r_stylosa",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"R.apiculata",
-            value:"",
-            form:"r_apiculata",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Avicennia spp",
-            value:"",
-            form:"avicennia_spp",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Ceriops spp",
-            value:"",
-            form:"ceriops_spp",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Xylocarpus spp",
-            value:"",
-            form:"xylocarpus_spp",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Bruguiera spp",
-            value:"",
-            form:"bruguiera_spp",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Sonneratia spp",
-            value:"",
-            form:"sonneratia_spp",
-            required:true
-        },
+        },        
     ]);
 
     return (
@@ -340,7 +260,7 @@ export default function InputDetailPlantingActionScreen(props){
                            
                         });
                         console.log(payload);
-                        let request = await fetch(`${endpoint}/add-kind-planting-action`,{
+                        let request = await fetch(`${endpoint}/research/growthResearch/addDetail`,{
                             method:"POST",
                             headers:{
                                 "authorization":`Bearer ${globalContext.credentials.token}`,

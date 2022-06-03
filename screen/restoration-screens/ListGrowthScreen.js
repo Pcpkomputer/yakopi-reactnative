@@ -78,7 +78,7 @@ export default function ListGrowthScreen(props){
                             onPress={()=>{
                                 props.navigation.navigate("DetailGrowth",{item:item});
                             }}
-                            key={item.id_transport}>
+                            key={item.id_growth}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}

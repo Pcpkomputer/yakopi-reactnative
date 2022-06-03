@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 import React,{useState,useEffect, useContext} from 'react';
 import { StyleSheet, Platform, ScrollView, ActivityIndicator, Alert, Linking, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
 
@@ -25,7 +17,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 
-export default function ListReplacementPlotScreen(props){
+export default function ListGrowthResearchScreen(props){
 
     const focused = useIsFocused();
 
@@ -36,7 +28,7 @@ export default function ListReplacementPlotScreen(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let request = await fetch(`${endpoint}/replacement-plot`,{
+        let request = await fetch(`${endpoint}/research/growthResearch`,{
             method:"GET",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`
@@ -64,7 +56,7 @@ export default function ListReplacementPlotScreen(props){
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
-                props.navigation.navigate("InputReplacementPlot");
+                props.navigation.navigate("InputGrowthResearch");
             }}
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
@@ -84,16 +76,16 @@ export default function ListReplacementPlotScreen(props){
                             style={{marginBottom:EStyleSheet.value("20rem")}}
                             activeOpacity={0.7}
                             onPress={()=>{
-                                props.navigation.navigate("DetailReplacementPlot",{item:item});
+                                props.navigation.navigate("DetailGrowthResearch",{item:item});
                             }}
-                            key={item.id_replacement_plot}>
+                            key={item.id_growth_research}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}
                             end={{ x: 1, y: 1 }}
                             style={{flexDirection:"row",marginHorizontal:EStyleSheet.value("20rem"),borderRadius:EStyleSheet.value("5rem")}}>
                                 <View style={{paddingHorizontal:EStyleSheet.value("20rem"),justifyContent:"center",alignItems:"center",paddingVertical:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_replacement_plot}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_growth_research}</Text>
                                 </View>
                                 <View style={{flexDirection:"column",flex:1}}>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingTop:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row"}}>
@@ -106,14 +98,26 @@ export default function ListReplacementPlotScreen(props){
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>PENGGANTIAN PLOT YANG HILANG/RUSAK</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>MONITORING PERTUMBUHAN TANAMAN PLOT RISET</Text>
                                     </View>
                                 </View>
+                                <TouchableOpacity 
+                                activeOpacity={0.8}
+                                onPress={()=>{
+                                    var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+                                    var url = scheme + `${item.lat_growth_research},${item.long_growth_research}`;
+                                    Linking.openURL(url);
+                                }}
+                                style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
+                                    <View style={{backgroundColor:"#B4E197",borderRadius:EStyleSheet.value("5rem"),padding:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
+                                    <FontAwesome name="map-marker" size={24} color="#005555" />
+                                    </View>
+                                </TouchableOpacity>
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("KindReplacementPlot",{id_replacement_plot:item.id_replacement_plot,status:item.status});
+                                    props.navigation.navigate("KindGrowthResearch",{id_growth_research:item.id_growth_research,status:item.status});
                                 }}
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
@@ -135,15 +139,15 @@ export default function ListReplacementPlotScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_replacement_plot;
-                                                    let request = await fetch(`${endpoint}/delete-replacement-plot`,{
+                                                    let id = item.id_growth_research;
+                                                    let request = await fetch(`${endpoint}/research/growthResearch/delete`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_replacement_plot:id
+                                                            id:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -181,15 +185,15 @@ export default function ListReplacementPlotScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_replacement_plot;
-                                                    let request = await fetch(`${endpoint}/approve-replacement-plot`,{
+                                                    let id = item.id_growth_research;
+                                                    let request = await fetch(`${endpoint}/research/approve-growth-research`,{
                                                         method:"POST",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_replacement_plot:id
+                                                            id_growth_research:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -217,32 +221,3 @@ export default function ListReplacementPlotScreen(props){
         </View>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

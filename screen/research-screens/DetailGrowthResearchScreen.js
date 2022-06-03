@@ -18,22 +18,11 @@ import RestorationTextInput from '../restoration-components/RestorationTextInput
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
+import RestorationNumberInput from '../restoration-components/RestorationNumberInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function DetailSeedCollectingScreen(props){
-
-    let shadow = {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-    
-        elevation: 5,
-    }
+export default function DetailGrowthResearchScreen(props){
 
     useEffect(()=>{
         console.log(props.route.params.item);
@@ -62,17 +51,6 @@ export default function DetailSeedCollectingScreen(props){
         province:[],
         city:[],
         district:[],
-        site_position:["Pond","Riverine","Coast-line"].map((item,_)=>{return {id:item,value:item}}),
-        history_location:["Former Intensive Pond","Former Oil Palm","Shrubs","Other"].map((item,_)=>{return {id:item,value:item}}),
-        road_access:["Car + Motorbike + Boat","Car + Motorbike","Motorbike","Boat"].map((item,_)=>{return {id:item,value:item}}),
-        land_condition:["Dry","Sometimes it's flooded","Permanently inundated"].map((item,_)=>{return {id:item,value:item}}),
-        shrubs:["Pie-pie/paku laut","Teruntun","Nipah","Biduri","Legundi"].map((item,_)=>{return {id:item,value:item}}),
-        pet_nuisance:["Cow","Goat","Sheep","Buffalo","There is not any"].map((item,_)=>{return {id:item,value:item}}),
-        pest_potential:["Caterpillar","Grasshopper","Other"].map((item,_)=>{return {id:item,value:item}}),
-        tritype_disorder_potential:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        crab_interference_potential:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        potential_for_waves:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        type_of_soil:["Soft mud","Sticky","Sandy","Other"].map((item,_)=>{return {id:item,value:item}}),
     });
 
     let fetchProject = async ()=>{
@@ -123,6 +101,18 @@ export default function DetailSeedCollectingScreen(props){
         fetchProvince();
     },[]);
 
+    let shadow = {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    
+        elevation: 5,
+    }
+
 
     const [schema, setSchema] = useState([
         {
@@ -146,8 +136,8 @@ export default function DetailSeedCollectingScreen(props){
             type:"coordsinput",
             label:"Koordinat",
             value:{
-                latitude:props.route.params.item.lat_collecting_seed || "",
-                longitude:props.route.params.item.long_collecting_seed || "",
+                latitude:props.route.params.item.lat_growth_research || "",
+                longitude:props.route.params.item.long_growth_research || "",
             },
             form:"coordinate",
             required:false
@@ -201,28 +191,46 @@ export default function DetailSeedCollectingScreen(props){
             required:true
         },
         {
-            type:"spacer",
-            label:"Jenis Transportasi",
+            type:"textinput",
+            label:"Kode Site",
+            value:props.route.params.item.site_code || "",
+            form:"site_code",
+            required:false
         },
         {
-            type:"selectinput",
-            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi pembibitan",
-            value:{
-                id:"",
-                value:props.route.params.item.trasportasi_1 || "",
-            },
-            form:"transportation_used_1",
-            required:true
+            type:"textinput",
+            label:"Kode Plot",
+            value:props.route.params.item.plot_code || "",
+            form:"plot_code",
+            required:false
         },
         {
-            type:"selectinput",
-            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi tanam langsung colok",
-            value:{
-                id:"",
-                value:props.route.params.item.trasportasi_2 || "",
-            },
-            form:"transportation_used_2",
-            required:true
+            type:"textinput",
+            label:"Luas (Ha)",
+            value:props.route.params.item.area.toString() || "",
+            form:"area",
+            required:false
+        },
+        {
+            type:"textinput",
+            label:"Spesies",
+            value:props.route.params.item.spesies.toString() || "",
+            form:"spesies",
+            required:false
+        },
+        {
+            type:"textinput",
+            label:"Jumlah",
+            value:props.route.params.item.jumlah.toString() || "",
+            form:"jumlah",
+            required:false
+        },
+        {
+            type:"textinput",
+            label:"Monitoring Ke-",
+            value:props.route.params.item.monitoring_ke.toString() || "",
+            form:"monitoring_ke",
+            required:false
         },
         {
             type:"spacer",
@@ -231,15 +239,15 @@ export default function DetailSeedCollectingScreen(props){
         {
             type:"textinput",
             label:"Informasi penting dari anggota kelompok",
-            value:props.route.params.item.catatan_1 || "",
-            form:"important_information_from_group_members",
+            value:props.route.params.item.catatan_khusus_1 || "",
+            form:"catatan_khusus_1",
             required:false
         },
         {
             type:"textinput",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
-            value:props.route.params.item.catatan_2 || "",
-            form:"other_important_information_from_group_members",
+            value:props.route.params.item.catatan_khusus_2 || "",
+            form:"catatan_khusus_2",
             required:false
         },
     ]);
@@ -402,7 +410,7 @@ export default function DetailSeedCollectingScreen(props){
                     <Entypo name="chevron-left" size={EStyleSheet.value("20rem")} color="black" />
                 </TouchableOpacity>
                 <View style={{position:"absolute",justifyContent:"center",alignItems:"center",width:Dimensions.get("screen").width}}>
-                    <Text style={{fontWeight:"bold",color:"black"}}>DETAIL KT-2</Text>
+                    <Text style={{fontWeight:"bold",color:"black"}}>DETAIL KT-12</Text>
                 </View>
             </View>
             <ScrollView
@@ -420,6 +428,16 @@ export default function DetailSeedCollectingScreen(props){
                             label={item.label}/>
                            )
                        }
+                       else if(item.type==="textNumber"){
+                        return (
+                        <RestorationNumberInput  
+                        getter={schema}
+                        setter={setSchema}
+                        index={index}
+                        disable={true}
+                        label={item.label}/>
+                       )
+                   }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  

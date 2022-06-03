@@ -84,6 +84,13 @@ import InputSilvosheryScreen from './screen/comdev-screens/InputSilvosheryScreen
 import ListSilvosheryScreen from './screen/comdev-screens/ListSilvosheryScreen';
 import DetailSilvosheryScreen from './screen/comdev-screens/DetailSilvosheryScreen';
 
+import ListGrowthResearchScreen from './screen/research-screens/ListGrowthResearchScreen';
+import InputGrowthResearchScreen from './screen/research-screens/InputGrowthResearchScreen';
+import KindGrowthResearchScreen from './screen/research-screens/KindGrowthResearchScreen';
+import DetailGrowthResearchScreen from './screen/research-screens/DetailGrowthResearchScreen';
+import InputDetailGrowthResearchScreen from './screen/research-screens/InputDetailGrowthResearchScreen';
+import AssetsGrowthResearchScreen from './screen/research-screens/AssetsGrowthResearchScreen';
+
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
@@ -566,6 +573,42 @@ function MasterNavigator(){
           headerShown:false,
         }}
         name="DetailSilvoshery" component={DetailSilvosheryScreen} />
+
+
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-12"
+        }}
+        name="ListGrowthResearch" component={ListGrowthResearchScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputGrowthResearch" component={InputGrowthResearchScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailGrowthResearch" component={DetailGrowthResearchScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:false
+          }}
+          name="InputDetailGrowthResearch" component={InputDetailGrowthResearchScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Pertumbuhan"
+        }}
+        name="AssetGrowthResearch" component={AssetsGrowthResearchScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot"
+        }}
+        name="KindGrowthResearch" component={KindGrowthResearchScreen} />
+
       </Stack.Navigator>
   )
 }

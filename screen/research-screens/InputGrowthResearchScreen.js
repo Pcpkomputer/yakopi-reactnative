@@ -18,10 +18,11 @@ import RestorationTextInput from '../restoration-components/RestorationTextInput
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
+import RestorationNumberInput from '../restoration-components/RestorationNumberInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
-export default function DetailSeedCollectingScreen(props){
+export default function InputGrowthResearchScreen(props){
 
     let shadow = {
         shadowColor: "#000",
@@ -34,10 +35,6 @@ export default function DetailSeedCollectingScreen(props){
     
         elevation: 5,
     }
-
-    useEffect(()=>{
-        console.log(props.route.params.item);
-    },[])
 
     const globalContext = useContext(GlobalContext);
 
@@ -62,17 +59,6 @@ export default function DetailSeedCollectingScreen(props){
         province:[],
         city:[],
         district:[],
-        site_position:["Pond","Riverine","Coast-line"].map((item,_)=>{return {id:item,value:item}}),
-        history_location:["Former Intensive Pond","Former Oil Palm","Shrubs","Other"].map((item,_)=>{return {id:item,value:item}}),
-        road_access:["Car + Motorbike + Boat","Car + Motorbike","Motorbike","Boat"].map((item,_)=>{return {id:item,value:item}}),
-        land_condition:["Dry","Sometimes it's flooded","Permanently inundated"].map((item,_)=>{return {id:item,value:item}}),
-        shrubs:["Pie-pie/paku laut","Teruntun","Nipah","Biduri","Legundi"].map((item,_)=>{return {id:item,value:item}}),
-        pet_nuisance:["Cow","Goat","Sheep","Buffalo","There is not any"].map((item,_)=>{return {id:item,value:item}}),
-        pest_potential:["Caterpillar","Grasshopper","Other"].map((item,_)=>{return {id:item,value:item}}),
-        tritype_disorder_potential:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        crab_interference_potential:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        potential_for_waves:["Small","Medium","Big"].map((item,_)=>{return {id:item,value:item}}),
-        type_of_soil:["Soft mud","Sticky","Sandy","Other"].map((item,_)=>{return {id:item,value:item}}),
     });
 
     let fetchProject = async ()=>{
@@ -119,8 +105,10 @@ export default function DetailSeedCollectingScreen(props){
     }
 
     useEffect(()=>{
-        fetchProject();
-        fetchProvince();
+        setSmokeScreenOpened(true);
+        Promise.all([fetchProject(),fetchProvince()]).then(()=>{
+            setSmokeScreenOpened(false);
+        })
     },[]);
 
 
@@ -129,8 +117,8 @@ export default function DetailSeedCollectingScreen(props){
             type:"selectinput",
             label:"Project",
             value:{
-                id:props.route.params.item.id_project || -1,
-                value:props.route.params.item.nama_project || "",
+                id:"",
+                value:""
             },
             form:"project",
             required:true
@@ -138,7 +126,7 @@ export default function DetailSeedCollectingScreen(props){
         {
             type:"textinput",
             label:"Dilaporkan Oleh",
-            value:props.route.params.item.dilaporkan_oleh || "",
+            value:"",
             form:"dilaporkan_oleh",
             required:true
         },
@@ -146,32 +134,32 @@ export default function DetailSeedCollectingScreen(props){
             type:"coordsinput",
             label:"Koordinat",
             value:{
-                latitude:props.route.params.item.lat_collecting_seed || "",
-                longitude:props.route.params.item.long_collecting_seed || "",
+                latitude:"",
+                longitude:""
             },
             form:"coordinate",
             required:false
         },
         {
             type:"spacer",
-            label:"Lokasi",
+            label:"Location",
         },
         {
             type:"selectinput",
             label:"Provinsi",
             value:{
-                id:props.route.params.item.id_province || -1,
-                value:props.route.params.item.prov_name || "",
+                id:"",
+                value:""
             },
             form:"province",
             required:true
         },
         {
             type:"selectinput",
-            label:"Kota/Kabupaten",
+            label:"Kota / Kabupaten",
             value:{
-                id:props.route.params.item.id_cities || -1,
-                value:props.route.params.item.city_name || "",
+                id:"",
+                value:""
             },
             form:"city",
             required:true
@@ -180,8 +168,8 @@ export default function DetailSeedCollectingScreen(props){
             type:"selectinput",
             label:"Kecamatan",
             value:{
-                id:props.route.params.item.id_districts || -1,
-                value:props.route.params.item.dis_name || "",
+                id:"",
+                value:""
             },
             form:"district",
             required:true
@@ -189,40 +177,58 @@ export default function DetailSeedCollectingScreen(props){
         {
             type:"textinput",
             label:"Desa",
-            value:props.route.params.item.nama_desa || "",
+            value:"",
             form:"village",
             required:true
         },
         {
             type:"textinput",
             label:"Dusun",
-            value:props.route.params.item.nama_dusun || "",
+            value:"",
             form:"backwood",
             required:true
         },
         {
-            type:"spacer",
-            label:"Jenis Transportasi",
+            type:"textinput",
+            label:"Kode Site",
+            value:"",
+            form:"site_code",
+            required:false
         },
         {
-            type:"selectinput",
-            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi pembibitan",
-            value:{
-                id:"",
-                value:props.route.params.item.trasportasi_1 || "",
-            },
-            form:"transportation_used_1",
-            required:true
+            type:"textinput",
+            label:"Kode Plot",
+            value:"",
+            form:"plot_code",
+            required:false
         },
         {
-            type:"selectinput",
-            label:"Transportasi yang digunakan untuk mengangkut bibit ke lokasi tanam langsung colok",
-            value:{
-                id:"",
-                value:props.route.params.item.trasportasi_2 || "",
-            },
-            form:"transportation_used_2",
-            required:true
+            type:"textNumber",
+            label:"Luas (Ha)",
+            value:"",
+            form:"area",
+            required:false
+        },
+        {
+            type:"textNumber",
+            label:"Spesies",
+            value:"",
+            form:"spesies",
+            required:false
+        },
+        {
+            type:"textNumber",
+            label:"Jumlah",
+            value:"",
+            form:"jumlah",
+            required:false
+        },
+        {
+            type:"textNumber",
+            label:"Monitoring Ke-",
+            value:"",
+            form:"monitoring_ke",
+            required:false
         },
         {
             type:"spacer",
@@ -231,15 +237,15 @@ export default function DetailSeedCollectingScreen(props){
         {
             type:"textinput",
             label:"Informasi penting dari anggota kelompok",
-            value:props.route.params.item.catatan_1 || "",
-            form:"important_information_from_group_members",
+            value:"",
+            form:"catatan_1",
             required:false
         },
         {
             type:"textinput",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
-            value:props.route.params.item.catatan_2 || "",
-            form:"other_important_information_from_group_members",
+            value:"",
+            form:"catatan_2",
             required:false
         },
     ]);
@@ -391,7 +397,7 @@ export default function DetailSeedCollectingScreen(props){
         }
 
 
-            <View style={{height:StatusBarHeight}}></View>
+<View style={{height:StatusBarHeight}}></View>
             <View style={{...shadow,backgroundColor:"white",flexDirection:"row",paddingHorizontal:EStyleSheet.value("20rem"),alignItems:"center",height:EStyleSheet.value("55rem")}}>
                  <TouchableOpacity
                 activeOpacity={0.8}
@@ -402,7 +408,7 @@ export default function DetailSeedCollectingScreen(props){
                     <Entypo name="chevron-left" size={EStyleSheet.value("20rem")} color="black" />
                 </TouchableOpacity>
                 <View style={{position:"absolute",justifyContent:"center",alignItems:"center",width:Dimensions.get("screen").width}}>
-                    <Text style={{fontWeight:"bold",color:"black"}}>DETAIL KT-2</Text>
+                    <Text style={{fontWeight:"bold",color:"black"}}>TAMBAH KT-12</Text>
                 </View>
             </View>
             <ScrollView
@@ -416,30 +422,37 @@ export default function DetailSeedCollectingScreen(props){
                             getter={schema}
                             setter={setSchema}
                             index={index}
-                            disable={true}
                             label={item.label}/>
                            )
                        }
+                       else if(item.type==="textNumber"){
+                            return (
+                            <RestorationNumberInput  
+                            getter={schema}
+                            setter={setSchema}
+                            index={index}
+                            label={item.label}/>
+                        )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  
                             getter={schema}
                             setter={setSchema}
                             index={index}
-                            disable={true}
                             item={data[item.label]}
                             onSelectPress={()=>{
                                 setShowSelectInput(true);
                                 setListSelectInput(data[item.form]);
                                 setLabelSelectInput(item.label);
                                 setIndexSelectInput(index);
-                                if(item.label==="Province"){
+                                if(item.label==="Provinsi"){
                                     setLocationMode("province");
                                 }
-                                else if(item.label==="City"){
+                                else if(item.label==="Kota / Kabupaten"){
                                     setLocationMode("city");
                                 }
-                                else if(item.label==="District"){
+                                else if(item.label==="Kecamatan"){
                                     setLocationMode("district");
                                 }
                                 else {
@@ -455,7 +468,6 @@ export default function DetailSeedCollectingScreen(props){
                         getter={schema}
                         setter={setSchema}
                         index={index}
-                        disable={true}
                         onSelectPress={()=>{
                             setShowSelectDateInput(true);
                             setIndexSelectDateInput(index);
@@ -467,10 +479,25 @@ export default function DetailSeedCollectingScreen(props){
                         return (
                         <RestorationCoordsInput  
                         getter={schema}
-                        disable={true}
                         setter={setSchema}
                         keyboardType="numeric"
                         index={index}
+                        onGetLocation={(location)=>{
+                            setSchema((prev)=>{
+                                return prev.map((item,i)=>{
+                                    if(index===i){
+                                        return {
+                                            ...item,
+                                            value:{
+                                                latitude:location.coords.latitude.toString(),
+                                                longitude:location.coords.longitude.toString()
+                                            }
+                                        }
+                                    }
+                                    return item;
+                                })
+                            })
+                        }}
                         label={item.label}/>
                        )
                     }
@@ -484,10 +511,9 @@ export default function DetailSeedCollectingScreen(props){
                        
                    })
                }
-               <View style={{height:EStyleSheet.value("30rem")}}></View>
-               {/* <TouchableOpacity 
+               <TouchableOpacity 
                activeOpacity={0.8}
-               onPress={()=>{
+               onPress={async ()=>{
                    let required = schema.filter((item)=>item.required);
                    let check = required.every((item)=>{
                         if(item.type==="selectinput"){
@@ -500,6 +526,7 @@ export default function DetailSeedCollectingScreen(props){
                    
                    });
                    if(check){   
+                        setSmokeScreenOpened(true);
                         let filtered = schema.filter((item)=>item.type!=="spacer");
                         let payload = {};
                         filtered.forEach((item,index)=>{
@@ -512,6 +539,19 @@ export default function DetailSeedCollectingScreen(props){
                            
                         });
                         console.log(payload);
+                        let request = await fetch(`${endpoint}/research/growthResearch/add`,{
+                            method:"POST",
+                            headers:{
+                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                "content-type":"application/json"
+                            },
+                            body:JSON.stringify(payload)
+                        });
+                        let response = await request.json();
+                        if(response.success){
+                            setSmokeScreenOpened(false);
+                            props.navigation.goBack();
+                        }
                    }
                    else{
                        alert("Isikan semua data yang diperlukan");
@@ -519,7 +559,7 @@ export default function DetailSeedCollectingScreen(props){
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>
-               </TouchableOpacity> */}
+               </TouchableOpacity>
             </ScrollView>
         </View>
     )
