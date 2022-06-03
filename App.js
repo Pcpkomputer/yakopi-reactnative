@@ -588,6 +588,10 @@ export default function App() {
             let parsed = JSON.parse(credentials);
             setCredentials(parsed);
           }
+          await Font.loadAsync({
+            Poppins: require('./fonts/Poppins-Regular.ttf'),
+            PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
+          });
           await fetchNeedUpdate();
           setAppLoaded(true);
       }
@@ -600,6 +604,10 @@ export default function App() {
       let parsed = JSON.parse(credentials);
       setCredentials(parsed);
     }
+    await Font.loadAsync({
+      Poppins: require('./fonts/Poppins-Regular.ttf'),
+      PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
+    });
     await fetchNeedUpdate();
     setAppLoaded(true);
 
