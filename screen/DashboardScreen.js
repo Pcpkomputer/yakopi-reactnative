@@ -47,7 +47,9 @@ export default function DashboardScreen(props) {
 
   const globalContext = useContext(GlobalContext);
 
-  console.log(globalContext);
+  const [thumbnailRestoration, setThumbnailRestoration] = useState([]);
+  const [thumbnailComdev, setThumbnailComdev] = useState([]);
+  const [thumbnailResearch, setThumbnailResearch] = useState([]);
 
   const [presensi,setPresensi] = useState({
       jam_masuk_absen:null,
@@ -57,6 +59,50 @@ export default function DashboardScreen(props) {
   const [presensiLoading, setPresensiLoading] = useState(true);
   const [smokeScreenOpened, setSmokeScreenOpened] = useState(true);
 
+
+  const fetchThumbnail = async()=>{
+
+    let photoRestoration = async()=>{
+        let request = await fetch(`${endpoint}/photo_restoration`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+    let photoComdev = async()=>{
+        let request = await fetch(`${endpoint}/photo_comdev`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let photoResearch = async()=>{
+        let request = await fetch(`${endpoint}/photo_research`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let [thumbnailRestoration, thumbnailComdev, thumbnailResearch] = await Promise.all([
+        photoRestoration(),
+        photoComdev(),
+        photoResearch()
+      ]);
+    setThumbnailRestoration(thumbnailRestoration);
+    setThumbnailComdev(thumbnailComdev);
+    setThumbnailResearch(thumbnailResearch);
+  }
   const fetchPresensi = async()=>{
       setPresensiLoading(true);
       let request = await fetch(`${endpoint}/cek-presensi`,{
@@ -72,6 +118,7 @@ export default function DashboardScreen(props) {
 
   useEffect(()=>{
     fetchPresensi();
+    fetchThumbnail();
   },[]);
 
   return (
@@ -296,7 +343,7 @@ export default function DashboardScreen(props) {
                             <Text numberOfLines={2} style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Restoration</Text>
                         </View>
 
-                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:"https://media.istockphoto.com/photos/mangroove-tree-detail-view-picture-id830059752?k=20&m=830059752&s=170667a&w=0&h=B2XDDDbhsJTxP7OcpFspMnQbhZ6xXAJ_MKDUHjPR2jM="}}/>
+                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailRestoration[0]?.photo_restoration || null}}/>
                     
                         <LinearGradient
                         style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
@@ -315,7 +362,7 @@ export default function DashboardScreen(props) {
                             <Text style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Community Development</Text>
                         </View>
 
-                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:"https://islandsafarimergui.com/wp-content/uploads/2012/06/Mangroove-Trees-in-Lampi-Island-1.jpg"}}/>
+                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailRestoration[0]?.photo_comdev || null}}/>
                     
                         <LinearGradient
                         style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
@@ -335,7 +382,7 @@ export default function DashboardScreen(props) {
                         <Text style={{color:"white",fontSize:EStyleSheet.value("40rem")}}>Research</Text>
                     </View>
 
-                    <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:"https://lingkarjateng.com/wp-content/uploads/2020/03/Mangroove.jpg"}}/>
+                    <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailRestoration[0]?.photo_research || null}}/>
                 
                     <LinearGradient
                     style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
