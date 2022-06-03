@@ -43,11 +43,11 @@ export default function ResearchScreen(props){
                                 // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListDiversityFauna");
                              }else if (item==="Diversity Flora"){
-                                alert("Fitur Ini Belum Tersedia");
-                                // props.navigation.navigate("ListDiversityFlora");
+                                // alert("Fitur Ini Belum Tersedia");
+                                props.navigation.navigate("ListDiversityFlora");
                              }else if (item==="Pest"){
-                                alert("Fitur Ini Belum Tersedia");
-                                // props.navigation.navigate("ListPest");
+                                // alert("Fitur Ini Belum Tersedia");
+                                props.navigation.navigate("ListHama");
                              }else if (item==="Fiskim"){
                                 alert("Fitur Ini Belum Tersedia");
                                 // props.navigation.navigate("ListFiskim");

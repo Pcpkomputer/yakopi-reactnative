@@ -98,6 +98,20 @@ import DetailDiversityFaunaScreen from './screen/research-screens/DetailDiversit
 import InputDetailDiversityFaunaScreen from './screen/research-screens/InputDetailDiversityFaunaScreen';
 import AssetsDiversityFaunaScreen from './screen/research-screens/AssetsDiversityFaunaScreen';
 
+import ListDiversityFloraScreen from './screen/research-screens/ListDiversityFloraScreen';
+import InputDiversityFloraScreen from './screen/research-screens/InputDiversityFloraScreen';
+import KindDiversityFloraScreen from './screen/research-screens/KindDiversityFloraScreen';
+import DetailDiversityFloraScreen from './screen/research-screens/DetailDiversityFloraScreen';
+import InputDetailDiversityFloraScreen from './screen/research-screens/InputDetailDiversityFloraScreen';
+import AssetsDiversityFloraScreen from './screen/research-screens/AssetsDiversityFloraScreen';
+
+import ListHamaScreen from './screen/research-screens/ListHamaScreen';
+import InputHamaScreen from './screen/research-screens/InputHamaScreen';
+import KindHamaScreen from './screen/research-screens/KindHamaScreen';
+import DetailHamaScreen from './screen/research-screens/DetailHamaScreen';
+import InputDetailHamaScreen from './screen/research-screens/InputDetailHamaScreen';
+import AssetsHamaScreen from './screen/research-screens/AssetsHamaScreen';
+
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
@@ -649,6 +663,74 @@ function MasterNavigator(){
           headerTitle:"Data Plot"
         }}
         name="KindDiversityFauna" component={KindDiversityFaunaScreen} />
+
+<Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-14"
+        }}
+        name="ListDiversityFlora" component={ListDiversityFloraScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputDiversityFlora" component={InputDiversityFloraScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailDiversityFlora" component={DetailDiversityFloraScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:false
+          }}
+          name="InputDetailDiversityFlora" component={InputDetailDiversityFloraScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Keanekaragaman Flora"
+        }}
+        name="AssetDiversityFlora" component={AssetsDiversityFloraScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot"
+        }}
+        name="KindDiversityFlora" component={KindDiversityFloraScreen} />
+
+<Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-15"
+        }}
+        name="ListHama" component={ListHamaScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputHama" component={InputHamaScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailHama" component={DetailHamaScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:false
+          }}
+          name="InputDetailHama" component={InputDetailHamaScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Keanekaragaman Flora"
+        }}
+        name="AssetHama" component={AssetsHamaScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot Hama"
+        }}
+        name="KindHama" component={KindHamaScreen} />
 
       </Stack.Navigator>
   )

@@ -17,7 +17,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 
-export default function ListDiversityFaunaScreen(props){
+export default function ListHamaScreen(props){
 
     const focused = useIsFocused();
 
@@ -28,7 +28,7 @@ export default function ListDiversityFaunaScreen(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let request = await fetch(`${endpoint}/research/diversityFauna`,{
+        let request = await fetch(`${endpoint}/research/hama`,{
             method:"GET",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`
@@ -56,7 +56,7 @@ export default function ListDiversityFaunaScreen(props){
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
-                props.navigation.navigate("InputDiversityFauna");
+                props.navigation.navigate("InputHama");
             }}
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
@@ -76,16 +76,16 @@ export default function ListDiversityFaunaScreen(props){
                             style={{marginBottom:EStyleSheet.value("20rem")}}
                             activeOpacity={0.7}
                             onPress={()=>{
-                                props.navigation.navigate("DetailDiversityFauna",{item:item});
+                                props.navigation.navigate("DetailHama",{item:item});
                             }}
-                            key={item.id_diversity_fauna}>
+                            key={item.id_hama}>
                             <LinearGradient
                             colors={['#1e915a', '#5daa5f']}
                             start={{ x: 0, y: 1 }}
                             end={{ x: 1, y: 1 }}
                             style={{flexDirection:"row",marginHorizontal:EStyleSheet.value("20rem"),borderRadius:EStyleSheet.value("5rem")}}>
                                 <View style={{paddingHorizontal:EStyleSheet.value("20rem"),justifyContent:"center",alignItems:"center",paddingVertical:EStyleSheet.value("20rem")}}>
-                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_diversity_fauna}</Text>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("20rem"),fontWeight:"bold"}}>{item.id_hama}</Text>
                                 </View>
                                 <View style={{flexDirection:"column",flex:1}}>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingTop:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row"}}>
@@ -98,7 +98,7 @@ export default function ListDiversityFaunaScreen(props){
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>MONITORING KEANEKARAGAMAN FAUNA</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>MONITORING HAMA TANAMAN</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity 
@@ -117,7 +117,7 @@ export default function ListDiversityFaunaScreen(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("KindDiversityFauna",{id_diversity_fauna:item.id_diversity_fauna,status:item.status});
+                                    props.navigation.navigate("KindHama",{id_hama:item.id_hama,status:item.status});
                                 }}
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
@@ -139,15 +139,15 @@ export default function ListDiversityFaunaScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_diversity_fauna;
-                                                    let request = await fetch(`${endpoint}/research/diversityFauna/delete`,{
+                                                    let id = item.id_hama;
+                                                    let request = await fetch(`${endpoint}/research/hama/delete`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_diversity_fauna:id
+                                                            id_hama:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -185,15 +185,15 @@ export default function ListDiversityFaunaScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_diversity_fauna;
-                                                    let request = await fetch(`${endpoint}/research/approve-diversityFauna`,{
+                                                    let id = item.id_hama;
+                                                    let request = await fetch(`${endpoint}/research/approve-hama`,{
                                                         method:"POST",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_diversity_fauna:id
+                                                            id_hama:id
                                                         })
                                                     });
                                                     let response = await request.json();
