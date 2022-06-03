@@ -91,6 +91,13 @@ import DetailGrowthResearchScreen from './screen/research-screens/DetailGrowthRe
 import InputDetailGrowthResearchScreen from './screen/research-screens/InputDetailGrowthResearchScreen';
 import AssetsGrowthResearchScreen from './screen/research-screens/AssetsGrowthResearchScreen';
 
+import ListDiversityFaunaScreen from './screen/research-screens/ListDiversityFaunaScreen';
+import InputDiversityFaunaScreen from './screen/research-screens/InputDiversityFaunaScreen';
+import KindDiversityFaunaScreen from './screen/research-screens/KindDiversityFaunaScreen';
+import DetailDiversityFaunaScreen from './screen/research-screens/DetailDiversityFaunaScreen';
+import InputDetailDiversityFaunaScreen from './screen/research-screens/InputDetailDiversityFaunaScreen';
+import AssetsDiversityFaunaScreen from './screen/research-screens/AssetsDiversityFaunaScreen';
+
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
@@ -608,6 +615,40 @@ function MasterNavigator(){
           headerTitle:"Data Plot"
         }}
         name="KindGrowthResearch" component={KindGrowthResearchScreen} />
+
+<Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"KT-13"
+        }}
+        name="ListDiversityFauna" component={ListDiversityFaunaScreen} />
+        <Stack.Screen 
+        options={{
+          headerShown:false
+        }}
+        name="InputDiversityFauna" component={InputDiversityFaunaScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:false
+        }}
+        name="DetailDiversityFauna" component={DetailDiversityFaunaScreen} />
+        <Stack.Screen
+          options={{
+            headerShown:false
+          }}
+          name="InputDetailDiversityFauna" component={InputDetailDiversityFaunaScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Asset Keanekaragaman Fauna"
+        }}
+        name="AssetDiversityFauna" component={AssetsDiversityFaunaScreen} />
+        <Stack.Screen 
+         options={{
+          headerShown:true,
+          headerTitle:"Data Plot"
+        }}
+        name="KindDiversityFauna" component={KindDiversityFaunaScreen} />
 
       </Stack.Navigator>
   )

@@ -40,8 +40,8 @@ export default function ResearchScreen(props){
                                 // alert("Fitur Ini Belum Tersedia");
                                 props.navigation.navigate("ListGrowthResearch");
                              }else if (item==="Diversity Fauna"){
-                                alert("Fitur Ini Belum Tersedia");
-                                // props.navigation.navigate("ListDiversityFauna");
+                                // alert("Fitur Ini Belum Tersedia");
+                                props.navigation.navigate("ListDiversityFauna");
                              }else if (item==="Diversity Flora"){
                                 alert("Fitur Ini Belum Tersedia");
                                 // props.navigation.navigate("ListDiversityFlora");
