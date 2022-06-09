@@ -362,7 +362,7 @@ export default function DashboardScreen(props) {
                             <Text style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Community Development</Text>
                         </View>
 
-                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailRestoration[0]?.photo_comdev || null}}/>
+                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailComdev[0]?.photo_comdev || null}}/>
                     
                         <LinearGradient
                         style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
@@ -382,7 +382,7 @@ export default function DashboardScreen(props) {
                         <Text style={{color:"white",fontSize:EStyleSheet.value("40rem")}}>Research</Text>
                     </View>
 
-                    <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailRestoration[0]?.photo_research || null}}/>
+                    <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailResearch[0]?.photo_research || null}}/>
                 
                     <LinearGradient
                     style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}

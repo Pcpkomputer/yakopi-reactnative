@@ -572,12 +572,13 @@ function MasterNavigator(){
         name="Research" component={ResearchScreen} />
         <Stack.Screen
         options={{
-          headerShown:true,
+          headerShown:false,
         }}
         name="InputCommunityRegister" component={InputCommunityRegisterScreen} />
         <Stack.Screen
         options={{
           headerShown:true,
+          headerTitle:"Community Register"
         }}
         name="ListCommunityRegister" component={ListCommunityRegisterScreen} />
         <Stack.Screen
@@ -587,12 +588,13 @@ function MasterNavigator(){
         name="DetailCommunityRegister" component={DetailCommunityRegisterScreen} />
         <Stack.Screen
         options={{
-          headerShown:true,
+          headerShown:false,
         }}
         name="InputSilvoshery" component={InputSilvosheryScreen} />
         <Stack.Screen
         options={{
           headerShown:true,
+          headerTitle:"Silvoshery"
         }}
         name="ListSilvoshery" component={ListSilvosheryScreen} />
         <Stack.Screen
@@ -832,7 +834,7 @@ export default function App() {
     let response = await request.json();
 
     if(response.buildnumber.toString()!==Application.nativeBuildVersion.toString()){
-      setIsNeedUpdate(true);
+      setIsNeedUpdate(false);
       setChangelog(response.changelog_mobile);
     }
 
