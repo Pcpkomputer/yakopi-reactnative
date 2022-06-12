@@ -363,20 +363,6 @@ export default function InputReplacementPlotScreen(props){
         }
 
 
-<View style={{height:StatusBarHeight}}></View>
-            <View style={{...shadow,backgroundColor:"white",flexDirection:"row",paddingHorizontal:EStyleSheet.value("20rem"),alignItems:"center",height:EStyleSheet.value("55rem")}}>
-                 <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={()=>{
-                    props.navigation.goBack();
-                }}
-                >
-                    <Entypo name="chevron-left" size={EStyleSheet.value("20rem")} color="black" />
-                </TouchableOpacity>
-                <View style={{position:"absolute",justifyContent:"center",alignItems:"center",width:Dimensions.get("screen").width}}>
-                    <Text style={{fontWeight:"bold",color:"black"}}>TAMBAH KT-10</Text>
-                </View>
-            </View>
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
             >

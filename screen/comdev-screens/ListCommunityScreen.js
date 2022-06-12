@@ -104,7 +104,7 @@ export default function ListCommunityScreen(props){
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 {
-                                    (item.status===0) &&
+                                    (item.status===0 && item.created_by===globalContext.credentials.data.id_pengguna) &&
                                     <TouchableOpacity 
                                     onPress={async ()=>{
 

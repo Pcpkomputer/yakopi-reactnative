@@ -235,18 +235,20 @@ function MasterNavigator(){
 
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH CUTI"
         }}
         name="InputCuti" component={InputCutiScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"List Cuti"
+          headerTitle:"LIST CUTI"
         }}
         name="ListCuti" component={ListCutiScreen} />
           <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL CUTI"
         }}
         name="DetailCuti" component={DetailCutiScreen} />
 
@@ -257,7 +259,8 @@ function MasterNavigator(){
         name="Restoration" component={RestorationScreen} />
            <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-1"
         }}
         name="InputLandAssessment" component={InputLandAssessmentScreen} />
            <Stack.Screen 
@@ -268,20 +271,22 @@ function MasterNavigator(){
         name="ListLandAssessment" component={ListLandAssessmentScreen} />
           <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-1"
         }}
         name="DetailLandAssessment" component={DetailLandAssessmentScreen} />
            <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Land Assessment"
+          headerTitle:"ASSET LAND ASSESSMENT"
         }}
         name="AssetLandAssessment" component={AssetsLandAssessmentScreen} />
 
 
       <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-2"
         }}
         name="InputSeedCollecting" component={InputSeedCollectingScreen} />
         <Stack.Screen 
@@ -292,25 +297,26 @@ function MasterNavigator(){
         name="ListSeedCollecting" component={ListSeedCollectingScreen} />
           <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-2"
         }}
         name="DetailSeedCollecting" component={DetailSeedCollectingScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Tambah Jenis & Jumlah Bibit"
+          headerTitle:"TAMBAH JENIS & JUMLAH BIBIT"
         }}
         name="InputDetailSeedCollecting" component={InputDetailSeedCollectingScreen} />
            <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Seed Collecting"
+          headerTitle:"ASSET SEED COLLECTING"
         }}
         name="AssetSeedCollecting" component={AssetsSeedCollectingScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Jenis dan Jumlah Bibit"
+          headerTitle:"JENIS DAN JUMLAH BIBIT"
         }}
         name="KindSeedCollecting" component={KindSeedCollectingScreen} />
 
@@ -324,30 +330,32 @@ function MasterNavigator(){
         name="ListNurseryActivity" component={ListNurseryActivityScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-3"
         }}
         name="InputNurseryActivity" component={InputNurseryActivityScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-3"
         }}
         name="DetailNurseryActivity" component={DetailNurseryActivityScreen} />
         <Stack.Screen
           options={{
             headerShown:true,
-            headerTitle:"Tambah Jenis & Jumlah Bibit"
+            headerTitle:"TAMBAH JENIS & JUMLAH BIBIT"
           }}
           name="InputDetailNurseryActivity" component={InputDetailNurseryActivityScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Nursery Activity"
+          headerTitle:"ASSET NURSERY ACTIVITY"
         }}
         name="AssetNurseryActivity" component={AssetsNurseryActivityScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Jenis dan Jumlah Bibit"
+          headerTitle:"JENIS & JUMLAH BIBIT"
         }}
         name="KindNurseryActivity" component={KindNurseryActivityScreen} />
 
@@ -360,30 +368,32 @@ function MasterNavigator(){
         name="ListPlantingAction" component={ListPlantingActionScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"INPUT KT-4"
         }}
         name="InputPlantingAction" component={InputPlantingActionScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-4"
         }}
         name="DetailPlantingAction" component={DetailPlantingActionScreen} />
         <Stack.Screen
           options={{
             headerShown:true,
-            headerTitle:"Tambah Jenis & Jumlah Bibit"
+            headerTitle:"TAMBAH JENIS & JUMLAH BIBIT"
           }}
           name="InputDetailPlantingAction" component={InputDetailPlantingActionScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Planting Action"
+          headerTitle:"ASSET PLANTING ACTION"
         }}
         name="AssetPlantingAction" component={AssetsPlantingActionScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Jenis dan Jumlah Bibit"
+          headerTitle:"JENIS & JUMLAH BIBIT"
         }}
         name="KindPlantingAction" component={KindPlantingActionScreen} />
 
@@ -395,30 +405,32 @@ function MasterNavigator(){
         name="ListTransport" component={ListTransportScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-5"
         }}
         name="InputTransport" component={InputTransportScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-5"
         }}
         name="DetailTransport" component={DetailTransportScreen} />
         <Stack.Screen
           options={{
             headerShown:true,
-            headerTitle:"Tambah Lokasi Tujuan"
+            headerTitle:"TAMBAH LOKASI TUJUAN"
           }}
           name="InputDetailTransport" component={InputDetailTransportScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Transport"
+          headerTitle:"ASSET TRANSPORT"
         }}
         name="AssetsTransport" component={AssetsTransportScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Lokasi Tujuan"
+          headerTitle:"LOKASI TUJUAN"
         }}
         name="KindTransport" component={KindTransportScreen} />
 
@@ -430,24 +442,26 @@ function MasterNavigator(){
         name="ListGrowth" component={ListGrowthScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-7"
         }}
         name="InputGrowth" component={InputGrowthScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-7"
         }}
         name="DetailGrowth" component={DetailGrowthScreen} />
         <Stack.Screen
           options={{
             headerShown:true,
-            headerTitle:"Tambah Data Plot"
+            headerTitle:"TAMBAH DATA PLOT"
           }}
           name="InputDetailGrowth" component={InputDetailGrowthScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot"
+          headerTitle:"DATA PLOT"
         }}
         name="KindGrowth" component={KindGrowthScreen} />
 
@@ -459,30 +473,32 @@ function MasterNavigator(){
         name="ListReplanting" component={ListReplantingScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-8"
         }}
         name="InputReplanting" component={InputReplantingScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-8"
         }}
         name="DetailReplanting" component={DetailReplantingScreen} />
         <Stack.Screen
           options={{
             headerShown:true,
-            headerTitle:"Tambah Plot"
+            headerTitle:"TAMBAH PLOT"
           }}
           name="InputDetailReplanting" component={InputDetailReplantingScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Replanting"
+          headerTitle:"ASSET REPLANTING"
         }}
         name="AssetReplanting" component={AssetsReplantingScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot"
+          headerTitle:"DATA PLOT"
         }}
         name="KindReplanting" component={KindReplantingScreen} />
 
@@ -494,30 +510,32 @@ function MasterNavigator(){
         name="ListSubtitutePlot" component={ListSubtitutePlotScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-9"
         }}
         name="InputSubtitutePlot" component={InputSubtitutePlotScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-9"
         }}
         name="DetailSubtitutePlot" component={DetailSubtitutePlotScreen} />
         <Stack.Screen
           options={{
             headerShown:true,
-            headerTitle:"Tambah Plot"
+            headerTitle:"TAMBAH PLOT"
           }}
           name="InputDetailSubtitutePlot" component={InputDetailSubtitutePlotScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Subtitute Plot"
+          headerTitle:"ASSET SUBTITUTE PLOT"
         }}
         name="AssetSubtitutePlot" component={AssetsSubtitutePlotScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot"
+          headerTitle:"DATA PLOT"
         }}
         name="KindSubtitutePlot" component={KindSubtitutePlotScreen} />
 
@@ -530,30 +548,32 @@ function MasterNavigator(){
         name="ListReplacementPlot" component={ListReplacementPlotScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-10"
         }}
         name="InputReplacementPlot" component={InputReplacementPlotScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-10"
         }}
         name="DetailReplacementPlot" component={DetailReplacementPlotScreen} />
         <Stack.Screen
           options={{
             headerShown:true,
-            headerTitle:"Tambah Plot"
+            headerTitle:"TAMBAH PLOT"
           }}
           name="InputDetailReplacementPlot" component={InputDetailReplacementPlotScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Replacement Plot"
+          headerTitle:"ASSET REPLACEMENT PLOT"
         }}
         name="AssetReplacementPlot" component={AssetsReplacementPlotScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot"
+          headerTitle:"DATA PLOT"
         }}
         name="KindReplacementPlot" component={KindReplacementPlotScreen} />
 
@@ -572,34 +592,38 @@ function MasterNavigator(){
         name="Research" component={ResearchScreen} />
         <Stack.Screen
         options={{
-          headerShown:false,
+          headerShown:true,
+          headerTitle:"TAMBAH COMMUNITY"
         }}
         name="InputCommunityRegister" component={InputCommunityRegisterScreen} />
         <Stack.Screen
         options={{
           headerShown:true,
-          headerTitle:"Community Register"
+          headerTitle:"COMMUNITY REGISTER"
         }}
         name="ListCommunityRegister" component={ListCommunityRegisterScreen} />
         <Stack.Screen
         options={{
-          headerShown:false,
+          headerShown:true,
+          headerTitle:"DETAIL COMMUNITY"
         }}
         name="DetailCommunityRegister" component={DetailCommunityRegisterScreen} />
         <Stack.Screen
         options={{
-          headerShown:false,
+          headerShown:true,
+          headerTitle:"TAMBAH SILVOSHERY"
         }}
         name="InputSilvoshery" component={InputSilvosheryScreen} />
         <Stack.Screen
         options={{
           headerShown:true,
-          headerTitle:"Silvoshery"
+          headerTitle:"SILVOSHERT"
         }}
         name="ListSilvoshery" component={ListSilvosheryScreen} />
         <Stack.Screen
         options={{
-          headerShown:false,
+          headerShown:true,
+          headerTitle:"DETAIL SILVOSHERT"
         }}
         name="DetailSilvoshery" component={DetailSilvosheryScreen} />
 
@@ -612,29 +636,32 @@ function MasterNavigator(){
         name="ListGrowthResearch" component={ListGrowthResearchScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-12"
         }}
         name="InputGrowthResearch" component={InputGrowthResearchScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-12"
         }}
         name="DetailGrowthResearch" component={DetailGrowthResearchScreen} />
         <Stack.Screen
           options={{
-            headerShown:false
+            headerShown:true,
+            headerTitle:"TAMBAH DATA PLOT KT-12"
           }}
           name="InputDetailGrowthResearch" component={InputDetailGrowthResearchScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Pertumbuhan"
+          headerTitle:"ASSET GROWTH RESEARCH"
         }}
         name="AssetGrowthResearch" component={AssetsGrowthResearchScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot"
+          headerTitle:"DATA PLOT"
         }}
         name="KindGrowthResearch" component={KindGrowthResearchScreen} />
 
@@ -646,29 +673,32 @@ function MasterNavigator(){
         name="ListDiversityFauna" component={ListDiversityFaunaScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-13"
         }}
         name="InputDiversityFauna" component={InputDiversityFaunaScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-13"
         }}
         name="DetailDiversityFauna" component={DetailDiversityFaunaScreen} />
         <Stack.Screen
           options={{
-            headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH DATA PLOT KT-13"
           }}
           name="InputDetailDiversityFauna" component={InputDetailDiversityFaunaScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Keanekaragaman Fauna"
+          headerTitle:"ASSET DIVERSITY FAUNA"
         }}
         name="AssetDiversityFauna" component={AssetsDiversityFaunaScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot"
+          headerTitle:"DATA PLOT"
         }}
         name="KindDiversityFauna" component={KindDiversityFaunaScreen} />
 
@@ -680,29 +710,32 @@ function MasterNavigator(){
         name="ListDiversityFlora" component={ListDiversityFloraScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-14"
         }}
         name="InputDiversityFlora" component={InputDiversityFloraScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-14"
         }}
         name="DetailDiversityFlora" component={DetailDiversityFloraScreen} />
         <Stack.Screen
           options={{
-            headerShown:false
+            headerShown:true,
+          headerTitle:"TAMBAH DATA PLOT KT-14"
           }}
           name="InputDetailDiversityFlora" component={InputDetailDiversityFloraScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Keanekaragaman Flora"
+          headerTitle:"ASSET DIVERSITY FLORA"
         }}
         name="AssetDiversityFlora" component={AssetsDiversityFloraScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot"
+          headerTitle:"DATA PLOT"
         }}
         name="KindDiversityFlora" component={KindDiversityFloraScreen} />
 
@@ -714,29 +747,32 @@ function MasterNavigator(){
         name="ListHama" component={ListHamaScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-15"
         }}
         name="InputHama" component={InputHamaScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-15"
         }}
         name="DetailHama" component={DetailHamaScreen} />
         <Stack.Screen
           options={{
-            headerShown:false
+            headerShown:true,
+          headerTitle:"TAMBAH DATA PLOT KT-15"
           }}
           name="InputDetailHama" component={InputDetailHamaScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Asset Keanekaragaman Flora"
+          headerTitle:"ASSET HAMA"
         }}
         name="AssetHama" component={AssetsHamaScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot Hama"
+          headerTitle:"DATA PLOT HAMA"
         }}
         name="KindHama" component={KindHamaScreen} />
 
@@ -748,23 +784,26 @@ function MasterNavigator(){
         name="ListFiskim" component={ListFiskimScreen} />
         <Stack.Screen 
         options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"TAMBAH KT-16"
         }}
         name="InputFiskim" component={InputFiskimScreen} />
         <Stack.Screen 
          options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"DETAIL KT-16"
         }}
         name="DetailFiskim" component={DetailFiskimScreen} />
         <Stack.Screen
           options={{
-            headerShown:false
+            headerShown:true,
+            headerTitle:"TAMBAH DATA PLOT KT-16"
           }}
           name="InputDetailFiskim" component={InputDetailFiskimScreen} />
         <Stack.Screen 
          options={{
           headerShown:true,
-          headerTitle:"Data Plot Fiskim"
+          headerTitle:"DATA PLOT FISKIM"
         }}
         name="KindFiskim" component={KindFiskimScreen} />
 
@@ -834,7 +873,7 @@ export default function App() {
     let response = await request.json();
 
     if(response.buildnumber.toString()!==Application.nativeBuildVersion.toString()){
-      setIsNeedUpdate(false);
+      setIsNeedUpdate(true);
       setChangelog(response.changelog_mobile);
     }
 

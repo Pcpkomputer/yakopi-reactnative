@@ -1,11 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { StyleSheet, AsyncStorage, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, AsyncStorage, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image,Pressable } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
+import Svg, { Path, Circle, Line } from "react-native-svg"
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
@@ -15,6 +16,7 @@ import { endpoint } from '../utils/endpoint';
 import * as Location from 'expo-location';
 
 import { CommonActions } from '@react-navigation/native';
+import Placeholder from '../components/Placeholder';
 
 
 let shadow = {
@@ -47,9 +49,29 @@ export default function DashboardScreen(props) {
 
   const globalContext = useContext(GlobalContext);
 
+
   const [thumbnailRestoration, setThumbnailRestoration] = useState([]);
   const [thumbnailComdev, setThumbnailComdev] = useState([]);
   const [thumbnailResearch, setThumbnailResearch] = useState([]);
+
+  const [landAssessmentCount, setLandAssessmentCount] = useState([]);
+  const [seedCollectingCount, setSeedCollectingCount] = useState([]);
+  const [nurseryActivityCount, setNurseryActivityCount] = useState([]);
+  const [plantingActionCount, setPlantingActionCount] = useState([]);
+  const [transportCount, setTransportCount] = useState([]);
+  const [growthCount, setGrowthCount] = useState([]);
+  const [replantingCount, setReplantingCount] = useState([]);
+  const [subtitutePlotCount, setSubtitutePlotCount] = useState([]);
+  const [replacementPlotCount, setReplacementPlotCount] = useState([]);
+
+  const [communityRegisterCount, setCommunityRegisterCount] = useState([]);
+  const [silvosheryCount, setSilvosheryCount] = useState([]);
+
+  const [growthResearchCount, setGrowthResearchCount] = useState([]);
+  const [diversityFaunaCount, setDiversityFaunaCount] = useState([]);
+  const [diversityFloraCount, setDiversityFloraCount] = useState([]);
+  const [hamaCount, setHamaCount] = useState([]);
+  const [fiskimCount, setFiskimCount] = useState([]);
 
   const [presensi,setPresensi] = useState({
       jam_masuk_absen:null,
@@ -103,6 +125,221 @@ export default function DashboardScreen(props) {
     setThumbnailComdev(thumbnailComdev);
     setThumbnailResearch(thumbnailResearch);
   }
+
+  const fetchCountData = async()=>{
+
+    let countLandAssessment = async()=>{
+        let request = await fetch(`${endpoint}/count-land-assessment`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countSeedCollecting = async()=>{
+        let request = await fetch(`${endpoint}/count-seed-collecting`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countNurseryActivity = async()=>{
+        let request = await fetch(`${endpoint}/count-nursery-activity`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countPlantingAction = async()=>{
+        let request = await fetch(`${endpoint}/count-planting-action`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countTransport = async()=>{
+        let request = await fetch(`${endpoint}/count-transport`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countGrowth = async()=>{
+        let request = await fetch(`${endpoint}/count-growth`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countReplanting = async()=>{
+        let request = await fetch(`${endpoint}/count-replanting`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countSubtitutePlot = async()=>{
+        let request = await fetch(`${endpoint}/count-subtitute-plot`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countReplacementPlot = async()=>{
+        let request = await fetch(`${endpoint}/count-replacement-plot`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countCommunityRegister = async()=>{
+        let request = await fetch(`${endpoint}/count-community-register`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countSilvoshery = async()=>{
+        let request = await fetch(`${endpoint}/count-silvoshery`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+    
+    let countGrowthResearch = async()=>{
+        let request = await fetch(`${endpoint}/count-growth-research`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+    
+    let countDiversityFlora = async()=>{
+        let request = await fetch(`${endpoint}/count-diversity-flora`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countDiversityFauna = async()=>{
+        let request = await fetch(`${endpoint}/count-diversity-fauna`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countHama = async()=>{
+        let request = await fetch(`${endpoint}/count-hama`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let countFiskim = async()=>{
+        let request = await fetch(`${endpoint}/count-fiskim`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
+
+    let [landAssessmentCount, seedCollectingCount, nurseryActivityCount, plantingActionCount, transportCount, growthCount, replantingCount, subtitutePlotCount, replacementPlotCount, communityRegisterCount, silvosheryCount, growthResearchCount, diversityFloraCount, diversityFaunaCount, hamaCount, fiskimCount] = await Promise.all([
+        countLandAssessment(),
+        countSeedCollecting(),
+        countNurseryActivity(),
+        countPlantingAction(),
+        countTransport(),
+        countGrowth(),
+        countReplanting(),
+        countSubtitutePlot(),
+        countReplacementPlot(),
+        countCommunityRegister(),
+        countSilvoshery(),
+        countGrowthResearch(),
+        countDiversityFlora(),
+        countDiversityFauna(),
+        countHama(),
+        countFiskim()
+    ]);
+    setLandAssessmentCount(landAssessmentCount);
+    setSeedCollectingCount(seedCollectingCount);
+    setNurseryActivityCount(nurseryActivityCount);
+    setPlantingActionCount(plantingActionCount);
+    setTransportCount(transportCount);
+    setGrowthCount(growthCount);
+    setReplantingCount(replantingCount);
+    setSubtitutePlotCount(subtitutePlotCount);
+    setReplacementPlotCount(replacementPlotCount);
+    setCommunityRegisterCount(communityRegisterCount);
+    setSilvosheryCount(silvosheryCount);
+    setGrowthResearchCount(growthResearchCount);
+    setDiversityFloraCount(diversityFloraCount);
+    setDiversityFaunaCount(diversityFaunaCount);
+    setHamaCount(hamaCount);
+    setFiskimCount(fiskimCount);
+    }
+
   const fetchPresensi = async()=>{
       setPresensiLoading(true);
       let request = await fetch(`${endpoint}/cek-presensi`,{
@@ -119,6 +356,7 @@ export default function DashboardScreen(props) {
   useEffect(()=>{
     fetchPresensi();
     fetchThumbnail();
+    fetchCountData();
   },[]);
 
   return (
@@ -318,17 +556,6 @@ export default function DashboardScreen(props) {
                             <Text style={{color:"white",marginLeft:EStyleSheet.value("10rem")}}>Pulang : {presensi.jam_keluar_absen}</Text>
                         </View>
                     </View>
-                    <View style={{height:EStyleSheet.value("50rem"),paddingBottom:EStyleSheet.value("10rem"),justifyContent:"space-evenly",paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",alignItems:"center"}}>
-                    <TouchableOpacity 
-                                activeOpacity={0.8}
-                                onPress={async ()=>{
-                                    // alert("Fitur Ini Belum Tersedia");
-                                    props.navigation.navigate("ListCuti");
-                                }}
-                                style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("0rem"),height:EStyleSheet.value("35rem")}}>
-                                    <Text style={{color:"black"}}>Ajukan Cuti</Text>
-                                </TouchableOpacity> 
-                    </View>
                 </LinearGradient>
             </View>
             <View style={{marginTop:EStyleSheet.value("30rem"),flexDirection:"row",paddingHorizontal:EStyleSheet.value("15rem")}}>
@@ -390,6 +617,520 @@ export default function DashboardScreen(props) {
                     </LinearGradient>
                 </TouchableOpacity>
             </View>
+            {
+                <View style={{marginBottom:EStyleSheet.value("25rem"),marginTop:EStyleSheet.value("30rem")}}>
+                   <View style={{paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-between"}}>
+                        <Text style={{fontWeight:"bold"}}>RESTORATION</Text>
+                   </View>
+                   <View style={{marginTop:EStyleSheet.value("20rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListLandAssessment");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-1</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>SITE AND PLOT ASSESSMENT</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{landAssessmentCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListSeedCollecting");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-2</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>PENGUMPULAN BIBIT PROPAGUL & TRANSPORTASI</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{seedCollectingCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListNurseryActivity");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-3</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>KEGIATAN PEMBIBITAN/NURSERY</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{nurseryActivityCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListPlantingAction");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-4</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>KEGIATAN PENANAMAN MANGROVE</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{plantingActionCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListTransport");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-5</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>KEGIATAN PENANAMAN BIBIT & TRANSPORTASI</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{transportCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            alert("Coming Soon");
+                            //props.navigation.navigate("ListPlotBoundaring");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-6</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>MONITORING HASIL TANAM (PLOT BOUNDARING)</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>0</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListGrowth");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-7</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>MONITORING PERTUMBUHAN TANAMAN</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{growthCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListReplanting");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-8</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>KEGIATAN PENYISIPAN/REPLANTING</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{replantingCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListSubtitutePlot");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-9</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>PENCARIAN PLOT PENGGANTI</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{subtitutePlotCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListReplacementPlot");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-10</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>PENGGANTIAN PLOT YANG HILANG/RUSAK</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{replacementPlotCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   
+                   <View style={{marginBottom:EStyleSheet.value("25rem"),marginTop:EStyleSheet.value("30rem")}}>
+                    <View style={{paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-between"}}>
+                        <Text style={{fontWeight:"bold"}}>COMMUNITY DEVELOPMENT</Text>
+                    </View>
+                    <View style={{marginTop:EStyleSheet.value("20rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListCommunityRegister");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("12rem")}}>COMMUNITY REGISTER</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{landAssessmentCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                    </View>
+
+                    <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListSilvoshery");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("12rem")}}>SILVOSHERY</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{silvosheryCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                    </View>
+
+                    </View>
+
+                    <View style={{marginBottom:EStyleSheet.value("25rem"),marginTop:EStyleSheet.value("10rem")}}>
+                    <View style={{paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-between"}}>
+                        <Text style={{fontWeight:"bold"}}>RESEARCH</Text>
+                    </View>
+                    <View style={{marginTop:EStyleSheet.value("20rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListGrowthResearch");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-12</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>MONITORING PERTUMBUHAN TANAMAN PLOT RISET</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{growthResearchCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListDiversityFauna");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-13</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>MONITORING KEANEKARAGAMAN FAUNA</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{diversityFaunaCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListDiversityFlora");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-14</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>MONITORING KEANEKARAGAMAN FLORA</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{diversityFloraCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListHama");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-15</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>MONITORING HAMA TANAMAN</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{hamaCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                   <View style={{marginTop:EStyleSheet.value("5rem"),overflow:"hidden",paddingHorizontal:EStyleSheet.value("20rem")}}>
+                        <Pressable
+                        onPress={()=>{
+                            props.navigation.navigate("ListFiskim");
+                        }}
+                        >
+                            <LinearGradient 
+                            colors={['#1e915a', '#1e915a', '#1e915a']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                            style={{backgroundColor:"#1e915a",...shadow,overflow:"hidden",marginBottom:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),display:"flex",flexDirection:"row"}}>
+                                <View style={{width:EStyleSheet.value("70rem"),justifyContent:"center",alignItems:"center",height:EStyleSheet.value("60rem"),backgroundColor:"#1e915a",borderTopLeftRadius:EStyleSheet.value("5rem"),borderBottomLeftRadius:EStyleSheet.value("5rem")}}>
+                                <Image resizeMode="stretch" style={{width:"100%",height:"100%"}} source={{uri:"https://www.yakopi.org/wp-content/uploads/2021/05/yakopi-.png"}}/>
+                                </View>
+                                <View style={{flex:1,justifyContent:"center"}}>
+                                    <Text style={{color:"white",marginBottom:EStyleSheet.value("2rem"),fontSize:EStyleSheet.value("10rem"),fontSize:EStyleSheet.value("15rem")}}>KT-16</Text>
+                                    <Text numberOfLines={1} style={{fontWeight:"bold",color:"white",paddingRight:EStyleSheet.value("20rem"),fontSize:EStyleSheet.value("6rem")}}>PARAMETER FISIKA KIMIA</Text>
+                                </View>
+                                <LinearGradient 
+                                colors={['#008a48', '#008a48', '#008a48']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                                style={{width:EStyleSheet.value("80rem"),backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderTopLeftRadius:EStyleSheet.value("10rem"),borderBottomLeftRadius:EStyleSheet.value("10rem")}}>
+                                    <Text style={{color:"white",fontSize:EStyleSheet.value("15rem")}}>{fiskimCount}</Text>
+                                </LinearGradient>
+                            </LinearGradient>
+                        </Pressable>
+                   </View>
+
+                    </View>
+               </View>
+
+                
+            }
+            
         </ScrollView>
 
         <View style={{...shadow,position:"absolute",height:EStyleSheet.value("50rem"),backgroundColor:"white",alignItems:"center",width:"100%",flexDirection:"row",justifyContent:"space-between",bottom:0,paddingHorizontal:EStyleSheet.value("20rem")}}>

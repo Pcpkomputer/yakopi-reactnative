@@ -123,7 +123,7 @@ export default function ListDiversityFaunaScreen(props){
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 {
-                                    (item.status===0) &&
+                                    (item.status===0 && item.created_by===globalContext.credentials.data.id_pengguna) &&
                                     <TouchableOpacity 
                                     onPress={async ()=>{
 

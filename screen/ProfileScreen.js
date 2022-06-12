@@ -36,6 +36,18 @@ let shadow = {
     elevation: 5,
 }
 
+let shadow2 = {
+    shadowColor: "grey",
+    shadowOffset: {
+        width: 0,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+}
+
 export default function ProfileScreen(props){
 
     let [imagePopup, setImagePopup] = useState([{
@@ -134,21 +146,6 @@ export default function ProfileScreen(props){
                     <ActivityIndicator color="white" size="large"/>
                 </View>
             }
-
-            <View style={{height:StatusBarHeight}}></View>
-            <View style={{...shadow,backgroundColor:"white",flexDirection:"row",paddingHorizontal:EStyleSheet.value("20rem"),alignItems:"center",height:EStyleSheet.value("55rem")}}>
-                 <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={()=>{
-                    props.navigation.goBack();
-                }}
-                >
-                    <Entypo name="chevron-left" size={EStyleSheet.value("20rem")} color="black" />
-                </TouchableOpacity>
-                <View style={{position:"absolute",justifyContent:"center",alignItems:"center",width:Dimensions.get("screen").width}}>
-                    <Text style={{fontWeight:"bold",color:"black"}}>Edit Profil</Text>
-                </View>
-            </View>
             {
                 (dataLoaded) &&
                 <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag" contentContainerStyle={{paddingBottom:EStyleSheet.value("20rem")}}>
@@ -185,6 +182,18 @@ export default function ProfileScreen(props){
                                     <AntDesign name="edit" size={EStyleSheet.value("19rem")} color="white" />
                                 </Pressable>
                             </View>
+                        </View>
+
+                        <View style={{flexDirection:"row",marginBottom:EStyleSheet.value("15rem"),justifyContent:"center",alignItems:"center",marginTop:EStyleSheet.value("5rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("13rem"),backgroundColor:"#5daa5f",paddingHorizontal:EStyleSheet.value("5rem")}}>
+                        <TouchableOpacity 
+                        activeOpacity={0.8}
+                        onPress={async ()=>{
+                            // alert("Fitur Ini Belum Tersedia");
+                            props.navigation.navigate("ListCuti");
+                        }}
+                        style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                            <Text style={{color:"white"}}>Ajukan Cuti</Text>
+                        </TouchableOpacity> 
                         </View>
                         
                         <View style={{...shadow,flexDirection:"row",marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
@@ -385,7 +394,7 @@ export default function ProfileScreen(props){
 
                             
                             }}
-                            style={{flexDirection:"row",marginBottom:EStyleSheet.value("15rem"),justifyContent:"center",alignItems:"center",marginTop:EStyleSheet.value("20rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("13rem"),backgroundColor:"#5daa5f",paddingHorizontal:EStyleSheet.value("15rem")}}>
+                            style={{flexDirection:"row",marginBottom:EStyleSheet.value("15rem"),justifyContent:"center",alignItems:"center",marginTop:EStyleSheet.value("20rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("13rem"),backgroundColor:"#5daa5f",paddingHorizontal:EStyleSheet.value("15rem"),marginBottom:EStyleSheet.value("100rem")}}>
                                 <Text style={{color:"white"}}>Simpan</Text>
                             </Pressable>
                         }
@@ -437,6 +446,34 @@ export default function ProfileScreen(props){
             }}
             />
             }
+            <View style={{...shadow,position:"absolute",height:EStyleSheet.value("50rem"),backgroundColor:"white",alignItems:"center",width:"100%",flexDirection:"row",justifyContent:"space-between",bottom:0,paddingHorizontal:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("20rem")}}>
+           <TouchableOpacity
+              activeOpacity={0.8}  
+                onPress={()=>{
+                    props.navigation.navigate("Profil");
+                }}>
+                    <Feather name="user" size={24} color="black" />
+            </TouchableOpacity>
+            <View style={{position:"absolute",bottom:EStyleSheet.value("20rem"),right:(Dimensions.get("screen").width/2)-EStyleSheet.value("30rem")}}>
+                <TouchableOpacity
+                activeOpacity={0.8}
+                style = {{...shadow2,overflow:"hidden",justifyContent:"center",alignItems:"center",backgroundColor:"white",borderRadius:999,width:EStyleSheet.value("60rem"),height:EStyleSheet.value("60rem")}}
+                onPress={()=>{
+                    props.navigation.navigate("Home");
+                }}>
+                    <Image resizeMode="stretch" style={{width:"50%",height:"70%"}} source={{uri:"https://devjobsindo.org/wp-content/uploads/2022/02/WhatsApp-Image-2022-02-25-at-5.14.01-PM-200x287.jpeg"}}/>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={async ()=>{
+                await AsyncStorage.removeItem("credentials");
+                globalContext.setCredentials(null);
+            }}
+            >
+                <MaterialCommunityIcons name="logout" size={24} color="black" />
+            </TouchableOpacity>
+        </View>
         </View>
     )
 }
