@@ -3,7 +3,7 @@
     "name": "yakopi-reactnative",
     "slug": "yakopi-reactnative",
     "icon": "./assets/icon.png",
-    "version": "1.0.9",
+    "version": "1.0.15",
     "assetBundlePatterns": [
       "**/*"
     ],

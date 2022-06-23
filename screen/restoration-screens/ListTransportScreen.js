@@ -169,48 +169,7 @@ export default function ListTransportScreen(props){
                                         <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
                                     </TouchableOpacity>
                                 }
-                                {
-                                    (item.status===0 && item.created_by===globalContext.credentials.data.id_pengguna) &&
-                                    <TouchableOpacity 
-                                    onPress={async ()=>{
-                                        Alert.alert(
-                                            "Dialog Konfirmasi",
-                                            "Anda yakin ingin menyetujui data ini?",
-                                            [
-                                              {
-                                                text: "Tidak",
-                                                style: "cancel"
-                                              },
-                                              { text: "Iya", onPress: async () => {
-
-                                                    setListLoading(true);
-
-                                                    let id = item.id_transport;
-                                                    let request = await fetch(`${endpoint}/approve-transport`,{
-                                                        method:"POST",
-                                                        headers:{
-                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                            "content-type":"application/json"
-                                                        },
-                                                        body:JSON.stringify({
-                                                            id_transport:id
-                                                        })
-                                                    });
-                                                    let response = await request.json();
-                                                    if(response.success){
-                                                        await fetchList();
-                                                    }
-                                                    else{
-                                                        alert(response.msg);
-                                                    }
-                                              } }
-                                            ]
-                                          );
-                                    }}
-                                    style={{backgroundColor:"#5daa5f",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                      <FontAwesome name="check"  size={EStyleSheet.value("15rem")} color="white" />
-                                    </TouchableOpacity>
-                                }
+                                
                             </View>
                         </TouchableOpacity>
                          )
