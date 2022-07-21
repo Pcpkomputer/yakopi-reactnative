@@ -119,7 +119,152 @@ export default function ListPlantingActionScreen(props){
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                                 {
+                                    (item.status=="1" && item.verifikasi_1 == "" && globalContext.credentials.data.manager == null) &&
+                                    <TouchableOpacity 
+                                    onPress={async ()=>{
+
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin Menverifikasi Data Ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+
+                                                    setListLoading(true);
+
+                                                    let id = item.id_planting_action;
+                                                    let request = await fetch(`${endpoint}/update-planting-verifikasi_1`,{
+                                                        method:"POST",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_planting_action:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        alert(response.msg);
+                                                        await fetchList();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
+
+
+                                      
+
+                                    }}
+                                    style={{backgroundColor:"green",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                        <MaterialIcons name="verified-user" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
+
+                                }
+                                {
+                                    (item.status=="1" && item.verifikasi_2 == "" && globalContext.credentials.data.manager == "Restoration") &&
+                                    <TouchableOpacity 
+                                    onPress={async ()=>{
+
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin Menverifikasi Data Ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+
+                                                    setListLoading(true);
+
+                                                    let id = item.id_planting_action;
+                                                    let request = await fetch(`${endpoint}/update-planting-verifikasi_2`,{
+                                                        method:"POST",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_planting_action:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        alert(response.msg);
+                                                        await fetchList();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
+
+
+                                      
+
+                                    }}
+                                    style={{backgroundColor:"blue",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                        <MaterialIcons name="verified-user" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
+
+                                }
+                                {
                                     (item.status===0 && item.created_by===globalContext.credentials.data.id_pengguna) &&
+                                    <TouchableOpacity 
+                                    onPress={async ()=>{
+
+                                        Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin mengirim ke server data ini?",
+                                            [
+                                              {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                              },
+                                              { text: "Iya", onPress: async () => {
+
+                                                    setListLoading(true);
+
+                                                    let id = item.id_planting_action;
+                                                    let request = await fetch(`${endpoint}/approve-planting-action`,{
+                                                        method:"POST",
+                                                        headers:{
+                                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                            "content-type":"application/json"
+                                                        },
+                                                        body:JSON.stringify({
+                                                            id_planting_action:id
+                                                        })
+                                                    });
+                                                    let response = await request.json();
+                                                    if(response.success){
+                                                        await fetchList();
+                                                    }
+                                                    else{
+                                                        alert(response.msg);
+                                                    }
+                                              } }
+                                            ]
+                                          );
+
+
+                                      
+
+                                    }}
+                                    style={{backgroundColor:"blue",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                    <MaterialIcons name="verified-user" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
+                                }
+                                {
+                                    (item.verifikasi_1 == "" && item.verifikasi_2 == "") &&
                                     <TouchableOpacity 
                                     onPress={async ()=>{
 

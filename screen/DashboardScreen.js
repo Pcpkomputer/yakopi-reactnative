@@ -1,12 +1,13 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { StyleSheet, AsyncStorage, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image,Pressable } from 'react-native';
+import { StyleSheet, AsyncStorage, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image,Pressable, ViewPagerAndroidComponent } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
-
+import SelectDropdown from 'react-native-select-dropdown'
 import { StatusBarHeight } from '../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import Svg, { Path, Circle, Line } from "react-native-svg"
+import { useIsFocused } from '@react-navigation/native';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
@@ -49,8 +50,7 @@ let shadow2 = {
 export default function DashboardScreen(props) {
 
   const globalContext = useContext(GlobalContext);
-
-
+  
   const [thumbnailRestoration, setThumbnailRestoration] = useState([]);
   const [thumbnailComdev, setThumbnailComdev] = useState([]);
   const [thumbnailResearch, setThumbnailResearch] = useState([]);
@@ -87,12 +87,21 @@ export default function DashboardScreen(props) {
   const [priaPlantingCount, setPriaPlantingCount] = useState([]);
   const [wanitaPlantingCount, setWanitaPlantingCount] = useState([]);
 
+  let focused = useIsFocused();
+
   const [presensi,setPresensi] = useState({
       jam_masuk_absen:null,
       jam_keluar_absen:null
   });
 
+  
+
+  const [projectLoading, setProjectLoading] = useState([]);
+  const [project, setProject] = useState([]);
+
+
   const [presensiLoading, setPresensiLoading] = useState(true);
+  const [countDataLoading, setCountDataLoading] = useState(true);
   const [smokeScreenOpened, setSmokeScreenOpened] = useState(true);
 
 
@@ -140,153 +149,171 @@ export default function DashboardScreen(props) {
     setThumbnailResearch(thumbnailResearch);
   }
 
-  const fetchCountData = async()=>{
+  
+  async function fetchCountData(id) {
 
-    let sumLandAssessment = async()=>{
-        let request = await fetch(`${endpoint}/sum-area-land-assessment`,{
-            method:"GET",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
 
-    let sumSeed = async()=>{
-        let request = await fetch(`${endpoint}/total-seed`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
 
-    let countDesa = async()=>{
-        let request = await fetch(`${endpoint}/total-desa`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+            var payload = {
+                nama_project: id
+            };
+        
 
-    let countPekerja = async()=>{
-        let request = await fetch(`${endpoint}/total-involved`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let sumLandAssessment = async () => {
+            let request = await fetch(`${endpoint}/sum-area-land-assessment`, {
+                method: "GET",
+                headers: {
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let countPria = async()=>{
-        let request = await fetch(`${endpoint}/total-male`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let sumSeed = async () => {
+            let request = await fetch(`${endpoint}/total-seed`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let countWanita = async()=>{
-        let request = await fetch(`${endpoint}/total-female`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let countDesa = async () => {
+            let request = await fetch(`${endpoint}/total-desa`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let countSeedPlanting = async()=>{
-        let request = await fetch(`${endpoint}/total-seed-planting`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let countPekerja = async () => {
+            let request = await fetch(`${endpoint}/total-involved`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let countDesaPlanting = async()=>{
-        let request = await fetch(`${endpoint}/total-desa-planting`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let countPria = async () => {
+            let request = await fetch(`${endpoint}/total-male`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let countPekerjaPlanting = async()=>{
-        let request = await fetch(`${endpoint}/total-involved-planting`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let countWanita = async () => {
+            let request = await fetch(`${endpoint}/total-female`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let countPriaPlanting = async()=>{
-        let request = await fetch(`${endpoint}/total-male-planting`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let countSeedPlanting = async () => {
+            let request = await fetch(`${endpoint}/total-seed-planting`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let countWanitaPlanting = async()=>{
-        let request = await fetch(`${endpoint}/total-female-planting`,{
-            method:"POST",
-            headers:{
-                "authorization":`Bearer ${globalContext.credentials.token}`
-            }
-        });
-        let response = await request.json();
-        return response.data;
-    }
+        let countDesaPlanting = async () => {
+            let request = await fetch(`${endpoint}/total-desa-planting`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
 
-    let [landAssessmentSum, seedSum, desaCount, pekerjaCount, priaCount, wanitaCount, seedPlantingCount, desaPlantingCount, pekerjaPlantingCount, priaPlantingCount, wanitaPlantingCount] = await Promise.all([
-        sumLandAssessment(),
-        sumSeed(),
-        countDesa(),
-        countPekerja(),
-        countPria(),
-        countWanita(),
-        countSeedPlanting(),
-        countDesaPlanting(),
-        countPekerjaPlanting(),
-        countPriaPlanting(),
-        countWanitaPlanting()
-    ]);
-    setLandAssessmentSum(landAssessmentSum);
-    setSeedSum(seedSum);
-    setDesaCount(desaCount);
-    setPekerjaCount(pekerjaCount);
-    setPriaCount(priaCount);
-    setWanitaCount(wanitaCount);
-    setSeedPlantingCount(seedPlantingCount);
-    setDesaPlantingCount(desaPlantingCount);
-    setPekerjaPlantingCount(pekerjaPlantingCount);
-    setPriaPlantingCount(priaPlantingCount);
-    setWanitaPlantingCount(wanitaPlantingCount);
+        let countPekerjaPlanting = async () => {
+            let request = await fetch(`${endpoint}/total-involved-planting`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let countPriaPlanting = async () => {
+            let request = await fetch(`${endpoint}/total-male-planting`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let countWanitaPlanting = async () => {
+            let request = await fetch(`${endpoint}/total-female-planting`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let [landAssessmentSum, seedSum, desaCount, pekerjaCount, priaCount, wanitaCount, seedPlantingCount, desaPlantingCount, pekerjaPlantingCount, priaPlantingCount, wanitaPlantingCount] = await Promise.all([
+            sumLandAssessment(),
+            sumSeed(),
+            countDesa(),
+            countPekerja(),
+            countPria(),
+            countWanita(),
+            countSeedPlanting(),
+            countDesaPlanting(),
+            countPekerjaPlanting(),
+            countPriaPlanting(),
+            countWanitaPlanting()
+        ]);
+        setLandAssessmentSum(landAssessmentSum);
+        setSeedSum(seedSum);
+        setDesaCount(desaCount);
+        setPekerjaCount(pekerjaCount);
+        setPriaCount(priaCount);
+        setWanitaCount(wanitaCount);
+        setSeedPlantingCount(seedPlantingCount);
+        setDesaPlantingCount(desaPlantingCount);
+        setPekerjaPlantingCount(pekerjaPlantingCount);
+        setPriaPlantingCount(priaPlantingCount);
+        setWanitaPlantingCount(wanitaPlantingCount);
     }
 
   const fetchPresensi = async()=>{
@@ -307,6 +334,25 @@ export default function DashboardScreen(props) {
     fetchThumbnail();
     fetchCountData();
   },[]);
+
+  const fetchProject = async()=>{
+    setProjectLoading(true);
+    let request = await fetch(`${endpoint}/donor`,{
+        method:"GET",
+        headers:{
+            "authorization":`Bearer ${globalContext.credentials.token}`
+        }
+    });
+    let response = await request.json();
+    setProjectLoading(false);
+    setProject(response.data);
+    }
+
+    useEffect(()=>{
+        fetchProject();
+    },[]);
+
+    
 
   return (
      <View style={{flex:1,backgroundColor:"#edf0f4"}}>
@@ -332,7 +378,7 @@ export default function DashboardScreen(props) {
                 style={{...shadow,overflow:"hidden",marginHorizontal:EStyleSheet.value("15rem"),backgroundColor:"#2ec5a2",borderRadius:EStyleSheet.value("10rem")}}>
                     
                     {
-                        (globalContext.credentials.data.hak_akses !== "donor") &&
+                        (globalContext.credentials.data.hak_akses !== "member") &&
                         (presensiLoading) &&
                         <View style={{position:"absolute",width:"100%",height:"100%",justifyContent:"center",alignItems:"center",zIndex:100}}>
                             <View style={{position:"absolute",width:"100%",height:"100%",backgroundColor:"grey",opacity:0.4}}></View>
@@ -430,7 +476,7 @@ export default function DashboardScreen(props) {
                                 </TouchableOpacity> 
                             }
                             {
-                                (globalContext.credentials.data.hak_akses !== "donor") &&
+                                (globalContext.credentials.data.hak_akses == "member") &&
                                 (presensi?.jam_masuk_absen && !presensi?.jam_keluar_absen) &&
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
@@ -442,7 +488,7 @@ export default function DashboardScreen(props) {
 
                                         var photo = {
                                             uri: image.uri,
-                                            type: 'image/jpeg',
+                                           type: 'image/jpeg',
                                             name: `presensipulang-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
                                         };
 
@@ -580,154 +626,218 @@ export default function DashboardScreen(props) {
             </View>
             }
             {
-                (globalContext.credentials.data.hak_akses !== "member") &&
+                (globalContext.credentials.data.hak_akses === "superuser") &&
                 <View style={{marginBottom:EStyleSheet.value("25rem"),marginTop:EStyleSheet.value("30rem")}}>
+                    <View style={{paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-between"}}>
+                        <Text style={{fontWeight:"bold"}}>DONOR</Text>
+                    </View>
+                     <View style={{paddingHorizontal:EStyleSheet.value("20rem"),paddingVertical:EStyleSheet.value("10rem")}}>
+                        <View style={{overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),justifyContent:"center",alignItems:"center"}}>
+                            <SelectDropdown 
+                                style={{width:EStyleSheet.value("200rem"),height:EStyleSheet.value("50rem"),fontSize:EStyleSheet.value("12rem")}}
+                                onSelect={(selectedItem, index) => {
+                                    // Load data from from fetchCountData using projectId
+                                    fetchCountData(selectedItem);
+
+                                }}
+                                data={
+                                    [
+                                        "Semua",
+                                        ...project
+                                    ]
+                                }
+                            />
+                        </View>
+                    </View>
                    <View style={{paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-between"}}>
                         <Text style={{fontWeight:"bold"}}>SUMMARY</Text>
                    </View>
                      <View style={{paddingHorizontal:EStyleSheet.value("20rem"),paddingVertical:EStyleSheet.value("10rem")}}>
-                        <TouchableOpacity 
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                
-                            }
-                            }
-                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem")}}>
+                     <View style={{paddingHorizontal:EStyleSheet.value("20rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
                                 <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Area of Land Assessment</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{landAssessmentSum} Ha</Text>
                                 </View>
-                        </TouchableOpacity>
+                                </View>
                         <Text style={{fontWeight:"bold"}}>SEED</Text>    
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
-                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
+                        <View style={{paddingHorizontal:EStyleSheet.value("20rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Villages</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{desaCount} Villages</Text>
                                 </View>
-                            </TouchableOpacity>
+                        </View>
                         <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Seeds</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{seedSum} Seeds</Text>
                                 </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            </View>
+                            <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Involved</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{pekerjaCount} People</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </View>
                         </View>
                         <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Male</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{priaCount} People</Text>
                                 </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            </View>
+                            <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaCount} People</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </View>
                         </View>
 
                         <Text style={{fontWeight:"bold"}}>PLANTING</Text>    
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                        <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Villages</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{desaPlantingCount} Villages</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </View>
                         <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Seeds</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{seedPlantingCount} Seeds</Text>
                                 </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            </View>
+                            <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Involved</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{pekerjaPlantingCount} People</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </View>
                         </View>
                         <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            <View
+                           
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Male</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{priaPlantingCount} People</Text>
                                 </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={()=>{
-                                props.navigation.navigate();
-                            }
-                            }
+                            </View>
+                            <View
                             style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaPlantingCount} People</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+               </View>
+            }
+
+{
+                (globalContext.credentials.data.hak_akses === "donor") &&
+                <View style={{marginBottom:EStyleSheet.value("25rem"),marginTop:EStyleSheet.value("30rem")}}>
+                   <View style={{paddingHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-between"}}>
+                        <Text style={{fontWeight:"bold"}}>SUMMARY</Text>
+                   </View>
+                     <View style={{paddingHorizontal:EStyleSheet.value("20rem"),paddingVertical:EStyleSheet.value("10rem")}}>
+                        <View 
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem")}}>
+                                <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Area of Land Assessment</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{landAssessmentSum} Ha</Text>
+                                </View>
+                        </View>
+                        <Text style={{fontWeight:"bold"}}>SEED</Text>    
+                        <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Villages</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{desaCount} Villages</Text>
+                                </View>
+                            </View>
+                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Seeds</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{seedSum} Seeds</Text>
+                                </View>
+                            </View>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Involved</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{pekerjaCount} People</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Male</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{priaCount} People</Text>
+                                </View>
+                            </View>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaCount} People</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        <Text style={{fontWeight:"bold"}}>PLANTING</Text>    
+                        <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Villages</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{desaPlantingCount} Villages</Text>
+                                </View>
+                            </View>
+                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Seeds</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{seedPlantingCount} Seeds</Text>
+                                </View>
+                            </View>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Involved</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{pekerjaPlantingCount} People</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Male</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{priaPlantingCount} People</Text>
+                                </View>
+                            </View>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaPlantingCount} People</Text>
+                                </View>
+                            </View>
                         </View>
                     </View>
                </View>
