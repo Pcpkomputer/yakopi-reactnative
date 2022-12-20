@@ -194,14 +194,14 @@ export default function InputReplantingScreen(props){
                 value:""
             },
             form:"lokasi_tanam",
-            required:false
+            required:true
         },
         {
             type:"textinput",
             label:"Keberadaan jenis-jenis mangrove yang sudah ada di lokasi tanam dan perkiraan persentasenya   ",
             value:"",
             form:"info_1",
-            required:false
+            required:true
         },
         {
             type:"spacer",
@@ -212,14 +212,14 @@ export default function InputReplantingScreen(props){
             label:"Informasi penting dari anggota kelompok",
             value:"",
             form:"catatan_1",
-            required:false
+            required:true
         },
         {
             type:"textinput",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:"",
             form:"catatan_2",
-            required:false
+            required:true
         },
     ]);
 
@@ -474,7 +474,6 @@ export default function InputReplantingScreen(props){
                       
                    
                    });
-                   if(check){   
                         setSmokeScreenOpened(true);
                         let filtered = schema.filter((item)=>item.type!=="spacer");
                         let payload = {};
@@ -501,10 +500,6 @@ export default function InputReplantingScreen(props){
                             setSmokeScreenOpened(false);
                             props.navigation.goBack();
                         }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>

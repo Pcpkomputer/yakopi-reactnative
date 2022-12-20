@@ -1,4 +1,4 @@
-package com.yakopireactnative;
+package com.yayasan.konservasi.pesisir.indonesia.yakopi;
 
 import android.os.Build;
 import android.os.Bundle;

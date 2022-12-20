@@ -151,7 +151,7 @@ export default function InputSeedCollectingScreen(props){
                 longitude:""
             },
             form:"coordinate",
-            required:false
+            required:true
         },
         {
             type:"spacer",
@@ -213,7 +213,7 @@ export default function InputSeedCollectingScreen(props){
                 value:""
             },
             form:"transportation_used_1",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -223,7 +223,7 @@ export default function InputSeedCollectingScreen(props){
                 value:""
             },
             form:"transportation_used_2",
-            required:false
+            required:true
         },
         {
             type:"spacer",
@@ -497,37 +497,37 @@ export default function InputSeedCollectingScreen(props){
                       
                    
                    });
-                   if(check){   
-                        setSmokeScreenOpened(true);
-                        let filtered = schema.filter((item)=>item.type!=="spacer");
-                        let payload = {};
-                        filtered.forEach((item,index)=>{
-                            if(item.type==="selectinput"){
-                                payload[item.form]=item.value.id;
-                            }
-                            else{   
-                                payload[item.form]=item.value;
-                            }
-                           
-                        });
-                        console.log(payload);
-                        let request = await fetch(`${endpoint}/seed-collecting`,{
-                            method:"POST",
-                            headers:{
-                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                "content-type":"application/json"
-                            },
-                            body:JSON.stringify(payload)
-                        });
-                        let response = await request.json();
-                        if(response.success){
-                            setSmokeScreenOpened(false);
-                            props.navigation.goBack();
+                   console.log(check);
+                    
+                    setSmokeScreenOpened(true);
+                    let filtered = schema.filter((item)=>item.type!=="spacer");
+                    let payload = {};
+                    filtered.forEach((item,index)=>{
+                        if(item.type==="selectinput"){
+                            payload[item.form]=item.value.id;
                         }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
+                        else{   
+                            payload[item.form]=item.value;
+                        }
+                        
+                    });
+                    let request = await fetch(`${endpoint}/seed-collecting`,{
+                        method:"POST",
+                        headers:{
+                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                            "content-type":"application/json"
+                        },
+                        body:JSON.stringify(payload)
+                    });
+                    console.log(payload);
+                    let response = await request.json();
+                    if(response.success){
+                        setSmokeScreenOpened(false);
+                        props.navigation.goBack();
+                    }else{
+                        setSmokeScreenOpened(false);
+                        alert(response.message);
+                    }
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>

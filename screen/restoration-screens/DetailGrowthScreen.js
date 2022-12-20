@@ -15,6 +15,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 import RestorationTextInput from '../restoration-components/RestorationTextInput';
+import RestorationTextAreaInput from '../restoration-components/RestorationTextAreaInput';
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
@@ -188,39 +189,39 @@ export default function DetailGrowthScreen(props){
                 value:props.route.params.item.posisi_site || "",
             },
             form:"position",
-            required:false
+            required:true
         },
         {
             type:"textinput",
             label:"Jarak tanam dan kerapatan bibit",
             value:props.route.params.item.distance_growth || "",
             form:"distance",
-            required:false
+            required:true
         },
         {
             type:"textinput",
             label:"Keberadaan jenis-jenis mangrove yang sudah ada di lokasi tanam dan perkiraan persentasenya   ",
             value:props.route.params.item.type_magrove_growth || "",
             form:"type_magrove",
-            required:false
+            required:true
         },
         {
             type:"spacer",
             label:"Catatan Khusus",
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting dari anggota kelompok",
             value:props.route.params.item.catatan_khusus_1 || "",
             form:"catatan_khusus_1",
-            required:false
+            required:true
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:props.route.params.item.catatan_khusus_2 || "",
             form:"catatan_khusus_2",
-            required:false
+            required:true
         },
     ]);
 
@@ -385,6 +386,16 @@ export default function DetailGrowthScreen(props){
                             label={item.label}/>
                            )
                        }
+                       else if(item.type==="textarea"){
+                        return (
+                            <RestorationTextAreaInput  
+                            getter={schema}
+                            setter={setSchema}
+                            index={index}
+                            disable={true}
+                            label={item.label}/>
+                        )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  

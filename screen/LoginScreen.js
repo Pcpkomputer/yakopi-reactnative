@@ -13,6 +13,7 @@ import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vect
 import {endpoint} from '../utils/endpoint';
 
 import {GlobalContext} from '../App';
+import { setUsername } from '../utils/utils';
 
 let shadow = {
     shadowColor: "#cacaca",
@@ -124,6 +125,8 @@ export default function LoginScreen(props) {
                             let response = await request.json();
 
                             if(response.success){
+                                setUsername(email)
+                                console.log('success')
                                 await AsyncStorage.setItem("credentials",JSON.stringify(response));
                                 globalContext.setCredentials(response);
                             }

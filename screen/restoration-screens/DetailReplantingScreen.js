@@ -15,6 +15,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 import RestorationTextInput from '../restoration-components/RestorationTextInput';
+import RestorationTextAreaInput from '../restoration-components/RestorationTextAreaInput';
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
@@ -185,7 +186,7 @@ export default function DetailReplantingScreen(props){
             label:"Jarak tanam dan kerapatan bibit",
             value:props.route.params.item.jarak_tanam || "",
             form:"jarak_tanam",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -195,32 +196,32 @@ export default function DetailReplantingScreen(props){
                 value:props.route.params.item.lokasi_tanam || "",
             },
             form:"lokasi_tanam",
-            required:false
+            required:true
         },
         {
             type:"textinput",
             label:"Keberadaan jenis-jenis mangrove yang sudah ada di lokasi tanam dan perkiraan persentasenya   ",
             value:props.route.params.item.info_1 || "",
             form:"info_1",
-            required:false
+            required:true
         },
         {
             type:"spacer",
             label:"Catatan Khusus",
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting dari anggota kelompok",
             value:props.route.params.item.catatan_1 || "",
             form:"catatan_1",
-            required:false
+            required:true
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:props.route.params.item.catatan_2 || "",
             form:"catatan_2",
-            required:false
+            required:true
         },
     ]);
 
@@ -385,6 +386,16 @@ export default function DetailReplantingScreen(props){
                             label={item.label}/>
                            )
                        }
+                       else if(item.type==="textarea"){
+                        return (
+                            <RestorationTextAreaInput  
+                            getter={schema}
+                            setter={setSchema}
+                            index={index}
+                            disable={true}
+                            label={item.label}/>
+                        )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  

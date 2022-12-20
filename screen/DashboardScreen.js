@@ -86,6 +86,12 @@ export default function DashboardScreen(props) {
   const [pekerjaPlantingCount, setPekerjaPlantingCount] = useState([]);
   const [priaPlantingCount, setPriaPlantingCount] = useState([]);
   const [wanitaPlantingCount, setWanitaPlantingCount] = useState([]);
+  const [seedNurseryCount, setSeedNurseryCount] = useState([]);
+  const [desaNurseryCount, setDesaNurseryCount] = useState([]);
+  const [pekerjaNurseryCount, setPekerjaNurseryCount] = useState([]);
+  const [priaNurseryCount, setPriaNurseryCount] = useState([]);
+  const [wanitaNurseryCount, setWanitaNurseryCount] = useState([]);
+
 
   let focused = useIsFocused();
 
@@ -290,7 +296,69 @@ export default function DashboardScreen(props) {
             return response.data;
         };
 
-        let [landAssessmentSum, seedSum, desaCount, pekerjaCount, priaCount, wanitaCount, seedPlantingCount, desaPlantingCount, pekerjaPlantingCount, priaPlantingCount, wanitaPlantingCount] = await Promise.all([
+        // 
+
+        let countSeedNursery = async () => {
+            let request = await fetch(`${endpoint}/total-seed-nursery`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let countDesaNursery = async () => {
+            let request = await fetch(`${endpoint}/total-desa-nursery`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let countPekerjaNursery = async () => {
+            let request = await fetch(`${endpoint}/total-involved-nursery`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let countPriaNursery = async () => {
+            let request = await fetch(`${endpoint}/total-male-nursery`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let countWanitaNursery = async () => {
+            let request = await fetch(`${endpoint}/total-female-nursery`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${globalContext.credentials.token}`
+                }, body: JSON.stringify(payload)
+            });
+            let response = await request.json();
+            return response.data;
+        };
+
+        let [landAssessmentSum, seedSum, desaCount, pekerjaCount, priaCount, wanitaCount, seedPlantingCount, desaPlantingCount, pekerjaPlantingCount, priaPlantingCount, wanitaPlantingCount, seedNurseryCount, desaNUrseryCount, pekerjaNurseryCount, priaNurseryCount, wanitaNurseryCount] = await Promise.all([
             sumLandAssessment(),
             sumSeed(),
             countDesa(),
@@ -301,7 +369,12 @@ export default function DashboardScreen(props) {
             countDesaPlanting(),
             countPekerjaPlanting(),
             countPriaPlanting(),
-            countWanitaPlanting()
+            countWanitaPlanting(),
+            countSeedNursery(),
+            countDesaNursery(),
+            countPekerjaNursery(),
+            countPriaNursery(),
+            countWanitaNursery()
         ]);
         setLandAssessmentSum(landAssessmentSum);
         setSeedSum(seedSum);
@@ -314,6 +387,12 @@ export default function DashboardScreen(props) {
         setPekerjaPlantingCount(pekerjaPlantingCount);
         setPriaPlantingCount(priaPlantingCount);
         setWanitaPlantingCount(wanitaPlantingCount);
+        setSeedNurseryCount(seedNurseryCount);
+        setDesaNurseryCount(desaNUrseryCount);
+        setPekerjaNurseryCount(pekerjaNurseryCount);
+        setPriaNurseryCount(priaNurseryCount);
+        setWanitaNurseryCount(wanitaNurseryCount);
+        
     }
 
   const fetchPresensi = async()=>{
@@ -476,7 +555,7 @@ export default function DashboardScreen(props) {
                                 </TouchableOpacity> 
                             }
                             {
-                                (globalContext.credentials.data.hak_akses == "member") &&
+                                (globalContext.credentials.data.hak_akses !== "donor") &&
                                 (presensi?.jam_masuk_absen && !presensi?.jam_keluar_absen) &&
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
@@ -737,6 +816,48 @@ export default function DashboardScreen(props) {
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaPlantingCount} People</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        <Text style={{fontWeight:"bold"}}>NURSERY ACTIVITY</Text>    
+                        <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Villages</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{desaNurseryCount} Villages</Text>
+                                </View>
+                            </View>
+                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Seeds</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{seedNurseryCount} Seeds</Text>
+                                </View>
+                            </View>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Involved</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{pekerjaNurseryCount} People</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
+                            <View
+                           
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Male</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{priaNurseryCount} People</Text>
+                                </View>
+                            </View>
+                            <View
+                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
+                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
+                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaNurseryCount} People</Text>
                                 </View>
                             </View>
                         </View>

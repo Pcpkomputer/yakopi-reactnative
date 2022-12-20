@@ -70,6 +70,15 @@ export default function ListReplacementPlotScreen(props){
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
             </TouchableOpacity>
 
+            <TouchableOpacity
+                style={{flexDirection:"row",marginHorizontal:EStyleSheet.value("20rem"),borderRadius:EStyleSheet.value("5rem"),padding:EStyleSheet.value("10rem"),alignItems:"center",justifyContent:"center",marginTop:EStyleSheet.value("20rem"),color:"#1e915a",backgroundColor:"#1e915a"}}
+                onPress={()=>{
+                    fetchList();
+                }
+                }>
+                    <Feather name="refresh-ccw" size={EStyleSheet.value("30rem")} color="#fff" />
+            </TouchableOpacity>
+
             {
                 (listLoading) ?
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>

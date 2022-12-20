@@ -3,16 +3,45 @@
     "name": "yakopi-reactnative",
     "slug": "yakopi-reactnative",
     "icon": "./assets/icon.png",
-    "version": "1.0.15",
+    "version": "1.0.19",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends.",
+          "cameraPermission": "Allow $(PRODUCT_NAME) to open the camera"
+        }
+      ]
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],
     "android": {
-      "package": "com.yayasan.konservasi.pesisir.indonesia.yakopi"
+      "package": "com.yayasan.konservasi.pesisir.indonesia.yakopi",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "ios": {
-      "bundleIdentifier": "com.yayasan.konservasi.pesisir.indonesia.yakopi"
+      "deploymentTarget": "13.0",
+      "bundleIdentifier": "com.yayasan.konservasi.pesisir.indonesia.yakopi",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "The app accesses your photos to let you share them with your friends.",
+        "NSPhotoLibraryAddUsageDescription": "The app accesses your photos to let you share them with your friends.",
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to open the camera",
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ],
+        "NSLocationWhenInUseUsageDescription": "The app accesses your location to let you share it with your friends.",
+        "NSLocationAlwaysUsageDescription": "The app accesses your location to let you share it with your friends.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "The app accesses your location to let you share it with your friends."
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c3f363ce-73f3-4cb9-9a69-7c8046ee373e"
+      }
     }
-  },
-  "name": "yakopi-reactnative"
+  }
 }

@@ -128,6 +128,7 @@ function AssetsVideo(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            required={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
@@ -194,7 +195,7 @@ function AssetsVideo(props){
 
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -246,7 +247,7 @@ function AssetsVideo(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(
@@ -378,6 +379,7 @@ function AssetsDrone(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            required={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
@@ -443,7 +445,7 @@ function AssetsDrone(props){
             }
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -486,7 +488,7 @@ function AssetsDrone(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(
@@ -616,59 +618,68 @@ function AssetsImage(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            required={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
                         <TouchableOpacity 
                         onPress={async ()=>{
-                            let gambar = await ImagePicker.launchImageLibraryAsync();
-                            if(!gambar.cancelled){
+                            let required = true;
+                            if(keterangan==""){
+                                required = false;
+                            }
+                            if(required){
+                                let gambar = await ImagePicker.launchImageLibraryAsync();
+                                if(!gambar.cancelled){
 
-                                setImageLoading(true);
-                                setModalKeteranganOpened(false);
-            
-                                let uuid = createUUID();
-            
-                                var photo = {
-                                    uri: gambar.uri,
-                                    type: 'image/jpeg',
-                                    name: `${uuid}.jpg`,
-                                  };
-            
-                                let form = new FormData();
-            
-                                form.append("file_replacement_plot_photo",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoReplacementPlot`,{
-                                    method:"POST",
-                                    body:form
-                                });
-                                let response = await request.json();
-            
-                                let url = `/assets/img/photoReplacementPlot/${response.result.orig_name}`;
+                                    setImageLoading(true);
+                                    setModalKeteranganOpened(false);
+                
+                                    let uuid = createUUID();
+                
+                                    var photo = {
+                                        uri: gambar.uri,
+                                        type: 'image/jpeg',
+                                        name: `${uuid}.jpg`,
+                                    };
+                
+                                    let form = new FormData();
+                
+                                    form.append("file_replacement_plot_photo",photo);
+                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoReplacementPlot`,{
+                                        method:"POST",
+                                        body:form
+                                    });
+                                    let response = await request.json();
+                
+                                    let url = `/assets/img/photoReplacementPlot/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_detail_replacement_plot;
+                                    let id = props.route.params.id_detail_replacement_plot;
 
-                                 let req2 = await fetch(`${endpoint}/add-photo-replacement-plot`,{
-                                    method:"POST",
-                                    headers:{
-                                        "authorization":`Bearer ${globalContext.credentials.token}`,
-                                        "content-type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        id_detail_replacement_plot:id,
-                                        keterangan_replacement_plot_photo:keterangan,
-                                        link_replacement_plot_photo:"",
-                                        file_replacement_plot_photo:url
-                                    })
-                                });
-                                let res2 = await req2.json();
-                                
-                                if(res2.success){
-                                    alert(res2.msg);
-                                    setKeterangan("");
-                                    await fetchImage();
+                                    let req2 = await fetch(`${endpoint}/add-photo-replacement-plot`,{
+                                        method:"POST",
+                                        headers:{
+                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                            "content-type":"application/json"
+                                        },
+                                        body:JSON.stringify({
+                                            id_detail_replacement_plot:id,
+                                            keterangan_replacement_plot_photo:keterangan,
+                                            link_replacement_plot_photo:"",
+                                            file_replacement_plot_photo:url
+                                        })
+                                    });
+                                    let res2 = await req2.json();
+                                    
+                                    if(res2.success){
+                                        alert(res2.msg);
+                                        setKeterangan("");
+                                        await fetchImage();
+                                    }
+                
                                 }
-            
+                            }else{
+                                alert("Keterangan harus diisi");
                             }
                         }}
                         style={{backgroundColor:"#1e915a",marginTop:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("15rem"),justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("5rem")}}>
@@ -679,7 +690,7 @@ function AssetsImage(props){
             }
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={async ()=>{
@@ -719,7 +730,7 @@ function AssetsImage(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(

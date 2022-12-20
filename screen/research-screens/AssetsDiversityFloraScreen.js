@@ -194,7 +194,7 @@ function AssetsImage(props){
             }
 
             {
-                (props.route.params.status=="0") &&
+                
                     <TouchableOpacity 
                     activeOpacity={0.6}
                     onPress={async ()=>{
@@ -234,7 +234,7 @@ function AssetsImage(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(

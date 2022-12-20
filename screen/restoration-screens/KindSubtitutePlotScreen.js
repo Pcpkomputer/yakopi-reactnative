@@ -68,8 +68,6 @@ export default function KindSubtitutePlot(props){
 
     return (
       <View style={{flex:1, backgroundColor:'#fff'}}>
-        {
-        (props.route.params.status == "0") &&
         <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -78,7 +76,6 @@ export default function KindSubtitutePlot(props){
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
         </TouchableOpacity>
-        }
         {
                 (listLoading) ?
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
@@ -88,47 +85,47 @@ export default function KindSubtitutePlot(props){
       <ScrollView horizontal>
         <DataTable style={styles.container}>
         <DataTable.Header style={styles.tableHeader}>
-          <DataTable.Title>No</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}>No</DataTable.Title>
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kode Plot Sementara</DataTable.Title>
-           <DataTable.Title
+           <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Perkiraan Tinggi (m)</DataTable.Title>
-           <DataTable.Title
+           <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Perkiraan Umur (thn)</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Perkiraan Luas Plot (ha)</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Koordinat</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Jenis mangrove yangsudah ada</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Jarak Tanaman (m)</DataTable.Title>
-           <DataTable.Title
+           <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kematian (%)</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Penyebab Kematian</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Status Tambak</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Biodiversity</DataTable.Title>
         </DataTable.Header>
         {listLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
         list.map((item, index) => (
           <DataTable.Row key={index}>
-            <DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
             {
-              (props.route.params.status == "0") &&
+              (props.route.params.status == "1") &&
               <View style={{flexDirection:"row",alignItems:"center"}}>
               <TouchableOpacity 
               onPress={async ()=>{
@@ -197,15 +194,15 @@ export default function KindSubtitutePlot(props){
               
           }
           {
-              (props.route.params.status != "0") &&
+              (props.route.params.status != "1") &&
               <Text>{index+1}</Text>
           }
             </DataTable.Cell>
-           <DataTable.Cell>{item.plot_code}</DataTable.Cell>
-            <DataTable.Cell>{item.tinggi_tanaman}</DataTable.Cell>
-            <DataTable.Cell>{item.umur_tanaman}</DataTable.Cell>
-            <DataTable.Cell>{item.luas_plot}</DataTable.Cell>
-            <DataTable.Cell>
+           <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.plot_code}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.tinggi_tanaman}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.umur_tanaman}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.luas_plot}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
             <TouchableOpacity 
               activeOpacity={0.8}
               onPress={()=>{
@@ -219,13 +216,13 @@ export default function KindSubtitutePlot(props){
                   </View>
               </TouchableOpacity>
             </DataTable.Cell>
-            <DataTable.Cell>{item.jenis_mangrove}</DataTable.Cell>
-            <DataTable.Cell>{item.jarak_tanaman}</DataTable.Cell>
-            <DataTable.Cell>{item.kematian}</DataTable.Cell>
-            <DataTable.Cell>{item.penyebab_kematian}</DataTable.Cell>
-            <DataTable.Cell>{item.jenis_tanah}</DataTable.Cell>
-            <DataTable.Cell>{item.status_tambak}</DataTable.Cell>
-            <DataTable.Cell>{item.biodiversity}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.jenis_mangrove}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.jarak_tanaman}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.kematian}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.penyebab_kematian}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.jenis_tanah}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.status_tambak}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.biodiversity}</DataTable.Cell>
           </DataTable.Row>
         ))}
         </DataTable>

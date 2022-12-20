@@ -88,42 +88,42 @@ export default function KindGrowthScreen(props){
       <ScrollView horizontal>
         <DataTable style={styles.container}>
         <DataTable.Header style={styles.tableHeader}>
-          <DataTable.Title>No</DataTable.Title>
-          <DataTable.Title 
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}>No</DataTable.Title>
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kode Site</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kode Plot</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Luas (ha)</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Koordinat</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Jenis mangrove yang di tanam</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kematian (%)</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Penyebab kematian</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Jenis tanah</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Status tambak</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Biodiversity</DataTable.Title>
         </DataTable.Header>
         {listLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
         list.map((item, index) => (
           <DataTable.Row key={index}>
-            <DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
             {
               (props.route.params.status == "0") &&
               <View style={{flexDirection:"row",alignItems:"center"}}>
@@ -175,10 +175,10 @@ export default function KindGrowthScreen(props){
               <Text>{index+1}</Text>
           }
             </DataTable.Cell>
-            <DataTable.Cell>{item.site_code}</DataTable.Cell>
-            <DataTable.Cell>{item.plot_code}</DataTable.Cell>
-            <DataTable.Cell>{item.luas}</DataTable.Cell>
-            <DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.site_code}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.plot_code}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.luas}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
             <TouchableOpacity 
               activeOpacity={0.8}
               onPress={()=>{
@@ -192,13 +192,13 @@ export default function KindGrowthScreen(props){
                   </View>
               </TouchableOpacity>
             </DataTable.Cell>
-            <DataTable.Cell>{item.jenis_magrove}</DataTable.Cell>
-            <DataTable.Cell>{item.kematian}</DataTable.Cell>
-            <DataTable.Cell>{item.penyebab_kematian}</DataTable.Cell>
-            <DataTable.Cell>{item.jenis_tanah}</DataTable.Cell>
-            <DataTable.Cell>{item.status_tambak}</DataTable.Cell>
-            <DataTable.Cell>{item.biodiversity}</DataTable.Cell>
-            <DataTable.Cell>{item.bruguiera_spp}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.jenis_magrove}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.kematian}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.penyebab_kematian}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.jenis_tanah}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.status_tambak}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.biodiversity}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.bruguiera_spp}</DataTable.Cell>
           </DataTable.Row>
         ))}
         </DataTable>

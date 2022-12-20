@@ -85,7 +85,7 @@ export default function InputDetailGrowthScreen(props){
                 longitude:""
             },
             form:"coordinate",
-            required:false
+            required:true
         },
         {
             type:"textinput",

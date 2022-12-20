@@ -63,8 +63,8 @@ export default function RestorationScreen(props){
                                 props.navigation.navigate("ListTransport");
                             }
                             else if(item==="Plot Boundaring (KT-6)"){
-                                alert("Fitur Ini Belum Tersedia");
-                                // props.navigation.navigate("ListPlotBoundaring");
+                                //alert("Fitur Ini Belum Tersedia");
+                                 props.navigation.navigate("ListPlatBoundaring");
                             }
                             else if(item==="Growth (KT-7)"){
                                 // alert("Fitur Ini Belum Tersedia");

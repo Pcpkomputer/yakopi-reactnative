@@ -132,11 +132,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.yayasan.konservasi.pesisir.indonesia.yakopi"
+        applicationId 'com.yayasan.konservasi.pesisir.indonesia.yakopi'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "1.18"
+        versionCode 1
+        versionName "1.0.19"
     }
     splits {
         abi {

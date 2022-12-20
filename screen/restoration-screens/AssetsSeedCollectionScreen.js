@@ -128,60 +128,69 @@ function AssetsVideo(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            reqruired={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
                         <TouchableOpacity 
                         onPress={async ()=>{
-                            let gambar = await DocumentPicker.getDocumentAsync();
-                            if(gambar.type==="success"){
+                            let required = true;
+                            if(keterangan==""){
+                                required = false;
+                            }
+                            if(required){
+                                let gambar = await DocumentPicker.getDocumentAsync();
+                                if(gambar.type==="success"){
 
-                                setImageLoading(true);
-                                setModalKeteranganOpened(false);
-            
-                                let uuid = createUUID();
-            
-                                var photo = {
-                                    uri: gambar.uri,
-                                    type: 'video/mp4',
-                                    name: `${uuid}.mp4`,
-                                  };
-            
-                                let form = new FormData();
-            
-                                form.append("file_collecting_seed_video",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoSeedCollecting`,{
-                                    method:"POST",
-                                    body:form
-                                });
-                                let response = await request.json();
-            
-                                let url = `/assets/img/videoSeedCollecting/${response.result.orig_name}`;
+                                    setImageLoading(true);
+                                    setModalKeteranganOpened(false);
+                
+                                    let uuid = createUUID();
+                
+                                    var photo = {
+                                        uri: gambar.uri,
+                                        type: 'video/mp4',
+                                        name: `${uuid}.mp4`,
+                                    };
+                
+                                    let form = new FormData();
+                
+                                    form.append("file_collecting_seed_video",photo);
+                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoSeedCollecting`,{
+                                        method:"POST",
+                                        body:form
+                                    });
+                                    let response = await request.json();
+                
+                                    let url = `/assets/img/videoSeedCollecting/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_collecting_seed;
+                                    let id = props.route.params.id_collecting_seed;
 
-                                
-                                let req2 = await fetch(`${endpoint}/add-video-seed-collecting`,{
-                                    method:"POST",
-                                    headers:{
-                                        "authorization":`Bearer ${globalContext.credentials.token}`,
-                                        "content-type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        id_collecting_seed:id,
-                                        keterangan_collecting_seed_video:keterangan,
-                                        link_collecting_seed_video:"",
-                                        file_collecting_seed_video:url
-                                    })
-                                });
-                                let res2 = await req2.json();
-                                
-                                if(res2.success){
-                                    alert(res2.msg);
-                                    setKeterangan("");
-                                    await fetchVideo();
+                                    
+                                    let req2 = await fetch(`${endpoint}/add-video-seed-collecting`,{
+                                        method:"POST",
+                                        headers:{
+                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                            "content-type":"application/json"
+                                        },
+                                        body:JSON.stringify({
+                                            id_collecting_seed:id,
+                                            keterangan_collecting_seed_video:keterangan,
+                                            link_collecting_seed_video:"",
+                                            file_collecting_seed_video:url
+                                        })
+                                    });
+                                    let res2 = await req2.json();
+                                    
+                                    if(res2.success){
+                                        alert(res2.msg);
+                                        setKeterangan("");
+                                        await fetchVideo();
+                                    }
+                
                                 }
-            
+                            }else{
+                                alert("Keterangan tidak boleh kosong");
                             }
                            
                         }}
@@ -194,7 +203,7 @@ function AssetsVideo(props){
 
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -246,7 +255,7 @@ function AssetsVideo(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(
@@ -378,60 +387,69 @@ function AssetsDrone(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            required={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
                         <TouchableOpacity 
                         onPress={async ()=>{
-                            let gambar = await ImagePicker.launchImageLibraryAsync();
-                            if(!gambar.cancelled){
+                            let required = true;
+                            if(keterangan==""){
+                                required = false;
+                            }
+                            if(required){
+                                let gambar = await ImagePicker.launchImageLibraryAsync();
+                                if(!gambar.cancelled){
 
-                                setImageLoading(true);
-                                setModalKeteranganOpened(false);
-            
-                                let uuid = createUUID();
-            
-                                var photo = {
-                                    uri: gambar.uri,
-                                    type: 'image/jpeg',
-                                    name: `${uuid}.jpg`,
-                                  };
-            
-                                let form = new FormData();
-            
-                                form.append("file_seed_collecting_drone",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiDroneSeedCollecting`,{
-                                    method:"POST",
-                                    body:form
-                                });
-                                let response = await request.json();
-            
-                                let url = `/assets/img/droneSeedCollecting/${response.result.orig_name}`;
+                                    setImageLoading(true);
+                                    setModalKeteranganOpened(false);
+                
+                                    let uuid = createUUID();
+                
+                                    var photo = {
+                                        uri: gambar.uri,
+                                        type: 'image/jpeg',
+                                        name: `${uuid}.jpg`,
+                                    };
+                
+                                    let form = new FormData();
+                
+                                    form.append("file_seed_collecting_drone",photo);
+                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiDroneSeedCollecting`,{
+                                        method:"POST",
+                                        body:form
+                                    });
+                                    let response = await request.json();
+                
+                                    let url = `/assets/img/droneSeedCollecting/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_collecting_seed;
+                                    let id = props.route.params.id_collecting_seed;
 
-                                
-                                let req2 = await fetch(`${endpoint}/add-drone-seed-collecting`,{
-                                    method:"POST",
-                                    headers:{
-                                        "authorization":`Bearer ${globalContext.credentials.token}`,
-                                        "content-type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        id_collecting_seed:id,
-                                        keterangan_collecting_seed_drone:keterangan,
-                                        link_collecting_seed_drone:"",
-                                        file_collecting_seed_drone:url
-                                    })
-                                });
-                                let res2 = await req2.json();
-                                
-                                if(res2.success){
-                                    alert(res2.msg);
-                                    setKeterangan("");
-                                    await fetchImage();
+                                    
+                                    let req2 = await fetch(`${endpoint}/add-drone-seed-collecting`,{
+                                        method:"POST",
+                                        headers:{
+                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                            "content-type":"application/json"
+                                        },
+                                        body:JSON.stringify({
+                                            id_collecting_seed:id,
+                                            keterangan_collecting_seed_drone:keterangan,
+                                            link_collecting_seed_drone:"",
+                                            file_collecting_seed_drone:url
+                                        })
+                                    });
+                                    let res2 = await req2.json();
+                                    
+                                    if(res2.success){
+                                        alert(res2.msg);
+                                        setKeterangan("");
+                                        await fetchImage();
+                                    }
+                
                                 }
-            
+                            }else{
+                                alert("Keterangan harus diisi");
                             }
                            
                         }}
@@ -443,7 +461,7 @@ function AssetsDrone(props){
             }
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -486,7 +504,7 @@ function AssetsDrone(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(
@@ -616,59 +634,68 @@ function AssetsImage(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            reqruired={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
                         <TouchableOpacity 
                         onPress={async ()=>{
-                            let gambar = await ImagePicker.launchImageLibraryAsync();
-                            if(!gambar.cancelled){
+                            let required = true;
+                            if(keterangan==""){
+                                required = false;
+                            }
+                            if(required){
+                                let gambar = await ImagePicker.launchImageLibraryAsync();
+                                if(!gambar.cancelled){
 
-                                setImageLoading(true);
-                                setModalKeteranganOpened(false);
-            
-                                let uuid = createUUID();
-            
-                                var photo = {
-                                    uri: gambar.uri,
-                                    type: 'image/jpeg',
-                                    name: `${uuid}.jpg`,
-                                  };
-            
-                                let form = new FormData();
-            
-                                form.append("file_collecting_seed_photo",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoSeedCollecting`,{
-                                    method:"POST",
-                                    body:form
-                                });
-                                let response = await request.json();
-            
-                                let url = `/assets/img/photoSeedCollecting/${response.result.orig_name}`;
+                                    setImageLoading(true);
+                                    setModalKeteranganOpened(false);
+                
+                                    let uuid = createUUID();
+                
+                                    var photo = {
+                                        uri: gambar.uri,
+                                        type: 'image/jpeg',
+                                        name: `${uuid}.jpg`,
+                                    };
+                
+                                    let form = new FormData();
+                
+                                    form.append("file_collecting_seed_photo",photo);
+                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoSeedCollecting`,{
+                                        method:"POST",
+                                        body:form
+                                    });
+                                    let response = await request.json();
+                
+                                    let url = `/assets/img/photoSeedCollecting/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_collecting_seed;
+                                    let id = props.route.params.id_collecting_seed;
 
-                                 let req2 = await fetch(`${endpoint}/add-photo-seed-collecting`,{
-                                    method:"POST",
-                                    headers:{
-                                        "authorization":`Bearer ${globalContext.credentials.token}`,
-                                        "content-type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        id_collecting_seed:id,
-                                        keterangan_collecting_seed_photo:keterangan,
-                                        link_collecting_seed_photo:"",
-                                        file_collecting_seed_photo:url
-                                    })
-                                });
-                                let res2 = await req2.json();
-                                
-                                if(res2.success){
-                                    alert(res2.msg);
-                                    setKeterangan("");
-                                    await fetchImage();
+                                    let req2 = await fetch(`${endpoint}/add-photo-seed-collecting`,{
+                                        method:"POST",
+                                        headers:{
+                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                            "content-type":"application/json"
+                                        },
+                                        body:JSON.stringify({
+                                            id_collecting_seed:id,
+                                            keterangan_collecting_seed_photo:keterangan,
+                                            link_collecting_seed_photo:"",
+                                            file_collecting_seed_photo:url
+                                        })
+                                    });
+                                    let res2 = await req2.json();
+                                    
+                                    if(res2.success){
+                                        alert(res2.msg);
+                                        setKeterangan("");
+                                        await fetchImage();
+                                    }
+                
                                 }
-            
+                            }else{
+                                alert("Keterangan harus diisi");
                             }
                         }}
                         style={{backgroundColor:"#1e915a",marginTop:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("15rem"),justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("5rem")}}>
@@ -679,7 +706,7 @@ function AssetsImage(props){
             }
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={async ()=>{
@@ -719,7 +746,7 @@ function AssetsImage(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(

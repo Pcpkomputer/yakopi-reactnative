@@ -15,6 +15,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 import RestorationTextInput from '../restoration-components/RestorationTextInput';
+import RestorationTextAreaInput from '../restoration-components/RestorationTextAreaInput';
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
@@ -164,7 +165,7 @@ export default function DetailLandAssessmentScreen(props){
                 longitude:props.route.params.item.long_land_assessment || "",
             },
             form:"coordinate",
-            required:false
+            required:true
         },
         {
             type:"spacer",
@@ -213,6 +214,13 @@ export default function DetailLandAssessmentScreen(props){
             value:props.route.params.item.nama_dusun || "",
             form:"backwood",
             required:true
+        },
+        {
+            type:"numberinput",
+            label:"Luas Land Assessment",
+            value:"",
+            form:"area_land_assessment",
+            required:false
         },
         {
             type:"selectinput",
@@ -268,9 +276,9 @@ export default function DetailLandAssessmentScreen(props){
         {
             type:"textinput",
             label:"Adanya tegakan mangrove (jumlah % dan jenis-jenis yang ada)   ",
-            value:props.route.params.item.tegakan_mangrove.toString() || "",
+            value:props.route.params.item.tegakan_mangrove || "",
             form:"the_presence_of_mangrove_stands",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -280,7 +288,7 @@ export default function DetailLandAssessmentScreen(props){
                 value:props.route.params.item.adanya_perdu || "",
             },
             form:"shrubs",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -290,7 +298,7 @@ export default function DetailLandAssessmentScreen(props){
                 value:props.route.params.item.potensi_gangguan_hewan_peliharaan || "",
             },
             form:"pet_nuisance",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -300,7 +308,7 @@ export default function DetailLandAssessmentScreen(props){
                 value:props.route.params.item.potensi_hama || "",
             },
             form:"pest_potential",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -310,7 +318,7 @@ export default function DetailLandAssessmentScreen(props){
                 value:props.route.params.item.potensi_gangguan_tritip || "",
             },
             form:"tritype_disorder_potential",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -320,7 +328,7 @@ export default function DetailLandAssessmentScreen(props){
                 value:props.route.params.item.potensi_gangguan_kepiting || "",
             },
             form:"crab_interference_potential",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -330,7 +338,7 @@ export default function DetailLandAssessmentScreen(props){
                 value:props.route.params.item.potensi_gempuran_ombak || "",
             },
             form:"potential_for_waves",
-            required:false
+            required:true
         },
         {
             type:"selectinput",
@@ -347,18 +355,18 @@ export default function DetailLandAssessmentScreen(props){
             label:"Catatan Khusus",
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting dari anggota kelompok",
             value:props.route.params.item.catatan_khusus_1 || "",
             form:"important_information_from_group_members",
-            required:false
+            required:true
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian (biodiversity)",
             value:props.route.params.item.catatan_khusus_2 || "",
             form:"other_important_information_from_group_members",
-            required:false
+            required:true
         },
     ]);
 
@@ -525,6 +533,16 @@ export default function DetailLandAssessmentScreen(props){
                             label={item.label}/>
                            )
                        }
+                       else if(item.type==="textarea"){
+                        return (
+                            <RestorationTextAreaInput  
+                            getter={schema}
+                            setter={setSchema}
+                            index={index}
+                            disable={true}
+                            label={item.label}/>
+                        )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  

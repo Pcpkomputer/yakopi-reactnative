@@ -68,8 +68,6 @@ export default function KindReplanting(props){
 
     return (
       <View style={{flex:1, backgroundColor:'#fff'}}>
-        {
-        (props.route.params.status == "0") &&
         <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -78,7 +76,6 @@ export default function KindReplanting(props){
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
         </TouchableOpacity>
-        }
         {
                 (listLoading) ?
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
@@ -88,62 +85,62 @@ export default function KindReplanting(props){
       <ScrollView horizontal>
         <DataTable style={styles.container}>
         <DataTable.Header style={styles.tableHeader}>
-          <DataTable.Title>No</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}>No</DataTable.Title>
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kode Site</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kode Plot</DataTable.Title>
-           <DataTable.Title
+           <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Luas</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Koordinat</DataTable.Title>
-           <DataTable.Title
+           <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Kematian (%)</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Colok / Propagaul</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Nursery</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >R.mucronata</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >R.stylosa</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >R.apiculata</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Avicennia spp</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Ceriops spp</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Xylocarpus spp</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Bruguiera spp</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Sonneratia spp</DataTable.Title>
-          <DataTable.Title
+          <DataTable.Title style={{flex:1,width:Dimensions.get("window").width/3}}
           sortDirection='descending'
           >Sub-total Bibit</DataTable.Title>
         </DataTable.Header>
         {listLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
         list.map((item, index) => (
           <DataTable.Row key={index}>
-            <DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
             {
-              (props.route.params.status == "0") &&
+              (props.route.params.status == "1") &&
               <View style={{flexDirection:"row",alignItems:"center"}}>
               <TouchableOpacity 
               onPress={async ()=>{
@@ -212,14 +209,14 @@ export default function KindReplanting(props){
               
           }
           {
-              (props.route.params.status != "0") &&
+              (props.route.params.status != "1") &&
               <Text>{index+1}</Text>
           }
             </DataTable.Cell>
-           <DataTable.Cell>{item.site_code}</DataTable.Cell>
-            <DataTable.Cell>{item.plot_code}</DataTable.Cell>
-            <DataTable.Cell>{item.area_plot}</DataTable.Cell>
-            <DataTable.Cell>
+           <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.site_code}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.plot_code}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.area_plot}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
             <TouchableOpacity 
               activeOpacity={0.8}
               onPress={()=>{
@@ -233,41 +230,79 @@ export default function KindReplanting(props){
                   </View>
               </TouchableOpacity>
             </DataTable.Cell>
-            <DataTable.Cell>{item.kematian}</DataTable.Cell>
-            <DataTable.Cell>{item.sistem_tanam_1}</DataTable.Cell>
-            <DataTable.Cell>{item.sistem_tanam_2}</DataTable.Cell>
-            <DataTable.Cell>{item.r_mucronota}</DataTable.Cell>
-            <DataTable.Cell>{item.r_stylosa}</DataTable.Cell>
-            <DataTable.Cell>{item.r_apiculata}</DataTable.Cell>
-            <DataTable.Cell>{item.avicennia_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.ceriops_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.xylocarpus_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.bruguiera_spp}</DataTable.Cell>
-            <DataTable.Cell>{item.sonneratia_spp}</DataTable.Cell>
-            <DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.kematian}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.sistem_tanam_1}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.sistem_tanam_2}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.r_mucronota}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.r_stylosa}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.r_apiculata}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.avicennia_spp}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.ceriops_spp}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.xylocarpus_spp}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.bruguiera_spp}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.sonneratia_spp}</DataTable.Cell>
+            <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
               {item.r_mucronota + item.r_stylosa + item.r_apiculata + item.avicennia_spp + item.ceriops_spp + item.xylocarpus_spp + item.bruguiera_spp + item.sonneratia_spp}
             </DataTable.Cell>
           </DataTable.Row>
         ))}
         <DataTable.Row style={styles.tableTotal}>
-          <DataTable.Cell>Total</DataTable.Cell>
-          <DataTable.Cell></DataTable.Cell>
-          <DataTable.Cell></DataTable.Cell>
-          <DataTable.Cell></DataTable.Cell>
-          <DataTable.Cell></DataTable.Cell>
-          <DataTable.Cell></DataTable.Cell>
-          <DataTable.Cell></DataTable.Cell>
-          <DataTable.Cell></DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.r_mucronota, 0)}</DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.r_stylosa, 0)}</DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.r_apiculata, 0)}</DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.avicennia_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.ceriops_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.xylocarpus_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.bruguiera_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell>{list.reduce((a, b) => a + b.sonneratia_spp, 0)}</DataTable.Cell>
-          <DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>Total</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.r_mucronota, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.r_stylosa, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.r_apiculata, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.avicennia_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.ceriops_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.xylocarpus_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.bruguiera_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{list.reduce((a, b) => a + b.sonneratia_spp, 0)}</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
             {list.reduce((a, b) => a + b.r_mucronota + b.r_stylosa + b.r_apiculata + b.avicennia_spp + b.ceriops_spp + b.xylocarpus_spp + b.bruguiera_spp + b.sonneratia_spp, 0)}
+          </DataTable.Cell>
+        </DataTable.Row>
+        {/* Rata Rata */}
+        <DataTable.Row style={styles.tableTotal}>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>Rata-rata</DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}></DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.r_mucronota, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.r_stylosa, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.r_apiculata, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.avicennia_spp, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.ceriops_spp, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.xylocarpus_spp, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.bruguiera_spp, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.sonneratia_spp, 0) / list.length).toFixed(2) : 0}
+          </DataTable.Cell>
+          <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
+            {list.length > 0 ? (list.reduce((a, b) => a + b.r_mucronota + b.r_stylosa + b.r_apiculata + b.avicennia_spp + b.ceriops_spp + b.xylocarpus_spp + b.bruguiera_spp + b.sonneratia_spp, 0) / list.length).toFixed(2) : 0}
           </DataTable.Cell>
         </DataTable.Row>
         </DataTable>

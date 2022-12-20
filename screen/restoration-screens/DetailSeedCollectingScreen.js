@@ -15,6 +15,7 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 import RestorationTextInput from '../restoration-components/RestorationTextInput';
+import RestorationTextAreaInput from '../restoration-components/RestorationTextAreaInput';
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
@@ -150,7 +151,7 @@ export default function DetailSeedCollectingScreen(props){
                 longitude:props.route.params.item.long_collecting_seed || "",
             },
             form:"coordinate",
-            required:false
+            required:true
         },
         {
             type:"spacer",
@@ -229,18 +230,18 @@ export default function DetailSeedCollectingScreen(props){
             label:"Catatan Khusus",
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting dari anggota kelompok",
             value:props.route.params.item.catatan_1 || "",
             form:"important_information_from_group_members",
-            required:false
+            required:true
         },
         {
-            type:"textinput",
+            type:"textarea",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:props.route.params.item.catatan_2 || "",
             form:"other_important_information_from_group_members",
-            required:false
+            required:true
         },
     ]);
 
@@ -405,6 +406,16 @@ export default function DetailSeedCollectingScreen(props){
                             label={item.label}/>
                            )
                        }
+                       else if(item.type==="textarea"){
+                        return (
+                            <RestorationTextAreaInput  
+                            getter={schema}
+                            setter={setSchema}
+                            index={index}
+                            disable={true}
+                            label={item.label}/>
+                        )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  

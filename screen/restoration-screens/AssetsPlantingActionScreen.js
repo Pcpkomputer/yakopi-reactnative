@@ -129,59 +129,68 @@ function AssetsVideo(props){
                                 setKeterangan(text);
                             }}
                             value={keterangan}
+                            required={true}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
                         <TouchableOpacity 
                         onPress={async ()=>{
-                            let gambar = await DocumentPicker.getDocumentAsync();
-                            if(gambar.type==="success"){
+                            let required = true;
+                            if(keterangan==""){
+                                required = false;
+                            }
+                            if(required){
+                                let gambar = await DocumentPicker.getDocumentAsync();
+                                if(gambar.type==="success"){
 
-                                setImageLoading(true);
-                                setModalKeteranganOpened(false);
-            
-                                let uuid = createUUID();
-            
-                                var photo = {
-                                    uri: gambar.uri,
-                                    type: 'video/mp4',
-                                    name: `${uuid}.mp4`,
-                                  };
-            
-                                let form = new FormData();
-            
-                                form.append("file_planting_action_video",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoPlantingAction`,{
-                                    method:"POST",
-                                    body:form
-                                });
-                                let response = await request.json();
-            
-                                let url = `/assets/img/videoPlantingAction/${response.result.orig_name}`;
+                                    setImageLoading(true);
+                                    setModalKeteranganOpened(false);
+                
+                                    let uuid = createUUID();
+                
+                                    var photo = {
+                                        uri: gambar.uri,
+                                        type: 'video/mp4',
+                                        name: `${uuid}.mp4`,
+                                    };
+                
+                                    let form = new FormData();
+                
+                                    form.append("file_planting_action_video",photo);
+                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoPlantingAction`,{
+                                        method:"POST",
+                                        body:form
+                                    });
+                                    let response = await request.json();
+                
+                                    let url = `/assets/img/videoPlantingAction/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_detail_planting_action;
+                                    let id = props.route.params.id_detail_planting_action;
 
-                                
-                                let req2 = await fetch(`${endpoint}/add-video-planting-action`,{
-                                    method:"POST",
-                                    headers:{
-                                        "authorization":`Bearer ${globalContext.credentials.token}`,
-                                        "content-type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        id_detail_planting_action:id,
-                                        keterangan_planting_action_video:keterangan,
-                                        link_planting_action_video:"",
-                                        file_planting_action_video:url
-                                    })
-                                });
-                                let res2 = await req2.json();
-                                
-                                if(res2.success){
-                                    alert(res2.msg);
-                                    setKeterangan("");
-                                    await fetchVideo();
+                                    
+                                    let req2 = await fetch(`${endpoint}/add-video-planting-action`,{
+                                        method:"POST",
+                                        headers:{
+                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                            "content-type":"application/json"
+                                        },
+                                        body:JSON.stringify({
+                                            id_detail_planting_action:id,
+                                            keterangan_planting_action_video:keterangan,
+                                            link_planting_action_video:"",
+                                            file_planting_action_video:url
+                                        })
+                                    });
+                                    let res2 = await req2.json();
+                                    
+                                    if(res2.success){
+                                        alert(res2.msg);
+                                        setKeterangan("");
+                                        await fetchVideo();
+                                    }
+                
                                 }
-            
+                            }else{
+                                alert("Keterangan tidak boleh kosong");
                             }
                            
                         }}
@@ -194,7 +203,7 @@ function AssetsVideo(props){
 
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -246,7 +255,7 @@ function AssetsVideo(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(
@@ -378,60 +387,69 @@ function AssetsDrone(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            required={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
                         <TouchableOpacity 
                         onPress={async ()=>{
-                            let gambar = await ImagePicker.launchImageLibraryAsync();
-                            if(!gambar.cancelled){
+                            let required = true;
+                            if(keterangan==""){
+                                required = false;
+                            }
+                            if(required){
+                                let gambar = await ImagePicker.launchImageLibraryAsync();
+                                if(!gambar.cancelled){
 
-                                setImageLoading(true);
-                                setModalKeteranganOpened(false);
-            
-                                let uuid = createUUID();
-            
-                                var photo = {
-                                    uri: gambar.uri,
-                                    type: 'image/jpeg',
-                                    name: `${uuid}.jpg`,
-                                  };
-            
-                                let form = new FormData();
-            
-                                form.append("file_planting_action_drone",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiDronePlantingAction`,{
-                                    method:"POST",
-                                    body:form
-                                });
-                                let response = await request.json();
-            
-                                let url = `/assets/img/dronePlantingAction/${response.result.orig_name}`;
+                                    setImageLoading(true);
+                                    setModalKeteranganOpened(false);
+                
+                                    let uuid = createUUID();
+                
+                                    var photo = {
+                                        uri: gambar.uri,
+                                        type: 'image/jpeg',
+                                        name: `${uuid}.jpg`,
+                                    };
+                
+                                    let form = new FormData();
+                
+                                    form.append("file_planting_action_drone",photo);
+                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiDronePlantingAction`,{
+                                        method:"POST",
+                                        body:form
+                                    });
+                                    let response = await request.json();
+                
+                                    let url = `/assets/img/dronePlantingAction/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_detail_planting_action;
+                                    let id = props.route.params.id_detail_planting_action;
 
-                                
-                                let req2 = await fetch(`${endpoint}/add-drone-planting-action`,{
-                                    method:"POST",
-                                    headers:{
-                                        "authorization":`Bearer ${globalContext.credentials.token}`,
-                                        "content-type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        id_detail_planting_action:id,
-                                        keterangan_planting_action_drone:keterangan,
-                                        link_planting_action_drone:"",
-                                        file_planting_action_drone:url
-                                    })
-                                });
-                                let res2 = await req2.json();
-                                
-                                if(res2.success){
-                                    alert(res2.msg);
-                                    setKeterangan("");
-                                    await fetchImage();
+                                    
+                                    let req2 = await fetch(`${endpoint}/add-drone-planting-action`,{
+                                        method:"POST",
+                                        headers:{
+                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                            "content-type":"application/json"
+                                        },
+                                        body:JSON.stringify({
+                                            id_detail_planting_action:id,
+                                            keterangan_planting_action_drone:keterangan,
+                                            link_planting_action_drone:"",
+                                            file_planting_action_drone:url
+                                        })
+                                    });
+                                    let res2 = await req2.json();
+                                    
+                                    if(res2.success){
+                                        alert(res2.msg);
+                                        setKeterangan("");
+                                        await fetchImage();
+                                    }
+                
                                 }
-            
+                            }else{
+                                alert("Keterangan harus diisi");
                             }
                            
                         }}
@@ -443,7 +461,7 @@ function AssetsDrone(props){
             }
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -486,7 +504,7 @@ function AssetsDrone(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(
@@ -616,59 +634,68 @@ function AssetsImage(props){
                             onChangeText={(text)=>{
                                 setKeterangan(text);
                             }}
+                            required={true}
                             value={keterangan}
                             style={{height:EStyleSheet.value("100rem")}} multiline={true} placeholder="Keterangan"/>
                         </View>
                         <TouchableOpacity 
                         onPress={async ()=>{
-                            let gambar = await ImagePicker.launchImageLibraryAsync();
-                            if(!gambar.cancelled){
+                            let required = true;
+                            if(keterangan==""){
+                                required = false;
+                            }
+                            if(required){
+                                let gambar = await ImagePicker.launchImageLibraryAsync();
+                                if(!gambar.cancelled){
 
-                                setImageLoading(true);
-                                setModalKeteranganOpened(false);
-            
-                                let uuid = createUUID();
-            
-                                var photo = {
-                                    uri: gambar.uri,
-                                    type: 'image/jpeg',
-                                    name: `${uuid}.jpg`,
-                                  };
-            
-                                let form = new FormData();
-            
-                                form.append("file_planting_action_photo",photo);
-                                let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoPlantingAction`,{
-                                    method:"POST",
-                                    body:form
-                                });
-                                let response = await request.json();
-            
-                                let url = `/assets/img/photoPlantingAction/${response.result.orig_name}`;
+                                    setImageLoading(true);
+                                    setModalKeteranganOpened(false);
+                
+                                    let uuid = createUUID();
+                
+                                    var photo = {
+                                        uri: gambar.uri,
+                                        type: 'image/jpeg',
+                                        name: `${uuid}.jpg`,
+                                    };
+                
+                                    let form = new FormData();
+                
+                                    form.append("file_planting_action_photo",photo);
+                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiPhotoPlantingAction`,{
+                                        method:"POST",
+                                        body:form
+                                    });
+                                    let response = await request.json();
+                
+                                    let url = `/assets/img/photoPlantingAction/${response.result.orig_name}`;
 
-                                let id = props.route.params.id_detail_planting_action;
+                                    let id = props.route.params.id_detail_planting_action;
 
-                                 let req2 = await fetch(`${endpoint}/add-photo-planting-action`,{
-                                    method:"POST",
-                                    headers:{
-                                        "authorization":`Bearer ${globalContext.credentials.token}`,
-                                        "content-type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        id_detail_planting_action:id,
-                                        keterangan_planting_action_photo:keterangan,
-                                        link_planting_action_photo:"",
-                                        file_planting_action_photo:url
-                                    })
-                                });
-                                let res2 = await req2.json();
-                                
-                                if(res2.success){
-                                    alert(res2.msg);
-                                    setKeterangan("");
-                                    await fetchImage();
+                                    let req2 = await fetch(`${endpoint}/add-photo-planting-action`,{
+                                        method:"POST",
+                                        headers:{
+                                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                                            "content-type":"application/json"
+                                        },
+                                        body:JSON.stringify({
+                                            id_detail_planting_action:id,
+                                            keterangan_planting_action_photo:keterangan,
+                                            link_planting_action_photo:"",
+                                            file_planting_action_photo:url
+                                        })
+                                    });
+                                    let res2 = await req2.json();
+                                    
+                                    if(res2.success){
+                                        alert(res2.msg);
+                                        setKeterangan("");
+                                        await fetchImage();
+                                    }
+                
                                 }
-            
+                            }else{
+                                alert("Keterangan harus diisi");
                             }
                         }}
                         style={{backgroundColor:"#1e915a",marginTop:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("15rem"),justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("5rem")}}>
@@ -679,7 +706,7 @@ function AssetsImage(props){
             }
 
             {
-            (props.route.params.status=="0") &&
+            
             <TouchableOpacity 
             activeOpacity={0.6}
             onPress={async ()=>{
@@ -719,7 +746,7 @@ function AssetsImage(props){
                                 colors={['transparent', 'rgba(0,0,0,0.5)']}>
                                 </LinearGradient>
                                 {
-                                    (props.route.params.status=="0") &&
+                                    
                                     <TouchableOpacity
                                     onPress={async ()=>{
                                         Alert.alert(

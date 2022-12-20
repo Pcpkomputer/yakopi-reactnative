@@ -215,6 +215,13 @@ export default function InputLandAssessmentScreen(props){
             required:true
         },
         {
+            type:"numberinput",
+            label:"Luas Land Assessment",
+            value:"",
+            form:"area_land_assessment",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Posisi Site",
             value:{
@@ -620,7 +627,6 @@ export default function InputLandAssessmentScreen(props){
                       
                    
                    });
-                   if(check){   
                         setSmokeScreenOpened(true);
                         let filtered = schema.filter((item)=>item.type!=="spacer");
                         let payload = {};
@@ -641,15 +647,16 @@ export default function InputLandAssessmentScreen(props){
                             },
                             body:JSON.stringify(payload)
                         });
+                        console.log(payload);
                         let response = await request.json();
                         if(response.success){
                             setSmokeScreenOpened(false);
                             props.navigation.goBack();
+                        }else{
+                            setSmokeScreenOpened(false);
+                            alert(response.message);
                         }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
+                  
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>

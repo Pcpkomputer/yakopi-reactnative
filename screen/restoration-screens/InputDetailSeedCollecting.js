@@ -66,77 +66,77 @@ export default function InputDetailSeedCollectingScreen(props){
         {
             type:"textNumber",
             label:"Jumlah Pekerja",
-            value:"",
+            value:"0",
             form:"jumlah_pekerja",
             required:true
         },
         {
             type:"textNumber",
             label:"Jumlah Pria",
-            value:"",
+            value:"0",
             form:"pria",
             required:true
         },
         {
             type:"textNumber",
             label:"Jumlah Wanita",
-            value:"",
+            value:"0",
             form:"wanita",
             required:true
         },
         {
             type:"textNumber",
             label:"R.mucronata",
-            value:"",
+            value:"0",
             form:"r_mucronoto",
             required:true
         },
         {
             type:"textNumber",
             label:"R.stylosa",
-            value:"",
+            value:"0",
             form:"r_styloso",
             required:true
         },
         {
             type:"textNumber",
             label:"R.apiculata",
-            value:"",
+            value:"0",
             form:"r_apiculata",
             required:true
         },
         {
             type:"textNumber",
             label:"Avicennia spp",
-            value:"",
+            value:"0",
             form:"avicennia_spp",
             required:true
         },
         {
             type:"textNumber",
             label:"Ceriops spp",
-            value:"",
+            value:"0",
             form:"ceriops_spp",
             required:true
         },
         {
             type:"textNumber",
             label:"Xylocarpus spp",
-            value:"",
+            value:"0",
             form:"xylocarpus_spp",
             required:true
         },
         {
             type:"textNumber",
             label:"Bruguiera spp",
-            value:"",
+            value:"0",
             form:"bruguiera_spp",
             required:true
         },
         {
             type:"textNumber",
             label:"Sonneratia spp",
-            value:"",
+            value:"0",
             form:"sonneratia_spp",
             required:true
         },
