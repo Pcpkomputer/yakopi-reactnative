@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>yakopi-reactnative</string>
+	<string>Yakopi</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -49,19 +49,19 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to open the camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>The app accesses your location to let you share it with your friends.</string>
+	<string>The app accesses your location to take your location for your absences feature</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>The app accesses your location to let you share it with your friends.</string>
+	<string>The app accesses your location to take your location for your absences feature</string>
 	<key>NSLocationUsageDescription</key>
 	<string>This app needs to access your location to take your location for your absences feature</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The app accesses your location to let you share it with your friends.</string>
+	<string>The app accesses your location to take your location for your absences feature</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app does not require access to the microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>The app accesses your photos to let you share them with your friends.</string>
+	<string>The app accesses your photos to take your photo for your absences feature</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The app accesses your photos to let you share them with your friends.</string>
+	<string>The app accesses your photos to take your photo for your absences feature</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

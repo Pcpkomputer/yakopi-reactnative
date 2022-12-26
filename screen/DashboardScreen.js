@@ -484,68 +484,74 @@ export default function DashboardScreen(props) {
                                        alert("Akses permissions lokasi diperlukan");
                                     }
                                     else{
-                                        let image = await ImagePicker.launchCameraAsync();
-                                        if(!image.cancelled){
-                                                setPresensiLoading(true);
-    
-                                                // const manipResult = await manipulateAsync(
-                                                //     pick.uri,
-                                                //     [
-                                                //     { resize:{height:1200,width:600} },
-                                                //     ],
-                                                //     { compress: 1, format: SaveFormat.JPEG }
-                                                // );
-    
-                                                let location = await Location.getLastKnownPositionAsync();
-    
-                                                var photo = {
-                                                    uri: image.uri,
-                                                    type: 'image/jpeg',
-                                                    name: `presensi-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
-                                                };
-    
-                                                let formdata = new FormData();
-                                                formdata.append("foto_absen_masuk",photo);
-    
-                                                let request = await fetch(`https://sispro-yakopi.org/endpoint/fotoAbsenMasuk`,{
-                                                    method:"POST",
-                                                    body:formdata
-                                                });
-                                                let response = await request.json();
-                                                
-                                                let filename = response.result.file_name;
-    
-                                                let time = new Date();
-                                                let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
-    
-                                                
-                                                let presensi = await fetch(`${endpoint}/presensi-masuk`,{
-                                                    method:"POST",
-                                                    headers:{
-                                                        "content-type":"application/json",
-                                                        "Authorization":`Bearer ${globalContext.credentials.token}`
-                                                    },
-                                                    body:JSON.stringify({
-                                                        filename:filename,
-                                                        timezone:timezone,
-                                                        latitude:location.coords.latitude,
-                                                        longitude:location.coords.longitude
-                                                    })
-                                                });
-                                                let responsepresensi = await presensi.json();
+                                        // get permission camera or gallery 
+                                        let { status } = await ImagePicker.requestCameraPermissionsAsync();
+                                        if (status !== 'granted') {
+                                            alert("Akses permissions kamera diperlukan");
+                                        }else{
+                                            let image = await ImagePicker.launchCameraAsync();
+                                            if(!image.cancelled){
+                                                    setPresensiLoading(true);
+        
+                                                    // const manipResult = await manipulateAsync(
+                                                    //     pick.uri,
+                                                    //     [
+                                                    //     { resize:{height:1200,width:600} },
+                                                    //     ],
+                                                    //     { compress: 1, format: SaveFormat.JPEG }
+                                                    // );
+        
+                                                    let location = await Location.getLastKnownPositionAsync();
+        
+                                                    var photo = {
+                                                        uri: image.uri,
+                                                        type: 'image/jpeg',
+                                                        name: `presensi-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
+                                                    };
+        
+                                                    let formdata = new FormData();
+                                                    formdata.append("foto_absen_masuk",photo);
+        
+                                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/fotoAbsenMasuk`,{
+                                                        method:"POST",
+                                                        body:formdata
+                                                    });
+                                                    let response = await request.json();
+                                                    
+                                                    let filename = response.result.file_name;
+        
+                                                    let time = new Date();
+                                                    let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+        
+                                                    
+                                                    let presensi = await fetch(`${endpoint}/presensi-masuk`,{
+                                                        method:"POST",
+                                                        headers:{
+                                                            "content-type":"application/json",
+                                                            "Authorization":`Bearer ${globalContext.credentials.token}`
+                                                        },
+                                                        body:JSON.stringify({
+                                                            filename:filename,
+                                                            timezone:timezone,
+                                                            latitude:location.coords.latitude,
+                                                            longitude:location.coords.longitude
+                                                        })
+                                                    });
+                                                    let responsepresensi = await presensi.json();
 
-                                                if(responsepresensi.success){
-                                                    alert(responsepresensi.msg);
-                                                    setPresensiLoading(false);
-    
-                                                    await fetchPresensi();
-                                                }
-                                                else{
-                                                    alert(responsepresensi.msg);
-                                                    setPresensiLoading(false);
-    
-                                                    await fetchPresensi();
-                                                }
+                                                    if(responsepresensi.success){
+                                                        alert(responsepresensi.msg);
+                                                        setPresensiLoading(false);
+        
+                                                        await fetchPresensi();
+                                                    }
+                                                    else{
+                                                        alert(responsepresensi.msg);
+                                                        setPresensiLoading(false);
+        
+                                                        await fetchPresensi();
+                                                    }
+                                            }
                                         }
                                     }
                                    

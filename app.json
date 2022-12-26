@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "yakopi-reactnative",
-    "slug": "yakopi-reactnative",
+    "name": "Yakopi",
+    "slug": "Yakopi",
     "icon": "./assets/icon.png",
-    "version": "1.0.19",
+    "version": "2.5",
     "plugins": [
       [
         "expo-image-picker",
@@ -23,19 +23,17 @@
       ]
     },
     "ios": {
-      "deploymentTarget": "13.0",
       "bundleIdentifier": "com.yayasan.konservasi.pesisir.indonesia.yakopi",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "The app accesses your photos to let you share them with your friends.",
-        "NSPhotoLibraryAddUsageDescription": "The app accesses your photos to let you share them with your friends.",
+        "NSPhotoLibraryUsageDescription": "The app accesses your photos to take your photo for your absences feature.",
+        "NSPhotoLibraryAddUsageDescription": "The app accesses your photos to take your photo for your absences feature.",
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to open the camera",
         "UIBackgroundModes": [
-          "location",
           "fetch"
         ],
-        "NSLocationWhenInUseUsageDescription": "The app accesses your location to let you share it with your friends.",
-        "NSLocationAlwaysUsageDescription": "The app accesses your location to let you share it with your friends.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "The app accesses your location to let you share it with your friends."
+        "NSLocationWhenInUseUsageDescription": "The app accesses your location to take your location for your absences feature.",
+        "NSLocationAlwaysUsageDescription": "The app accesses your location to take your location for your absences feature.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "The app accesses your location to take your location for your absences feature."
       }
     },
     "extra": {
