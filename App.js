@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback, createContext, useRef } from 'react';
-import { StyleSheet, Text, View, Dimensions, AsyncStorage, Button,TouchableOpacity, Image, Alert ,Linking, Platform} from 'react-native';
-
+import { StyleSheet, Text, View, Dimensions, Button,TouchableOpacity, Image, Alert ,Linking} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { endpoint } from './utils/endpoint';
 import * as Application from 'expo-application';
+import NetInfo from "@react-native-community/netinfo";
 
 import DashboardScreen from './screen/DashboardScreen';
 import ProfileScreen from './screen/ProfileScreen';
@@ -18,103 +19,159 @@ import DetailCutiScreen from './screen/cuti-screens/DetailCutiScreen';
 import * as TaskManager from 'expo-task-manager'
 import * as Location from 'expo-location'
 import InputLandAssessmentScreen from './screen/restoration-screens/InputLandAssessmentScreen';
+import InputLandAssessmentOfflineScreen from './screen/restoration-screens/InputLandAssessmentOfflineScreen';
 import ListLandAssessmentScreen from './screen/restoration-screens/ListLandAssessmentScreen';
+import ListLandAssessmentOfflineScreen from './screen/restoration-screens/ListLandAssessmentOfflineScreen';
+import FilterLandAssessmentScreen from './screen/restoration-screens/FilterLandAssessmentScreen';
 import DetailLandAssessmentScreen from './screen/restoration-screens/DetailLandAssessmentScreen';
 import AssetsLandAssessmentScreen from './screen/restoration-screens/AssetsLandAssesmentScreen';
 
 import InputSeedCollectingScreen from './screen/restoration-screens/InputSeedCollectingScreen';
+import InputSeedCollectingOfflineScreen from './screen/restoration-screens/InputSeedCollectingOfflineScreen';
 import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedCollectingScreen';
+import ListSeedCollectingOfflineScreen from './screen/restoration-screens/ListSeedCollectingOfflineScreen';
+import FilterSeedCollectingScreen from './screen/restoration-screens/FilterSeedCollectingScreen';
 import KindSeedCollectingScreen from './screen/restoration-screens/KindSeedCollectingScreen';
 import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
 import InputDetailSeedCollectingScreen from './screen/restoration-screens/InputDetailSeedCollecting';
 import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
 
 import ListNurseryActivityScreen from './screen/restoration-screens/ListNurseryActivityScreen';
+import ListNurseryActivityOfflineScreen from './screen/restoration-screens/ListNurseryActivityOfflineScreen';
 import InputNurseryActivityScreen from './screen/restoration-screens/InputNurseryActivityScreen';
+import InputNurseryActivityOfflineScreen from './screen/restoration-screens/InputNurseryActivityOfflineScreen';
+import FilterNurseryActivityScreen from './screen/restoration-screens/FilterNurseryActivityScreen';
 import KindNurseryActivityScreen from './screen/restoration-screens/KindNurseryActivityScreen';
 import DetailNurseryActivityScreen from './screen/restoration-screens/DetailNurseryActivityScreen';
 import InputDetailNurseryActivityScreen from './screen/restoration-screens/InputDetailNurseryActivityScreen';
 import AssetsNurseryActivityScreen from './screen/restoration-screens/AssetsNurseryActivityScreen';
 
 import ListPlantingActionScreen from './screen/restoration-screens/ListPlantingActionScreen';
+import ListPlantingActionOfflineScreen from './screen/restoration-screens/ListPlantingActionOfflineScreen';
 import InputPlantingActionScreen from './screen/restoration-screens/InputPlantingActionScreen';
+import InputPlantingActionOfflineScreen from './screen/restoration-screens/InputPlantingActionOfflineScreen';
+import FilterPlantingActionScreen from './screen/restoration-screens/FilterPlantingActionScreen';
 import KindPlantingActionScreen from './screen/restoration-screens/KindPlantingActionScreen';
 import DetailPlantingActionScreen from './screen/restoration-screens/DetailPlantingActionScreen';
 import InputDetailPlantingActionScreen from './screen/restoration-screens/InputDetailPlantingActionScreen';
 import AssetsPlantingActionScreen from './screen/restoration-screens/AssetsPlantingActionScreen';
 
 import ListTransportScreen from './screen/restoration-screens/ListTransportScreen';
+import ListTransportOfflineScreen from './screen/restoration-screens/ListTransportOfflineScreen';
 import InputTransportScreen from './screen/restoration-screens/InputTransportScreen';
+import InputTransportOfflineScreen from './screen/restoration-screens/InputTransportOfflineScreen';
+import FilterTransportScreen from './screen/restoration-screens/FilterTransportScreen';
 import KindTransportScreen from './screen/restoration-screens/KindTransportScreen';
 import DetailTransportScreen from './screen/restoration-screens/DetailTransportScreen';
 import InputDetailTransportScreen from './screen/restoration-screens/InputDetailTransportScreen';
 import AssetsTransportScreen from './screen/restoration-screens/AssetsTransportScreen';
 
 import ListGrowthScreen from './screen/restoration-screens/ListGrowthScreen';
+import ListGrowthOfflineScreen from './screen/restoration-screens/ListGrowthOfflineScreen';
 import InputGrowthScreen from './screen/restoration-screens/InputGrowthScreen';
+import InputGrowthOfflineScreen from './screen/restoration-screens/InputGrowthOfflineScreen';
+import FilterGrowthScreen from './screen/restoration-screens/FilterGrowthScreen';
 import KindGrowthScreen from './screen/restoration-screens/KindGrowthScreen';
 import DetailGrowthScreen from './screen/restoration-screens/DetailGrowthScreen';
 import InputDetailGrowthScreen from './screen/restoration-screens/InputDetailGrowthScreen';
 
 import ListReplantingScreen from './screen/restoration-screens/ListReplantingScreen';
+import ListReplantingOfflineScreen from './screen/restoration-screens/ListReplantingOfflineScreen';
 import InputReplantingScreen from './screen/restoration-screens/InputReplantingScreen';
+import InputReplantingOfflineScreen from './screen/restoration-screens/InputReplantingOfflineScreen';
+import FilterReplantingScreen from './screen/restoration-screens/FilterReplantingScreen';
 import KindReplantingScreen from './screen/restoration-screens/KindReplantingScreen';
 import DetailReplantingScreen from './screen/restoration-screens/DetailReplantingScreen';
 import InputDetailReplantingScreen from './screen/restoration-screens/InputDetailReplantingScreen';
 import AssetsReplantingScreen from './screen/restoration-screens/AssetsReplantingScreen';
 
 import ListSubtitutePlotScreen from './screen/restoration-screens/ListSubtitutePlotScreen';
+import ListSubtitutePlotOfflineScreen from './screen/restoration-screens/ListSubtitutePlotOfflineScreen';
 import InputSubtitutePlotScreen from './screen/restoration-screens/InputSubtitutePlotScreen';
+import InputSubtitutePlotOfflineScreen from './screen/restoration-screens/InputSubtitutePlotOfflineScreen';
+import FilterSubtitutePlotScreen from './screen/restoration-screens/FilterSubtitutePlotScreen';
 import KindSubtitutePlotScreen from './screen/restoration-screens/KindSubtitutePlotScreen';
 import DetailSubtitutePlotScreen from './screen/restoration-screens/DetailSubtitutePlotScreen';
 import InputDetailSubtitutePlotScreen from './screen/restoration-screens/InputDetailSubtitutePlotScreen';
 import AssetsSubtitutePlotScreen from './screen/restoration-screens/AssetsSubtitutePlotScreen';
 
 import ListReplacementPlotScreen from './screen/restoration-screens/ListReplacementPlotScreen';
+import ListReplacementPlotOfflineScreen from './screen/restoration-screens/ListReplacementPlotOfflineScreen';
 import InputReplacementPlotScreen from './screen/restoration-screens/InputReplacementPlotScreen';
+import InputReplacementPlotOfflineScreen from './screen/restoration-screens/InputReplacementPlotOfflineScreen';
+import FilterReplacementPlotScreen from './screen/restoration-screens/FilterReplacementPlotScreen';
 import KindReplacementPlotScreen from './screen/restoration-screens/KindReplacementPlotScreen';
 import DetailReplacementPlotScreen from './screen/restoration-screens/DetailReplacementPlotScreen';
 import InputDetailReplacementPlotScreen from './screen/restoration-screens/InputDetailReplacementPlotScreen';
 import AssetsReplacementPlotScreen from './screen/restoration-screens/AssetsReplacementPlotScreen';
 
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
+import InputComunnityOfflineScreen from './screen/comdev-screens/InputCommunityOfflineScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
+import ListCommunityRegisterOfflineScreen from './screen/comdev-screens/ListCommunityOfflineScreen';
+import FilterCommunityScreen from './screen/comdev-screens/FilterCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
 
 import InputSilvosheryScreen from './screen/comdev-screens/InputSilvosheryScreen';
+import InputSilvosheryOfflineScreen from './screen/comdev-screens/InputSilvosheryOfflineScreen';
 import ListSilvosheryScreen from './screen/comdev-screens/ListSilvosheryScreen';
+import ListSilvosheryOfflineScreen from './screen/comdev-screens/ListSilvosheryOfflineScreen';
+import FilterSilvosheryScreen from './screen/comdev-screens/FilterSilvosheryScreen';
 import DetailSilvosheryScreen from './screen/comdev-screens/DetailSilvosheryScreen';
 
+import InputCommunityGroupScreen from './screen/comdev-screens/InputCommunityGroupScreen';
+import InputComunnityGroupOfflineScreen from './screen/comdev-screens/InputComunnityGroupOfflineScreen';
+import ListCommunityGroupScreen from './screen/comdev-screens/ListCommunityGroupScreen';
+import ListCommunityGroupOfflineScreen from './screen/comdev-screens/ListCommunityGroupOfflineScreen';
+import FilterCommunityGroupScreen from './screen/comdev-screens/FilterCommunityGroupScreen';
+import DetailCommunityGroupScreen from './screen/comdev-screens/DetailCommunityGroupScreen';
+import DokumentasiCommunityGroupScreen from './screen/comdev-screens/DokumentasiCommunityGroupScreen';
+
 import ListGrowthResearchScreen from './screen/research-screens/ListGrowthResearchScreen';
+import ListGrowthResearchOfflineScreen from './screen/research-screens/ListGrowthResearchOfflineScreen';
 import InputGrowthResearchScreen from './screen/research-screens/InputGrowthResearchScreen';
+import InputGrowthResearchOfflineScreen from './screen/research-screens/InputGrowthResearchOfflineScreen';
+import FilterGrowthResearchScreen from './screen/research-screens/FilterGrowthResearchScreen';
 import KindGrowthResearchScreen from './screen/research-screens/KindGrowthResearchScreen';
 import DetailGrowthResearchScreen from './screen/research-screens/DetailGrowthResearchScreen';
 import InputDetailGrowthResearchScreen from './screen/research-screens/InputDetailGrowthResearchScreen';
 import AssetsGrowthResearchScreen from './screen/research-screens/AssetsGrowthResearchScreen';
 
 import ListDiversityFaunaScreen from './screen/research-screens/ListDiversityFaunaScreen';
+import ListDiversityFaunaOfflineScreen from './screen/research-screens/ListDiversityFaunaOfflineScreen';
 import InputDiversityFaunaScreen from './screen/research-screens/InputDiversityFaunaScreen';
+import InputDiversityFaunaOfflineScreen from './screen/research-screens/InputDiversityFaunaOfflineScreen';
+import FilterDiversityFaunaScreen from './screen/research-screens/FilterDiversityFaunaScreen';
 import KindDiversityFaunaScreen from './screen/research-screens/KindDiversityFaunaScreen';
 import DetailDiversityFaunaScreen from './screen/research-screens/DetailDiversityFaunaScreen';
 import InputDetailDiversityFaunaScreen from './screen/research-screens/InputDetailDiversityFaunaScreen';
 import AssetsDiversityFaunaScreen from './screen/research-screens/AssetsDiversityFaunaScreen';
 
 import ListDiversityFloraScreen from './screen/research-screens/ListDiversityFloraScreen';
+import ListDiversityFloraOfflineScreen from './screen/research-screens/ListDiversityFloraOfflineScreen';
 import InputDiversityFloraScreen from './screen/research-screens/InputDiversityFloraScreen';
+import InputDiversityFloraOfflineScreen from './screen/research-screens/InputDiversityFloraOfflineScreen';
+import FilterDiversityFloraScreen from './screen/research-screens/FilterDiversityFloraScreen';
 import KindDiversityFloraScreen from './screen/research-screens/KindDiversityFloraScreen';
 import DetailDiversityFloraScreen from './screen/research-screens/DetailDiversityFloraScreen';
 import InputDetailDiversityFloraScreen from './screen/research-screens/InputDetailDiversityFloraScreen';
 import AssetsDiversityFloraScreen from './screen/research-screens/AssetsDiversityFloraScreen';
 
 import ListHamaScreen from './screen/research-screens/ListHamaScreen';
+import ListHamaOfflineScreen from './screen/research-screens/ListHamaOfflineScreen';
 import InputHamaScreen from './screen/research-screens/InputHamaScreen';
+import InputHamaOfflineScreen from './screen/research-screens/InputHamaOfflineScreen';
+import FilterHamaScreen from './screen/research-screens/FilterHamaScreen';
 import KindHamaScreen from './screen/research-screens/KindHamaScreen';
 import DetailHamaScreen from './screen/research-screens/DetailHamaScreen';
 import InputDetailHamaScreen from './screen/research-screens/InputDetailHamaScreen';
 import AssetsHamaScreen from './screen/research-screens/AssetsHamaScreen';
 
 import ListFiskimScreen from './screen/research-screens/ListFiskimScreen';
+import ListFiskimOfflineScreen from './screen/research-screens/ListFiskimOfflineScreen';
 import InputFiskimScreen from './screen/research-screens/InputFiskimScreen';
+import InputFiskimOfflineScreen from './screen/research-screens/InputFiskimOfflineScreen';
+import FilterFiskimScreen from './screen/research-screens/FilterFiskimScreen';
 import KindFiskimScreen from './screen/research-screens/KindFiskimScreen';
 import DetailFiskimScreen from './screen/research-screens/DetailFiskimScreen';
 import InputDetailFiskimScreen from './screen/research-screens/InputDetailFiskimScreen';
@@ -266,15 +323,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-1"
+          headerTitle: "TAMBAH KT-1 (SERVER)"
         }}
         name="InputLandAssessment" component={InputLandAssessmentScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-1 (LOCAL)"
+        }}
+        name="InputLandAssessmentOffline" component={InputLandAssessmentOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-1"
+          headerTitle: "KT-1 (SERVER)"
         }}
         name="ListLandAssessment" component={ListLandAssessmentScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KT-1 (LOCAL)"
+        }}
+        name="ListLandAssessmentOffline" component={ListLandAssessmentOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-1"
+        }}
+        name="FilterLandAssessment" component={FilterLandAssessmentScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -298,15 +373,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-2"
+          headerTitle: "TAMBAH KT-2 (SERVER)"
         }}
         name="InputSeedCollecting" component={InputSeedCollectingScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-2"
+          headerTitle: "TAMBAH KT-2 (LOCAL)"
+        }}
+        name="InputSeedCollectingOffline" component={InputSeedCollectingOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KT-2 (SERVER)"
         }}
         name="ListSeedCollecting" component={ListSeedCollectingScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KT-2 (LOCAL)"
+        }}
+        name="ListSeedCollectingOffline" component={ListSeedCollectingOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-2"
+        }}
+        name="FilterSeedCollecting" component={FilterSeedCollectingScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -337,15 +430,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-3"
+          headerTitle: "KT-3 (SERVER)"
         }}
         name="ListNurseryActivity" component={ListNurseryActivityScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-3"
+          headerTitle: "KT-3 (LOCAL)"
+        }}
+        name="ListNurseryActivityOffline" component={ListNurseryActivityOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-3 (LOCAL)"
+        }}
+        name="InputNurseryActivityOffline" component={InputNurseryActivityOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-3 (SERVER)"
         }}
         name="InputNurseryActivity" component={InputNurseryActivityScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-3"
+        }}
+        name="FilterNurseryActivity" component={FilterNurseryActivityScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -375,27 +486,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-4"
+          headerTitle: "KT-4 (SERVER)"
         }}
         name="ListPlantingAction" component={ListPlantingActionScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-6"
+          headerTitle: "KT-4 (LOCAL)"
         }}
-        name="ListPlatBoundaring" component={ListPlatBoundaring} />
+        name="ListPlantingActionOffline" component={ListPlantingActionOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "INPUT KT-6"
-        }}
-        name="InputNewPlotBoundaring" component={InputNewPlotBoundaring} />
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          headerTitle: "INPUT KT-4"
+          headerTitle: "TAMBAH KT-4 (SERVER)"
         }}
         name="InputPlantingAction" component={InputPlantingActionScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-4 (LOCAL)"
+        }}
+        name="InputPlantingActionOffline" component={InputPlantingActionOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-4"
+        }}
+        name="FilterPlantingAction" component={FilterPlantingActionScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -424,15 +541,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-5"
+          headerTitle: "KT-5 (SERVER)"
         }}
         name="ListTransport" component={ListTransportScreen} />
       <Stack.Screen
+      options={{
+        headerShown: true,
+        headerTitle: "KT-5 (LOCAL)"
+      }}
+      name="ListTransportOffline" component={ListTransportOfflineScreen} />
+      <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-5"
+          headerTitle: "TAMBAH KT-5 (SERVER)"
         }}
         name="InputTransport" component={InputTransportScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-5 (LOCAL)"
+        }}
+        name="InputTransportOffline" component={InputTransportOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-5"
+        }}
+        name="FilterTransport" component={FilterTransportScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -458,18 +593,49 @@ function MasterNavigator() {
         }}
         name="KindTransport" component={KindTransportScreen} />
 
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KT-6"
+        }}
+        name="ListPlatBoundaring" component={ListPlatBoundaring} />
+         <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "INPUT KT-6"
+        }}
+        name="InputNewPlotBoundaring" component={InputNewPlotBoundaring} />
+
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-7"
+          headerTitle: "KT-7 (SERVER)"
         }}
         name="ListGrowth" component={ListGrowthScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-7"
+          headerTitle: "KT-7 (LOCAL)"
+        }}
+        name="ListGrowthOffline" component={ListGrowthOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-7 (SERVER)"
         }}
         name="InputGrowth" component={InputGrowthScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-7 (LOCAL)"
+        }}
+        name="InputGrowthOffline" component={InputGrowthOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-7"
+        }}
+        name="FilterGrowth" component={FilterGrowthScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -492,15 +658,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-8"
+          headerTitle: "KT-8 (SERVER)"
         }}
         name="ListReplanting" component={ListReplantingScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-8"
+          headerTitle: "KT-8 (LOCAL)"
+        }}
+        name="ListReplantingOffline" component={ListReplantingOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-8 (SERVER)"
         }}
         name="InputReplanting" component={InputReplantingScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-8 (LOCAL)"
+        }}
+        name="InputReplantingOffline" component={InputReplantingOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-8"
+        }}
+        name="FilterReplanting" component={FilterReplantingScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -529,15 +713,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-9"
+          headerTitle: "KT-9 (SERVER)"
         }}
         name="ListSubtitutePlot" component={ListSubtitutePlotScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-9"
+          headerTitle: "KT-9 (LOCAL)"
+        }}
+        name="ListSubtitutePlotOffline" component={ListSubtitutePlotOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-9 (SERVER)"
         }}
         name="InputSubtitutePlot" component={InputSubtitutePlotScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-9 (LOCAL)"
+        }}
+        name="InputSubtitutePlotOffline" component={InputSubtitutePlotOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-9"
+        }}
+        name="FilterSubtitutePlot" component={FilterSubtitutePlotScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -567,15 +769,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-10"
+          headerTitle: "KT-10 (SERVER)"
         }}
         name="ListReplacementPlot" component={ListReplacementPlotScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-10"
+          headerTitle: "KT-10 (LOCAL)"
+        }}
+        name="ListReplacementPlotOffline" component={ListReplacementPlotOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-10 (SERVER)"
         }}
         name="InputReplacementPlot" component={InputReplacementPlotScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-10 (LOCAL)"
+        }}
+        name="InputReplacementPlotOffline" component={InputReplacementPlotOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-10"
+        }}
+        name="FilterReplacementPlot" component={FilterReplacementPlotScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -614,36 +834,119 @@ function MasterNavigator() {
           headerShown: true,
         }}
         name="Research" component={ResearchScreen} />
+
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH COMMUNITY"
+          headerTitle: "TAMBAH COMMUNITY (SERVER)"
         }}
         name="InputCommunityRegister" component={InputCommunityRegisterScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "COMMUNITY REGISTER"
+          headerTitle: "TAMBAH COMMUNITY (LOCAL)"
+        }}
+        name="InputComunnityOffline" component={InputComunnityOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "COMMUNITY (SERVER)"
         }}
         name="ListCommunityRegister" component={ListCommunityRegisterScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "COMMUNITY (LOCAL)"
+        }}
+        name="ListCommunityRegisterOffline" component={ListCommunityRegisterOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER COMMUNITY"
+        }}
+        name="FilterCommunity" component={FilterCommunityScreen} />
+        
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "DETAIL COMMUNITY"
         }}
         name="DetailCommunityRegister" component={DetailCommunityRegisterScreen} />
+
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH SILVOSHERY"
+          headerTitle: "TAMBAH COMMUNITY GROUP(SERVER)"
+        }}
+        name="InputCommunityGroup" component={InputCommunityGroupScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH COMMUNITY GROUP (LOCAL)"
+        }}
+        name="InputComunnityGroupOffline" component={InputComunnityGroupOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "COMMUNITY GROUP (SERVER)"
+        }}
+        name="ListCommunityGroup" component={ListCommunityGroupScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "COMMUNITY GROUP (LOCAL)"
+        }}
+        name="ListCommunityGroupOffline" component={ListCommunityGroupOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER COMMUNITY GROUP"
+        }}
+        name="FilterCommunityGroup" component={FilterCommunityGroupScreen} />
+        
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL COMMUNITY GROUP"
+        }}
+        name="DetailCommunityGroup" component={DetailCommunityGroupScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DOKUMENTASI COMMUNITY GROUP"
+        }}
+        name="DokumentasiCommunityGroup" component={DokumentasiCommunityGroupScreen} />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH SILVOSHERY (SERVER)"
         }}
         name="InputSilvoshery" component={InputSilvosheryScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "SILVOSHERT"
+          headerTitle: "TAMBAH SILVOSHERY (LOCAL)"
+        }}
+        name="InputSilvosheryOffline" component={InputSilvosheryOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "SILVOSHERY (SERVER)"
         }}
         name="ListSilvoshery" component={ListSilvosheryScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "SILVOSHERY (LOCAL)"
+        }}
+        name="ListSilvosheryOffline" component={ListSilvosheryOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER SILVOSHERY"
+        }}
+        name="FilterSilvoshery" component={FilterSilvosheryScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -655,15 +958,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-12"
+          headerTitle: "KT-12 (SERVER)"
         }}
         name="ListGrowthResearch" component={ListGrowthResearchScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-12"
+          headerTitle: "KT-12 (LOCAL)"
+        }}
+        name="ListGrowthResearchOffline" component={ListGrowthResearchOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-12 (SERVER)"
         }}
         name="InputGrowthResearch" component={InputGrowthResearchScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-12 (LOCAL)"
+        }}
+        name="InputGrowthResearchOffline" component={InputGrowthResearchOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-12"
+        }}
+        name="FilterGrowthResearch" component={FilterGrowthResearchScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -692,15 +1013,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-13"
+          headerTitle: "KT-13 (SERVER)"
         }}
         name="ListDiversityFauna" component={ListDiversityFaunaScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-13"
+          headerTitle: "KT-13 (LOCAL)"
+        }}
+        name="ListDiversityFaunaOffline" component={ListDiversityFaunaOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-13 (SERVER)"
         }}
         name="InputDiversityFauna" component={InputDiversityFaunaScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-13 (LOCAL)"
+        }}
+        name="InputDiversityFaunaOffline" component={InputDiversityFaunaOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-13"
+        }}
+        name="FilterDiversityFauna" component={FilterDiversityFaunaScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -729,15 +1068,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-14"
+          headerTitle: "KT-14 (SERVER)"
         }}
         name="ListDiversityFlora" component={ListDiversityFloraScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-14"
+          headerTitle: "KT-14 (LOCAL)"
+        }}
+        name="ListDiversityFloraOffline" component={ListDiversityFloraOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-14 (SERVER)"
         }}
         name="InputDiversityFlora" component={InputDiversityFloraScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-14 (LOCAL)"
+        }}
+        name="InputDiversityFloraOffline" component={InputDiversityFloraOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-14"
+        }}
+        name="FilterDiversityFlora" component={FilterDiversityFloraScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -766,15 +1123,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-15"
+          headerTitle: "KT-15 (SERVER)"
         }}
         name="ListHama" component={ListHamaScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "DETAIL KT-15"
+          headerTitle: "KT-15 (LOCAL)"
+        }}
+        name="ListHamaOffline" component={ListHamaOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-15 (SERVER)"
         }}
         name="InputHama" component={InputHamaScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-15 (LOCAL)"
+        }}
+        name="InputHamaOffline" component={InputHamaOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-15"
+        }}
+        name="FilterHama" component={FilterHamaScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -803,15 +1178,33 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "KT-16"
+          headerTitle: "KT-16 (SERVER)"
         }}
         name="ListFiskim" component={ListFiskimScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH KT-16"
+          headerTitle: "KT-16 (LOCAL)"
+        }}
+        name="ListFiskimOffline" component={ListFiskimOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-16 (SERVER)"
         }}
         name="InputFiskim" component={InputFiskimScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KT-16 (LOCAL)"
+        }}
+        name="InputFiskimOffline" component={InputFiskimOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KT-16"
+        }}
+        name="FilterFiskim" component={FilterFiskimScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -848,116 +1241,91 @@ export default function App() {
 
   let [appLoaded, setAppLoaded] = useState(false);
   let [credentials, setCredentials] = useState(null);
-  const [position, setPosition] = useState(null)
-  TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
+  let [localProvince, setLocalProvince] = useState(null);
+  let [localDistrict, setLocalDistrict] = useState(null);
+  let [localSubDistrict, setLocalSubDistrict] = useState(null);
+  let [localProject, setLocalProject] = useState(null);
+  let [KT1, setKT1] = useState([]);
+  let [KT2, setKT2] = useState([]);
+  let [KT3, setKT3] = useState([]);
+  let [KT4, setKT4] = useState([]);
+  let [KT5, setKT5] = useState([]);
+  let [KT7, setKT7] = useState([]);
+  let [KT8, setKT8] = useState([]);
+  let [KT9, setKT9] = useState([]);
+  let [KT10, setKT10] = useState([]);
+  let [KT12, setKT12] = useState([]);
+  let [KT13, setKT13] = useState([]);
+  let [KT14, setKT14] = useState([]);
+  let [KT15, setKT15] = useState([]);
+  let [KT16, setKT16] = useState([]);
+  let [comdev, setComdev] = useState([]);
+  let [silvoshery, setSilvoshery] = useState([]);
+  let [communityGroup, setCommunityGroup] = useState([]);
+
+  const backgroundTask = async ({ data, error }) => {
     if (error) {
-      console.log(error)
-      return
+      console.log(error);
+      return;
     }
     if (data) {
-      const { locations } = data
-      const location = locations[0]
+      const { locations } = data;
+      const location = locations[0];
       if (location) {
-        var trackStatus = await getTrackingStatus()
+        var trackStatus = await getTrackingStatus();
         if (trackStatus != null || trackStatus != undefined) {
-          await saveLocationHistory(location)
-          console.log('insert')
+          await saveLocationHistory(location);
+          console.log('insert');
         } else {
-          console.log(trackStatus)
+          console.log(trackStatus);
         }
       }
     }
-  })
+  };
+
+  useEffect(() => {
+    TaskManager.defineTask(LOCATION_TASK_NAME, backgroundTask);
+
+    return () => {
+      // Unregister task when component unmounts
+      TaskManager.unregisterAllTasksAsync();
+    };
+  }, []);
 
 
   useEffect(() => {
     const requestPermissions = async () => {
-      // Cek apakah sudah kasin permission atau belum ke Location.requestForegroundPermissionsAsync()
-      const permissionLocation  = await Location.getForegroundPermissionsAsync()
-      if (!permissionLocation['granted']) {
-        // Show alert dialog to show user that the app is requesting access to location
-        Alert.alert(
-          'Location Permission',
-          'YAKOPI collects location data to enable plot boundaring tracking even when the app is closed or not in use.',
-          [
-            { text: 'Cancel', style: 'cancel' },
-            { text: 'OK', onPress: async () => {
-              // Request permissions
-              const foreground = await Location.requestForegroundPermissionsAsync()
-              if (foreground.granted) await Location.requestBackgroundPermissionsAsync()
-            }
-            }
-          ],
-          { cancelable: false }
-        )
-      }else{
-        const foreground = await Location.requestForegroundPermissionsAsync()
-        if (foreground.granted) await Location.requestBackgroundPermissionsAsync()
+      // Check network status
+      const isNetworkConnected = await NetInfo.fetch().then((state) => state.isConnected);
+
+      // Request location permissions only if online
+      if (isNetworkConnected) {
+        const permissionLocation = await Location.getForegroundPermissionsAsync();
+        if (!permissionLocation['granted']) {
+          // Show alert dialog to show user that the app is requesting access to location
+          Alert.alert(
+            'Location Permission',
+            'YAKOPI collects location data to enable plot boundaring tracking even when the app is closed or not in use.',
+            [
+              { text: 'Cancel', style: 'cancel' },
+              { text: 'OK', onPress: async () => {
+                // Request permissions
+                const foreground = await Location.requestForegroundPermissionsAsync()
+                if (foreground.granted) await Location.requestBackgroundPermissionsAsync()
+              }
+              }
+            ],
+            { cancelable: false }
+          )
+        } else {
+          const foreground = await Location.requestForegroundPermissionsAsync();
+          if (foreground.granted) await Location.requestBackgroundPermissionsAsync();
+        }
       }
-    }
-    requestPermissions()
+    };
 
-    // startBackgroundUpdate()
-    // startForegroundUpdate()
-  }, [])
-
-  // const startForegroundUpdate = async () => {
-  //   const { granted } = await Location.getForegroundPermissionsAsync()
-  //   if (!granted) {
-  //     console.log("location tracking denied")
-  //     return
-  //   }
-
-  //   foregroundSubscription?.remove()
-
-  //   foregroundSubscription = await Location.watchPositionAsync(
-  //     {
-  //       accuracy: Location.Accuracy.Highest,
-  //       enableHighAccuracy: true
-  //     },
-  //     location => {
-  //       setPosition(location.coords)
-  //     }
-  //   )
-  // }
-
-  // const stopForegroundUpdate = () => {
-  //   foregroundSubscription?.remove()
-  //   setPosition(null)
-  // }
-
-
-  // const startBackgroundUpdate = async () => {
-  //   const { granted } = await Location.getBackgroundPermissionsAsync()
-  //   if (!granted) {
-  //     console.log("location tracking denied")
-  //     return
-  //   }
-
-  //   const isTaskDefined = await TaskManager.isTaskDefined(LOCATION_TASK_NAME)
-  //   if (!isTaskDefined) {
-  //     console.log("Task is not defined")
-  //     return
-  //   }
-
-  //   const hasStarted = await Location.hasStartedLocationUpdatesAsync(
-  //     LOCATION_TASK_NAME
-  //   )
-  //   if (hasStarted) {
-  //     console.log("Already started")
-  //     return
-  //   }
-  //   await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-  //     accuracy: Location.Accuracy.Highest,
-  //     deferredUpdatesInterval: 10000,
-  //     showsBackgroundLocationIndicator: true,
-  //     foregroundService: {
-  //       notificationTitle: "Yakopi Mobile",
-  //       notificationBody: "Aplikasi Yakopi Mobile sedang berjalan",
-  //       notificationColor: "#fff",
-  //     },
-  //   })
-  // }
+    requestPermissions();
+  }, []);
 
 
 
@@ -976,6 +1344,7 @@ export default function App() {
       await Font.loadAsync({
         Poppins: require('./fonts/Poppins-Regular.ttf'),
         PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
+        NunitoBold: require('./fonts/Nunito-Bold.ttf'),
       });
       await fetchNeedUpdate();
       setAppLoaded(true);
@@ -989,9 +1358,181 @@ export default function App() {
       let parsed = JSON.parse(credentials);
       setCredentials(parsed);
     }
+    let localProvince = await AsyncStorage.getItem("localProvince");
+    if (localProvince === null) {
+      setLocalProvince(null);
+    }
+    else {
+      let parsed = JSON.parse(localProvince);
+      setLocalProvince(parsed);
+    }
+    let localDistrict = await AsyncStorage.getItem("localDistrict");
+    if (localDistrict === null) {
+      setLocalDistrict(null);
+    }
+    else {
+      let parsed = JSON.parse(localDistrict);
+      setLocalDistrict(parsed);
+    }
+    let localSubDistrict = await AsyncStorage.getItem("localSubDistrict");
+    if (localSubDistrict === null) {
+      setLocalSubDistrict(null);
+    }
+    else {
+      let parsed = JSON.parse(localSubDistrict);
+      setLocalSubDistrict(parsed);
+    }
+    let localProject = await AsyncStorage.getItem("localProject");
+    if (localProject === null) {
+      setLocalProject(null);
+    }
+    else {
+      let parsed = JSON.parse(localProject);
+      setLocalProject(parsed);
+    }
+
+    let KT1 = await AsyncStorage.getItem("KT1");
+    if(KT1 === null){
+      setKT1([]);
+    }
+    else{
+      let parsed = JSON.parse(KT1);
+      setKT1(parsed);
+    }
+    let KT2 = await AsyncStorage.getItem("KT2");
+    if(KT2 === null){
+      setKT2([]);
+    }
+    else{
+      let parsed = JSON.parse(KT2);
+      setKT2(parsed);
+    }
+    let KT3 = await AsyncStorage.getItem("KT3");
+    if(KT3 === null){
+      setKT3([]);
+    }
+    else{
+      let parsed = JSON.parse(KT3);
+      setKT3(parsed);
+    }
+    let KT4 = await AsyncStorage.getItem("KT4");
+    if(KT4 === null){
+      setKT4([]);
+    }
+    else{
+      let parsed = JSON.parse(KT4);
+      setKT4(parsed);
+    }
+    let KT5 = await AsyncStorage.getItem("KT5");
+    if(KT5 === null){
+      setKT5([]);
+    }
+    else{
+      let parsed = JSON.parse(KT5);
+      setKT5(parsed);
+    }
+    let KT7 = await AsyncStorage.getItem("KT7");
+    if(KT7 === null){
+      setKT7([]);
+    }
+    else{
+      let parsed = JSON.parse(KT7);
+      setKT7(parsed);
+    }
+    let KT8 = await AsyncStorage.getItem("KT8");
+    if(KT8 === null){
+      setKT8([]);
+    }
+    else{
+      let parsed = JSON.parse(KT8);
+      setKT8(parsed);
+    }
+    let KT9 = await AsyncStorage.getItem("KT9");
+    if(KT9 === null){
+      setKT9([]);
+    }
+    else{
+      let parsed = JSON.parse(KT9);
+      setKT9(parsed);
+    }
+    let KT10 = await AsyncStorage.getItem("KT10");
+    if(KT10 === null){
+      setKT10([]);
+    }
+    else{
+      let parsed = JSON.parse(KT10);
+      setKT10(parsed);
+    }
+    let KT12 = await AsyncStorage.getItem("KT12");
+    if(KT12 === null){
+      setKT12([]);
+    }
+    else{
+      let parsed = JSON.parse(KT12);
+      setKT12(parsed);
+    }
+    let KT13 = await AsyncStorage.getItem("KT13");
+    if(KT13 === null){
+      setKT13([]);
+    }
+    else{
+      let parsed = JSON.parse(KT13);
+      setKT13(parsed);
+    }
+    let KT14 = await AsyncStorage.getItem("KT14");
+    if(KT14 === null){
+      setKT14([]);
+    }
+    else{
+      let parsed = JSON.parse(KT14);
+      setKT14(parsed);
+    }
+    let KT15 = await AsyncStorage.getItem("KT15");
+    if(KT15 === null){
+      setKT15([]);
+    }
+    else{
+      let parsed = JSON.parse(KT15);
+      setKT15(parsed);
+    }
+    let KT16 = await AsyncStorage.getItem("KT16");
+    if(KT16 === null){
+      setKT16([]);
+    }
+    else{
+      let parsed = JSON.parse(KT16);
+      setKT16(parsed);
+    }
+    let comdev = await AsyncStorage.getItem("comdev");
+    if(comdev === null){
+      setComdev([]);
+    }
+    else{
+      let parsed = JSON.parse(comdev);
+      setComdev(parsed);
+    }
+    let silvoshery = await AsyncStorage.getItem("silvoshery");
+    if(silvoshery === null){
+      setSilvoshery([]);
+    }
+    else{
+      let parsed = JSON.parse(silvoshery);
+      setSilvoshery(parsed);
+    }
+    let communityGroup = await AsyncStorage.getItem("communityGroup");
+    if(communityGroup === null){
+      setCommunityGroup([]);
+    }
+    else{
+      let parsed = JSON.parse(communityGroup);
+      setCommunityGroup(parsed);
+    }
+
     await Font.loadAsync({
       Poppins: require('./fonts/Poppins-Regular.ttf'),
       PoppinsMedium: require('./fonts/Poppins-Medium.ttf'),
+      NunitoBold: require('./fonts/Nunito-Bold.ttf'),
+      
     });
     await fetchNeedUpdate();
     setAppLoaded(true);
@@ -1009,7 +1550,7 @@ export default function App() {
         SplashScreen.hideAsync();
       }, 1000);
     }
-  }, [appLoaded])
+  }, [appLoaded]);
 
   let [changelog, setChangelog] = useState("");
 
@@ -1027,9 +1568,13 @@ export default function App() {
         setChangelog(response.changelog_mobile);
       }
     }else{
-      if (response.buildnumberIOS.toString() !== Application.nativeBuildVersion.toString()) {
-        setIsNeedUpdate(true);
-        setChangelog(response.changelog_mobile);
+      if(response.production == "1"){
+        if (response.buildnumberIOS.toString() !== Application.nativeBuildVersion.toString()) {
+          setIsNeedUpdate(true);
+          setChangelog(response.changelog_mobile);
+        }
+      }else{
+          setIsNeedUpdate(false);
       }
     }
 
@@ -1084,7 +1629,7 @@ export default function App() {
 
   if (!credentials) {
     return (
-      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition }}>
+      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT3, setKT3, KT4, setKT4, KT5, setKT5, KT7, setKT7, KT8, setKT8, KT9, setKT9, KT10, setKT10, KT12, setKT12, KT13, setKT13, KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup }}>
         <NavigationContainer>
           <AuthNavigator />
         </NavigationContainer>
@@ -1093,7 +1638,7 @@ export default function App() {
   }
   else {
     return (
-      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition }}>
+      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT3, setKT3, KT4, setKT4, KT5, setKT5, KT7, setKT7, KT8, setKT8, KT9, setKT9, KT10, setKT10, KT12, setKT12, KT13, setKT13,  KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup }}>
         <NavigationContainer>
           <MasterNavigator />
         </NavigationContainer>

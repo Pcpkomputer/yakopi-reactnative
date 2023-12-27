@@ -29,6 +29,7 @@ const InputNewPlotBoundaring = (props) => {
     const [isTracking, setIsTracking] = useState(false)
     const [saveButton, showSaveButton] = useState(false)
     let [keterangan, setKeterangan] = useState('')
+    let [totalHektar, setTotalHektar] = useState(0)
 
     const processTracking = async () => {
         if(isTracking){
@@ -58,7 +59,6 @@ const InputNewPlotBoundaring = (props) => {
 
     useEffect(() => {
         AsyncStorage.removeItem('log_gps')
-        console.log('removed')
     }, [])
 
     const processSave = async () => {
@@ -71,8 +71,10 @@ const InputNewPlotBoundaring = (props) => {
         // if(listLocation.length > 0){
             let body = {
                 location: track,
-                keterangan: keterangan
+                keterangan: keterangan,
+                total_hektar: totalHektar,
             }
+            console.log(body)
             // location/insertdata
             let request = await fetch(`${endpoint}/save-coordinate-tracking`,{
                 method:"POST",
@@ -112,6 +114,13 @@ const InputNewPlotBoundaring = (props) => {
                                     style={{ height: 40, borderColor: 'gray', borderWidth: 1, width: 200, marginTop: 10 }}
                                     onChangeText={text => setKeterangan(text)}
                                     value={keterangan}
+                                />
+                                <Text style={{ color: "black", marginTop: 10 }}>Total Hektar</Text>
+                                <TextInput
+                                    style={{ height: 40, borderColor: 'gray', borderWidth: 1, width: 200, marginTop: 10 }}
+                                    onChangeText={text => setTotalHektar(text)}
+                                    value={totalHektar}
+                                    keyboardType="numeric"
                                 />
                                 <TouchableOpacity onPress={e => processSave()} style={{ marginTop: EStyleSheet.value("20rem"), backgroundColor: "#1e915a", paddingHorizontal: EStyleSheet.value("15rem"), paddingVertical: EStyleSheet.value("15rem"), borderRadius: EStyleSheet.value("10rem"), justifyContent: "center", alignItems: "center", marginBottom: EStyleSheet.value("20rem") }}>
                                     <Text style={{ color: "white" }}>Save</Text>

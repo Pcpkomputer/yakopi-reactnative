@@ -1,6 +1,6 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage,Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
-
+import { StyleSheet, ScrollView, ActivityIndicator,Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../utils/HeightUtils';
@@ -44,23 +44,28 @@ export default function RestorationScreen(props){
                         onPress={()=>{
                              if(item==="Land Assessment (KT-1)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListLandAssessment");
+                                // props.navigation.navigate("ListLandAssessment");
+                                props.navigation.navigate("FilterLandAssessment");
                              }
                              else if(item==="Seed Collecting (KT-2)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                 props.navigation.navigate("ListSeedCollecting");
+                                //  props.navigation.navigate("ListSeedCollecting");
+                                props.navigation.navigate("FilterSeedCollecting");
                              }
                              else if(item==="Nursery Activity (KT-3)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListNurseryActivity");
+                                // props.navigation.navigate("ListNurseryActivity");
+                                props.navigation.navigate("FilterNurseryActivity");
                             }
                             else if(item==="Planting Action (KT-4)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListPlantingAction");
+                                // props.navigation.navigate("ListPlantingAction");
+                                props.navigation.navigate("FilterPlantingAction");
                             }
                             else if(item==="Transport (KT-5)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListTransport");
+                                // props.navigation.navigate("ListTransport");
+                                props.navigation.navigate("FilterTransport");
                             }
                             else if(item==="Plot Boundaring (KT-6)"){
                                 //alert("Fitur Ini Belum Tersedia");
@@ -68,19 +73,23 @@ export default function RestorationScreen(props){
                             }
                             else if(item==="Growth (KT-7)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListGrowth");
+                                // props.navigation.navigate("ListGrowth");
+                                props.navigation.navigate("FilterGrowth");
                             }
                             else if(item==="Replanting (KT-8)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListReplanting");
+                                // props.navigation.navigate("ListReplanting");
+                                props.navigation.navigate("FilterReplanting");
                             }
                             else if(item==="Subtitute Plot (KT-9)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListSubtitutePlot");
+                                // props.navigation.navigate("ListSubtitutePlot");
+                                props.navigation.navigate("FilterSubtitutePlot");
                             }
                             else if(item==="Replacement Plot (KT-10)"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListReplacementPlot");
+                                // props.navigation.navigate("ListReplacementPlot");
+                                props.navigation.navigate("FilterReplacementPlot");
                             }
                            
                         }}

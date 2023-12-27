@@ -1,6 +1,6 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
-
+import { StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../utils/HeightUtils';
@@ -127,6 +127,7 @@ export default function LoginScreen(props) {
                             if(response.success){
                                 setUsername(email)
                                 console.log('success')
+                                // redirect to home
                                 await AsyncStorage.setItem("credentials",JSON.stringify(response));
                                 globalContext.setCredentials(response);
                             }

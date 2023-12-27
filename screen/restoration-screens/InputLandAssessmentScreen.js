@@ -521,6 +521,7 @@ export default function InputLandAssessmentScreen(props){
                        if(item.type==="textinput"){
                             return (
                             <RestorationTextInput  
+                            key={index}
                             getter={schema}
                             setter={setSchema}
                             index={index}
@@ -530,6 +531,7 @@ export default function InputLandAssessmentScreen(props){
                        else if(item.type==="numberinput"){
                             return (
                             <RestorationNumberInput
+                            key={index}
                             getter={schema}
                             setter={setSchema}
                             index={index}
@@ -539,6 +541,7 @@ export default function InputLandAssessmentScreen(props){
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  
+                            key={index}
                             getter={schema}
                             setter={setSchema}
                             index={index}
@@ -567,6 +570,7 @@ export default function InputLandAssessmentScreen(props){
                        else if(item.type==="dateinput"){
                         return (
                         <RestorationDateInput  
+                        key={index}
                         getter={schema}
                         setter={setSchema}
                         index={index}
@@ -580,6 +584,7 @@ export default function InputLandAssessmentScreen(props){
                      else if(item.type==="coordsinput"){
                         return (
                         <RestorationCoordsInput  
+                        key={index}
                         getter={schema}
                         setter={setSchema}
                         keyboardType="numeric"

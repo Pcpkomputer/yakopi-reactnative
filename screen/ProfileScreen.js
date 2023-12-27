@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect, useRef, useContext} from 'react';
-import { StyleSheet, Modal,TouchableOpacity, Text, View, Dimensions, ScrollView, FlatList, Image, Pressable, BackHandler, ActivityIndicator, Linking, TextInput, AsyncStorage, ToastAndroid } from 'react-native';
+import { StyleSheet, Modal,TouchableOpacity, Text, View, Dimensions, ScrollView, FlatList, Image, Pressable, BackHandler, ActivityIndicator, Linking, TextInput, ToastAndroid } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Entypo, Feather, Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons'; 
 import Svg, { Path, Circle } from "react-native-svg"
 import { LinearGradient } from 'expo-linear-gradient';
@@ -95,7 +96,6 @@ export default function ProfileScreen(props){
     let [alamat, setAlamat] = useState("");
     let [email, setEmail] = useState("");
     let [notelepon, setNoTelepon] = useState("");
-    let [jenkelPickerOpened, setJenkelPickerOpened] = useState(false);
 
 
     let [newPassword, setNewPassword] = useState("");
@@ -213,75 +213,16 @@ export default function ProfileScreen(props){
                         </View>
                         <View style={{...shadow,flexDirection:"row",height:EStyleSheet.value("48rem"),marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
                             <Text style={{marginRight:EStyleSheet.value("5rem"),color:"#5daa5f",fontWeight:"bold"}}>Jenkel :</Text>
-                                {
-                                    Platform.OS == "android" &&
-                                    <Picker
-                                    style={{flex:1,color:"grey"}}
-                                    selectedValue={jenkel}
-                                    onValueChange={(val)=>{
-                                        setJenkel(val);
-                                    }}
-                                >
-                                    <Picker.Item label="Laki-Laki" value="L" />
-                                    <Picker.Item label="Perempuan" value="P" />
-                                    </Picker>
-                                }
-                                {
-                                    Platform.OS == "ios" &&
-                                    <View style={{flex:1}}>
-                                        <TouchableOpacity
-                                        activeOpacity={0.8}
-                                        onPress={()=>{
-                                            setJenkelPickerOpened(true);
-                                        }}
-                                        style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <Text style={{color:"grey"}}>{jenkel == "L" ? "Laki-Laki" : "Perempuan"}</Text>
-                                            <AntDesign name="caretdown" size={EStyleSheet.value("15rem")} color="grey" />
-                                        </TouchableOpacity>
-                                        {/* show modal to choose sex if clicked with close button icon dengan tulisan pilih jenkel */}
-                                        <Modal
-                                        animationType="slide"
-                                        transparent={true}
-                                        visible={jenkelPickerOpened}
-                                        onRequestClose={() => {
-                                            setJenkelPickerOpened(false);
-                                        }}
-                                        >
-                                            <View style={{flex:1,justifyContent:"center",alignItems:"center",backgroundColor:"rgba(0,0,0,0.5)",paddingHorizontal:EStyleSheet.value("15rem")}}>
-                                                <View style={{backgroundColor:"white",paddingVertical:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("5rem"),width:"100%"}}>
-                                                    <TouchableOpacity
-                                                    activeOpacity={0.8}
-                                                    onPress={()=>{
-                                                        setJenkelPickerOpened(false);
-                                                    }}
-                                                    style={{position:"absolute",top:EStyleSheet.value("10rem"),right:EStyleSheet.value("10rem")}}>
-                                                        <AntDesign name="close" size={EStyleSheet.value("15rem")} color="grey" />
-                                                    </TouchableOpacity>
-                                                    
-                                                    <TouchableOpacity
-                                                    activeOpacity={0.8}
-                                                    onPress={()=>{
-                                                        setJenkel("L");
-                                                        setJenkelPickerOpened(false);
-                                                    }}
-                                                    style={{paddingVertical:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("15rem")}}>
-                                                        <Text style={{color:"grey"}}>Laki-Laki</Text>
-                                                    </TouchableOpacity>
-                                                    <TouchableOpacity
-                                                    activeOpacity={0.8}
-                                                    onPress={()=>{
-                                                        setJenkel("P");
-                                                        setJenkelPickerOpened(false);
-                                                    }}
-                                                    style={{paddingVertical:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("15rem")}}>
-                                                        <Text style={{color:"grey"}}>Perempuan</Text>
-                                                    </TouchableOpacity>
-
-                                                </View>
-                                            </View>
-                                        </Modal>
-                                    </View>
-                                }
+                                <Picker
+                                style={{flex:1,color:"grey"}}
+                                selectedValue={jenkel}
+                                onValueChange={(val)=>{
+                                    setJenkel(val);
+                                }}
+                               >
+                                <Picker.Item label="Laki-Laki" value="L" />
+                                <Picker.Item label="Perempuan" value="P" />
+                                </Picker>
                         </View>
                         <TouchableOpacity 
                         activeOpacity={0.9}

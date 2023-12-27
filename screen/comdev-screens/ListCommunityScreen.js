@@ -1,6 +1,6 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, Platform, ScrollView, ActivityIndicator, Alert, Linking, AsyncStorage, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
-
+import { StyleSheet, Platform, ScrollView, ActivityIndicator, Alert, Linking, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../../utils/HeightUtils';

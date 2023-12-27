@@ -71,13 +71,18 @@ export default function RestorationCoordsInput(props){
                     <TouchableOpacity 
                     activeOpacity={0.8}
                     onPress={async ()=>{
-                        let { status } = await Location.requestForegroundPermissionsAsync();
-                        if (status !== 'granted') {
-                          alert("Need permissions");
-                        }
-                        else{
-                            let location = await Location.getLastKnownPositionAsync();
-                            props.onGetLocation(location);
+                        let Geolocation = await Location.hasServicesEnabledAsync();
+                        if(!Geolocation){
+                            alert("Akses lokasi diperlukan");
+                        }else{
+                            let { status } = await Location.requestForegroundPermissionsAsync();
+                            if (status !== 'granted') {
+                            alert("Need permissions");
+                            }
+                            else{
+                                let location = await Location.getLastKnownPositionAsync();
+                                props.onGetLocation(location);
+                            }
                         }
                   
                        

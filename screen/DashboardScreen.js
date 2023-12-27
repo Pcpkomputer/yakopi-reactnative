@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { StyleSheet, AsyncStorage, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image,Pressable, ViewPagerAndroidComponent } from 'react-native';
-
+import { StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Text, View, Dimensions, Image,Pressable, ViewPagerAndroidComponent } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import SelectDropdown from 'react-native-select-dropdown'
 import { StatusBarHeight } from '../utils/HeightUtils';
@@ -8,9 +8,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import Svg, { Path, Circle, Line } from "react-native-svg"
 import { useIsFocused } from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
-
+import * as Font from 'expo-font';
 import {GlobalContext} from '../App';
 import { endpoint } from '../utils/endpoint';
 
@@ -50,6 +51,109 @@ let shadow2 = {
 export default function DashboardScreen(props) {
 
   const globalContext = useContext(GlobalContext);
+
+   // cek koneksi internet
+   const [isConnected, setIsConnected] = useState(true);
+   const [isInternetReachable, setIsInternetReachable] = useState(true);
+
+   useEffect(() => {
+       const unsubscribe = NetInfo.addEventListener(state => {
+         setIsConnected(state.isConnected);
+         setIsInternetReachable(state.isInternetReachable);
+       });
+   
+       // Hapus listener ketika komponen dibongkar
+       return () => {
+         unsubscribe();
+       };
+     }, []);
+
+  const [localProject, setLocalProject] = useState([]);
+  const [localProvince, setLocalProvince] = useState([]);
+  const [localDistrict, setLocalDistrict] = useState([]);
+  const [localSubDistrict, setLocalSubDistrict] = useState([]);
+
+
+//   cek apakah ada internet atau tidak
+
+    let fetchLocalProject = async()=>{
+        let request = await fetch(`${endpoint}/project`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        setLocalProject(response.data.map((item)=>{
+            return {
+                id:item.id_project,
+                value:item.nama_project
+            }
+        }));
+        AsyncStorage.setItem("localProject",JSON.stringify(response.data));
+    }
+
+
+
+    let fetchLocalProvince = async()=>{
+        let request = await fetch(`${endpoint}/province`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        setLocalProvince(response.data.map((item)=>{
+            return {
+                id:item.prov_id,
+                value:item.prov_name
+            }
+        }));
+        AsyncStorage.setItem("localProvince",JSON.stringify(response.data));
+    }
+
+    let fetchLocalDistrict = async()=>{
+        let request = await fetch(`${endpoint}/city`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        setLocalDistrict(response.map((item)=>{
+            return {
+                id_provinces:item.prov_id,
+                id:item.city_id,
+                value:item.city_name
+            }
+        }));
+        AsyncStorage.setItem("localDistrict",JSON.stringify(response));
+    }
+
+    let fetchLocalSubDistrict = async()=>{
+        let request = await fetch(`${endpoint}/district`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        setLocalSubDistrict(response.data.map((item)=>{
+            return {
+                id_city:item.city_id,
+                id:item.dis_id,
+                value:item.dis_name
+            }
+        }));
+        AsyncStorage.setItem("localSubDistrict",JSON.stringify(response.data));
+    }
+
+    useEffect(()=>{
+        fetchLocalProject();
+        fetchLocalProvince();
+        fetchLocalDistrict();
+        fetchLocalSubDistrict();
+    },[]);
   
   const [thumbnailRestoration, setThumbnailRestoration] = useState([]);
   const [thumbnailComdev, setThumbnailComdev] = useState([]);
@@ -86,12 +190,6 @@ export default function DashboardScreen(props) {
   const [pekerjaPlantingCount, setPekerjaPlantingCount] = useState([]);
   const [priaPlantingCount, setPriaPlantingCount] = useState([]);
   const [wanitaPlantingCount, setWanitaPlantingCount] = useState([]);
-  const [seedNurseryCount, setSeedNurseryCount] = useState([]);
-  const [desaNurseryCount, setDesaNurseryCount] = useState([]);
-  const [pekerjaNurseryCount, setPekerjaNurseryCount] = useState([]);
-  const [priaNurseryCount, setPriaNurseryCount] = useState([]);
-  const [wanitaNurseryCount, setWanitaNurseryCount] = useState([]);
-
 
   let focused = useIsFocused();
 
@@ -162,11 +260,10 @@ export default function DashboardScreen(props) {
 
             var payload = {
                 nama_project: id
-            };
-        
+            };        
 
         let sumLandAssessment = async () => {
-            let request = await fetch(`${endpoint}/sum-area-land-assessment`, {
+            let request = await fetch(`${endpoint}/sum-area-land-assessment?nama_project=${id}`, {
                 method: "GET",
                 headers: {
                     "authorization": `Bearer ${globalContext.credentials.token}`
@@ -296,69 +393,7 @@ export default function DashboardScreen(props) {
             return response.data;
         };
 
-        // 
-
-        let countSeedNursery = async () => {
-            let request = await fetch(`${endpoint}/total-seed-nursery`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${globalContext.credentials.token}`
-                }, body: JSON.stringify(payload)
-            });
-            let response = await request.json();
-            return response.data;
-        };
-
-        let countDesaNursery = async () => {
-            let request = await fetch(`${endpoint}/total-desa-nursery`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${globalContext.credentials.token}`
-                }, body: JSON.stringify(payload)
-            });
-            let response = await request.json();
-            return response.data;
-        };
-
-        let countPekerjaNursery = async () => {
-            let request = await fetch(`${endpoint}/total-involved-nursery`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${globalContext.credentials.token}`
-                }, body: JSON.stringify(payload)
-            });
-            let response = await request.json();
-            return response.data;
-        };
-
-        let countPriaNursery = async () => {
-            let request = await fetch(`${endpoint}/total-male-nursery`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${globalContext.credentials.token}`
-                }, body: JSON.stringify(payload)
-            });
-            let response = await request.json();
-            return response.data;
-        };
-
-        let countWanitaNursery = async () => {
-            let request = await fetch(`${endpoint}/total-female-nursery`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${globalContext.credentials.token}`
-                }, body: JSON.stringify(payload)
-            });
-            let response = await request.json();
-            return response.data;
-        };
-
-        let [landAssessmentSum, seedSum, desaCount, pekerjaCount, priaCount, wanitaCount, seedPlantingCount, desaPlantingCount, pekerjaPlantingCount, priaPlantingCount, wanitaPlantingCount, seedNurseryCount, desaNUrseryCount, pekerjaNurseryCount, priaNurseryCount, wanitaNurseryCount] = await Promise.all([
+        let [landAssessmentSum, seedSum, desaCount, pekerjaCount, priaCount, wanitaCount, seedPlantingCount, desaPlantingCount, pekerjaPlantingCount, priaPlantingCount, wanitaPlantingCount] = await Promise.all([
             sumLandAssessment(),
             sumSeed(),
             countDesa(),
@@ -369,12 +404,7 @@ export default function DashboardScreen(props) {
             countDesaPlanting(),
             countPekerjaPlanting(),
             countPriaPlanting(),
-            countWanitaPlanting(),
-            countSeedNursery(),
-            countDesaNursery(),
-            countPekerjaNursery(),
-            countPriaNursery(),
-            countWanitaNursery()
+            countWanitaPlanting()
         ]);
         setLandAssessmentSum(landAssessmentSum);
         setSeedSum(seedSum);
@@ -387,12 +417,6 @@ export default function DashboardScreen(props) {
         setPekerjaPlantingCount(pekerjaPlantingCount);
         setPriaPlantingCount(priaPlantingCount);
         setWanitaPlantingCount(wanitaPlantingCount);
-        setSeedNurseryCount(seedNurseryCount);
-        setDesaNurseryCount(desaNUrseryCount);
-        setPekerjaNurseryCount(pekerjaNurseryCount);
-        setPriaNurseryCount(priaNurseryCount);
-        setWanitaNurseryCount(wanitaNurseryCount);
-        
     }
 
   const fetchPresensi = async()=>{
@@ -427,6 +451,9 @@ export default function DashboardScreen(props) {
     setProject(response.data);
     }
 
+   
+    
+
     useEffect(()=>{
         fetchProject();
     },[]);
@@ -444,7 +471,15 @@ export default function DashboardScreen(props) {
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
                     <Text style={{color:"white",fontFamily:"PoppinsMedium",fontSize:EStyleSheet.value("23rem")}}>YAKOPI</Text>
                 </View>
-                <FontAwesome style={{opacity:0}} name="user" size={24} color="white" />
+                {/* Jika ada koneksi internet maka pakai icon internet, jika tidak ada maka pakai icon offline */}
+                {
+                    (isConnected && isInternetReachable) &&
+                        <FontAwesome name="signal" size={EStyleSheet.value("20rem")} color="white" />
+                }
+                {
+                    (!isConnected || !isInternetReachable) &&
+                        <MaterialCommunityIcons name="signal-off" size={EStyleSheet.value("20rem")} color="white" />
+                }
             </View>
             <View style={{backgroundColor:"whitesmoke",paddingTop:0,paddingBottom:0}}>
                 <View style={{position:"absolute",backgroundColor:"#1e915a",height:"50%",right:0,width:"100%"}}>
@@ -479,16 +514,15 @@ export default function DashboardScreen(props) {
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
                                 onPress={async ()=>{
-                                    let { status } = await Location.requestForegroundPermissionsAsync();
-                                    if (status !== 'granted') {
-                                       alert("Akses permissions lokasi diperlukan");
-                                    }
-                                    else{
-                                        // get permission camera or gallery 
-                                        let { status } = await ImagePicker.requestCameraPermissionsAsync();
+                                    let Geolocation = await Location.hasServicesEnabledAsync();
+                                    if(!Geolocation){
+                                        alert("Akses lokasi diperlukan");
+                                    }else{
+                                        let { status } = await Location.requestForegroundPermissionsAsync();
                                         if (status !== 'granted') {
-                                            alert("Akses permissions kamera diperlukan");
-                                        }else{
+                                            alert("Akses permissions lokasi diperlukan");
+                                        }
+                                        else{
                                             let image = await ImagePicker.launchCameraAsync();
                                             if(!image.cancelled){
                                                     setPresensiLoading(true);
@@ -566,58 +600,63 @@ export default function DashboardScreen(props) {
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
                                 onPress={async ()=>{
-                                    let image = await ImagePicker.launchCameraAsync();
-                                    if(!image.cancelled){
-                                        setPresensiLoading(true);
-                                        let location = await Location.getLastKnownPositionAsync();
+                                    let Geolocation = await Location.hasServicesEnabledAsync();
+                                    if(!Geolocation){
+                                        alert("Akses lokasi diperlukan");
+                                    }else{
+                                        let image = await ImagePicker.launchCameraAsync();
+                                        if(!image.cancelled){
+                                            setPresensiLoading(true);
+                                            let location = await Location.getLastKnownPositionAsync();
 
-                                        var photo = {
-                                            uri: image.uri,
-                                           type: 'image/jpeg',
-                                            name: `presensipulang-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
-                                        };
+                                            var photo = {
+                                                uri: image.uri,
+                                            type: 'image/jpeg',
+                                                name: `presensipulang-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
+                                            };
 
-                                        let formdata = new FormData();
-                                        formdata.append("foto_absen_keluar",photo);
+                                            let formdata = new FormData();
+                                            formdata.append("foto_absen_keluar",photo);
 
-                                        let request = await fetch(`https://sispro-yakopi.org/endpoint/fotoAbsenPulang`,{
-                                            method:"POST",
-                                            body:formdata
-                                        });
-                                        let response = await request.json();
-                                        
-                                        let filename = response.result.file_name;
+                                            let request = await fetch(`https://sispro-yakopi.org/endpoint/fotoAbsenPulang`,{
+                                                method:"POST",
+                                                body:formdata
+                                            });
+                                            let response = await request.json();
+                                            
+                                            let filename = response.result.file_name;
 
-                                        let time = new Date();
-                                        let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
-                                        
+                                            let time = new Date();
+                                            let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+                                            
 
-                                        let presensi = await fetch(`${endpoint}/presensi-pulang`,{
-                                            method:"POST",
-                                            headers:{
-                                                "content-type":"application/json",
-                                                "Authorization":`Bearer ${globalContext.credentials.token}`
-                                            },
-                                            body:JSON.stringify({
-                                                filename:filename,
-                                                timezone:timezone,
-                                                latitude:location.coords.latitude,
-                                                longitude:location.coords.longitude
-                                            })
-                                        });
-                                        let responsepresensi = await presensi.json();
+                                            let presensi = await fetch(`${endpoint}/presensi-pulang`,{
+                                                method:"POST",
+                                                headers:{
+                                                    "content-type":"application/json",
+                                                    "Authorization":`Bearer ${globalContext.credentials.token}`
+                                                },
+                                                body:JSON.stringify({
+                                                    filename:filename,
+                                                    timezone:timezone,
+                                                    latitude:location.coords.latitude,
+                                                    longitude:location.coords.longitude
+                                                })
+                                            });
+                                            let responsepresensi = await presensi.json();
 
-                                        if(responsepresensi.success){
-                                            alert(responsepresensi.msg);
-                                            setPresensiLoading(false);
+                                            if(responsepresensi.success){
+                                                alert(responsepresensi.msg);
+                                                setPresensiLoading(false);
 
-                                            await fetchPresensi();
-                                        }
-                                        else{
-                                            alert(responsepresensi.msg);
-                                            setPresensiLoading(false);
+                                                await fetchPresensi();
+                                            }
+                                            else{
+                                                alert(responsepresensi.msg);
+                                                setPresensiLoading(false);
 
-                                            await fetchPresensi();
+                                                await fetchPresensi();
+                                            }
                                         }
                                     }
                                 }}
@@ -822,48 +861,6 @@ export default function DashboardScreen(props) {
                                 <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
                                     <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaPlantingCount} People</Text>
-                                </View>
-                            </View>
-                        </View>
-
-                        <Text style={{fontWeight:"bold"}}>NURSERY ACTIVITY</Text>    
-                        <View
-                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("10rem")}}>
-                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Villages</Text>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{desaNurseryCount} Villages</Text>
-                                </View>
-                            </View>
-                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
-                            <View
-                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
-                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Number of Seeds</Text>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{seedNurseryCount} Seeds</Text>
-                                </View>
-                            </View>
-                            <View
-                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
-                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Involved</Text>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{pekerjaNurseryCount} People</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginTop:EStyleSheet.value("10rem")}}>
-                            <View
-                           
-                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
-                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Male</Text>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{priaNurseryCount} People</Text>
-                                </View>
-                            </View>
-                            <View
-                            style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem"),marginBottom:EStyleSheet.value("20rem"),width:EStyleSheet.value("150rem")}}>
-                                <View style={{padding:EStyleSheet.value("20rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("100rem")}}>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("12rem"),textAlign:"center"}}>Total Female</Text>
-                                    <Text style={{color:"black",fontSize:EStyleSheet.value("15rem"),textAlign:"center"}}>{wanitaNurseryCount} People</Text>
                                 </View>
                             </View>
                         </View>

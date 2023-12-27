@@ -724,6 +724,15 @@ function AssetsImage(props){
                 </View>
                 :
                 <FlatList
+                ListHeaderComponent={() => (
+                    <View style={{marginHorizontal:EStyleSheet.value("20rem"),overflow:"hidden",borderRadius:EStyleSheet.value("3rem"),marginBottom:EStyleSheet.value("15rem"),paddingBottom:EStyleSheet.value("15rem"),borderBottomWidth:EStyleSheet.value("1rem"),borderBottomColor:"#e8e8e8",backgroundColor:"white",paddingHorizontal:EStyleSheet.value("20rem"),marginBottom:EStyleSheet.value("15rem"),...shadow}}>
+                        <Text style={{ fontSize: EStyleSheet.value("18rem"), fontWeight: "bold", marginBottom: EStyleSheet.value("10rem"), marginTop: EStyleSheet.value("10rem") }}>
+                          Informasi Pengisian Foto:
+                        </Text>
+                        <Text>- Harus diisi dengan 2 Foto Timestamp</Text>
+                        <Text>- Harus diisi dengan 2 Foto Tanpa Timestamp</Text>
+                      </View>
+                    )}
                     contentContainerStyle={{paddingTop:EStyleSheet.value("15rem")}}
                     keyExtractor={(item,index)=>`image-${index}`}
                     data={image}

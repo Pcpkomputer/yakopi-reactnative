@@ -1,6 +1,6 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage,Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
-
+import { StyleSheet, ScrollView, ActivityIndicator,Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../utils/HeightUtils';
@@ -38,19 +38,24 @@ export default function ResearchScreen(props){
                         onPress={()=>{
                              if(item==="Growth Research"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListGrowthResearch");
+                                // props.navigation.navigate("ListGrowthResearch");
+                                props.navigation.navigate("FilterGrowthResearch");
                              }else if (item==="Diversity Fauna"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListDiversityFauna");
+                                // props.navigation.navigate("ListDiversityFauna");
+                                props.navigation.navigate("FilterDiversityFauna");
                              }else if (item==="Diversity Flora"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListDiversityFlora");
+                                // props.navigation.navigate("ListDiversityFlora");
+                                props.navigation.navigate("FilterDiversityFlora");
                              }else if (item==="Pest"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListHama");
+                                // props.navigation.navigate("ListHama");
+                                props.navigation.navigate("FilterHama");
                              }else if (item==="Fiskim"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListFiskim");
+                                // props.navigation.navigate("ListFiskim");
+                                props.navigation.navigate("FilterFiskim");
                              }
 
                         }}

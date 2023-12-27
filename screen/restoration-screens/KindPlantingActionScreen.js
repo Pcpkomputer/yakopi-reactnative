@@ -145,9 +145,6 @@ export default function KindPlantingAction(props){
         list.map((item, index) => (
           <DataTable.Row key={index}>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
-            {
-              (props.route.params.status == "1") &&
-              <View style={{flexDirection:"row",alignItems:"center"}}>
               <TouchableOpacity 
               onPress={async ()=>{
 
@@ -210,14 +207,6 @@ export default function KindPlantingAction(props){
                   style={{backgroundColor:"#49B6D6",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                       <MaterialCommunityIcons name="drone" size={EStyleSheet.value("15rem")} color="white" />
                   </TouchableOpacity>
-              
-              </View>
-              
-          }
-          {
-              (props.route.params.status != "1") &&
-              <Text>{index+1}</Text>
-          }
             </DataTable.Cell>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.date_planting_action}</DataTable.Cell>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.jumlah_pekerja}</DataTable.Cell>

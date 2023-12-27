@@ -102,7 +102,7 @@ export default function ListLandAssessmentScreen(props){
                                     </View>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row"}}>
                                         <View style={{backgroundColor:"#446A46",marginRight:EStyleSheet.value("5rem"),alignSelf:"flex-start",borderRadius:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem")}}>
-                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{toLocaleTimestamp(item.date_land_assessment.replace(/\-/g,"/"))}</Text>
+                                        <Text style={{fontSize:EStyleSheet.value("11rem"),color:"white"}}>{item.date_land_assessment}</Text>
                                         </View>
                                     </ScrollView>
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingTop:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("10rem"),flexDirection:"row",paddingBottom:EStyleSheet.value("10rem")}}>

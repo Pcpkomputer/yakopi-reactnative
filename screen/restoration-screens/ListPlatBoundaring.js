@@ -29,6 +29,7 @@ const ListPlatBoundaring = (props) => {
 
     let [fileGpx, setFileGpx] = useState(null);
     let [keterangan, setKeterangan] = useState(null);
+    let [totalHektar, setTotalHektar] = useState(0);
 
     let fetchList = async () =>{
         setListLoading(true);
@@ -97,7 +98,15 @@ const ListPlatBoundaring = (props) => {
                             setKeterangan(text);
                         }}
                         />
-
+                    <TextInput
+                        placeholder="Total Hektar"
+                        style={{borderWidth:1,borderColor:"#ccc",borderRadius:5,padding:10,marginBottom:10,flex:1,marginLeft:EStyleSheet.value("10rem")}}
+                        onChangeText={(text)=>{
+                            setTotalHektar(text);
+                        }
+                        }
+                        keyboardType="numeric"
+                        />
                     </View>
                     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
                         <TouchableOpacity
@@ -156,6 +165,7 @@ const ListPlatBoundaring = (props) => {
                                     body:JSON.stringify({
                                         username:username,
                                         keterangan:keterangan,
+                                        total_hektar:totalHektar,
                                         filename:payloadfilename
                                     })
                                 });

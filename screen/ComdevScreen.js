@@ -1,6 +1,6 @@
 import React,{useState,useEffect, useContext} from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, AsyncStorage,Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
-
+import { StyleSheet, ScrollView, ActivityIndicator, Alert, TouchableOpacity, Text, TextInput, View, Dimensions, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { StatusBarHeight } from '../utils/HeightUtils';
@@ -20,6 +20,7 @@ export default function ComdevScreen(props){
     const [restoration,setComdev] = useState([
         "Community",
         "Silvoshery",
+        "Community Group"
     ]);
 
     return (
@@ -35,10 +36,16 @@ export default function ComdevScreen(props){
                         onPress={()=>{
                             if(item==="Community"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListCommunityRegister");
+                                // props.navigation.navigate("ListCommunityRegister");
+                                props.navigation.navigate("FilterCommunity");
                             }else if(item==="Silvoshery"){
                                 // alert("Fitur Ini Belum Tersedia");
-                                props.navigation.navigate("ListSilvoshery");
+                                // props.navigation.navigate("ListSilvoshery");
+                                props.navigation.navigate("FilterSilvoshery");
+                            }else if(item==="Community Group"){
+                                // alert("Fitur Ini Belum Tersedia");
+                                // props.navigation.navigate("ListCommunityGroup");
+                                props.navigation.navigate("FilterCommunityGroup");
                             }
                         }}
                         >
