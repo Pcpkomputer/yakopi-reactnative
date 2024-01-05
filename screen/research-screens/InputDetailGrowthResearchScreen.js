@@ -58,46 +58,107 @@ export default function InputDetailGrowthGrowthScreen(props){
         },
         {
             type:"textinput",
-            label:"No Tagging",
+            label:"Kode Site",
             value:"",
-            form:"no_tagging",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Tinggi ",
-            value:"",
-            form:"tinggi",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Diameter",
-            value:"",
-            form:"diameter",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Jumlah Daun ",
-            value:"",
-            form:"jumlah_daun",
-            required:true
-        },
-        {
-            type:"textNumber",
-            label:"Jumlah Percabangan",
-            value:"",
-            form:"jumlah_percabangan",
+            form:"kode_site",
             required:true
         },
         {
             type:"textinput",
-            label:"Keterangan ",
+            label:"Kode Plot",
             value:"",
-            form:"keterangan",
+            form:"kode_plot",
             required:true
-        },        
+        },
+        {
+            type:"textNumber",
+            label:"Luas (Ha) ",
+            value:"",
+            form:"luas",
+            required:true
+        },
+        {
+            type:"coordsinput",
+            label:"Koordinat",
+            value:{
+                latitude:"",
+                longitude:""
+            },
+            form:"coordinate",
+            required:false
+        },
+        {
+            type:"textinput",
+            label:"Jenis Tanaman",
+            value:"",
+            form:"jenis_tanaman",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Jumlah yang ditanam",
+            value:"",
+            form:"jumlah_yang_ditanam",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Jumlah Hidup",
+            value:"",
+            form:"jumlah_hidup",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Persentase Kehidupan",
+            value:"",
+            form:"persentase_kehidupan",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Jumlah Mati",
+            value:"",
+            form:"jumlah_mati",
+            required:true
+        },
+        {
+            type:"textNumber",
+            label:"Persentase Kematian",
+            value:"",
+            form:"persentase_kematian",
+            required:true
+        },
+        {
+            type:"textinput",
+            label:"Penyebab Kematian",
+            value:"",
+            form:"penyebab_kematian",
+            required:true
+        },
+        {
+            type:"textinput",
+            label:"Jenis Tanah",
+            value:"",
+            form:"jenis_tanah",
+            required:true
+        },
+        {
+            type:"textinput",
+            label:"Status Tambak",
+            value:"",
+            form:"status_tambak",
+            required:true
+        },
+        {
+            type:"textinput",
+            label:"Biodiversity",
+            value:"",
+            form:"biodiversity",
+            required:true
+        },
+        
+              
     ]);
 
     return (
@@ -247,20 +308,30 @@ export default function InputDetailGrowthGrowthScreen(props){
                            
                         });
                         console.log(payload);
-                        let request = await fetch(`${endpoint}/research/growthResearch/addDetail`,{
-                            method:"POST",
-                            headers:{
-                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                "content-type":"application/json"
-                            },
-                            body:JSON.stringify(
-                                payload
-                            )
-                        });
-                        let response = await request.json();
-                        if(response.success){
+                        try{
+                            let request = await fetch(`${endpoint}/research/growthResearch/addDetail`,{
+                                method:"POST",
+                                headers:{
+                                    "authorization":`Bearer ${globalContext.credentials.token}`,
+                                    "content-type":"application/json"
+                                },
+                                body:JSON.stringify(
+                                    payload
+                                )
+                            });
+                            let response = await request.json();
+                            if(response.success){
+                                setSmokeScreenOpened(false);
+                                props.navigation.goBack();
+                            }
+                            else{
+                                setSmokeScreenOpened(false);
+                                alert(response.msg);
+                            }
+                        }
+                        catch(e){
                             setSmokeScreenOpened(false);
-                            props.navigation.goBack();
+                            alert("Terjadi kesalahan");
                         }
                    }
                    else{

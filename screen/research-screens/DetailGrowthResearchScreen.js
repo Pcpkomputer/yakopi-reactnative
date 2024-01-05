@@ -15,10 +15,10 @@ import {endpoint} from '../../utils/endpoint';
 import {GlobalContext} from '../../App';
 
 import RestorationTextInput from '../restoration-components/RestorationTextInput';
+import RestorationTextAreaInput from '../restoration-components/RestorationTextAreaInput';
 import RestorationSelectInput from '../restoration-components/RestorationSelectInput';
 import RestorationDateInput from '../restoration-components/RestorationDateInput';
 import RestorationCoordsInput from '../restoration-components/RestorationCoordsInput';
-import RestorationNumberInput from '../restoration-components/RestorationNumberInput';
 
 import DatePicker from 'react-native-modern-datepicker';
 
@@ -51,6 +51,7 @@ export default function DetailGrowthResearchScreen(props){
         province:[],
         city:[],
         district:[],
+        position:["Pond","Riverine","MotorCoast-line"].map((item,_)=>{return {id:item,value:item}}),
     });
 
     let fetchProject = async ()=>{
@@ -192,45 +193,34 @@ export default function DetailGrowthResearchScreen(props){
         },
         {
             type:"textinput",
-            label:"Kode Site",
-            value:props.route.params.item.site_code || "",
-            form:"site_code",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Kode Plot",
-            value:props.route.params.item.plot_code || "",
-            form:"plot_code",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Luas (Ha)",
-            value:props.route.params.item.area.toString() || "",
-            form:"area",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Spesies",
-            value:props.route.params.item.spesies.toString() || "",
-            form:"spesies",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Jumlah",
-            value:props.route.params.item.jumlah.toString() || "",
-            form:"jumlah",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Monitoring Ke-",
-            value:props.route.params.item.monitoring_ke.toString() || "",
+            label:"Monitoring Ke",
+            value:props.route.params.item.monitoring_ke || "",
             form:"monitoring_ke",
-            required:false
+            required:true
+        },
+        {
+            type:"selectinput",
+            label:"Sub-ekosistem lokasi tanam",
+            value:{
+                id:props.route.params.item.position || -1,
+                value:props.route.params.item.position || "",
+            },
+            form:"position",
+            required:true
+        },
+        {
+            type:"textinput",
+            label:"Jarak tanam dan kerapatan bibit",
+            value:props.route.params.item.distance || "",
+            form:"distance",
+            required:true
+        },
+        {
+            type:"textinput",
+            label:"Keberadaan jenis-jenis mangrove yang sudah ada di lokasi tanam dan perkiraan persentasenya   ",
+            value:props.route.params.item.type_magrove || "",
+            form:"type_magrove",
+            required:true
         },
         {
             type:"spacer",
@@ -239,16 +229,16 @@ export default function DetailGrowthResearchScreen(props){
         {
             type:"textinput",
             label:"Informasi penting dari anggota kelompok",
-            value:props.route.params.item.catatan_khusus_1 || "",
-            form:"catatan_khusus_1",
-            required:false
+            value:props.route.params.item.catatan_1 || "",
+            form:"catatan_1",
+            required:true
         },
         {
             type:"textinput",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
-            value:props.route.params.item.catatan_khusus_2 || "",
-            form:"catatan_khusus_2",
-            required:false
+            value:props.route.params.item.catatan_2 || "",
+            form:"catatan_2",
+            required:true
         },
     ]);
 
@@ -398,8 +388,6 @@ export default function DetailGrowthResearchScreen(props){
             </View>
         }
 
-
-            
             <ScrollView
             keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag"
             >
@@ -415,16 +403,16 @@ export default function DetailGrowthResearchScreen(props){
                             label={item.label}/>
                            )
                        }
-                       else if(item.type==="textNumber"){
+                       else if(item.type==="textarea"){
                         return (
-                        <RestorationNumberInput  
-                        getter={schema}
-                        setter={setSchema}
-                        index={index}
-                        disable={true}
-                        label={item.label}/>
-                       )
-                   }
+                            <RestorationTextAreaInput  
+                            getter={schema}
+                            setter={setSchema}
+                            index={index}
+                            disable={true}
+                            label={item.label}/>
+                        )
+                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  

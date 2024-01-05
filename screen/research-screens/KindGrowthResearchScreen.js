@@ -16,12 +16,16 @@ import {GlobalContext} from '../../App';
 
 import { DataTable } from 'react-native-paper';
 
+import { useIsFocused } from '@react-navigation/native';
+
 
 
 
 export default function KindGrowthResearchScreen(props){
 
     const globalContext = useContext(GlobalContext);
+
+    const focused = useIsFocused();
 
     const [listLoading, setListLoading] = useState(true);
     const [list, setList] = useState([]);
@@ -49,8 +53,10 @@ export default function KindGrowthResearchScreen(props){
     }
 
     useEffect(()=>{
+      if(focused){
         fetchList();
-    },[]);
+      }
+    },[focused]);
 
     const styles = StyleSheet.create({
         container: {
@@ -91,22 +97,49 @@ export default function KindGrowthResearchScreen(props){
           <DataTable.Title>No</DataTable.Title>
           <DataTable.Title 
           sortDirection='descending'
-          >No Tangging</DataTable.Title>
+          >Kode Site</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Tinggi</DataTable.Title>
+          >Kode Plot</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Diameter</DataTable.Title>
+          >Luas</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Jumlah Daun</DataTable.Title>
+          >Latitude</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Jumlah Percabangan</DataTable.Title>
+          >Longtitude</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Keterangan</DataTable.Title>
+          >Jenis Tanaman</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Jumlah yang ditanam</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Jumlah Hidup</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Persentase Kehidupan</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Jumlah Mati</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Persentase Kematian</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Penyebab Kematian</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Jenis Tanah</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Status Tambak</DataTable.Title>
+          <DataTable.Title
+          sortDirection='descending'
+          >Biodiversity</DataTable.Title>
         </DataTable.Header>
         {listLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
         list.map((item, index) => (
@@ -154,14 +187,7 @@ export default function KindGrowthResearchScreen(props){
               }}
               style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                   <Text style={{color:"#fff"}}>{index+1}</Text>
-              </TouchableOpacity>        
-              <TouchableOpacity 
-                onPress={()=>{
-                    props.navigation.navigate("AssetGrowthResearch",{type:"image",id_detail_growth_research:item.id_detail_growth_research,status:props.route.params.status});
-                }}
-                style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                    <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
-                </TouchableOpacity>
+              </TouchableOpacity>    
               </View>
               
           }
@@ -170,12 +196,21 @@ export default function KindGrowthResearchScreen(props){
               <Text>{index+1}</Text>
           }
             </DataTable.Cell>
-            <DataTable.Cell>{item.no_tagging}</DataTable.Cell>
-            <DataTable.Cell>{item.tinggi}</DataTable.Cell>
-            <DataTable.Cell>{item.diameter}</DataTable.Cell>
-            <DataTable.Cell>{item.jumlah_daun}</DataTable.Cell>
-            <DataTable.Cell>{item.jumlah_percabangan}</DataTable.Cell>
-            <DataTable.Cell>{item.keterangan}</DataTable.Cell>
+            <DataTable.Cell>{item.kode_site}</DataTable.Cell>
+            <DataTable.Cell>{item.kode_plot}</DataTable.Cell>
+            <DataTable.Cell>{item.luas}</DataTable.Cell>
+            <DataTable.Cell>{item.lat_gps}</DataTable.Cell>
+            <DataTable.Cell>{item.long_gps}</DataTable.Cell>
+            <DataTable.Cell>{item.jenis_tanaman}</DataTable.Cell>
+            <DataTable.Cell>{item.jumlah_yang_ditanam}</DataTable.Cell>
+            <DataTable.Cell>{item.jumlah_hidup}</DataTable.Cell>
+            <DataTable.Cell>{item.persentase_kehidupan}</DataTable.Cell>
+            <DataTable.Cell>{item.jumlah_mati}</DataTable.Cell>
+            <DataTable.Cell>{item.persentase_kematian}</DataTable.Cell>
+            <DataTable.Cell>{item.penyebab_kematian}</DataTable.Cell>
+            <DataTable.Cell>{item.jenis_tanah}</DataTable.Cell>
+            <DataTable.Cell>{item.status_tambak}</DataTable.Cell>
+            <DataTable.Cell>{item.biodiversity}</DataTable.Cell>
           </DataTable.Row>
         ))}
         </DataTable>

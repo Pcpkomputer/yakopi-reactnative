@@ -7,17 +7,20 @@
       "distribution": "internal",
       "android": {
         "gradleCommand": ":app:assembleDebug"
-      }
+      },
+      "channel": "development"
     },
     "preview": {
       "android": {
         "buildType": "apk"
-      }
+      },
+      "channel": "preview"
     },
     "production": {
       "android": {
-        "image" : "latest"
-      }
+        "image": "latest"
+      },
+      "channel": "production"
     }
   },
   "submit": {

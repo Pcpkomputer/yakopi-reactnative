@@ -59,6 +59,7 @@ export default function InputGrowthResearchScreen(props){
         province:[],
         city:[],
         district:[],
+        position:["Pond","Riverine","Coast-line"].map((item,_)=>{return {id:item,value:item}}),
     });
 
     let fetchProject = async ()=>{
@@ -190,45 +191,34 @@ export default function InputGrowthResearchScreen(props){
         },
         {
             type:"textinput",
-            label:"Kode Site",
+            label:"Monitoring Ke",
             value:"",
-            form:"site_code",
-            required:false
+            form:"monitoring_ke",
+            required:true
+        },
+        {
+            type:"selectinput",
+            label:"Sub-ekosistem lokasi tanam",
+            value:{
+                id:"",
+                value:""
+            },
+            form:"position",
+            required:true
         },
         {
             type:"textinput",
-            label:"Kode Plot",
+            label:"Jarak tanam dan kerapatan bibit",
             value:"",
-            form:"plot_code",
-            required:false
+            form:"distance",
+            required:true
         },
         {
-            type:"textNumber",
-            label:"Luas (Ha)",
+            type:"textinput",
+            label:"Keberadaan jenis-jenis mangrove yang sudah ada di lokasi tanam dan perkiraan persentasenya   ",
             value:"",
-            form:"area",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Spesies",
-            value:"",
-            form:"spesies",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Jumlah",
-            value:"",
-            form:"jumlah",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Monitoring Ke-",
-            value:"",
-            form:"monitoring_ke",
-            required:false
+            form:"type_magrove",
+            required:true
         },
         {
             type:"spacer",
@@ -239,14 +229,14 @@ export default function InputGrowthResearchScreen(props){
             label:"Informasi penting dari anggota kelompok",
             value:"",
             form:"catatan_1",
-            required:false
+            required:true
         },
         {
             type:"textinput",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:"",
             form:"catatan_2",
-            required:false
+            required:true
         },
     ]);
 
@@ -410,15 +400,6 @@ export default function InputGrowthResearchScreen(props){
                             label={item.label}/>
                            )
                        }
-                       else if(item.type==="textNumber"){
-                            return (
-                            <RestorationNumberInput  
-                            getter={schema}
-                            setter={setSchema}
-                            index={index}
-                            label={item.label}/>
-                        )
-                        }
                        else if(item.type==="selectinput"){
                             return (
                             <RestorationSelectInput  
@@ -510,7 +491,6 @@ export default function InputGrowthResearchScreen(props){
                       
                    
                    });
-                   if(check){   
                         setSmokeScreenOpened(true);
                         let filtered = schema.filter((item)=>item.type!=="spacer");
                         let payload = {};
@@ -523,24 +503,32 @@ export default function InputGrowthResearchScreen(props){
                             }
                            
                         });
-                        console.log(payload);
-                        let request = await fetch(`${endpoint}/research/growthResearch/add`,{
-                            method:"POST",
-                            headers:{
-                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                "content-type":"application/json"
-                            },
-                            body:JSON.stringify(payload)
-                        });
-                        let response = await request.json();
-                        if(response.success){
-                            setSmokeScreenOpened(false);
-                            props.navigation.goBack();
+                        try{
+                            let request = await fetch(`${endpoint}/research/growthResearch/add`,{
+                                method:"POST",
+                                headers:{
+                                    "authorization":`Bearer ${globalContext.credentials.token}`,
+                                    "content-type":"application/json"
+                                },
+                                body:JSON.stringify(payload)
+                            });
+                            console.log(payload);
+                            let response = await request.json();
+                            if(response.success){
+                                setSmokeScreenOpened(false);
+                                props.navigation.goBack();
+                            }
+                            else{
+                                setSmokeScreenOpened(false);
+                                alert("Gagal");
+                            }
                         }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
+                        catch(e){
+                            setSmokeScreenOpened(false);
+                            // show error message
+                            alert("Gagal, silahkan coba lagi");
+                            console.log(e);
+                        }
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>
