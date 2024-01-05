@@ -35,8 +35,6 @@ export default function ListNurseryActivityOfflineScreen(props){
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
-            console.log("Connection type", state.type);
-            console.log("Is connected?", state.isConnected);
             setIsConnected(state.isConnected);
         });
         return () => {
@@ -66,7 +64,6 @@ export default function ListNurseryActivityOfflineScreen(props){
             list = [];
         }
         setList(list);
-        console.log(list);
 
       
         setListLoading(false);
@@ -142,6 +139,13 @@ export default function ListNurseryActivityOfflineScreen(props){
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                         <TouchableOpacity 
+                                        onPress={()=>{
+                                            props.navigation.navigate("KindNurseryActivityOffline",{id_nursery_activity:item.id});
+                                        }}
+                                        style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                            <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
                                         onPress={async ()=>{
 
                                             Alert.alert(
@@ -164,6 +168,7 @@ export default function ListNurseryActivityOfflineScreen(props){
                                                         }
                                                         list.splice(index,1);
                                                         await AsyncStorage.setItem("KT3",JSON.stringify(list));
+                                                        setKT3(list);
 
                                                         setList(list);
                                                         setListLoading(false);
@@ -205,13 +210,100 @@ export default function ListNurseryActivityOfflineScreen(props){
                                                 body:JSON.stringify(data)
                                             });
                                             let response = await request.json();
+
                                             if(response.success){
-                                                // hapus data di async storage sesuai dengan index yang dipilih
-                                                list.splice(index,1);
-                                                await AsyncStorage.setItem("KT3",JSON.stringify(list));
-                                                setList(list);
-                                                setListLoading(false);
-                                                alert("Data berhasil diupload");
+                                                let id = response.id_nursery_activity;
+                                                let id_nursery_activity = list[index].id;
+
+                                                let KT3Kind = await AsyncStorage.getItem("KT3Kind");
+                                                console.log(KT3Kind,"KT3Kind");
+                                                KT3Kind = JSON.parse(KT3Kind);
+                                                if(KT3Kind===null){
+                                                    KT3Kind = [];
+                                                }
+                                                let KT3KindFiltered = KT3Kind.filter((item)=>item.id_nursery_activity===id_nursery_activity);
+                                                if(KT3KindFiltered.length>0){
+                                                    KT3KindFiltered.forEach((item)=>{
+                                                        item.id_nursery_activity = id;
+                                                    });
+                                                    await AsyncStorage.setItem("KT3Kind",JSON.stringify(KT3Kind));
+                                                }
+                                                let KT3KindFiltered2 = KT3Kind.filter((item)=>item.id_nursery_activity===id);
+                                                // jika lebih dari 1 maka looping
+                                                if(KT3KindFiltered2.length>1){
+                                                    for(let i=1;i<KT3KindFiltered2.length;i++){
+                                                        let request1 = await fetch(`${endpoint}/add-kind-nursery-activity`,{
+                                                            method:"POST",
+                                                            headers:{
+                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                                "content-type":"application/json"
+                                                            },
+                                                            body:JSON.stringify(
+                                                                KT3KindFiltered2[i]
+                                                            )
+                                                        });
+                                                        let response1 = await request1.json();
+                                                        if(response1.success){
+                                                            // setSmokeScreenOpened(false);
+                                                            list.splice(index,1);
+                                                            await AsyncStorage.setItem("KT4",JSON.stringify(list));
+                                                            let KT3Kind = await AsyncStorage.getItem("KT3Kind");
+                                                            KT3Kind = JSON.parse(KT3Kind);
+                                                            if(KT3Kind===null){
+                                                                KT3Kind = [];
+                                                            }
+                                                            let KT3KindFiltered = KT3Kind.filter((item)=>item.id_nursery_activity!==id_nursery_activity);
+                                                            await AsyncStorage.setItem("KT3Kind",JSON.stringify(KT3KindFiltered));
+                                                            setList(list);
+                                                            setListLoading(false);
+                                                            alert("Data berhasil diupload");
+                                                        }else{
+                                                            alert("Data gagal diupload");
+                                                            setListLoading(false);
+                                                        
+                                                        }
+                                                    }
+                                                
+                                                }else{
+                                                    KT3KindFiltered2 = KT3KindFiltered2[0];
+                                                    try{
+                                                        let request1 = await fetch(`${endpoint}/add-kind-nursery-activity`,{
+                                                            method:"POST",
+                                                            headers:{
+                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                                "content-type":"application/json"
+                                                            },
+                                                            body:JSON.stringify(
+                                                                KT3KindFiltered2
+                                                            )
+                                                        });
+                                                        let response1 = await request1.json();
+                                                        if(response1.success){
+                                                            // setSmokeScreenOpened(false);
+                                                            list.splice(index,1);
+                                                            await AsyncStorage.setItem("KT3",JSON.stringify(list));
+                                                            let KT3Kind = await AsyncStorage.getItem("KT3Kind");
+                                                            KT3Kind = JSON.parse(KT3Kind);
+                                                            if(KT3Kind===null){
+                                                                KT3Kind = [];
+                                                            }
+                                                            let KT3KindFiltered = KT3Kind.filter((item)=>item.id_nursery_activity!==id);
+                                                            await AsyncStorage.setItem("KT3Kind",JSON.stringify(KT3KindFiltered));
+                                                            setList(list);
+                                                            setListLoading(false);
+                                                            alert("Data berhasil diupload");
+                                                        }else{
+                                                            alert("Data gagal diupload");
+                                                            setListLoading(false);
+                                                        
+                                                        }
+                                                    }
+                                                    catch(err){
+                                                        console.log(err);
+                                                        alert("Data gagal diupload");
+                                                        setListLoading(false);
+                                                    }
+                                                }
                                             }else{
                                                 alert("Data gagal diupload");
                                                 setListLoading(false);

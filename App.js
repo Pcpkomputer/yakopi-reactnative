@@ -33,8 +33,10 @@ import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedColle
 import ListSeedCollectingOfflineScreen from './screen/restoration-screens/ListSeedCollectingOfflineScreen';
 import FilterSeedCollectingScreen from './screen/restoration-screens/FilterSeedCollectingScreen';
 import KindSeedCollectingScreen from './screen/restoration-screens/KindSeedCollectingScreen';
+import KindSeedCollectingOfflineScreen from './screen/restoration-screens/KindSeedCollectingOfflineScreen';
 import DetailSeedCollectingScreen from './screen/restoration-screens/DetailSeedCollectingScreen';
 import InputDetailSeedCollectingScreen from './screen/restoration-screens/InputDetailSeedCollecting';
+import InputDetailSeedCollectingOfflineScreen from './screen/restoration-screens/InputDetailSeedCollectingOfflineScreen';
 import AssetsSeedCollectingScreen from './screen/restoration-screens/AssetsSeedCollectionScreen';
 
 import ListNurseryActivityScreen from './screen/restoration-screens/ListNurseryActivityScreen';
@@ -43,8 +45,10 @@ import InputNurseryActivityScreen from './screen/restoration-screens/InputNurser
 import InputNurseryActivityOfflineScreen from './screen/restoration-screens/InputNurseryActivityOfflineScreen';
 import FilterNurseryActivityScreen from './screen/restoration-screens/FilterNurseryActivityScreen';
 import KindNurseryActivityScreen from './screen/restoration-screens/KindNurseryActivityScreen';
+import KindNurseryActivityOfflineScreen from './screen/restoration-screens/KindNurseryActivityOfflineScreen';
 import DetailNurseryActivityScreen from './screen/restoration-screens/DetailNurseryActivityScreen';
 import InputDetailNurseryActivityScreen from './screen/restoration-screens/InputDetailNurseryActivityScreen';
+import InputDetailNurseryActivityOfflineScreen from './screen/restoration-screens/InputDetailNurseryActivityOfflineScreen';
 import AssetsNurseryActivityScreen from './screen/restoration-screens/AssetsNurseryActivityScreen';
 
 import ListPlantingActionScreen from './screen/restoration-screens/ListPlantingActionScreen';
@@ -53,8 +57,10 @@ import InputPlantingActionScreen from './screen/restoration-screens/InputPlantin
 import InputPlantingActionOfflineScreen from './screen/restoration-screens/InputPlantingActionOfflineScreen';
 import FilterPlantingActionScreen from './screen/restoration-screens/FilterPlantingActionScreen';
 import KindPlantingActionScreen from './screen/restoration-screens/KindPlantingActionScreen';
+import KindPlantingActionOfflineScreen from './screen/restoration-screens/KindPlantingActionOfflineScreen';
 import DetailPlantingActionScreen from './screen/restoration-screens/DetailPlantingActionScreen';
 import InputDetailPlantingActionScreen from './screen/restoration-screens/InputDetailPlantingActionScreen';
+import InputDetailPlantingActionOfflineScreen from './screen/restoration-screens/InputDetailPlantingActionOfflineScreen';
 import AssetsPlantingActionScreen from './screen/restoration-screens/AssetsPlantingActionScreen';
 
 import ListTransportScreen from './screen/restoration-screens/ListTransportScreen';
@@ -416,6 +422,12 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailSeedCollectingOffline" component={InputDetailSeedCollectingOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
           headerTitle: "ASSET SEED COLLECTING"
         }}
         name="AssetSeedCollecting" component={AssetsSeedCollectingScreen} />
@@ -425,6 +437,12 @@ function MasterNavigator() {
           headerTitle: "JENIS DAN JUMLAH BIBIT"
         }}
         name="KindSeedCollecting" component={KindSeedCollectingScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindSeedCollectingOffline" component={KindSeedCollectingOfflineScreen} />
 
 
 
@@ -473,6 +491,12 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailNurseryActivityOffline" component={InputDetailNurseryActivityOfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
           headerTitle: "ASSET NURSERY ACTIVITY"
         }}
         name="AssetNurseryActivity" component={AssetsNurseryActivityScreen} />
@@ -482,6 +506,13 @@ function MasterNavigator() {
           headerTitle: "JENIS & JUMLAH BIBIT"
         }}
         name="KindNurseryActivity" component={KindNurseryActivityScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindNurseryActivityOffline" component={KindNurseryActivityOfflineScreen} />
+
 
 
       <Stack.Screen
@@ -523,9 +554,15 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (SERVER)"
         }}
         name="InputDetailPlantingAction" component={InputDetailPlantingActionScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH (LOCAL)"
+        }}
+        name="InputDetailPlantingActionOffline" component={InputDetailPlantingActionOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -535,9 +572,15 @@ function MasterNavigator() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "JENIS & JUMLAH BIBIT"
+          headerTitle: "JENIS & JUMLAH BIBIT (SERVER)"
         }}
         name="KindPlantingAction" component={KindPlantingActionScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindPlantingActionOffline" component={KindPlantingActionOfflineScreen} />
 
       <Stack.Screen
         options={{
@@ -1254,8 +1297,11 @@ export default function App() {
   let [localProject, setLocalProject] = useState(null);
   let [KT1, setKT1] = useState([]);
   let [KT2, setKT2] = useState([]);
+  let [KT2Kind, setKT2Kind] = useState([]);
   let [KT3, setKT3] = useState([]);
+  let [KT3Kind, setKT3Kind] = useState([]);
   let [KT4, setKT4] = useState([]);
+  let [KT4Kind, setKT4Kind] = useState([]);
   let [KT5, setKT5] = useState([]);
   let [KT7, setKT7] = useState([]);
   let [KT8, setKT8] = useState([]);
@@ -1414,6 +1460,14 @@ export default function App() {
       let parsed = JSON.parse(KT2);
       setKT2(parsed);
     }
+    let KT2Kind = await AsyncStorage.getItem("KT2Kind");
+    if(KT2Kind === null){
+      setKT2Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KT2Kind);
+      setKT2Kind(parsed);
+    }
     let KT3 = await AsyncStorage.getItem("KT3");
     if(KT3 === null){
       setKT3([]);
@@ -1422,6 +1476,14 @@ export default function App() {
       let parsed = JSON.parse(KT3);
       setKT3(parsed);
     }
+    let KT3Kind = await AsyncStorage.getItem("KT3Kind");
+    if(KT3Kind === null){
+      setKT3Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KT3Kind);
+      setKT3Kind(parsed);
+    }
     let KT4 = await AsyncStorage.getItem("KT4");
     if(KT4 === null){
       setKT4([]);
@@ -1429,6 +1491,14 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT4);
       setKT4(parsed);
+    }
+    let KT4Kind = await AsyncStorage.getItem("KT4Kind");
+    if(KT4Kind === null){
+      setKT4Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KT4Kind);
+      setKT4Kind(parsed);
     }
     let KT5 = await AsyncStorage.getItem("KT5");
     if(KT5 === null){
@@ -1636,7 +1706,7 @@ export default function App() {
 
   if (!credentials) {
     return (
-      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT3, setKT3, KT4, setKT4, KT5, setKT5, KT7, setKT7, KT8, setKT8, KT9, setKT9, KT10, setKT10, KT12, setKT12, KT13, setKT13, KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup }}>
+      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT2Kind, setKT2Kind, KT3, setKT3, KT3Kind, setKT3Kind, KT4, setKT4, KT4Kind, setKT4Kind, KT5, setKT5, KT7, setKT7, KT8, setKT8, KT9, setKT9, KT10, setKT10, KT12, setKT12, KT13, setKT13, KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup }}>
         <NavigationContainer>
           <AuthNavigator />
         </NavigationContainer>
@@ -1645,7 +1715,7 @@ export default function App() {
   }
   else {
     return (
-      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT3, setKT3, KT4, setKT4, KT5, setKT5, KT7, setKT7, KT8, setKT8, KT9, setKT9, KT10, setKT10, KT12, setKT12, KT13, setKT13,  KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup }}>
+      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT2Kind, setKT2Kind, KT3, setKT3, KT3Kind, setKT3Kind, KT4, setKT4, KT4Kind, setKT4Kind,  KT5, setKT5, KT7, setKT7, KT8, setKT8, KT9, setKT9, KT10, setKT10, KT12, setKT12, KT13, setKT13,  KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup }}>
         <NavigationContainer>
           <MasterNavigator />
         </NavigationContainer>

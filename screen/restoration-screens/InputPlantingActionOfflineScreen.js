@@ -478,6 +478,7 @@ export default function InputPlantingActionScreen(props){
                             }
                            
                         });
+                        payload.id = KT4.length+1;
                         let payloadArray = [];
                         payloadArray.push(payload);
                         if(KT4){

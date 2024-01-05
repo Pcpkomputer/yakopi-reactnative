@@ -81,6 +81,22 @@ export default function RestorationCoordsInput(props){
                             }
                             else{
                                 let location = await Location.getLastKnownPositionAsync();
+                                if(!location){
+                                    let Geolocation = await Location.hasServicesEnabledAsync();
+                                    if(!Geolocation){
+                                        alert("Akses lokasi diperlukan");
+                                    }
+                                    else{
+                                        let { status } = await Location.requestForegroundPermissionsAsync();
+                                        if (status !== 'granted') {
+                                        alert("Need permissions");
+                                        }
+                                        else{
+                                            location = await Location.getCurrentPositionAsync();
+                                            props.onGetLocation(location);
+                                        }
+                                    }
+                                }
                                 props.onGetLocation(location);
                             }
                         }

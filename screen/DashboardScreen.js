@@ -518,6 +518,7 @@ export default function DashboardScreen(props) {
                                     if(!Geolocation){
                                         alert("Akses lokasi diperlukan");
                                     }else{
+                                        let Geolocation = await Location.hasServicesEnabledAsync();
                                         let { status } = await Location.requestForegroundPermissionsAsync();
                                         if (status !== 'granted') {
                                             alert("Akses permissions lokasi diperlukan");
@@ -558,32 +559,38 @@ export default function DashboardScreen(props) {
                                                     let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
         
                                                     
-                                                    let presensi = await fetch(`${endpoint}/presensi-masuk`,{
-                                                        method:"POST",
-                                                        headers:{
-                                                            "content-type":"application/json",
-                                                            "Authorization":`Bearer ${globalContext.credentials.token}`
-                                                        },
-                                                        body:JSON.stringify({
-                                                            filename:filename,
-                                                            timezone:timezone,
-                                                            latitude:location.coords.latitude,
-                                                            longitude:location.coords.longitude
-                                                        })
-                                                    });
-                                                    let responsepresensi = await presensi.json();
+                                                    try{
+                                                        let presensi = await fetch(`${endpoint}/presensi-masuk`,{
+                                                            method:"POST",
+                                                            headers:{
+                                                                "content-type":"application/json",
+                                                                "Authorization":`Bearer ${globalContext.credentials.token}`
+                                                            },
+                                                            body:JSON.stringify({
+                                                                filename:filename,
+                                                                timezone:timezone,
+                                                                latitude:location.coords.latitude,
+                                                                longitude:location.coords.longitude
+                                                            })
+                                                        });
+                                                        let responsepresensi = await presensi.json();
 
-                                                    if(responsepresensi.success){
-                                                        alert(responsepresensi.msg);
+                                                        if(responsepresensi.success){
+                                                            alert(responsepresensi.msg);
+                                                            setPresensiLoading(false);
+            
+                                                            await fetchPresensi();
+                                                        }
+                                                        else{
+                                                            alert(responsepresensi.msg);
+                                                            setPresensiLoading(false);
+            
+                                                            await fetchPresensi();
+                                                        }
+                                                    }catch(e){
+                                                        console.log(e);
+                                                        alert("Terjadi kesalahan, silahkan hidupkan kembali lokasi anda");
                                                         setPresensiLoading(false);
-        
-                                                        await fetchPresensi();
-                                                    }
-                                                    else{
-                                                        alert(responsepresensi.msg);
-                                                        setPresensiLoading(false);
-        
-                                                        await fetchPresensi();
                                                     }
                                             }
                                         }
@@ -604,6 +611,7 @@ export default function DashboardScreen(props) {
                                     if(!Geolocation){
                                         alert("Akses lokasi diperlukan");
                                     }else{
+                                        let Geolocation = await Location.hasServicesEnabledAsync();
                                         let image = await ImagePicker.launchCameraAsync();
                                         if(!image.cancelled){
                                             setPresensiLoading(true);
@@ -630,32 +638,37 @@ export default function DashboardScreen(props) {
                                             let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
                                             
 
-                                            let presensi = await fetch(`${endpoint}/presensi-pulang`,{
-                                                method:"POST",
-                                                headers:{
-                                                    "content-type":"application/json",
-                                                    "Authorization":`Bearer ${globalContext.credentials.token}`
-                                                },
-                                                body:JSON.stringify({
-                                                    filename:filename,
-                                                    timezone:timezone,
-                                                    latitude:location.coords.latitude,
-                                                    longitude:location.coords.longitude
-                                                })
-                                            });
-                                            let responsepresensi = await presensi.json();
+                                            try{
+                                                let presensi = await fetch(`${endpoint}/presensi-pulang`,{
+                                                    method:"POST",
+                                                    headers:{
+                                                        "content-type":"application/json",
+                                                        "Authorization":`Bearer ${globalContext.credentials.token}`
+                                                    },
+                                                    body:JSON.stringify({
+                                                        filename:filename,
+                                                        timezone:timezone,
+                                                        latitude:location.coords.latitude,
+                                                        longitude:location.coords.longitude
+                                                    })
+                                                });
+                                                let responsepresensi = await presensi.json();
 
-                                            if(responsepresensi.success){
-                                                alert(responsepresensi.msg);
+                                                if(responsepresensi.success){
+                                                    alert(responsepresensi.msg);
+                                                    setPresensiLoading(false);
+
+                                                    await fetchPresensi();
+                                                }
+                                                else{
+                                                    alert(responsepresensi.msg);
+                                                    setPresensiLoading(false);
+
+                                                    await fetchPresensi();
+                                                }
+                                            }catch(e){
+                                                alert("Terjadi kesalahan, silahkan hidupkan kembali lokasi anda");
                                                 setPresensiLoading(false);
-
-                                                await fetchPresensi();
-                                            }
-                                            else{
-                                                alert(responsepresensi.msg);
-                                                setPresensiLoading(false);
-
-                                                await fetchPresensi();
                                             }
                                         }
                                     }

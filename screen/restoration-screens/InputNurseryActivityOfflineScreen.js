@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { StatusBarHeight } from '../../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useIsFocused } from '@react-navigation/native';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
@@ -24,6 +24,8 @@ import DatePicker from 'react-native-modern-datepicker';
 
 export default function InputNurseryActivityOfflineScreen(props){
 
+    const focused = useIsFocused();
+
     let shadow = {
         shadowColor: "#000",
         shadowOffset: {
@@ -38,6 +40,10 @@ export default function InputNurseryActivityOfflineScreen(props){
 
     const globalContext = useContext(GlobalContext);
     const [KT3, setKT3] = useState(globalContext.KT3);
+
+    useEffect(()=>{
+        setKT3(globalContext.KT3);
+    },[focused]);
 
     const [showSelectDateInput, setShowSelectDateInput] = useState(false);
     const [labelSelectDateInput, setLabelSelectDateInput] = useState("");
@@ -450,6 +456,7 @@ export default function InputNurseryActivityOfflineScreen(props){
                             }
                            
                         });
+                        payload.id = KT3.length+1;
                         let payloadArray = [];
                         payloadArray.push(payload);
                         if(KT3){

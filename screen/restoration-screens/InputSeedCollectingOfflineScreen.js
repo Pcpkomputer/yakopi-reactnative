@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { StatusBarHeight } from '../../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useIsFocused } from '@react-navigation/native';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
@@ -24,6 +24,8 @@ import DatePicker from 'react-native-modern-datepicker';
 
 export default function InputSeedCollectingOfflineScreen(props){
 
+    const focused = useIsFocused();
+
     let shadow = {
         shadowColor: "#000",
         shadowOffset: {
@@ -39,6 +41,9 @@ export default function InputSeedCollectingOfflineScreen(props){
     const globalContext = useContext(GlobalContext);
     const [KT2, setKT2] = useState(globalContext.KT2);
 
+    useEffect(()=>{
+        setKT2(globalContext.KT2);
+    },[focused]);
 
     const [showSelectDateInput, setShowSelectDateInput] = useState(false);
     const [labelSelectDateInput, setLabelSelectDateInput] = useState("");
@@ -489,26 +494,8 @@ export default function InputSeedCollectingOfflineScreen(props){
                         }
                         
                     });
-                    // let request = await fetch(`${endpoint}/seed-collecting`,{
-                    //     method:"POST",
-                    //     headers:{
-                    //         "authorization":`Bearer ${globalContext.credentials.token}`,
-                    //         "content-type":"application/json"
-                    //     },
-                    //     body:JSON.stringify(payload)
-                    // });
-                    // console.log(payload);
-                    // let response = await request.json();
-                    // if(response.success){
-                    //     setSmokeScreenOpened(false);
-                    //     props.navigation.goBack();
-                    // }else{
-                    //     setSmokeScreenOpened(false);
-                    //     alert(response.message);
-                    // }
-
-                    // payload buat ke array
                     let payloadArray = [];
+                    payload.id = KT2.length+1;
                     payloadArray.push(payload);
                     if(KT2){
                         setSmokeScreenOpened(false);

@@ -27,6 +27,7 @@ export default function ListPlantingActionScreen(props){
     const globalContext = useContext(GlobalContext);
     const [credentials,setCredentials] = useState(globalContext.credentials);
     const [KT4, setKT4] = useState(globalContext.KT4);
+    const [KT4Kind, setKT4Kind] = useState(globalContext.KT4Kind);
 
     const [listLoading, setListLoading] = useState(true);
     const [list, setList] = useState([]);
@@ -35,8 +36,6 @@ export default function ListPlantingActionScreen(props){
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
-            console.log("Connection type", state.type);
-            console.log("Is connected?", state.isConnected);
             setIsConnected(state.isConnected);
         });
         return () => {
@@ -66,7 +65,6 @@ export default function ListPlantingActionScreen(props){
             list = [];
         }
         setList(list);
-        console.log(list);
 
       
         setListLoading(false);
@@ -78,6 +76,8 @@ export default function ListPlantingActionScreen(props){
           fetchList();
         }
       }, [focused, credentials]);
+
+
 
     return (
         <View style={{ flex: 1 }}>
@@ -129,20 +129,15 @@ export default function ListPlantingActionScreen(props){
                                         <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>KEGIATAN PENANAMAN MANGROVE</Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity 
-                                activeOpacity={0.8}
-                                onPress={()=>{
-                                    var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-                                    var url = scheme + `${item.coordinate.latitude},${item.coordinate.longitude}`;
-                                    Linking.openURL(url);
-                                }}
-                                style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
-                                    <View style={{backgroundColor:"#B4E197",borderRadius:EStyleSheet.value("5rem"),padding:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
-                                    <FontAwesome name="map-marker" size={24} color="#005555" />
-                                    </View>
-                                </TouchableOpacity>
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
+                            <TouchableOpacity 
+                                 onPress={()=>{
+                                    props.navigation.navigate("KindPlantingActionOffline",{id_planting_action:item.id});
+                                }}
+                                style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                    <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
+                                </TouchableOpacity>
                                         <TouchableOpacity 
                                         onPress={async ()=>{
 
@@ -206,13 +201,101 @@ export default function ListPlantingActionScreen(props){
                                                 body:JSON.stringify(data)
                                             });
                                             let response = await request.json();
+
                                             if(response.success){
-                                                // hapus data di async storage sesuai dengan index yang dipilih
-                                                list.splice(index,1);
-                                                await AsyncStorage.setItem("KT4",JSON.stringify(list));
-                                                setList(list);
-                                                setListLoading(false);
-                                                alert("Data berhasil diupload");
+                                                let id = response.id_planting_action;
+                                                // ambil id_planting_action dari KT4
+                                                let id_planting_action = list[index].id;
+
+                                                let KT4Kind = await AsyncStorage.getItem("KT4Kind");
+                                                console.log(KT4Kind,"KT4Kind");
+                                                KT4Kind = JSON.parse(KT4Kind);
+                                                if(KT4Kind===null){
+                                                    KT4Kind = [];
+                                                }
+                                                let KT4KindFiltered = KT4Kind.filter((item)=>item.id_planting_action===id_planting_action);
+                                                if(KT4KindFiltered.length>0){
+                                                    KT4KindFiltered.forEach((item)=>{
+                                                        item.id_planting_action = id;
+                                                    });
+                                                    await AsyncStorage.setItem("KT4Kind",JSON.stringify(KT4Kind));
+                                                }
+                                                let KT4KindFiltered2 = KT4Kind.filter((item)=>item.id_planting_action===id);
+                                                // jika lebih dari 1 maka looping
+                                                if(KT4KindFiltered2.length>1){
+                                                    for(let i=1;i<KT4KindFiltered2.length;i++){
+                                                        let request1 = await fetch(`${endpoint}/add-kind-planting-action`,{
+                                                            method:"POST",
+                                                            headers:{
+                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                                "content-type":"application/json"
+                                                            },
+                                                            body:JSON.stringify(
+                                                                KT4KindFiltered2[i]
+                                                            )
+                                                        });
+                                                        let response1 = await request1.json();
+                                                        if(response1.success){
+                                                            // setSmokeScreenOpened(false);
+                                                            list.splice(index,1);
+                                                            await AsyncStorage.setItem("KT4",JSON.stringify(list));
+                                                            let KT4Kind = await AsyncStorage.getItem("KT4Kind");
+                                                            KT4Kind = JSON.parse(KT4Kind);
+                                                            if(KT4Kind===null){
+                                                                KT4Kind = [];
+                                                            }
+                                                            let KT4KindFiltered = KT4Kind.filter((item)=>item.id_planting_action!==id_planting_action);
+                                                            await AsyncStorage.setItem("KT4Kind",JSON.stringify(KT4KindFiltered));
+                                                            setList(list);
+                                                            setListLoading(false);
+                                                            alert("Data berhasil diupload");
+                                                        }else{
+                                                            alert("Data gagal diupload");
+                                                            setListLoading(false);
+                                                        
+                                                        }
+                                                    }
+                                                
+                                                }else{
+                                                    KT4KindFiltered2 = KT4KindFiltered2[0];
+                                                    try{
+                                                        let request1 = await fetch(`${endpoint}/add-kind-planting-action`,{
+                                                            method:"POST",
+                                                            headers:{
+                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                                                "content-type":"application/json"
+                                                            },
+                                                            body:JSON.stringify(
+                                                                KT4KindFiltered2
+                                                            )
+                                                        });
+                                                        let response1 = await request1.json();
+                                                        if(response1.success){
+                                                            // setSmokeScreenOpened(false);
+                                                            list.splice(index,1);
+                                                            await AsyncStorage.setItem("KT4",JSON.stringify(list));
+                                                            let KT4Kind = await AsyncStorage.getItem("KT4Kind");
+                                                            KT4Kind = JSON.parse(KT4Kind);
+                                                            if(KT4Kind===null){
+                                                                KT4Kind = [];
+                                                            }
+                                                            let KT4KindFiltered = KT4Kind.filter((item)=>item.id_planting_action!==id);
+                                                            await AsyncStorage.setItem("KT4Kind",JSON.stringify(KT4KindFiltered));
+                                                            setList(list);
+                                                            setListLoading(false);
+                                                            alert("Data berhasil diupload");
+                                                        }else{
+                                                            alert("Data gagal diupload");
+                                                            setListLoading(false);
+                                                        
+                                                        }
+                                                    }
+                                                    catch(err){
+                                                        console.log(err);
+                                                        alert("Data gagal diupload");
+                                                        setListLoading(false);
+                                                    }
+                                                }
                                             }else{
                                                 alert("Data gagal diupload");
                                                 setListLoading(false);
