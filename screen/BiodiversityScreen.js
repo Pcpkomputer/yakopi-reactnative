@@ -15,12 +15,11 @@ import {endpoint} from '../utils/endpoint';
 import {GlobalContext} from '../App';
 
 
-export default function ResearchScreen(props){
+export default function BiodiversityScreen(props){
 
     const [restoration,setResearch] = useState([
-        "Growth Research",
-        "CCB",
-        "Biodiversity"
+        "Fauna",
+        "Plankton",
     ]);
 
     return (
@@ -34,17 +33,16 @@ export default function ResearchScreen(props){
                         <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={()=>{
-                             if(item==="Growth Research"){
+                             if(item==="Fauna"){
                                 // alert("Fitur Ini Belum Tersedia");
                                 // props.navigation.navigate("ListGrowthResearch");
-                                props.navigation.navigate("FilterGrowthResearch");
-                             }else if (item==="CCB"){
+                                // props.navigation.navigate("FilterGrowthResearch");
+                             }else if (item==="Plankton"){
                                 // alert("Fitur Ini Belum Tersedia");
                                 // props.navigation.navigate("ListDiversityFauna");
                                 // props.navigation.navigate("FilterDiversityFauna");
-                             }else if (item==="Biodiversity"){
-                                props.navigation.navigate("Biodiversity");
                             }
+
 
                         }}
                         >

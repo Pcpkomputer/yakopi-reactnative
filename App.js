@@ -12,6 +12,7 @@ import LoginScreen from './screen/LoginScreen';
 import RestorationScreen from './screen/RestorationScreen';
 import ComdevScreen from './screen/ComdevScreen';
 import ResearchScreen from './screen/ResearchScreen';
+import BiodiversityScreen from './screen/BiodiversityScreen';
 
 import InputCutiScreen from './screen/cuti-screens/InputCutiScreen';
 import ListCutiScreen from './screen/cuti-screens/ListCutiScreen';
@@ -955,6 +956,12 @@ function MasterNavigator() {
         name="DetailSilvoshery" component={DetailSilvosheryScreen} />
 
 
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Biodiversity"
+        }}
+        name="Biodiversity" component={BiodiversityScreen} />
       <Stack.Screen
         options={{
           headerShown: true,

@@ -176,45 +176,34 @@ export default function InputGrowthResearchOfflineScreen(props){
         },
         {
             type:"textinput",
-            label:"Kode Site",
+            label:"Monitoring Ke",
             value:"",
-            form:"site_code",
-            required:false
+            form:"monitoring_ke",
+            required:true
+        },
+        {
+            type:"selectinput",
+            label:"Sub-ekosistem lokasi tanam",
+            value:{
+                id:"",
+                value:""
+            },
+            form:"position",
+            required:true
         },
         {
             type:"textinput",
-            label:"Kode Plot",
+            label:"Jarak tanam dan kerapatan bibit",
             value:"",
-            form:"plot_code",
-            required:false
+            form:"distance",
+            required:true
         },
         {
-            type:"textNumber",
-            label:"Luas (Ha)",
+            type:"textinput",
+            label:"Keberadaan jenis-jenis mangrove yang sudah ada di lokasi tanam dan perkiraan persentasenya   ",
             value:"",
-            form:"area",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Spesies",
-            value:"",
-            form:"spesies",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Jumlah",
-            value:"",
-            form:"jumlah",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Monitoring Ke-",
-            value:"",
-            form:"monitoring_ke",
-            required:false
+            form:"type_magrove",
+            required:true
         },
         {
             type:"spacer",
@@ -225,14 +214,14 @@ export default function InputGrowthResearchOfflineScreen(props){
             label:"Informasi penting dari anggota kelompok",
             value:"",
             form:"catatan_1",
-            required:false
+            required:true
         },
         {
             type:"textinput",
             label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
             value:"",
             form:"catatan_2",
-            required:false
+            required:true
         },
     ]);
 
