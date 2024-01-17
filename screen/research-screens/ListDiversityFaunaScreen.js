@@ -28,7 +28,7 @@ export default function ListDiversityFaunaScreen(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let request = await fetch(`${endpoint}/research/diversityFauna`,{
+        let request = await fetch(`${endpoint}/research/biodiversity`,{
             method:"GET",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`
@@ -107,14 +107,14 @@ export default function ListDiversityFaunaScreen(props){
                                     
                                     </ScrollView>
                                     <View style={{padding:EStyleSheet.value("10rem")}}>
-                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>MONITORING KEANEKARAGAMAN FAUNA</Text>
+                                        <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>BIODIVERSITY</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity 
                                 activeOpacity={0.8}
                                 onPress={()=>{
                                     var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-                                    var url = scheme + `${item.latitude},${item.longitude}`;
+                                    var url = scheme + `${item.lat_ccb},${item.long_ccb}`;
                                     Linking.openURL(url);
                                 }}
                                 style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
@@ -126,10 +126,17 @@ export default function ListDiversityFaunaScreen(props){
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
                                  onPress={()=>{
-                                    props.navigation.navigate("KindDiversityFauna",{id_diversity_fauna:item.id_diversity_fauna,status:item.status});
+                                    props.navigation.navigate("KindDiversityFauna",{id_biodiversity:item.id_biodiversity,status:item.status});
                                 }}
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                    <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
+                                     <Text style={{ color: "white" }}>FAUNA</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                 onPress={()=>{
+                                    props.navigation.navigate("KindDiversityFiskim",{id_biodiversity:item.id_biodiversity,status:item.status});
+                                }}
+                                style={{backgroundColor:"orange",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                     <Text style={{ color: "white" }}>FISKIM</Text>
                                 </TouchableOpacity>
                                 {
                                     (item.status===0 && item.created_by===globalContext.credentials.data.id_pengguna) &&
@@ -148,15 +155,15 @@ export default function ListDiversityFaunaScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_diversity_fauna;
-                                                    let request = await fetch(`${endpoint}/research/diversityFauna/delete`,{
+                                                    let id = item.id_biodiversity;
+                                                    let request = await fetch(`${endpoint}/research/biodiveristy/delete`,{
                                                         method:"DELETE",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_diversity_fauna:id
+                                                            id_biodiversity:id
                                                         })
                                                     });
                                                     let response = await request.json();
@@ -194,15 +201,15 @@ export default function ListDiversityFaunaScreen(props){
 
                                                     setListLoading(true);
 
-                                                    let id = item.id_diversity_fauna;
-                                                    let request = await fetch(`${endpoint}/research/approve-diversityFauna`,{
+                                                    let id = item.id_biodiversity;
+                                                    let request = await fetch(`${endpoint}/research/approve-biodiversity`,{
                                                         method:"POST",
                                                         headers:{
                                                             "authorization":`Bearer ${globalContext.credentials.token}`,
                                                             "content-type":"application/json"
                                                         },
                                                         body:JSON.stringify({
-                                                            id_diversity_fauna:id
+                                                            id_biodiversity:id
                                                         })
                                                     });
                                                     let response = await request.json();

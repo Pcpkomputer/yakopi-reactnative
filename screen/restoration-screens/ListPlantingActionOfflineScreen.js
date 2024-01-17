@@ -138,171 +138,185 @@ export default function ListPlantingActionScreen(props){
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
-                                        <TouchableOpacity 
-                                        onPress={async ()=>{
-
+                                <TouchableOpacity 
+                                        onPress={async () => {
                                             Alert.alert(
-                                                "Dialog Konfirmasi",
-                                                "Anda yakin ingin menghapus data ini?",
-                                                [
-                                                    {
-                                                    text: "Tidak",
-                                                    style: "cancel"
-                                                    },
-                                                    { text: "Iya", onPress: async () => {
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menghapus data ini?",
+                                            [
+                                                {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                                },
+                                                { 
+                                                text: "Iya", 
+                                                onPress: async () => {
+                                                    setListLoading(true);
 
-                                                        setListLoading(true);
+                                                    // Hapus data di async storage sesuai dengan index yang dipilih
+                                                    let list = await AsyncStorage.getItem("KT4");
+                                                    list = JSON.parse(list) || [];
 
-                                                        // hapus data di async storage sesuai dengan index yang dipilih
-                                                        let list = await AsyncStorage.getItem("KT4");
-                                                        list = JSON.parse(list);
-                                                        if(list===null){
-                                                            list = [];
-                                                        }
-                                                        list.splice(index,1);
-                                                        await AsyncStorage.setItem("KT4",JSON.stringify(list));
-
-                                                        setList(list);
-                                                        setListLoading(false);
-
-
-                                                    } }
-                                                ]
-                                                );
-
-
-                                            
-
+                                                    if (list.length > 0) {
+                                                    list.splice(index, 1);
+                                                    await AsyncStorage.setItem("KT4", JSON.stringify(list));
+                                                    setList(list);
+                                                    setListLoading(false);
+                                                    fetchList(); // Add a function to reload the list
+                                                    } else {
+                                                    setListLoading(false);
+                                                    // Handle case when the list is already empty
+                                                    alert("List is already empty");
+                                                    }
+                                                } 
+                                                }
+                                            ]
+                                            );
                                         }}
-                                        style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
-                                        </TouchableOpacity>
+                                        style={{
+                                            backgroundColor: "#FF5C57",
+                                            borderRadius: EStyleSheet.value("5rem"),
+                                            paddingHorizontal: EStyleSheet.value("10rem"),
+                                            paddingVertical: EStyleSheet.value("5rem")
+                                        }}
+                                        >
+                                    <MaterialIcons name="delete-outline" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
                                 {
                                     isConnected ? (
                                         <TouchableOpacity
-                                        onPress={async ()=>{
-                                            // alert("Fitur ini belum tersedia");
-                                            // return;
-                                            setListLoading(true);
+                                            onPress={async () => {
+                                                setListLoading(true);
 
-                                            let list = await AsyncStorage.getItem("KT4");
-                                            list = JSON.parse(list);
-                                            if(list===null){
-                                                list = [];
-                                            }
-                                            let data = list[index];
+                                                try {
+                                                    let list = await AsyncStorage.getItem("KT4");
+                                                    list = JSON.parse(list) || [];
+                                                    let data = list[index];
 
-                                            let request = await fetch(`${endpoint}/planting-action`,{
-                                                method:"POST",
-                                                headers:{
-                                                    "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                    "content-type":"application/json"
-                                                },
-                                                body:JSON.stringify(data)
-                                            });
-                                            let response = await request.json();
-
-                                            if(response.success){
-                                                let id = response.id_planting_action;
-                                                // ambil id_planting_action dari KT4
-                                                let id_planting_action = list[index].id;
-
-                                                let KT4Kind = await AsyncStorage.getItem("KT4Kind");
-                                                console.log(KT4Kind,"KT4Kind");
-                                                KT4Kind = JSON.parse(KT4Kind);
-                                                if(KT4Kind===null){
-                                                    KT4Kind = [];
-                                                }
-                                                let KT4KindFiltered = KT4Kind.filter((item)=>item.id_planting_action===id_planting_action);
-                                                if(KT4KindFiltered.length>0){
-                                                    KT4KindFiltered.forEach((item)=>{
-                                                        item.id_planting_action = id;
+                                                    let request = await fetch(`${endpoint}/planting-action`,{
+                                                        method: "POST",
+                                                        headers: {
+                                                            "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                            "content-type": "application/json"
+                                                        },
+                                                        body: JSON.stringify(data)
                                                     });
-                                                    await AsyncStorage.setItem("KT4Kind",JSON.stringify(KT4Kind));
-                                                }
-                                                let KT4KindFiltered2 = KT4Kind.filter((item)=>item.id_planting_action===id);
-                                                // jika lebih dari 1 maka looping
-                                                if(KT4KindFiltered2.length>1){
-                                                    for(let i=1;i<KT4KindFiltered2.length;i++){
-                                                        let request1 = await fetch(`${endpoint}/add-kind-planting-action`,{
-                                                            method:"POST",
-                                                            headers:{
-                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                                "content-type":"application/json"
-                                                            },
-                                                            body:JSON.stringify(
-                                                                KT4KindFiltered2[i]
-                                                            )
-                                                        });
-                                                        let response1 = await request1.json();
-                                                        if(response1.success){
-                                                            // setSmokeScreenOpened(false);
-                                                            list.splice(index,1);
-                                                            await AsyncStorage.setItem("KT4",JSON.stringify(list));
-                                                            let KT4Kind = await AsyncStorage.getItem("KT4Kind");
-                                                            KT4Kind = JSON.parse(KT4Kind);
-                                                            if(KT4Kind===null){
-                                                                KT4Kind = [];
-                                                            }
-                                                            let KT4KindFiltered = KT4Kind.filter((item)=>item.id_planting_action!==id_planting_action);
-                                                            await AsyncStorage.setItem("KT4Kind",JSON.stringify(KT4KindFiltered));
-                                                            setList(list);
+
+                                                    let response = await request.json();
+
+                                                    if (response.success) {
+                                                        // Hapus data di async storage sesuai dengan index yang dipilih
+                                                        list.splice(index, 1);
+                                                        await AsyncStorage.setItem("KT4", JSON.stringify(list));
+
+                                                        // Update KT4Kind
+                                                        let id = response.id_planting_action;
+                                                        let id_planting_action = data.id;
+
+                                                        let KT4Kind = await AsyncStorage.getItem("KT4Kind");
+                                                        KT4Kind = JSON.parse(KT4Kind) || [];
+
+                                                        let KT4KindFiltered = KT4Kind.filter(item => item.id_planting_action === id_planting_action);
+
+                                                        if (KT4KindFiltered.length > 0) {
+                                                            KT4KindFiltered.forEach(item => {
+                                                                item.id_planting_action = id;
+                                                            });
+                                                        } else {
+                                                            // KT4Kind tidak ada, tidak perlu mengupload
+                                                            alert("Data Berhasil Di Upload");
                                                             setListLoading(false);
-                                                            alert("Data berhasil diupload");
-                                                        }else{
-                                                            alert("Data gagal diupload");
-                                                            setListLoading(false);
-                                                        
+                                                            fetchList(); // Add a function to reload the list
+                                                            return;
                                                         }
-                                                    }
-                                                
-                                                }else{
-                                                    KT4KindFiltered2 = KT4KindFiltered2[0];
-                                                    try{
-                                                        let request1 = await fetch(`${endpoint}/add-kind-planting-action`,{
-                                                            method:"POST",
-                                                            headers:{
-                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                                "content-type":"application/json"
-                                                            },
-                                                            body:JSON.stringify(
-                                                                KT4KindFiltered2
-                                                            )
-                                                        });
-                                                        let response1 = await request1.json();
-                                                        if(response1.success){
-                                                            // setSmokeScreenOpened(false);
-                                                            list.splice(index,1);
-                                                            await AsyncStorage.setItem("KT4",JSON.stringify(list));
-                                                            let KT4Kind = await AsyncStorage.getItem("KT4Kind");
-                                                            KT4Kind = JSON.parse(KT4Kind);
-                                                            if(KT4Kind===null){
-                                                                KT4Kind = [];
+
+                                                        let KT4KindFiltered2 = KT4Kind.filter(item => item.id_planting_action === id);
+
+
+                                                        // Jika lebih dari 1, lakukan loop
+                                                        if (KT4KindFiltered2.length > 0) {
+                                                            for (let i = 0; i < KT4KindFiltered2.length; i++) {
+                                                                let request1 = await fetch(`${endpoint}/add-kind-planting-action`,{
+                                                                    method: "POST",
+                                                                    headers: {
+                                                                        "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                        "content-type": "application/json"
+                                                                    },
+                                                                    body: JSON.stringify(KT4KindFiltered2[i])
+                                                                });
+
+                                                                let response1 = await request1.json();
+
+                                                                if (response1.success) {
+                                                                    // Hapus data KT4Kind yang terkait dengan KT4 yang dihapus
+                                                                    let KT4KindFiltered = KT4Kind.filter(item => item.id_planting_action !== id);
+                                                                    await AsyncStorage.setItem("KT4Kind", JSON.stringify(KT4KindFiltered));
+
+                                                                    setList(list);
+                                                                    setListLoading(false);
+                                                                    alert("Data berhasil diupload");
+                                                                    fetchList(); // Add a function to reload the list
+                                                                    let updatedKT4Kind = [...KT4Kind, KT4KindFiltered]; // Gantilah 'data' dengan properti yang sesuai
+                                                                    setKT4Kind(updatedKT4Kind);
+                                                                } else {
+                                                                    alert("Data gagal diupload");
+                                                                    setListLoading(false);
+                                                                }
                                                             }
-                                                            let KT4KindFiltered = KT4Kind.filter((item)=>item.id_planting_action!==id);
-                                                            await AsyncStorage.setItem("KT4Kind",JSON.stringify(KT4KindFiltered));
-                                                            setList(list);
-                                                            setListLoading(false);
-                                                            alert("Data berhasil diupload");
-                                                        }else{
-                                                            alert("Data gagal diupload");
-                                                            setListLoading(false);
-                                                        
+                                                        } else {
+                                                            KT4KindFiltered2 = KT4KindFiltered2[0];
+
+                                                            try {
+                                                                let request1 = await fetch(`${endpoint}/add-kind-planting-action`,{
+                                                                    method: "POST",
+                                                                    headers: {
+                                                                        "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                        "content-type": "application/json"
+                                                                    },
+                                                                    body: JSON.stringify(KT4KindFiltered2)
+                                                                });
+
+                                                                let response1 = await request1.json();
+
+                                                                if (response1.success) {
+                                                                    // Hapus data KT4Kind yang terkait dengan KT4 yang dihapus
+                                                                    let KT4KindFiltered = KT4Kind.filter(item => item.id_planting_action !== id);
+                                                                    await AsyncStorage.setItem("KT4Kind", JSON.stringify(KT4KindFiltered));
+
+                                                                    setList(list);
+                                                                    setListLoading(false);
+                                                                    alert("Data berhasil diupload");
+                                                                    fetchList(); // Add a function to reload the list
+                                                                    let updatedKT4Kind = [...KT4Kind, KT4KindFiltered]; // Gantilah 'data' dengan properti yang sesuai
+                                                                    setKT4Kind(updatedKT4Kind);
+                                                                } else {
+                                                                    alert("Data gagal diupload");
+                                                                    setListLoading(false);
+                                                                }
+                                                            } catch (err) {
+                                                                console.log(err);
+                                                                alert("Data gagal diupload");
+                                                                setListLoading(false);
+                                                            }
                                                         }
-                                                    }
-                                                    catch(err){
-                                                        console.log(err);
+                                                    } else {
                                                         alert("Data gagal diupload");
                                                         setListLoading(false);
                                                     }
+                                                } catch (error) {
+                                                    console.error("Error handling upload:", error);
+                                                    setListLoading(false);
+                                                    alert("Terjadi kesalahan saat mengupload data");
                                                 }
-                                            }else{
-                                                alert("Data gagal diupload");
-                                                setListLoading(false);
-                                            }
-                                        }}
-                                        style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="cloud-upload"  size={EStyleSheet.value("15rem")} color="white" />
+                                            }}
+                                            style={{
+                                                backgroundColor: "#05ACAC",
+                                                borderRadius: EStyleSheet.value("5rem"),
+                                                paddingHorizontal: EStyleSheet.value("10rem"),
+                                                paddingVertical: EStyleSheet.value("5rem")
+                                            }}
+                                        >
+                                            <MaterialIcons name="cloud-upload" size={EStyleSheet.value("15rem")} color="white" />
                                         </TouchableOpacity>
                                     ) : (
                                         null

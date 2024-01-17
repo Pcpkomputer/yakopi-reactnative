@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { StatusBarHeight } from '../../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useIsFocused } from '@react-navigation/native';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons,AntDesign } from '@expo/vector-icons'; 
 
@@ -21,6 +21,7 @@ import { DataTable } from 'react-native-paper';
 
 export default function KindDiveristyFaunaScreen(props){
 
+  const focused = useIsFocused();
     const globalContext = useContext(GlobalContext);
 
     const [listLoading, setListLoading] = useState(true);
@@ -28,15 +29,15 @@ export default function KindDiveristyFaunaScreen(props){
 
     let fetchList = async () =>{
         setListLoading(true);
-        let id = props.route.params.id_diversity_fauna;
-        let request = await fetch(`${endpoint}/research/dataDiversityFauna`,{
+        let id = props.route.params.id_biodiversity;
+        let request = await fetch(`${endpoint}/research/biodiversity/fauna`,{
             method:"POST",
             headers:{
                 "authorization":`Bearer ${globalContext.credentials.token}`,
                 "content-type":"application/json"
             },
             body:JSON.stringify({
-              id_diversity_fauna:id
+              id_biodiversity:id
             })
         });
         let response = await request.json();
@@ -49,8 +50,11 @@ export default function KindDiveristyFaunaScreen(props){
     }
 
     useEffect(()=>{
-        fetchList();
-    },[]);
+      if(focused){
+          fetchList();
+      }
+  },[focused]);
+
 
     const styles = StyleSheet.create({
         container: {
@@ -73,7 +77,7 @@ export default function KindDiveristyFaunaScreen(props){
         <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
-                props.navigation.navigate("InputDetailDiversityFauna",{ id_diversity_fauna:props.route.params.id_diversity_fauna });
+                props.navigation.navigate("InputDetailDiversityFauna",{ id_biodiversity:props.route.params.id_biodiversity });
             }}
             style={{position:"absolute",zIndex:9999,bottom:EStyleSheet.value("30rem"),right:EStyleSheet.value("30rem")}}>
                 <AntDesign name="pluscircle" size={EStyleSheet.value("60rem")} color="#1e915a" />
@@ -85,25 +89,19 @@ export default function KindDiveristyFaunaScreen(props){
                     <ActivityIndicator color="black" size="large"/>
                 </View>
                 :
-      <ScrollView horizontal>
+      <ScrollView>
         <DataTable style={styles.container}>
         <DataTable.Header style={styles.tableHeader}>
           <DataTable.Title>No</DataTable.Title>
           <DataTable.Title 
           sortDirection='descending'
-          >Koordinat</DataTable.Title>
+          >Kode Stasiun</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Jenis Hewan</DataTable.Title>
+          >Spesies</DataTable.Title>
           <DataTable.Title
           sortDirection='descending'
-          >Deskripsi</DataTable.Title>
-          <DataTable.Title
-          sortDirection='descending'
-          >Jumlah</DataTable.Title>
-          <DataTable.Title
-          sortDirection='descending'
-          >Keterangan</DataTable.Title>
+          >Total</DataTable.Title>
         </DataTable.Header>
         {listLoading ? <ActivityIndicator size="large" color="#0000ff" /> :
         list.map((item, index) => (
@@ -127,15 +125,15 @@ export default function KindDiveristyFaunaScreen(props){
 
                               setListLoading(true);
 
-                              let id = item.id_detail_diversity_fauna;
-                              let request = await fetch(`${endpoint}/research/diversityFauna/deleteDetail`,{
+                              let id = item.id_biodiversity_fauna;
+                              let request = await fetch(`${endpoint}/research/biodiveristy/deleteFauna`,{
                                   method:"DELETE",
                                   headers:{
                                       "authorization":`Bearer ${globalContext.credentials.token}`,
                                       "content-type":"application/json"
                                   },
                                   body:JSON.stringify({
-                                    id_detail_diversity_fauna:id
+                                    id_biodiversity_fauna:id
                                   })
                               });
                               let response = await request.json();
@@ -151,14 +149,7 @@ export default function KindDiveristyFaunaScreen(props){
               }}
               style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                   <Text style={{color:"#fff"}}>{index+1}</Text>
-              </TouchableOpacity>        
-              <TouchableOpacity 
-                onPress={()=>{
-                    props.navigation.navigate("AssetDiversityFauna",{type:"image",id_detail_diversity_fauna:item.id_detail_diversity_fauna,status:props.route.params.status});
-                }}
-                style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                    <Entypo name="image" size={EStyleSheet.value("15rem")} color="white" />
-                </TouchableOpacity>
+              </TouchableOpacity>
               </View>
               
           }
@@ -167,24 +158,9 @@ export default function KindDiveristyFaunaScreen(props){
               <Text>{index+1}</Text>
           }
             </DataTable.Cell>
-            <DataTable.Cell>
-            <TouchableOpacity 
-              activeOpacity={0.8}
-              onPress={()=>{
-                  var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-                  var url = scheme + `${item.latitude_diversity_fauna},${item.longtitude_diversity_fauna}`;
-                  Linking.openURL(url);
-              }}
-              style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
-                  <View style={{backgroundColor:"#B4E197",borderRadius:EStyleSheet.value("5rem"),padding:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
-                    <Text style={{color:"#fff"}}>Lokasi</Text>
-                  </View>
-              </TouchableOpacity>
-            </DataTable.Cell>
-            <DataTable.Cell>{item.jenis_hewan}</DataTable.Cell>
-            <DataTable.Cell>{item.deskripsi}</DataTable.Cell>
-            <DataTable.Cell>{item.jumlah}</DataTable.Cell>
-            <DataTable.Cell>{item.keterangan}</DataTable.Cell>
+            <DataTable.Cell>{item.kode_stasiun}</DataTable.Cell>
+            <DataTable.Cell>{item.spesies}</DataTable.Cell>
+            <DataTable.Cell>{item.total}</DataTable.Cell>
           </DataTable.Row>
         ))}
         </DataTable>

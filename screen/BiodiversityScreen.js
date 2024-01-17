@@ -36,11 +36,11 @@ export default function BiodiversityScreen(props){
                              if(item==="Fauna"){
                                 // alert("Fitur Ini Belum Tersedia");
                                 // props.navigation.navigate("ListGrowthResearch");
-                                // props.navigation.navigate("FilterGrowthResearch");
+                                props.navigation.navigate("FilterDiversityFauna");
                              }else if (item==="Plankton"){
                                 // alert("Fitur Ini Belum Tersedia");
                                 // props.navigation.navigate("ListDiversityFauna");
-                                // props.navigation.navigate("FilterDiversityFauna");
+                                props.navigation.navigate("FilterPlankton");
                             }
 
 

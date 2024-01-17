@@ -101,6 +101,13 @@ export default function InputReplacementPlotOfflineScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:"",
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
@@ -433,50 +440,56 @@ export default function InputReplacementPlotOfflineScreen(props){
                    })
                }
                <TouchableOpacity 
-               activeOpacity={0.8}
-               onPress={async ()=>{
-                   let required = schema.filter((item)=>item.required);
-                   let check = required.every((item)=>{
-                        if(item.type==="selectinput"){
-                            return item.value.value.length>0;
-                        }
-                        else{   
-                            return item.value.length>0;
-                        }
-                      
-                   
-                   });
+                    activeOpacity={0.8}
+                    onPress={async () => {
                         setSmokeScreenOpened(true);
-                        let filtered = schema.filter((item)=>item.type!=="spacer");
-                        let payload = {};
-                        filtered.forEach((item,index)=>{
-                            if(item.type==="selectinput"){
-                                payload[item.form]=item.value.id;
+    
+                        try {
+
+                            let filtered = schema.filter((item) => item.type !== "spacer");
+                            let payload = {};
+                            
+                            filtered.forEach((item, index) => {
+                            if (item.type === "selectinput") {
+                                payload[item.form] = item.value.id;
+                            } else {   
+                                payload[item.form] = item.value;
                             }
-                            else{   
-                                payload[item.form]=item.value;
-                            }
-                           
-                        });
-                        let payloadArray = [];
-                        payloadArray.push(payload);
-                        if(KT10){
+                            });
+
+                            payload.id = KT10.length+1;
+    
+                            let existingData = await AsyncStorage.getItem("KT10");
+                            existingData = JSON.parse(existingData) || [];
+    
+                            let newData = [...existingData, payload];
+    
+                            setKT10(newData);
+                            await AsyncStorage.setItem("KT10", JSON.stringify(newData));
+    
                             setSmokeScreenOpened(false);
-                            setKT10([...KT10,...payloadArray]);
-                            AsyncStorage.setItem("KT10",JSON.stringify([...KT10,...payloadArray]));
                             alert('Berhasil menyimpan data ke local');
                             props.navigation.navigate("ListReplacementPlotOffline");
-                        }else{
-                            setKT10(payloadArray);
-                            AsyncStorage.setItem("KT10",JSON.stringify(payloadArray));
-                            setSmokeScreenOpened(false);
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("ListReplacementPlotOffline");
+                        
+                        } catch (error) {
+                        console.error("Error saving data to AsyncStorage:", error);
+                        setSmokeScreenOpened(false);
+                        alert("Terjadi kesalahan saat menyimpan data ke local");
                         }
-               }}
-               style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
-                   <Text style={{color:"white"}}>Proses</Text>
-               </TouchableOpacity>
+                    }}
+                    style={{
+                        marginTop: EStyleSheet.value("20rem"),
+                        backgroundColor: "#1e915a",
+                        paddingVertical: EStyleSheet.value("15rem"),
+                        borderRadius: EStyleSheet.value("10rem"),
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: EStyleSheet.value("20rem"),
+                        marginHorizontal: EStyleSheet.value("20rem"),
+                    }}
+                    >
+                    <Text style={{ color: "white" }}>Proses</Text>
+                    </TouchableOpacity>
             </ScrollView>
         </View>
     )

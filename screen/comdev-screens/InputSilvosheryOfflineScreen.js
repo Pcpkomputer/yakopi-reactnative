@@ -98,6 +98,13 @@ export default function InputSilvosheryOfflineScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:"",
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{

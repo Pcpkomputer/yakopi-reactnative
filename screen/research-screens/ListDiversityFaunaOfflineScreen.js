@@ -125,18 +125,6 @@ export default function ListDiversityFaunaOfflineScreen(props){
                                         <Text style={{color:"white",fontWeight:"bold",fontSize:EStyleSheet.value("16rem"),paddingBottom:EStyleSheet.value("10rem")}}>MONITORING KEANEKARAGAMAN FAUNA</Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity 
-                                activeOpacity={0.8}
-                                onPress={()=>{
-                                    var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-                                    var url = scheme + `${item.coordinate.latitude},${item.coordinate.longitude}`;
-                                    Linking.openURL(url);
-                                }}
-                                style={{justifyContent:"center",alignItems:"center",padding:EStyleSheet.value("10rem"),paddingRight:EStyleSheet.value("20rem")}}>
-                                    <View style={{backgroundColor:"#B4E197",borderRadius:EStyleSheet.value("5rem"),padding:EStyleSheet.value("10rem"),paddingHorizontal:EStyleSheet.value("20rem")}}>
-                                    <FontAwesome name="map-marker" size={24} color="#005555" />
-                                    </View>
-                                </TouchableOpacity>
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                 <TouchableOpacity 
@@ -192,8 +180,9 @@ export default function ListDiversityFaunaOfflineScreen(props){
                                                 list = [];
                                             }
                                             let data = list[index];
+                                            
 
-                                            let request = await fetch(`${endpoint}/research/diversityFauna/add`,{
+                                            let request = await fetch(`${endpoint}/research/biodiveristy/add`,{
                                                 method:"POST",
                                                 headers:{
                                                     "authorization":`Bearer ${globalContext.credentials.token}`,

@@ -146,84 +146,107 @@ export default function ListLandAssessmentOfflineScreen(props){
                                 </TouchableOpacity>
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
-                                <TouchableOpacity 
-                                onPress={async ()=>{
-
+                            <TouchableOpacity 
+                                onPress={async () => {
                                     Alert.alert(
-                                        "Dialog Konfirmasi",
-                                        "Anda yakin ingin menghapus data ini?",
-                                        [
-                                            {
-                                            text: "Tidak",
-                                            style: "cancel"
-                                            },
-                                            { text: "Iya", onPress: async () => {
+                                    "Dialog Konfirmasi",
+                                    "Anda yakin ingin menghapus data ini?",
+                                    [
+                                        {
+                                        text: "Tidak",
+                                        style: "cancel"
+                                        },
+                                        { 
+                                        text: "Iya", 
+                                        onPress: async () => {
+                                            setListLoading(true);
 
-                                                setListLoading(true);
-
-                                                // hapus data di async storage sesuai dengan index yang dipilih
-                                                let list = await AsyncStorage.getItem("KT1");
-                                                list = JSON.parse(list);
-                                                if(list===null){
-                                                    list = [];
-                                                }
-                                                list.splice(index,1);
-                                                await AsyncStorage.setItem("KT1",JSON.stringify(list));
-
+                                            try {
+                                            let list = await AsyncStorage.getItem("KT1");
+                                            list = JSON.parse(list) || [];
+                                            
+                                            if (list.length > 0) {
+                                                list.splice(index, 1);
+                                                await AsyncStorage.setItem("KT1", JSON.stringify(list));
+                                                setKT1(list);
                                                 setList(list);
                                                 setListLoading(false);
-
-
-                                            } }
-                                        ]
-                                        );
-
-
-                                    
-
+                                                fetchList(); // Add a function to reload the list
+                                            } else {
+                                                setListLoading(false);
+                                                // Handle case when the list is already empty
+                                                alert("List is already empty");
+                                            }
+                                            } catch (error) {
+                                            console.error("Error deleting data from AsyncStorage:", error);
+                                            setListLoading(false);
+                                            // Handle error accordingly
+                                            alert("Error deleting data");
+                                            }
+                                        } 
+                                        }
+                                    ]
+                                    );
                                 }}
-                                style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                    <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
-                                </TouchableOpacity>
+                                style={{
+                                    backgroundColor: "#FF5C57",
+                                    borderRadius: EStyleSheet.value("5rem"),
+                                    paddingHorizontal: EStyleSheet.value("10rem"),
+                                    paddingVertical: EStyleSheet.value("5rem")
+                                }}
+                                >
+                                <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
+                            </TouchableOpacity>
                                 {
                                     isConnected ? (
                                         <TouchableOpacity
-                                        onPress={async ()=>{
-                                            // alert("Fitur ini belum tersedia");
-                                            // return;
+                                        onPress={async () => {
                                             setListLoading(true);
 
+                                            try {
                                             let list = await AsyncStorage.getItem("KT1");
-                                            list = JSON.parse(list);
-                                            if(list===null){
-                                                list = [];
-                                            }
+                                            list = JSON.parse(list) || [];
                                             let data = list[index];
 
-                                            let request = await fetch(`${endpoint}/land-assessment`,{
-                                                method:"POST",
-                                                headers:{
-                                                    "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                    "content-type":"application/json"
+                                            let request = await fetch(`${endpoint}/land-assessment`, {
+                                                method: "POST",
+                                                headers: {
+                                                "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                "content-type": "application/json",
                                                 },
-                                                body:JSON.stringify(data)
+                                                body: JSON.stringify(data),
                                             });
+
                                             let response = await request.json();
-                                            if(response.success){
-                                                // hapus data di async storage sesuai dengan index yang dipilih
-                                                list.splice(index,1);
-                                                await AsyncStorage.setItem("KT1",JSON.stringify(list));
+
+                                            if (response.success) {
+                                                // Hapus data di AsyncStorage sesuai dengan index yang dipilih
+                                                list.splice(index, 1);
+                                                await AsyncStorage.setItem("KT1", JSON.stringify(list));
                                                 setList(list);
                                                 setListLoading(false);
                                                 alert("Data berhasil diupload");
-                                            }else{
+                                                fetchList(); // Add a function to reload the list
+                                            } else {
                                                 alert("Data gagal diupload");
                                                 setListLoading(false);
                                             }
+                                            } catch (error) {
+                                            console.error("Error uploading data or deleting from AsyncStorage:", error);
+                                            alert("Terjadi kesalahan saat mengupload atau menghapus data");
+                                            setListLoading(false);
+                                            }
                                         }}
-                                        style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="cloud-upload"  size={EStyleSheet.value("15rem")} color="white" />
+                                        style={{
+                                            backgroundColor: "#05ACAC",
+                                            borderRadius: EStyleSheet.value("5rem"),
+                                            paddingHorizontal: EStyleSheet.value("10rem"),
+                                            paddingVertical: EStyleSheet.value("5rem"),
+                                        }}
+                                        >
+                                        <MaterialIcons name="cloud-upload" size={EStyleSheet.value("15rem")} color="white" />
                                         </TouchableOpacity>
+
                                     ) : (
                                         null
                                     )

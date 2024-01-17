@@ -119,6 +119,13 @@ export default function InputSeedCollectingOfflineScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:"",
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
@@ -468,52 +475,54 @@ export default function InputSeedCollectingOfflineScreen(props){
                    })
                }
                <TouchableOpacity 
-               activeOpacity={0.8}
-               onPress={async ()=>{
-                   let required = schema.filter((item)=>item.required);
-                   let check = required.every((item)=>{
-                        if(item.type==="selectinput"){
-                            return item.value.value.length>0;
-                        }
-                        else{   
-                            return item.value.length>0;
-                        }
-                      
-                   
-                   });
-                    
-                    setSmokeScreenOpened(true);
-                    let filtered = schema.filter((item)=>item.type!=="spacer");
-                    let payload = {};
-                    filtered.forEach((item,index)=>{
-                        if(item.type==="selectinput"){
-                            payload[item.form]=item.value.id;
-                        }
-                        else{   
-                            payload[item.form]=item.value;
-                        }
+                    activeOpacity={0.8}
+                    onPress={async () => {
+                        setSmokeScreenOpened(true);
+    
+                        try {
+
+                            let filtered = schema.filter((item) => item.type !== "spacer");
+                            let payload = {};
+                            
+                            filtered.forEach((item, index) => {
+                            if (item.type === "selectinput") {
+                                payload[item.form] = item.value.id;
+                            } else {   
+                                payload[item.form] = item.value;
+                            }
+                            });
+    
+                            let existingData = await AsyncStorage.getItem("KT2");
+                            existingData = JSON.parse(existingData) || [];
+    
+                            let newData = [...existingData, payload];
+    
+                            setKT2(newData);
+                            await AsyncStorage.setItem("KT2", JSON.stringify(newData));
+    
+                            setSmokeScreenOpened(false);
+                            alert('Berhasil menyimpan data ke local');
+                            props.navigation.navigate("ListSeedCollectingOffline");
                         
-                    });
-                    let payloadArray = [];
-                    payload.id = KT2.length+1;
-                    payloadArray.push(payload);
-                    if(KT2){
+                        } catch (error) {
+                        console.error("Error saving data to AsyncStorage:", error);
                         setSmokeScreenOpened(false);
-                        setKT2([...KT2,...payloadArray]);
-                        AsyncStorage.setItem("KT2",JSON.stringify([...KT2,...payloadArray]));
-                        alert('Berhasil menyimpan data ke local');
-                        props.navigation.navigate("ListSeedCollectingOffline");
-                    }else{
-                        setKT2(payloadArray);
-                        AsyncStorage.setItem("KT2",JSON.stringify(payloadArray));
-                        setSmokeScreenOpened(false);
-                        alert('Berhasil menyimpan data ke local');
-                        props.navigation.navigate("ListSeedCollectingOffline");
-                    }
-               }}
-               style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
-                   <Text style={{color:"white"}}>Proses</Text>
-               </TouchableOpacity>
+                        alert("Terjadi kesalahan saat menyimpan data ke local");
+                        }
+                    }}
+                    style={{
+                        marginTop: EStyleSheet.value("20rem"),
+                        backgroundColor: "#1e915a",
+                        paddingVertical: EStyleSheet.value("15rem"),
+                        borderRadius: EStyleSheet.value("10rem"),
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: EStyleSheet.value("20rem"),
+                        marginHorizontal: EStyleSheet.value("20rem"),
+                    }}
+                    >
+                    <Text style={{ color: "white" }}>Proses</Text>
+                    </TouchableOpacity>
             </ScrollView>
         </View>
     )

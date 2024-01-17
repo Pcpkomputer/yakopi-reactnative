@@ -8,20 +8,14 @@
       "android": {
         "gradleCommand": ":app:assembleDebug"
       },
-      "channel": "development"
+      "ios": {
+        "buildConfiguration": "Debug"
+      }
     },
     "preview": {
-      "android": {
-        "buildType": "apk"
-      },
-      "channel": "preview"
+      "distribution": "internal"
     },
-    "production": {
-      "android": {
-        "image": "latest"
-      },
-      "channel": "production"
-    }
+    "production": {}
   },
   "submit": {
     "production": {}

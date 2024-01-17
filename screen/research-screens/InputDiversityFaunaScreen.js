@@ -114,6 +114,13 @@ export default function InputDiversityFaunaScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:"",
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
@@ -187,52 +194,6 @@ export default function InputDiversityFaunaScreen(props){
             value:"",
             form:"backwood",
             required:true
-        },
-        {
-            type:"textinput",
-            label:"Kode Site",
-            value:"",
-            form:"site_code",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Kode Plot",
-            value:"",
-            form:"plot_code",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Luas (Ha)",
-            value:"",
-            form:"area",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Monitoring Ke-",
-            value:"",
-            form:"monitoring",
-            required:false
-        },
-        {
-            type:"spacer",
-            label:"Catatan Khusus",
-        },
-        {
-            type:"textinput",
-            label:"Informasi penting dari anggota kelompok",
-            value:"",
-            form:"catatan_1",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
-            value:"",
-            form:"catatan_2",
-            required:false
         },
     ]);
 
@@ -511,7 +472,7 @@ export default function InputDiversityFaunaScreen(props){
                            
                         });
                         console.log(payload);
-                        let request = await fetch(`${endpoint}/research/diversityFauna/add`,{
+                        let request = await fetch(`${endpoint}/research/biodiveristy/add`,{
                             method:"POST",
                             headers:{
                                 "authorization":`Bearer ${globalContext.credentials.token}`,

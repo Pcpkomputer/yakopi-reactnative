@@ -227,55 +227,53 @@ export default function InputDetailSeedCollectingOfflineScreen(props){
                    })
                }
                <TouchableOpacity 
-               activeOpacity={0.8}
-               onPress={async ()=>{
-                   let required = schema.filter((item)=>item.required);
-                   let check = required.every((item)=>{
-                        if(item.type==="selectinput"){
-                            return item.value.value.length>0;
-                        }
-                        else{   
-                            return item.value.length>0;
-                        }
-                      
-                   
-                   });
-                   if(check){   
-                        setSmokeScreenOpened(true);
-                        let filtered = schema.filter((item)=>item.type!=="spacer");
-                        let payload = {};
-                        filtered.forEach((item,index)=>{
-                            if(item.type==="selectinput"){
-                                payload[item.form]=item.value.id;
-                            }
-                            else{   
-                                payload[item.form]=item.value;
-                            }
-                           
-                        });
-                        payload.id = props.route.params.id_collecting_seed;
-                        let payloadArray = [];
-                        
-                        payloadArray.push(payload);
-                        if(KT2Kind){
-                            setSmokeScreenOpened(false);
-                            setKT2Kind([...KT2Kind,...payloadArray]);
-                            AsyncStorage.setItem("KT2Kind",JSON.stringify([...KT2Kind,...payloadArray]));
-                            console.log([...KT2Kind,...payloadArray]);
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("KindSeedCollectingOffline",{id_collecting_seed:props.route.params.id_collecting_seed});
-                        }else{
-                            setKT2Kind(payloadArray);
-                            AsyncStorage.setItem("KT2Kind",JSON.stringify(payloadArray));
-                            setSmokeScreenOpened(false);
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("KindSeedCollectingOffline",{id_collecting_seed:props.route.params.id_collecting_seed});
-                        }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
-               }}
+                activeOpacity={0.8}
+                onPress={async () => {
+                    let required = schema.filter((item) => item.required);
+                    let check = required.every((item) => {
+                    if (item.type === "selectinput") {
+                        return item.value.value.length > 0;
+                    } else {
+                        return item.value.length > 0;
+                    }
+                    });
+
+                    setSmokeScreenOpened(true);
+
+                    let filtered = schema.filter((item) => item.type !== "spacer");
+                    let payload = {};
+                    filtered.forEach((item, index) => {
+                    if (item.type === "selectinput") {
+                        payload[item.form] = item.value.id;
+                    } else {
+                        payload[item.form] = item.value;
+                    }
+                    });
+
+                    payload.id = props.route.params.id_collecting_seed;
+                    let payloadArray = [payload];
+
+                    try {
+                    const storedKT2Kind = await AsyncStorage.getItem("KT2Kind");
+                    const parsedStoredKT2Kind = JSON.parse(storedKT2Kind) || [];
+
+                    if (parsedStoredKT2Kind.length > 0) {
+                        const updatedKT2Kind = [...parsedStoredKT2Kind, ...payloadArray];
+                        await AsyncStorage.setItem("KT2Kind", JSON.stringify(updatedKT2Kind));
+                        setKT2Kind(updatedKT2Kind);
+                    } else {
+                        await AsyncStorage.setItem("KT2Kind", JSON.stringify(payloadArray));
+                        setKT2Kind(payloadArray);
+                    }
+
+                    setSmokeScreenOpened(false);
+                    alert('Berhasil menyimpan data ke local');
+                    props.navigation.navigate("KindSeedCollectingOffline", { id_collecting_seed: props.route.params.id_collecting_seed });
+                    } catch (error) {
+                    console.error("Error saving data to AsyncStorage:", error);
+                    setSmokeScreenOpened(false);
+                    }
+                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>
                </TouchableOpacity>

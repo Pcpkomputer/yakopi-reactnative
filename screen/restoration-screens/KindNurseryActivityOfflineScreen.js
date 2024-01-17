@@ -51,11 +51,13 @@ export default function KindNurseryActivity(props){
 
     }
 
+
     useEffect(()=>{
         if(focused){
             fetchList();
         }
     },[focused]);
+
 
     const styles = StyleSheet.create({
         container: {
@@ -136,42 +138,51 @@ export default function KindNurseryActivity(props){
         list.map((item, index) => (
           <DataTable.Row key={index}>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
-              <TouchableOpacity 
-              onPress={async ()=>{
-
+            <TouchableOpacity 
+              onPress={async () => {
                   Alert.alert(
                       "Dialog Konfirmasi",
                       "Anda yakin ingin menghapus data ini?",
                       [
-                        {
-                          text: "Tidak",
-                          style: "cancel"
-                        },
-                        { text: "Iya", onPress: async () => {
+                          {
+                              text: "Tidak",
+                              style: "cancel"
+                          },
+                          { 
+                              text: "Iya", 
+                              onPress: async () => {
+                                  setListLoading(true);
 
-                            setListLoading(true);
+                                  // hapus data di async storage sesuai dengan index yang dipilih
+                                  let list = await AsyncStorage.getItem("KT3Kind");
+                                  list = JSON.parse(list);
+                                  
+                                  if (list === null) {
+                                      list = [];
+                                  }
 
-                            // hapus data di async storage sesuai dengan index yang dipilih
-                            let list = await AsyncStorage.getItem("KT3Kind");
-                            list = JSON.parse(list);
-                            if(list===null){
-                                list = [];
-                            }
-                            list.splice(index,1);
-                            await AsyncStorage.setItem("KT3Kind",JSON.stringify(list));
-                            // set ke global state
-                            setKT3Kind(list);
+                                  list.splice(index, 1);
+                                  await AsyncStorage.setItem("KT3Kind", JSON.stringify(list));
 
-                            setList(list);
-                            setListLoading(false);
+                                  // Update the local state
+                                  setKT3Kind(list);
 
-                        } }
+                                  setList(list);
+                                  setListLoading(false);
+                                  fetchList();
+                              } 
+                          }
                       ]
-                    );
+                  );
               }}
-              style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                  <Text style={{color:"#fff"}}>{index+1}</Text>
-              </TouchableOpacity>
+              style={{
+                  backgroundColor: "#FF5C57",
+                  borderRadius: EStyleSheet.value("5rem"),
+                  paddingHorizontal: EStyleSheet.value("10rem"),
+                  paddingVertical: EStyleSheet.value("5rem")
+              }}>
+              <Text style={{ color: "#fff" }}>{index + 1}</Text>
+          </TouchableOpacity>
          
             </DataTable.Cell>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.tanggal_collecting}</DataTable.Cell>

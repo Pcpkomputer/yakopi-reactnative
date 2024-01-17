@@ -41,7 +41,7 @@ export default function ResearchScreen(props){
                              }else if (item==="CCB"){
                                 // alert("Fitur Ini Belum Tersedia");
                                 // props.navigation.navigate("ListDiversityFauna");
-                                // props.navigation.navigate("FilterDiversityFauna");
+                                props.navigation.navigate("FilterCCB");
                              }else if (item==="Biodiversity"){
                                 props.navigation.navigate("Biodiversity");
                             }

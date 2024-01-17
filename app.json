@@ -1,49 +1,29 @@
 {
   "expo": {
-    "name": "Yakopi",
+    "name": "yakopi-reactnative",
     "slug": "yakopi-reactnative",
     "icon": "./assets/icon.png",
-    "version": "2.5",
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos to let you share them with your friends.",
-          "cameraPermission": "Allow $(PRODUCT_NAME) to open the camera"
-        }
-      ]
-    ],
+    "version": "1.3.1",
     "assetBundlePatterns": [
       "**/*"
     ],
     "android": {
       "package": "com.yayasan.konservasi.pesisir.indonesia.yakopi",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
+      "permission": [
+        "ACCESS_BACKGROUND_LOCATION"
       ]
     },
     "ios": {
-      "bundleIdentifier": "com.yayasan.konservasi.pesisir.indonesia.yakopi",
-      "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "The app accesses your photos to take your photo for your absences feature.",
-        "NSPhotoLibraryAddUsageDescription": "The app accesses your photos to take your photo for your absences feature.",
-        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to open the camera",
-        "UIBackgroundModes": [
-          "fetch"
-        ],
-        "NSLocationWhenInUseUsageDescription": "The app accesses your location to take your location for your absences feature.",
-        "NSLocationAlwaysUsageDescription": "The app accesses your location to take your location for your absences feature.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "The app accesses your location to take your location for your absences feature."
-      }
+      "bundleIdentifier": "com.yayasan.konservasi.pesisir.indonesia.yakopi"
+    },
+    "updates": {
+      "enabled": false
     },
     "extra": {
       "eas": {
         "projectId": "c3f363ce-73f3-4cb9-9a69-7c8046ee373e"
       }
-    },
-    "runtimeVersion": "1.0.0",
-    "updates": {
-      "url": "https://u.expo.dev/c3f363ce-73f3-4cb9-9a69-7c8046ee373e"
     }
-  }
+  },
+  "name": "yakopi-reactnative"
 }

@@ -27,6 +27,7 @@ export default function ListReplantingOfflineScreen(props){
     const globalContext = useContext(GlobalContext);
     const [credentials,setCredentials] = useState(globalContext.credentials);
     const [KT8, setKT8] = useState(globalContext.KT8);
+    const [KT8Kind, setKT8Kind] = useState(globalContext.KT8Kind);
 
     const [listLoading, setListLoading] = useState(true);
     const [list, setList] = useState([]);
@@ -140,82 +141,191 @@ export default function ListReplantingOfflineScreen(props){
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                         <TouchableOpacity 
-                                        onPress={async ()=>{
-
-                                            Alert.alert(
-                                                "Dialog Konfirmasi",
-                                                "Anda yakin ingin menghapus data ini?",
-                                                [
-                                                    {
-                                                    text: "Tidak",
-                                                    style: "cancel"
-                                                    },
-                                                    { text: "Iya", onPress: async () => {
-
-                                                        setListLoading(true);
-
-                                                        // hapus data di async storage sesuai dengan index yang dipilih
-                                                        let list = await AsyncStorage.getItem("KT8");
-                                                        list = JSON.parse(list);
-                                                        if(list===null){
-                                                            list = [];
-                                                        }
-                                                        list.splice(index,1);
-                                                        await AsyncStorage.setItem("KT8",JSON.stringify(list));
-
-                                                        setList(list);
-                                                        setListLoading(false);
-
-
-                                                    } }
-                                                ]
-                                                );
-
-
-                                            
-
+                                        onPress={()=>{
+                                            props.navigation.navigate("KindReplantingOffline",{id_replanting:item.id});
                                         }}
-                                        style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
+                                        style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                            <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                         </TouchableOpacity>
+                                        <TouchableOpacity 
+                                        onPress={async () => {
+                                            Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menghapus data ini?",
+                                            [
+                                                {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                                },
+                                                { 
+                                                text: "Iya", 
+                                                onPress: async () => {
+                                                    setListLoading(true);
+
+                                                    // Hapus data di async storage sesuai dengan index yang dipilih
+                                                    let list = await AsyncStorage.getItem("KT8");
+                                                    list = JSON.parse(list) || [];
+
+                                                    if (list.length > 0) {
+                                                    list.splice(index, 1);
+                                                    await AsyncStorage.setItem("KT8", JSON.stringify(list));
+                                                    setList(list);
+                                                    setListLoading(false);
+                                                    fetchList(); // Add a function to reload the list
+                                                    } else {
+                                                    setListLoading(false);
+                                                    // Handle case when the list is already empty
+                                                    alert("List is already empty");
+                                                    }
+                                                } 
+                                                }
+                                            ]
+                                            );
+                                        }}
+                                        style={{
+                                            backgroundColor: "#FF5C57",
+                                            borderRadius: EStyleSheet.value("5rem"),
+                                            paddingHorizontal: EStyleSheet.value("10rem"),
+                                            paddingVertical: EStyleSheet.value("5rem")
+                                        }}
+                                        >
+                                    <MaterialIcons name="delete-outline" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
                                 {
                                     isConnected ? (
                                         <TouchableOpacity
-                                        onPress={async ()=>{
-                                            // alert("Fitur ini belum tersedia");
-                                            // return;
-                                            setListLoading(true);
+                                            onPress={async () => {
+                                                setListLoading(true);
 
-                                            let list = await AsyncStorage.getItem("KT8");
-                                            list = JSON.parse(list);
-                                            if(list===null){
-                                                list = [];
-                                            }
-                                            let data = list[index];
+                                                try {
+                                                    let list = await AsyncStorage.getItem("KT8");
+                                                    list = JSON.parse(list) || [];
+                                                    let data = list[index];
 
-                                            let request = await fetch(`${endpoint}/replanting`,{
-                                                method:"POST",
-                                                headers:{
-                                                    "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                    "content-type":"application/json"
-                                                },
-                                                body:JSON.stringify(data)
-                                            });
-                                            let response = await request.json();
-                                            if(response.success){
-                                                // hapus data di async storage sesuai dengan index yang dipilih
-                                                list.splice(index,1);
-                                                await AsyncStorage.setItem("KT8",JSON.stringify(list));
-                                                setList(list);
-                                                setListLoading(false);
-                                                alert("Data berhasil diupload");
-                                            }else{
-                                                alert("Data gagal diupload");
-                                                setListLoading(false);
-                                            }
-                                        }}
-                                        style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="cloud-upload"  size={EStyleSheet.value("15rem")} color="white" />
+                                                    let request = await fetch(`${endpoint}/replanting`,{
+                                                        method: "POST",
+                                                        headers: {
+                                                            "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                            "content-type": "application/json"
+                                                        },
+                                                        body: JSON.stringify(data)
+                                                    });
+
+                                                    let response = await request.json();
+
+                                                    if (response.success) {
+                                                        // Hapus data di async storage sesuai dengan index yang dipilih
+                                                        list.splice(index, 1);
+                                                        await AsyncStorage.setItem("KT8", JSON.stringify(list));
+
+                                                        // Update KT8Kind
+                                                        let id = response.id_replanting;
+                                                        let id_replanting = data.id;
+
+                                                        let KT8Kind = await AsyncStorage.getItem("KT8Kind");
+                                                        KT8Kind = JSON.parse(KT8Kind) || [];
+
+                                                        let KT8KindFiltered = KT8Kind.filter(item => item.id_replanting === id_replanting);
+
+                                                        if (KT8KindFiltered.length > 0) {
+                                                            KT8KindFiltered.forEach(item => {
+                                                                item.id_replanting = id;
+                                                            });
+                                                        } else {
+                                                            // KT8Kind tidak ada, tidak perlu mengupload
+                                                            alert("Data Berhasil Di Upload");
+                                                            setListLoading(false);
+                                                            fetchList(); // Add a function to reload the list
+                                                            return;
+                                                        }
+
+                                                        let KT8KindFiltered2 = KT8Kind.filter(item => item.id_replanting === id);
+
+
+                                                        // Jika lebih dari 1, lakukan loop
+                                                        if (KT8KindFiltered2.length > 0) {
+                                                            for (let i = 0; i < KT8KindFiltered2.length; i++) {
+                                                                let request1 = await fetch(`${endpoint}/add-kind-replanting`,{
+                                                                    method: "POST",
+                                                                    headers: {
+                                                                        "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                        "content-type": "application/json"
+                                                                    },
+                                                                    body: JSON.stringify(KT8KindFiltered2[i])
+                                                                });
+
+                                                                let response1 = await request1.json();
+
+                                                                if (response1.success) {
+                                                                    // Hapus data KT8Kind yang terkait dengan KT8 yang dihapus
+                                                                    let KT8KindFiltered = KT8Kind.filter(item => item.id_replanting !== id);
+                                                                    await AsyncStorage.setItem("KT8Kind", JSON.stringify(KT8KindFiltered));
+
+                                                                    setList(list);
+                                                                    setListLoading(false);
+                                                                    alert("Data berhasil diupload");
+                                                                    fetchList(); // Add a function to reload the list
+                                                                    let updatedKT8Kind = [...KT8Kind, KT8KindFiltered]; // Gantilah 'data' dengan properti yang sesuai
+                                                                    setKT8Kind(updatedKT8Kind);
+                                                                } else {
+                                                                    alert("Data gagal diupload");
+                                                                    setListLoading(false);
+                                                                }
+                                                            }
+                                                        } else {
+                                                            KT8KindFiltered2 = KT8KindFiltered2[0];
+
+                                                            try {
+                                                                let request1 = await fetch(`${endpoint}/add-kind-replanting`,{
+                                                                    method: "POST",
+                                                                    headers: {
+                                                                        "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                        "content-type": "application/json"
+                                                                    },
+                                                                    body: JSON.stringify(KT8KindFiltered2)
+                                                                });
+
+                                                                let response1 = await request1.json();
+
+                                                                if (response1.success) {
+                                                                    // Hapus data KT8Kind yang terkait dengan KT8 yang dihapus
+                                                                    let KT8KindFiltered = KT8Kind.filter(item => item.id_replanting !== id);
+                                                                    await AsyncStorage.setItem("KT8Kind", JSON.stringify(KT8KindFiltered));
+
+                                                                    setList(list);
+                                                                    setListLoading(false);
+                                                                    alert("Data berhasil diupload");
+                                                                    fetchList(); // Add a function to reload the list
+                                                                    let updatedKT8Kind = [...KT8Kind, KT8KindFiltered]; // Gantilah 'data' dengan properti yang sesuai
+                                                                    setKT8Kind(updatedKT8Kind);
+                                                                } else {
+                                                                    alert("Data gagal diupload");
+                                                                    setListLoading(false);
+                                                                }
+                                                            } catch (err) {
+                                                                console.log(err);
+                                                                alert("Data gagal diupload");
+                                                                setListLoading(false);
+                                                            }
+                                                        }
+                                                    } else {
+                                                        alert("Data gagal diupload");
+                                                        setListLoading(false);
+                                                    }
+                                                } catch (error) {
+                                                    console.error("Error handling upload:", error);
+                                                    setListLoading(false);
+                                                    alert("Terjadi kesalahan saat mengupload data");
+                                                }
+                                            }}
+                                            style={{
+                                                backgroundColor: "#05ACAC",
+                                                borderRadius: EStyleSheet.value("5rem"),
+                                                paddingHorizontal: EStyleSheet.value("10rem"),
+                                                paddingVertical: EStyleSheet.value("5rem")
+                                            }}
+                                        >
+                                            <MaterialIcons name="cloud-upload" size={EStyleSheet.value("15rem")} color="white" />
                                         </TouchableOpacity>
                                     ) : (
                                         null

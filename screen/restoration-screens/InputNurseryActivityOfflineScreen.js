@@ -67,6 +67,7 @@ export default function InputNurseryActivityOfflineScreen(props){
         city:[],
         district:[],
     });
+    
 
     useEffect(()=>{
         AsyncStorage.getItem("localProvince").then((value)=>{
@@ -105,6 +106,13 @@ export default function InputNurseryActivityOfflineScreen(props){
 
 
     const [schema, setSchema] = useState([
+        {
+            type:"textinput",
+            label:"Invoice Code",
+            value:"",
+            form:"invoice_code",
+            required:false
+        },
         {
             type:"selectinput",
             label:"Project",
@@ -431,51 +439,57 @@ export default function InputNurseryActivityOfflineScreen(props){
                    })
                }
                <TouchableOpacity 
-               activeOpacity={0.8}
-               onPress={async ()=>{
-                   let required = schema.filter((item)=>item.required);
-                   let check = required.every((item)=>{
-                        if(item.type==="selectinput"){
-                            return item.value.value.length>0;
-                        }
-                        else{   
-                            return item.value.length>0;
-                        }
-                      
-                   
-                   });
+                    activeOpacity={0.8}
+                    onPress={async () => {
                         setSmokeScreenOpened(true);
-                        let filtered = schema.filter((item)=>item.type!=="spacer");
-                        let payload = {};
-                        filtered.forEach((item,index)=>{
-                            if(item.type==="selectinput"){
-                                payload[item.form]=item.value.id;
+    
+                        try {
+
+                            let filtered = schema.filter((item) => item.type !== "spacer");
+                            let payload = {};
+                            
+                            filtered.forEach((item, index) => {
+                            if (item.type === "selectinput") {
+                                payload[item.form] = item.value.id;
+                            } else {   
+                                payload[item.form] = item.value;
                             }
-                            else{   
-                                payload[item.form]=item.value;
-                            }
-                           
-                        });
-                        payload.id = KT3.length+1;
-                        let payloadArray = [];
-                        payloadArray.push(payload);
-                        if(KT3){
+                            });
+
+                            payload.id = KT3.length+1;
+    
+                            let existingData = await AsyncStorage.getItem("KT3");
+                            existingData = JSON.parse(existingData) || [];
+    
+                            let newData = [...existingData, payload];
+    
+                            setKT3(newData);
+                            await AsyncStorage.setItem("KT3", JSON.stringify(newData));
+    
                             setSmokeScreenOpened(false);
-                            setKT3([...KT3,...payloadArray]);
-                            AsyncStorage.setItem("KT3",JSON.stringify([...KT3,...payloadArray]));
                             alert('Berhasil menyimpan data ke local');
                             props.navigation.navigate("ListNurseryActivityOffline");
-                        }else{
-                            setKT3(payloadArray);
-                            AsyncStorage.setItem("KT3",JSON.stringify(payloadArray));
-                            setSmokeScreenOpened(false);
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("ListNurseryActivityOffline");
+                        
+                        } catch (error) {
+                        console.error("Error saving data to AsyncStorage:", error);
+                        setSmokeScreenOpened(false);
+                        alert("Terjadi kesalahan saat menyimpan data ke local");
                         }
-               }}
-               style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
-                   <Text style={{color:"white"}}>Proses</Text>
-               </TouchableOpacity>
+                    }}
+                    style={{
+                        marginTop: EStyleSheet.value("20rem"),
+                        backgroundColor: "#1e915a",
+                        paddingVertical: EStyleSheet.value("15rem"),
+                        borderRadius: EStyleSheet.value("10rem"),
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: EStyleSheet.value("20rem"),
+                        marginHorizontal: EStyleSheet.value("20rem"),
+                    }}
+                    >
+                    <Text style={{ color: "white" }}>Proses</Text>
+                    </TouchableOpacity>
+
             </ScrollView>
         </View>
     )

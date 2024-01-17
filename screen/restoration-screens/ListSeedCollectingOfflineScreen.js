@@ -35,8 +35,6 @@ export default function ListSeedCollectingOfflineScreen(props){
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
-            console.log("Connection type", state.type);
-            console.log("Is connected?", state.isConnected);
             setIsConnected(state.isConnected);
         });
 
@@ -80,6 +78,8 @@ export default function ListSeedCollectingOfflineScreen(props){
           fetchList();
         }
       }, [focused, credentials]);
+
+      console.log(list);
 
     return (
         <View style={{ flex: 1 }}>
@@ -152,171 +152,190 @@ export default function ListSeedCollectingOfflineScreen(props){
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
-                                        <TouchableOpacity 
-                                        onPress={async ()=>{
+                                <TouchableOpacity 
+                                    onPress={async () => {
+                                        Alert.alert(
+                                        "Dialog Konfirmasi",
+                                        "Anda yakin ingin menghapus data ini?",
+                                        [
+                                            {
+                                            text: "Tidak",
+                                            style: "cancel"
+                                            },
+                                            { 
+                                            text: "Iya", 
+                                            onPress: async () => {
+                                                setListLoading(true);
 
-                                            Alert.alert(
-                                                "Dialog Konfirmasi",
-                                                "Anda yakin ingin menghapus data ini?",
-                                                [
-                                                    {
-                                                    text: "Tidak",
-                                                    style: "cancel"
-                                                    },
-                                                    { text: "Iya", onPress: async () => {
+                                                // Hapus data di async storage sesuai dengan index yang dipilih
+                                                let list = await AsyncStorage.getItem("KT2");
+                                                list = JSON.parse(list) || [];
 
-                                                        setListLoading(true);
+                                                if (list.length > 0) {
+                                                list.splice(index, 1);
+                                                await AsyncStorage.setItem("KT2", JSON.stringify(list));
+                                                setList(list);
+                                                setListLoading(false);
+                                                fetchList(); // Add a function to reload the list
+                                                } else {
+                                                setListLoading(false);
+                                                // Handle case when the list is already empty
+                                                alert("List is already empty");
+                                                }
+                                            } 
+                                            }
+                                        ]
+                                        );
+                                    }}
+                                    style={{
+                                        backgroundColor: "#FF5C57",
+                                        borderRadius: EStyleSheet.value("5rem"),
+                                        paddingHorizontal: EStyleSheet.value("10rem"),
+                                        paddingVertical: EStyleSheet.value("5rem")
+                                    }}
+                                    >
+                                    <MaterialIcons name="delete-outline" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
 
-                                                        // hapus data di async storage sesuai dengan index yang dipilih
-                                                        let list = await AsyncStorage.getItem("KT2");
-                                                        list = JSON.parse(list);
-                                                        if(list===null){
-                                                            list = [];
-                                                        }
-                                                        list.splice(index,1);
-                                                        await AsyncStorage.setItem("KT2",JSON.stringify(list));
-
-                                                        setList(list);
-                                                        setListLoading(false);
-
-
-                                                    } }
-                                                ]
-                                                );
-
-
-                                            
-
-                                        }}
-                                        style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
-                                        </TouchableOpacity>
                                 {
                                     isConnected ? (
                                         <TouchableOpacity
-                                        onPress={async ()=>{
-                                            // alert("Fitur ini belum tersedia");
-                                            // return;
+                                        onPress={async () => {
                                             setListLoading(true);
 
-                                            let list = await AsyncStorage.getItem("KT2");
-                                            list = JSON.parse(list);
-                                            if(list===null){
-                                                list = [];
-                                            }
-                                            let data = list[index];
+                                            try {
+                                                let list = await AsyncStorage.getItem("KT2");
+                                                list = JSON.parse(list) || [];
+                                                let data = list[index];
 
-                                            let request = await fetch(`${endpoint}/seed-collecting`,{
-                                                method:"POST",
-                                                headers:{
-                                                    "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                    "content-type":"application/json"
-                                                },
-                                                body:JSON.stringify(data)
-                                            });
-                                            let response = await request.json();
+                                                let request = await fetch(`${endpoint}/seed-collecting`, {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                        "content-type": "application/json"
+                                                    },
+                                                    body: JSON.stringify(data)
+                                                });
 
-                                            if(response.success){
-                                                let id = response.id_collecting_seed;
-                                                let id_collecting_seed = list[index].id;
+                                                let response = await request.json();
 
-                                                let KT2Kind = await AsyncStorage.getItem("KT2Kind");
-                                                console.log(KT2Kind,"KT2Kind");
-                                                KT2Kind = JSON.parse(KT2Kind);
-                                                if(KT2Kind===null){
-                                                    KT2Kind = [];
-                                                }
-                                                let KT2KindFiltered = KT2Kind.filter((item)=>item.id_collecting_seed===id_collecting_seed);
-                                                if(KT2KindFiltered.length>0){
-                                                    KT2KindFiltered.forEach((item)=>{
-                                                        item.id_collecting_seed = id;
-                                                    });
-                                                    await AsyncStorage.setItem("KT2Kind",JSON.stringify(KT2Kind));
-                                                }
-                                                let KT2KindFiltered2 = KT2Kind.filter((item)=>item.id_collecting_seed===id);
-                                                // jika lebih dari 1 maka looping
-                                                if(KT2KindFiltered2.length>1){
-                                                    for(let i=1;i<KT2KindFiltered2.length;i++){
-                                                        let request1 = await fetch(`${endpoint}/add-kind-seed-collecting`,{
-                                                            method:"POST",
-                                                            headers:{
-                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                                "content-type":"application/json"
-                                                            },
-                                                            body:JSON.stringify(
-                                                                KT2KindFiltered2[i]
-                                                            )
+                                                if (response.success) {
+                                                    // Hapus data di async storage sesuai dengan index yang dipilih
+                                                    list.splice(index, 1);
+                                                    await AsyncStorage.setItem("KT2", JSON.stringify(list));
+
+                                                    // Update KT2Kind
+                                                    let id = response.id_collecting_seed;
+                                                    let id_collecting_seed = data.id;
+
+                                                    let KT2Kind = await AsyncStorage.getItem("KT2Kind");
+                                                    KT2Kind = JSON.parse(KT2Kind) || [];
+
+                                                    let KT2KindFiltered = KT2Kind.filter(item => item.id_collecting_seed === id_collecting_seed);
+
+                                                    if (KT2KindFiltered.length > 0) {
+                                                        KT2KindFiltered.forEach(item => {
+                                                            item.id_collecting_seed = id;
                                                         });
-                                                        let response1 = await request1.json();
-                                                        if(response1.success){
-                                                            // setSmokeScreenOpened(false);
-                                                            list.splice(index,1);
-                                                            await AsyncStorage.setItem("KT4",JSON.stringify(list));
-                                                            let KT2Kind = await AsyncStorage.getItem("KT2Kind");
-                                                            KT2Kind = JSON.parse(KT2Kind);
-                                                            if(KT2Kind===null){
-                                                                KT2Kind = [];
-                                                            }
-                                                            let KT2KindFiltered = KT2Kind.filter((item)=>item.id_collecting_seed!==id_collecting_seed);
-                                                            await AsyncStorage.setItem("KT2Kind",JSON.stringify(KT2KindFiltered));
-                                                            setList(list);
-                                                            setListLoading(false);
-                                                            alert("Data berhasil diupload");
-                                                        }else{
-                                                            alert("Data gagal diupload");
-                                                            setListLoading(false);
-                                                        
-                                                        }
-                                                    }
-                                                
-                                                }else{
-                                                    KT2KindFiltered2 = KT2KindFiltered2[0];
-                                                    try{
-                                                        let request1 = await fetch(`${endpoint}/add-kind-seed-collecting`,{
-                                                            method:"POST",
-                                                            headers:{
-                                                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                                "content-type":"application/json"
-                                                            },
-                                                            body:JSON.stringify(
-                                                                KT2KindFiltered2
-                                                            )
-                                                        });
-                                                        let response1 = await request1.json();
-                                                        if(response1.success){
-                                                            // setSmokeScreenOpened(false);
-                                                            list.splice(index,1);
-                                                            await AsyncStorage.setItem("KT2",JSON.stringify(list));
-                                                            let KT2Kind = await AsyncStorage.getItem("KT2Kind");
-                                                            KT2Kind = JSON.parse(KT2Kind);
-                                                            if(KT2Kind===null){
-                                                                KT2Kind = [];
-                                                            }
-                                                            let KT2KindFiltered = KT2Kind.filter((item)=>item.id_collecting_seed!==id);
-                                                            await AsyncStorage.setItem("KT2Kind",JSON.stringify(KT2KindFiltered));
-                                                            setList(list);
-                                                            setListLoading(false);
-                                                            alert("Data berhasil diupload");
-                                                        }else{
-                                                            alert("Data gagal diupload");
-                                                            setListLoading(false);
-                                                        
-                                                        }
-                                                    }
-                                                    catch(err){
-                                                        console.log(err);
-                                                        alert("Data gagal diupload");
+                                                        await AsyncStorage.setItem("KT2Kind", JSON.stringify(KT2Kind));
+                                                    } else {
+                                                        // KT2Kind tidak ada, tidak perlu mengupload
+                                                        alert("Data Berhasil Di Upload");
                                                         setListLoading(false);
+                                                        fetchList(); // Add a function to reload the list
+                                                        return;
                                                     }
+
+                                                    let KT2KindFiltered2 = KT2Kind.filter(item => item.id_collecting_seed === id);
+
+                                                    if (KT2KindFiltered2.length > 0) {
+                                                        for (let i = 0; i < KT2KindFiltered2.length; i++) {
+                                                            let request1 = await fetch(`${endpoint}/add-kind-seed-collecting`, {
+                                                                method: "POST",
+                                                                headers: {
+                                                                    "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                    "content-type": "application/json"
+                                                                },
+                                                                body: JSON.stringify(KT2KindFiltered2[i])
+                                                            });
+
+                                                            let response1 = await request1.json();
+
+                                                            if (response1.success) {
+                                                                list.splice(index, 1);
+                                                                await AsyncStorage.setItem("KT2", JSON.stringify(list));
+
+                                                                let KT2Kind = await AsyncStorage.getItem("KT2Kind");
+                                                                KT2Kind = JSON.parse(KT2Kind) || [];
+                                                                let KT2KindFiltered = KT2Kind.filter(item => item.id_collecting_seed !== id);
+                                                                await AsyncStorage.setItem("KT2Kind", JSON.stringify(KT2KindFiltered));
+
+                                                                setList(list);
+                                                                setListLoading(false);
+                                                                alert("Data berhasil diupload");
+                                                                fetchList(); // Add a function to reload the list
+                                                            } else {
+                                                                alert("Data gagal diupload");
+                                                                setListLoading(false);
+                                                            }
+                                                        }
+                                                    } else {
+                                                        KT2KindFiltered2 = KT2KindFiltered2[0];
+
+                                                        try {
+                                                            let request1 = await fetch(`${endpoint}/add-kind-seed-collecting`, {
+                                                                method: "POST",
+                                                                headers: {
+                                                                    "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                    "content-type": "application/json"
+                                                                },
+                                                                body: JSON.stringify(KT2KindFiltered2)
+                                                            });
+
+                                                            let response1 = await request1.json();
+
+                                                            if (response1.success) {
+                                                                list.splice(index, 1);
+                                                                await AsyncStorage.setItem("KT2", JSON.stringify(list));
+
+                                                                let KT2Kind = await AsyncStorage.getItem("KT2Kind");
+                                                                KT2Kind = JSON.parse(KT2Kind) || [];
+                                                                let KT2KindFiltered = KT2Kind.filter(item => item.id_collecting_seed !== id);
+                                                                await AsyncStorage.setItem("KT2Kind", JSON.stringify(KT2KindFiltered));
+
+                                                                setList(list);
+                                                                setListLoading(false);
+                                                                alert("Data berhasil diupload");
+                                                                fetchList(); // Add a function to reload the list
+                                                            } else {
+                                                                alert("Data gagal diupload");
+                                                                setListLoading(false);
+                                                            }
+                                                        } catch (err) {
+                                                            console.log(err);
+                                                            alert("Data gagal diupload");
+                                                            setListLoading(false);
+                                                        }
+                                                    }
+                                                } else {
+                                                    alert("Data gagal diupload");
+                                                    setListLoading(false);
                                                 }
-                                            }else{
-                                                alert("Data gagal diupload");
+                                            } catch (error) {
+                                                console.error("Error handling upload:", error);
                                                 setListLoading(false);
+                                                alert("Terjadi kesalahan saat mengupload data");
                                             }
                                         }}
-                                        style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="cloud-upload"  size={EStyleSheet.value("15rem")} color="white" />
-                                        </TouchableOpacity>
+                                        style={{
+                                            backgroundColor: "#05ACAC",
+                                            borderRadius: EStyleSheet.value("5rem"),
+                                            paddingHorizontal: EStyleSheet.value("10rem"),
+                                            paddingVertical: EStyleSheet.value("5rem")
+                                        }}
+                                    >
+                                        <MaterialIcons name="cloud-upload" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
                                     ) : (
                                         null
                                     )

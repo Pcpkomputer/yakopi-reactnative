@@ -71,37 +71,29 @@ export default function RestorationCoordsInput(props){
                     <TouchableOpacity 
                     activeOpacity={0.8}
                     onPress={async ()=>{
-                        let Geolocation = await Location.hasServicesEnabledAsync();
-                        if(!Geolocation){
-                            alert("Akses lokasi diperlukan");
-                        }else{
-                            let { status } = await Location.requestForegroundPermissionsAsync();
-                            if (status !== 'granted') {
+                    try{
+                        let { status } = await Location.requestForegroundPermissionsAsync();
+                        if (status !== 'granted') {
                             alert("Need permissions");
-                            }
-                            else{
-                                let location = await Location.getLastKnownPositionAsync();
-                                if(!location){
-                                    let Geolocation = await Location.hasServicesEnabledAsync();
-                                    if(!Geolocation){
-                                        alert("Akses lokasi diperlukan");
-                                    }
-                                    else{
-                                        let { status } = await Location.requestForegroundPermissionsAsync();
-                                        if (status !== 'granted') {
-                                        alert("Need permissions");
-                                        }
-                                        else{
-                                            location = await Location.getCurrentPositionAsync();
-                                            props.onGetLocation(location);
-                                        }
-                                    }
-                                }
-                                props.onGetLocation(location);
-                            }
                         }
-                  
-                       
+                        else{
+                            let location = await Location.getLastKnownPositionAsync();
+                            if(!location){
+                                let { status } = await Location.requestForegroundPermissionsAsync();
+                                if (status !== 'granted') {
+                                    alert("Need permissions");
+                                }
+                                else{
+                                    location = await Location.getCurrentPositionAsync();
+                                    props.onGetLocation(location);
+                                }
+                            }
+                            props.onGetLocation(location);
+                        }            
+                    }catch(e){
+                        console.log(e);
+                        alert("Terjadi kesalahan, silahkan hidupkan kembali lokasi anda");
+                    }           
                     }}
                     style={{backgroundColor:"#1e915a",marginTop:EStyleSheet.value("10rem"),width:"100%",borderRadius:EStyleSheet.value("5rem")}}>
                         <Text style={{textAlign:"center",color:"white"}}>Lokasi Terkini</Text>

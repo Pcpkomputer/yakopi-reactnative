@@ -127,6 +127,13 @@ export default function InputLandAssessmentScreen(props){
     const [schema, setSchema] = useState([
         {
             type:"textinput",
+            label:"Invoice Code",
+            value:"",
+            form:"invoice_code",
+            required:false
+        },
+        {
+            type:"textinput",
             label:"Kode Site",
             value:"",
             form:"site_code",

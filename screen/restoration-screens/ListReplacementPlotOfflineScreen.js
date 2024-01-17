@@ -26,6 +26,7 @@ export default function ListReplacementPlotOfflineScreen(props){
     const globalContext = useContext(GlobalContext);
     const [credentials,setCredentials] = useState(globalContext.credentials);
     const [KT10, setKT10] = useState(globalContext.KT10);
+    const [KT10Kind, setKT10Kind] = useState(globalContext.KT10Kind);
 
     const [listLoading, setListLoading] = useState(true);
     const [list, setList] = useState([]);
@@ -141,82 +142,191 @@ export default function ListReplacementPlotOfflineScreen(props){
                             </LinearGradient>
                             <View style={{marginHorizontal:EStyleSheet.value("20rem"),flexDirection:"row",justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
                                         <TouchableOpacity 
-                                        onPress={async ()=>{
-
-                                            Alert.alert(
-                                                "Dialog Konfirmasi",
-                                                "Anda yakin ingin menghapus data ini?",
-                                                [
-                                                    {
-                                                    text: "Tidak",
-                                                    style: "cancel"
-                                                    },
-                                                    { text: "Iya", onPress: async () => {
-
-                                                        setListLoading(true);
-
-                                                        // hapus data di async storage sesuai dengan index yang dipilih
-                                                        let list = await AsyncStorage.getItem("KT10");
-                                                        list = JSON.parse(list);
-                                                        if(list===null){
-                                                            list = [];
-                                                        }
-                                                        list.splice(index,1);
-                                                        await AsyncStorage.setItem("KT10",JSON.stringify(list));
-
-                                                        setList(list);
-                                                        setListLoading(false);
-
-
-                                                    } }
-                                                ]
-                                                );
-
-
-                                            
-
-                                        }}
-                                        style={{backgroundColor:"#FF5C57",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
+                                            onPress={()=>{
+                                                props.navigation.navigate("KindReplacementPlotOffline",{id_replacement_plot:item.id});
+                                            }}
+                                            style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                                <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                         </TouchableOpacity>
+                                        <TouchableOpacity 
+                                        onPress={async () => {
+                                            Alert.alert(
+                                            "Dialog Konfirmasi",
+                                            "Anda yakin ingin menghapus data ini?",
+                                            [
+                                                {
+                                                text: "Tidak",
+                                                style: "cancel"
+                                                },
+                                                { 
+                                                text: "Iya", 
+                                                onPress: async () => {
+                                                    setListLoading(true);
+
+                                                    // Hapus data di async storage sesuai dengan index yang dipilih
+                                                    let list = await AsyncStorage.getItem("KT10");
+                                                    list = JSON.parse(list) || [];
+
+                                                    if (list.length > 0) {
+                                                    list.splice(index, 1);
+                                                    await AsyncStorage.setItem("KT10", JSON.stringify(list));
+                                                    setList(list);
+                                                    setListLoading(false);
+                                                    fetchList(); // Add a function to reload the list
+                                                    } else {
+                                                    setListLoading(false);
+                                                    // Handle case when the list is already empty
+                                                    alert("List is already empty");
+                                                    }
+                                                } 
+                                                }
+                                            ]
+                                            );
+                                        }}
+                                        style={{
+                                            backgroundColor: "#FF5C57",
+                                            borderRadius: EStyleSheet.value("5rem"),
+                                            paddingHorizontal: EStyleSheet.value("10rem"),
+                                            paddingVertical: EStyleSheet.value("5rem")
+                                        }}
+                                        >
+                                    <MaterialIcons name="delete-outline" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
                                 {
                                     isConnected ? (
                                         <TouchableOpacity
-                                        onPress={async ()=>{
-                                            // alert("Fitur ini belum tersedia");
-                                            // return;
-                                            setListLoading(true);
+                                            onPress={async () => {
+                                                setListLoading(true);
 
-                                            let list = await AsyncStorage.getItem("KT10");
-                                            list = JSON.parse(list);
-                                            if(list===null){
-                                                list = [];
-                                            }
-                                            let data = list[index];
+                                                try {
+                                                    let list = await AsyncStorage.getItem("KT10");
+                                                    list = JSON.parse(list) || [];
+                                                    let data = list[index];
 
-                                            let request = await fetch(`${endpoint}/replacement-plot`,{
-                                                method:"POST",
-                                                headers:{
-                                                    "authorization":`Bearer ${globalContext.credentials.token}`,
-                                                    "content-type":"application/json"
-                                                },
-                                                body:JSON.stringify(data)
-                                            });
-                                            let response = await request.json();
-                                            if(response.success){
-                                                // hapus data di async storage sesuai dengan index yang dipilih
-                                                list.splice(index,1);
-                                                await AsyncStorage.setItem("KT10",JSON.stringify(list));
-                                                setList(list);
-                                                setListLoading(false);
-                                                alert("Data berhasil diupload");
-                                            }else{
-                                                alert("Data gagal diupload");
-                                                setListLoading(false);
-                                            }
-                                        }}
-                                        style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
-                                            <MaterialIcons name="cloud-upload"  size={EStyleSheet.value("15rem")} color="white" />
+                                                    let request = await fetch(`${endpoint}/replacement-plot`,{
+                                                        method: "POST",
+                                                        headers: {
+                                                            "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                            "content-type": "application/json"
+                                                        },
+                                                        body: JSON.stringify(data)
+                                                    });
+
+                                                    let response = await request.json();
+
+                                                    if (response.success) {
+                                                        // Hapus data di async storage sesuai dengan index yang dipilih
+                                                        list.splice(index, 1);
+                                                        await AsyncStorage.setItem("KT10", JSON.stringify(list));
+
+                                                        // Update KT10Kind
+                                                        let id = response.id_replacement_plot;
+                                                        let id_replacement_plot = data.id;
+
+                                                        let KT10Kind = await AsyncStorage.getItem("KT10Kind");
+                                                        KT10Kind = JSON.parse(KT10Kind) || [];
+
+                                                        let KT10KindFiltered = KT10Kind.filter(item => item.id_replacement_plot === id_replacement_plot);
+
+                                                        if (KT10KindFiltered.length > 0) {
+                                                            KT10KindFiltered.forEach(item => {
+                                                                item.id_replacement_plot = id;
+                                                            });
+                                                        } else {
+                                                            // KT10Kind tidak ada, tidak perlu mengupload
+                                                            alert("Data Berhasil Di Upload");
+                                                            setListLoading(false);
+                                                            fetchList(); // Add a function to reload the list
+                                                            return;
+                                                        }
+
+                                                        let KT10KindFiltered2 = KT10Kind.filter(item => item.id_replacement_plot === id);
+
+
+                                                        // Jika lebih dari 1, lakukan loop
+                                                        if (KT10KindFiltered2.length > 0) {
+                                                            for (let i = 0; i < KT10KindFiltered2.length; i++) {
+                                                                let request1 = await fetch(`${endpoint}/add-kind-replacement-plot`,{
+                                                                    method: "POST",
+                                                                    headers: {
+                                                                        "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                        "content-type": "application/json"
+                                                                    },
+                                                                    body: JSON.stringify(KT10KindFiltered2[i])
+                                                                });
+
+                                                                let response1 = await request1.json();
+
+                                                                if (response1.success) {
+                                                                    // Hapus data KT10Kind yang terkait dengan KT10 yang dihapus
+                                                                    let KT10KindFiltered = KT10Kind.filter(item => item.id_replacement_plot !== id);
+                                                                    await AsyncStorage.setItem("KT10Kind", JSON.stringify(KT10KindFiltered));
+
+                                                                    setList(list);
+                                                                    setListLoading(false);
+                                                                    alert("Data berhasil diupload");
+                                                                    fetchList(); // Add a function to reload the list
+                                                                    let updatedKT10Kind = [...KT10Kind, KT10KindFiltered]; // Gantilah 'data' dengan properti yang sesuai
+                                                                    setKT10Kind(updatedKT10Kind);
+                                                                } else {
+                                                                    alert("Data gagal diupload");
+                                                                    setListLoading(false);
+                                                                }
+                                                            }
+                                                        } else {
+                                                            KT10KindFiltered2 = KT10KindFiltered2[0];
+
+                                                            try {
+                                                                let request1 = await fetch(`${endpoint}/add-kind-replacement-plot`,{
+                                                                    method: "POST",
+                                                                    headers: {
+                                                                        "authorization": `Bearer ${globalContext.credentials.token}`,
+                                                                        "content-type": "application/json"
+                                                                    },
+                                                                    body: JSON.stringify(KT10KindFiltered2)
+                                                                });
+
+                                                                let response1 = await request1.json();
+
+                                                                if (response1.success) {
+                                                                    // Hapus data KT10Kind yang terkait dengan KT10 yang dihapus
+                                                                    let KT10KindFiltered = KT10Kind.filter(item => item.id_replacement_plot !== id);
+                                                                    await AsyncStorage.setItem("KT10Kind", JSON.stringify(KT10KindFiltered));
+
+                                                                    setList(list);
+                                                                    setListLoading(false);
+                                                                    alert("Data berhasil diupload");
+                                                                    fetchList(); // Add a function to reload the list
+                                                                    let updatedKT10Kind = [...KT10Kind, KT10KindFiltered]; // Gantilah 'data' dengan properti yang sesuai
+                                                                    setKT10Kind(updatedKT10Kind);
+                                                                } else {
+                                                                    alert("Data gagal diupload");
+                                                                    setListLoading(false);
+                                                                }
+                                                            } catch (err) {
+                                                                console.log(err);
+                                                                alert("Data gagal diupload");
+                                                                setListLoading(false);
+                                                            }
+                                                        }
+                                                    } else {
+                                                        alert("Data gagal diupload");
+                                                        setListLoading(false);
+                                                    }
+                                                } catch (error) {
+                                                    console.error("Error handling upload:", error);
+                                                    setListLoading(false);
+                                                    alert("Terjadi kesalahan saat mengupload data");
+                                                }
+                                            }}
+                                            style={{
+                                                backgroundColor: "#05ACAC",
+                                                borderRadius: EStyleSheet.value("5rem"),
+                                                paddingHorizontal: EStyleSheet.value("10rem"),
+                                                paddingVertical: EStyleSheet.value("5rem")
+                                            }}
+                                        >
+                                            <MaterialIcons name="cloud-upload" size={EStyleSheet.value("15rem")} color="white" />
                                         </TouchableOpacity>
                                     ) : (
                                         null

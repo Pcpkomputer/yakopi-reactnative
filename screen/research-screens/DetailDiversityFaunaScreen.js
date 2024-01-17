@@ -116,6 +116,13 @@ export default function DetailDiveristyFaunaScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:props.route.params.item.invoice_code || "",
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
@@ -136,8 +143,8 @@ export default function DetailDiveristyFaunaScreen(props){
             type:"coordsinput",
             label:"Koordinat",
             value:{
-                latitude:props.route.params.item.latitude || "",
-                longitude:props.route.params.item.longitude || "",
+                latitude:props.route.params.item.lat_biodiversity || "",
+                longitude:props.route.params.item.long_biodiversity || "",
             },
             form:"coordinate",
             required:false
@@ -189,52 +196,6 @@ export default function DetailDiveristyFaunaScreen(props){
             value:props.route.params.item.nama_dusun || "",
             form:"backwood",
             required:true
-        },
-        {
-            type:"textinput",
-            label:"Kode Site",
-            value:props.route.params.item.site_code || "",
-            form:"site_code",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Kode Plot",
-            value:props.route.params.item.plot_code || "",
-            form:"plot_code",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Luas (Ha)",
-            value:props.route.params.item.area.toString() || "",
-            form:"area",
-            required:false
-        },
-        {
-            type:"textNumber",
-            label:"Monitoring Ke-",
-            value:props.route.params.item.monitoring.toString() || "",
-            form:"monitoring",
-            required:false
-        },
-        {
-            type:"spacer",
-            label:"Catatan Khusus",
-        },
-        {
-            type:"textinput",
-            label:"Informasi penting dari anggota kelompok",
-            value:props.route.params.item.catatan_1 || "",
-            form:"catatan_1",
-            required:false
-        },
-        {
-            type:"textinput",
-            label:"Informasi penting lainnya yang tidak tersedia di daftar isian",
-            value:props.route.params.item.catatan_2 || "",
-            form:"catatan_2",
-            required:false
         },
     ]);
 

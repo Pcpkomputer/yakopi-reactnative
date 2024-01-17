@@ -24,6 +24,8 @@ import DatePicker from 'react-native-modern-datepicker';
 
 export default function InputDetailDiveristyFaunaScreen(props){
 
+    console.log(props)
+
     let shadow = {
         shadowColor: "#000",
         shadowOffset: {
@@ -53,47 +55,30 @@ export default function InputDetailDiveristyFaunaScreen(props){
 
     const [schema, setSchema] = useState([
         {
-            form:"id_diversity_fauna",
-            value:props.route.params.id_diversity_fauna,
-        },
-        {
-            type:"coordsinput",
-            label:"Koordinat",
-            value:{
-                latitude:"",
-                longitude:""
-            },
-            form:"coordinate",
-            required:false
+            form:"id_biodiversity",
+            value:props.route.params.id_biodiversity,
         },
         {
             type:"textinput",
-            label:"Jenis Hewan",
+            label:"Kode Stasiun",
             value:"",
-            form:"jenis_hewan",
+            form:"kode_stasiun",
             required:true
         },
         {
             type:"textinput",
-            label:"Deskripsi",
+            label:"Spesies",
             value:"",
-            form:"deskripsi",
+            form:"spesies",
             required:true
         },
         {
             type:"textNumber",
             label:"Jumlah",
             value:"",
-            form:"jumlah",
+            form:"total",
             required:true
-        },
-        {
-            type:"textinput",
-            label:"Keterangan ",
-            value:"",
-            form:"keterangan",
-            required:true
-        },        
+        }
     ]);
 
     return (
@@ -243,7 +228,7 @@ export default function InputDetailDiveristyFaunaScreen(props){
                            
                         });
                         console.log(payload);
-                        let request = await fetch(`${endpoint}/research/diversityFauna/addDetail`,{
+                        let request = await fetch(`${endpoint}/research/biodiveristy/addFauna`,{
                             method:"POST",
                             headers:{
                                 "authorization":`Bearer ${globalContext.credentials.token}`,

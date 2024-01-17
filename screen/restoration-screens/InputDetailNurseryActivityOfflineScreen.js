@@ -40,7 +40,6 @@ export default function InputDetailNurseryActivityOffline(props){
 
     const globalContext = useContext(GlobalContext);
     const [KT3Kind, setKT3Kind] = useState(globalContext.KT3Kind);
-    console.log(KT3Kind, 'KT3Kind');
 
     useEffect(()=>{
         if(focused){
@@ -49,6 +48,7 @@ export default function InputDetailNurseryActivityOffline(props){
     },[focused]);
 
     const id_nursery_activity = props.route.params.id_nursery_activity;
+    console.log(id_nursery_activity,'id')
 
     const [showSelectDateInput, setShowSelectDateInput] = useState(false);
     const [labelSelectDateInput, setLabelSelectDateInput] = useState("");
@@ -238,56 +238,53 @@ export default function InputDetailNurseryActivityOffline(props){
                    })
                }
                <TouchableOpacity 
-               activeOpacity={0.8}
-               onPress={async ()=>{
-                   let required = schema.filter((item)=>item.required);
-                   let check = required.every((item)=>{
-                        if(item.type==="selectinput"){
-                            return item.value.value.length>0;
-                        }
-                        else{   
-                            return item.value.length>0;
-                        }
-                      
-                   
-                   });
-                   if(check){   
-                        setSmokeScreenOpened(true);
-                        let filtered = schema.filter((item)=>item.type!=="spacer");
-                        let payload = {};
-                        filtered.forEach((item,index)=>{
-                            if(item.type==="selectinput"){
-                                payload[item.form]=item.value.id;
-                            }
-                            else{   
-                                payload[item.form]=item.value;
-                            }
-                           
-                        });
+                activeOpacity={0.8}
+                onPress={async () => {
+                    let required = schema.filter((item) => item.required);
+                    let check = required.every((item) => {
+                    if (item.type === "selectinput") {
+                        return item.value.value.length > 0;
+                    } else {
+                        return item.value.length > 0;
+                    }
+                    });
 
-                        payload.id = props.route.params.id_nursery_activity;
-                        let payloadArray = [];
-                        
-                        payloadArray.push(payload);
-                        if(KT3Kind){
-                            setSmokeScreenOpened(false);
-                            AsyncStorage.setItem("KT3Kind",JSON.stringify([...KT3Kind,...payloadArray]));
-                            setKT3Kind([...KT3Kind,...payloadArray]);
-                            console.log([...KT3Kind,...payloadArray], 'KT3KindPayload');
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("KindNurseryActivityOffline",{id_nursery_activity:props.route.params.id_nursery_activity});
-                        }else{
-                            setKT3Kind(payloadArray);
-                            AsyncStorage.setItem("KT3Kind",JSON.stringify(payloadArray));
-                            setSmokeScreenOpened(false);
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("KindNurseryActivityOffline",{id_nursery_activity:props.route.params.id_nursery_activity});
-                        }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
-               }}
+                    setSmokeScreenOpened(true);
+
+                    let filtered = schema.filter((item) => item.type !== "spacer");
+                    let payload = {};
+                    filtered.forEach((item, index) => {
+                    if (item.type === "selectinput") {
+                        payload[item.form] = item.value.id;
+                    } else {
+                        payload[item.form] = item.value;
+                    }
+                    });
+
+                    payload.id = props.route.params.id_nursery_activity;
+                    let payloadArray = [payload];
+
+                    try {
+                    const storedKT3Kind = await AsyncStorage.getItem("KT3Kind");
+                    const parsedStoredKT3Kind = JSON.parse(storedKT3Kind) || [];
+
+                    if (parsedStoredKT3Kind.length > 0) {
+                        const updatedKT3Kind = [...parsedStoredKT3Kind, ...payloadArray];
+                        await AsyncStorage.setItem("KT3Kind", JSON.stringify(updatedKT3Kind));
+                        setKT3Kind(updatedKT3Kind);
+                    } else {
+                        await AsyncStorage.setItem("KT3Kind", JSON.stringify(payloadArray));
+                        setKT3Kind(payloadArray);
+                    }
+
+                    setSmokeScreenOpened(false);
+                    alert('Berhasil menyimpan data ke local');
+                    props.navigation.navigate("KindNurseryActivityOffline", { id_nursery_activity: props.route.params.id_nursery_activity });
+                    } catch (error) {
+                    console.error("Error saving data to AsyncStorage:", error);
+                    setSmokeScreenOpened(false);
+                    }
+                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>
                </TouchableOpacity>

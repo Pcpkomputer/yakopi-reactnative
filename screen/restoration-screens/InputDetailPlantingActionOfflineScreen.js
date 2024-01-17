@@ -301,56 +301,54 @@ export default function InputDetailPlantingActionOfflineScreen(props){
                        
                    })
                }
-               <TouchableOpacity 
-               activeOpacity={0.8}
-               onPress={async ()=>{
-                   let required = schema.filter((item)=>item.required);
-                   let check = required.every((item)=>{
-                        if(item.type==="selectinput"){
-                            return item.value.value.length>0;
-                        }
-                        else{   
-                            return item.value.length>0;
-                        }
-                      
-                   
-                   });
-                   if(check){   
-                        setSmokeScreenOpened(true);
-                        let filtered = schema.filter((item)=>item.type!=="spacer");
-                        let payload = {};
-                        filtered.forEach((item,index)=>{
-                            if(item.type==="selectinput"){
-                                payload[item.form]=item.value.id;
-                            }
-                            else{   
-                                payload[item.form]=item.value;
-                            }
-                           
-                        });
-                        payload.id = props.route.params.id_planting_action;
-                        let payloadArray = [];
-                        
-                        payloadArray.push(payload);
-                        if(KT4Kind){
-                            setSmokeScreenOpened(false);
-                            setKT4Kind([...KT4Kind,...payloadArray]);
-                            AsyncStorage.setItem("KT4Kind",JSON.stringify([...KT4Kind,...payloadArray]));
-                            console.log([...KT4Kind,...payloadArray]);
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("KindPlantingActionOffline",{id_planting_action:props.route.params.id_planting_action});
-                        }else{
-                            setKT4Kind(payloadArray);
-                            AsyncStorage.setItem("KT4Kind",JSON.stringify(payloadArray));
-                            setSmokeScreenOpened(false);
-                            alert('Berhasil menyimpan data ke local');
-                            props.navigation.navigate("KindPlantingActionOffline",{id_planting_action:props.route.params.id_planting_action});
-                        }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
-               }}
+              <TouchableOpacity 
+                activeOpacity={0.8}
+                onPress={async () => {
+                    let required = schema.filter((item) => item.required);
+                    let check = required.every((item) => {
+                    if (item.type === "selectinput") {
+                        return item.value.value.length > 0;
+                    } else {
+                        return item.value.length > 0;
+                    }
+                    });
+
+                    setSmokeScreenOpened(true);
+
+                    let filtered = schema.filter((item) => item.type !== "spacer");
+                    let payload = {};
+                    filtered.forEach((item, index) => {
+                    if (item.type === "selectinput") {
+                        payload[item.form] = item.value.id;
+                    } else {
+                        payload[item.form] = item.value;
+                    }
+                    });
+
+                    payload.id = props.route.params.id_planting_action;
+                    let payloadArray = [payload];
+
+                    try {
+                    const storedKT4Kind = await AsyncStorage.getItem("KT4Kind");
+                    const parsedStoredKT4Kind = JSON.parse(storedKT4Kind) || [];
+
+                    if (parsedStoredKT4Kind.length > 0) {
+                        const updatedKT4Kind = [...parsedStoredKT4Kind, ...payloadArray];
+                        await AsyncStorage.setItem("KT4Kind", JSON.stringify(updatedKT4Kind));
+                        setKT4Kind(updatedKT4Kind);
+                    } else {
+                        await AsyncStorage.setItem("KT4Kind", JSON.stringify(payloadArray));
+                        setKT4Kind(payloadArray);
+                    }
+
+                    setSmokeScreenOpened(false);
+                    alert('Berhasil menyimpan data ke local');
+                    props.navigation.navigate("KindPlantingActionOffline",{id_planting_action:props.route.params.id_planting_action});
+                    } catch (error) {
+                    console.error("Error saving data to AsyncStorage:", error);
+                    setSmokeScreenOpened(false);
+                    }
+                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>
                </TouchableOpacity>
