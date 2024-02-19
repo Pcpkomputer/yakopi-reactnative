@@ -117,10 +117,17 @@ export default function DetailPlantingActionScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:props.route.params.item.invoice_code,
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
-                id:props.route.params.item.id_project || -1,
+                id:props.route.params.item.id_project,
                 value:props.route.params.item.nama_project || "",
             },
             form:"project",
@@ -134,6 +141,16 @@ export default function DetailPlantingActionScreen(props){
             required:true
         },
         {
+            type:"coordsinput",
+            label:"Koordinat",
+            value:{
+                latitude:props.route.params.item.lat_transport || "",
+                longitude:props.route.params.item.long_transport || "",
+            },
+            form:"coordinate",
+            required:true
+        },
+        {
             type:"spacer",
             label:"Lokasi",
         },
@@ -141,7 +158,7 @@ export default function DetailPlantingActionScreen(props){
             type:"selectinput",
             label:"Provinsi",
             value:{
-                id:props.route.params.item.id_province || -1,
+                id:props.route.params.item.id_provinces,
                 value:props.route.params.item.prov_name || "",
             },
             form:"province",
@@ -151,7 +168,7 @@ export default function DetailPlantingActionScreen(props){
             type:"selectinput",
             label:"Kota/Kabupaten",
             value:{
-                id:props.route.params.item.id_cities || -1,
+                id:props.route.params.item.id_cities,
                 value:props.route.params.item.city_name || "",
             },
             form:"city",
@@ -161,7 +178,7 @@ export default function DetailPlantingActionScreen(props){
             type:"selectinput",
             label:"Kecamatan",
             value:{
-                id:props.route.params.item.id_districts || -1,
+                id:props.route.params.item.id_districts,
                 value:props.route.params.item.dis_name || "",
             },
             form:"district",
@@ -222,6 +239,10 @@ export default function DetailPlantingActionScreen(props){
             value:props.route.params.item.dusun || "",
             form:"dusun",
             required:true
+        },
+        {
+            type:"spacer",
+            label:"Catatan Khusus",
         },
         {
             type:"spacer",

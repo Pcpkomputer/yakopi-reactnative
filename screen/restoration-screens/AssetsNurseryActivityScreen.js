@@ -148,7 +148,7 @@ function AssetsVideo(props){
                                     let uuid = createUUID();
                 
                                     var photo = {
-                                        uri: gambar.uri,
+                                        uri: gambar.assets[0].uri,
                                         type: 'video/mp4',
                                         name: `${uuid}.mp4`,
                                     };
@@ -399,7 +399,7 @@ function AssetsDrone(props){
                             }
                             if(required){
                                 let gambar = await ImagePicker.launchImageLibraryAsync();
-                                if(!gambar.cancelled){
+                                if(!gambar.canceled){
 
                                     setImageLoading(true);
                                     setModalKeteranganOpened(false);
@@ -407,7 +407,7 @@ function AssetsDrone(props){
                                     let uuid = createUUID();
                 
                                     var photo = {
-                                        uri: gambar.uri,
+                                        uri: gambar.assets[0].uri,
                                         type: 'image/jpeg',
                                         name: `${uuid}.jpg`,
                                     };
@@ -646,7 +646,7 @@ function AssetsImage(props){
                             }
                             if(required){
                                 let gambar = await ImagePicker.launchImageLibraryAsync();
-                                if(!gambar.cancelled){
+                                if(!gambar.canceled){
 
                                     setImageLoading(true);
                                     setModalKeteranganOpened(false);
@@ -654,7 +654,7 @@ function AssetsImage(props){
                                     let uuid = createUUID();
                 
                                     var photo = {
-                                        uri: gambar.uri,
+                                        uri: gambar.assets[0].uri,
                                         type: 'image/jpeg',
                                         name: `${uuid}.jpg`,
                                     };

@@ -13,14 +13,140 @@ import RestorationScreen from './screen/RestorationScreen';
 import ComdevScreen from './screen/ComdevScreen';
 import ResearchScreen from './screen/ResearchScreen';
 import BiodiversityScreen from './screen/BiodiversityScreen';
+import AgroforestriScreen from './screen/AgroforestriScreen';
 
 import InputCutiScreen from './screen/cuti-screens/InputCutiScreen';
 import ListCutiScreen from './screen/cuti-screens/ListCutiScreen';
 import DetailCutiScreen from './screen/cuti-screens/DetailCutiScreen';
 import * as TaskManager from 'expo-task-manager'
 import * as Location from 'expo-location'
+
+import ListBounderingScreen from './screen/agroforestri-screens/ListBounderingScreen';
+import InputBounderingScreen from './screen/agroforestri-screens/InputBounderingScreen';
+
+import FilterKK1Screen from './screen/agroforestri-screens/FilterKK1Screen';
+import ListKK1Screen from './screen/agroforestri-screens/ListKK1Screen';
+import ListKK1OfflineScreen from './screen/agroforestri-screens/ListKK1OfflineScreen';
+import InputKK1Screen from './screen/agroforestri-screens/InputKK1Screen';
+import InputKK1OfflineScreen from './screen/agroforestri-screens/InputKK1OfflineScreen';
+import UpdateKK1Screen from './screen/agroforestri-screens/UpdateKK1Screen';
+import DetailKK1Screen from './screen/agroforestri-screens/DetailKK1Screen';
+import AssetsKK1Screen from './screen/agroforestri-screens/AssetsKK1Screen';
+
+import FilterKK2Screen from './screen/agroforestri-screens/FilterKK2Screen';
+import ListKK2Screen from './screen/agroforestri-screens/ListKK2Screen';
+import ListKK2OfflineScreen from './screen/agroforestri-screens/ListKK2OfflineScreen';
+import InputKK2Screen from './screen/agroforestri-screens/InputKK2Screen';
+import InputKK2OfflineScreen from './screen/agroforestri-screens/InputKK2OfflineScreen';
+import UpdateKK2Screen from './screen/agroforestri-screens/UpdateKK2Screen';
+import DetailKK2Screen from './screen/agroforestri-screens/DetailKK2Screen';
+import AssetsKK2Screen from './screen/agroforestri-screens/AssetsKK2Screen';
+import KindKK2Screen from './screen/agroforestri-screens/KindKK2Screen';
+import KindKK2OfflineScreen from './screen/agroforestri-screens/KindKK2OfflineScreen';
+import InputDetailKK2Screen from './screen/agroforestri-screens/InputDetailKK2Screen';
+import InputDetailKK2OfflineScreen from './screen/agroforestri-screens/InputDetailKK2OfflineScreen';
+
+import FilterKK3Screen from './screen/agroforestri-screens/FilterKK3Screen';
+import ListKK3Screen from './screen/agroforestri-screens/ListKK3Screen';
+import ListKK3OfflineScreen from './screen/agroforestri-screens/ListKK3OfflineScreen';
+import InputKK3Screen from './screen/agroforestri-screens/InputKK3Screen';
+import InputKK3OfflineScreen from './screen/agroforestri-screens/InputKK3OfflineScreen';
+import UpdateKK3Screen from './screen/agroforestri-screens/UpdateKK3Screen';
+import DetailKK3Screen from './screen/agroforestri-screens/DetailKK3Screen';
+import AssetsKK3Screen from './screen/agroforestri-screens/AssetsKK3Screen';
+import KindKK3Screen from './screen/agroforestri-screens/KindKK3Screen';
+import KindKK3OfflineScreen from './screen/agroforestri-screens/KindKK3OfflineScreen';
+import InputDetailKK3Screen from './screen/agroforestri-screens/InputDetailKK3Screen';
+import InputDetailKK3OfflineScreen from './screen/agroforestri-screens/InputDetailKK3OfflineScreen';
+
+import FilterKK4Screen from './screen/agroforestri-screens/FilterKK4Screen';
+import ListKK4Screen from './screen/agroforestri-screens/ListKK4Screen';
+import ListKK4OfflineScreen from './screen/agroforestri-screens/ListKK4OfflineScreen';
+import InputKK4Screen from './screen/agroforestri-screens/InputKK4Screen';
+import InputKK4OfflineScreen from './screen/agroforestri-screens/InputKK4OfflineScreen';
+import UpdateKK4Screen from './screen/agroforestri-screens/UpdateKK4Screen';
+import DetailKK4Screen from './screen/agroforestri-screens/DetailKK4Screen';
+import KindKK4Screen from './screen/agroforestri-screens/KindKK4Screen';
+import KindKK4OfflineScreen from './screen/agroforestri-screens/KindKK4OfflineScreen';
+import InputDetailKK4Screen from './screen/agroforestri-screens/InputDetailKK4Screen';
+import InputDetailKK4OfflineScreen from './screen/agroforestri-screens/InputDetailKK4OfflineScreen';
+
+import FilterKK5Screen from './screen/agroforestri-screens/FilterKK5Screen';
+import ListKK5Screen from './screen/agroforestri-screens/ListKK5Screen';
+import ListKK5OfflineScreen from './screen/agroforestri-screens/ListKK5OfflineScreen';
+import InputKK5Screen from './screen/agroforestri-screens/InputKK5Screen';
+import InputKK5OfflineScreen from './screen/agroforestri-screens/InputKK5OfflineScreen';
+import UpdateKK5Screen from './screen/agroforestri-screens/UpdateKK5Screen';
+import DetailKK5Screen from './screen/agroforestri-screens/DetailKK5Screen';
+import KindKK5Screen from './screen/agroforestri-screens/KindKK5Screen';
+import KindKK5OfflineScreen from './screen/agroforestri-screens/KindKK5OfflineScreen';
+import InputDetailKK5Screen from './screen/agroforestri-screens/InputDetailKK5Screen';
+import InputDetailKK5OfflineScreen from './screen/agroforestri-screens/InputDetailKK5OfflineScreen';
+
+import FilterKK6Screen from './screen/agroforestri-screens/FilterKK6Screen';
+import ListKK6Screen from './screen/agroforestri-screens/ListKK6Screen';
+import ListKK6OfflineScreen from './screen/agroforestri-screens/ListKK6OfflineScreen';
+import InputKK6Screen from './screen/agroforestri-screens/InputKK6Screen';
+import InputKK6OfflineScreen from './screen/agroforestri-screens/InputKK6OfflineScreen';
+import UpdateKK6Screen from './screen/agroforestri-screens/UpdateKK6Screen';
+import DetailKK6Screen from './screen/agroforestri-screens/DetailKK6Screen';
+import KindKK6Screen from './screen/agroforestri-screens/KindKK6Screen';
+import KindKK6OfflineScreen from './screen/agroforestri-screens/KindKK6OfflineScreen';
+import InputDetailKK6Screen from './screen/agroforestri-screens/InputDetailKK6Screen';
+import InputDetailKK6OfflineScreen from './screen/agroforestri-screens/InputDetailKK6OfflineScreen';
+
+import FilterKK7Screen from './screen/agroforestri-screens/FilterKK7Screen';
+import ListKK7Screen from './screen/agroforestri-screens/ListKK7Screen';
+import ListKK7OfflineScreen from './screen/agroforestri-screens/ListKK7OfflineScreen';
+import InputKK7Screen from './screen/agroforestri-screens/InputKK7Screen';
+import InputKK7OfflineScreen from './screen/agroforestri-screens/InputKK7OfflineScreen';
+import UpdateKK7Screen from './screen/agroforestri-screens/UpdateKK7Screen';
+import DetailKK7Screen from './screen/agroforestri-screens/DetailKK7Screen';
+import KindKK7Screen from './screen/agroforestri-screens/KindKK7Screen';
+import KindKK7OfflineScreen from './screen/agroforestri-screens/KindKK7OfflineScreen';
+import InputDetailKK7Screen from './screen/agroforestri-screens/InputDetailKK7Screen';
+import InputDetailKK7OfflineScreen from './screen/agroforestri-screens/InputDetailKK7OfflineScreen';
+
+import FilterKK8Screen from './screen/agroforestri-screens/FilterKK8Screen';
+import ListKK8Screen from './screen/agroforestri-screens/ListKK8Screen';
+import ListKK8OfflineScreen from './screen/agroforestri-screens/ListKK8OfflineScreen';
+import InputKK8Screen from './screen/agroforestri-screens/InputKK8Screen';
+import InputKK8OfflineScreen from './screen/agroforestri-screens/InputKK8OfflineScreen';
+import UpdateKK8Screen from './screen/agroforestri-screens/UpdateKK8Screen';
+import DetailKK8Screen from './screen/agroforestri-screens/DetailKK8Screen';
+import KindKK8Screen from './screen/agroforestri-screens/KindKK8Screen';
+import KindKK8OfflineScreen from './screen/agroforestri-screens/KindKK8OfflineScreen';
+import InputDetailKK8Screen from './screen/agroforestri-screens/InputDetailKK8Screen';
+import InputDetailKK8OfflineScreen from './screen/agroforestri-screens/InputDetailKK8OfflineScreen';
+
+import FilterKK9Screen from './screen/agroforestri-screens/FilterKK9Screen';
+import ListKK9Screen from './screen/agroforestri-screens/ListKK9Screen';
+import ListKK9OfflineScreen from './screen/agroforestri-screens/ListKK9OfflineScreen';
+import InputKK9Screen from './screen/agroforestri-screens/InputKK9Screen';
+import InputKK9OfflineScreen from './screen/agroforestri-screens/InputKK9OfflineScreen';
+import UpdateKK9Screen from './screen/agroforestri-screens/UpdateKK9Screen';
+import DetailKK9Screen from './screen/agroforestri-screens/DetailKK9Screen';
+import KindKK9Screen from './screen/agroforestri-screens/KindKK9Screen';
+import KindKK9OfflineScreen from './screen/agroforestri-screens/KindKK9OfflineScreen';
+import InputDetailKK9Screen from './screen/agroforestri-screens/InputDetailKK9Screen';
+import InputDetailKK9OfflineScreen from './screen/agroforestri-screens/InputDetailKK9OfflineScreen';
+
+import FilterKK10Screen from './screen/agroforestri-screens/FilterKK10Screen';
+import ListKK10Screen from './screen/agroforestri-screens/ListKK10Screen';
+import ListKK10OfflineScreen from './screen/agroforestri-screens/ListKK10OfflineScreen';
+import InputKK10Screen from './screen/agroforestri-screens/InputKK10Screen';
+import InputKK10OfflineScreen from './screen/agroforestri-screens/InputKK10OfflineScreen';
+import UpdateKK10Screen from './screen/agroforestri-screens/UpdateKK10Screen';
+import DetailKK10Screen from './screen/agroforestri-screens/DetailKK10Screen';
+import KindKK10Screen from './screen/agroforestri-screens/KindKK10Screen';
+import KindKK10OfflineScreen from './screen/agroforestri-screens/KindKK10OfflineScreen';
+import InputDetailKK10Screen from './screen/agroforestri-screens/InputDetailKK10Screen';
+import InputDetailKK10OfflineScreen from './screen/agroforestri-screens/InputDetailKK10OfflineScreen';
+
 import InputLandAssessmentScreen from './screen/restoration-screens/InputLandAssessmentScreen';
 import InputLandAssessmentOfflineScreen from './screen/restoration-screens/InputLandAssessmentOfflineScreen';
+import UpdateLandAssessmentScreen from './screen/restoration-screens/UpdateLandAssessmentScreen';
+import UpdateLandAssessmentOfflineScreen from './screen/restoration-screens/UpdateLandAssessmentOfflineScreen';
 import ListLandAssessmentScreen from './screen/restoration-screens/ListLandAssessmentScreen';
 import ListLandAssessmentOfflineScreen from './screen/restoration-screens/ListLandAssessmentOfflineScreen';
 import FilterLandAssessmentScreen from './screen/restoration-screens/FilterLandAssessmentScreen';
@@ -29,6 +155,8 @@ import AssetsLandAssessmentScreen from './screen/restoration-screens/AssetsLandA
 
 import InputSeedCollectingScreen from './screen/restoration-screens/InputSeedCollectingScreen';
 import InputSeedCollectingOfflineScreen from './screen/restoration-screens/InputSeedCollectingOfflineScreen';
+import UpdateSeedCollectingScreen from './screen/restoration-screens/UpdateSeedCollectingScreen'; 
+import UpdateSeedCollectingOfflineScreen from './screen/restoration-screens/UpdateSeedCollectingOfflineScreen';
 import ListSeedCollectingScreen from './screen/restoration-screens/ListSeedCollectingScreen';
 import ListSeedCollectingOfflineScreen from './screen/restoration-screens/ListSeedCollectingOfflineScreen';
 import FilterSeedCollectingScreen from './screen/restoration-screens/FilterSeedCollectingScreen';
@@ -43,6 +171,8 @@ import ListNurseryActivityScreen from './screen/restoration-screens/ListNurseryA
 import ListNurseryActivityOfflineScreen from './screen/restoration-screens/ListNurseryActivityOfflineScreen';
 import InputNurseryActivityScreen from './screen/restoration-screens/InputNurseryActivityScreen';
 import InputNurseryActivityOfflineScreen from './screen/restoration-screens/InputNurseryActivityOfflineScreen';
+import UpdateNurseryActivityScreen from './screen/restoration-screens/UpdateNurseryActivityScreen';
+import UpdateNurseryActivityOfflineScreen from './screen/restoration-screens/UpdateNurseryActivityOfflineScreen';
 import FilterNurseryActivityScreen from './screen/restoration-screens/FilterNurseryActivityScreen';
 import KindNurseryActivityScreen from './screen/restoration-screens/KindNurseryActivityScreen';
 import KindNurseryActivityOfflineScreen from './screen/restoration-screens/KindNurseryActivityOfflineScreen';
@@ -55,6 +185,8 @@ import ListPlantingActionScreen from './screen/restoration-screens/ListPlantingA
 import ListPlantingActionOfflineScreen from './screen/restoration-screens/ListPlantingActionOfflineScreen';
 import InputPlantingActionScreen from './screen/restoration-screens/InputPlantingActionScreen';
 import InputPlantingActionOfflineScreen from './screen/restoration-screens/InputPlantingActionOfflineScreen';
+import UpdatePlantingActionScreen from './screen/restoration-screens/UpdatePlantingActionScreen';
+import UpdatePlantingActionOfflineScreen from './screen/restoration-screens/UpdatePlantingActionOfflineScreen';
 import FilterPlantingActionScreen from './screen/restoration-screens/FilterPlantingActionScreen';
 import KindPlantingActionScreen from './screen/restoration-screens/KindPlantingActionScreen';
 import KindPlantingActionOfflineScreen from './screen/restoration-screens/KindPlantingActionOfflineScreen';
@@ -67,6 +199,8 @@ import ListTransportScreen from './screen/restoration-screens/ListTransportScree
 import ListTransportOfflineScreen from './screen/restoration-screens/ListTransportOfflineScreen';
 import InputTransportScreen from './screen/restoration-screens/InputTransportScreen';
 import InputTransportOfflineScreen from './screen/restoration-screens/InputTransportOfflineScreen';
+import UpdateTransportScreen from './screen/restoration-screens/UpdateTransportScreen';
+import UpdateTransportOfflineScreen from './screen/restoration-screens/UpdateTransportOfflineScreen';
 import FilterTransportScreen from './screen/restoration-screens/FilterTransportScreen';
 import KindTransportScreen from './screen/restoration-screens/KindTransportScreen';
 import KindTransportOfflineScreen from './screen/restoration-screens/KindTransportOfflineScreen';
@@ -79,6 +213,8 @@ import ListGrowthScreen from './screen/restoration-screens/ListGrowthScreen';
 import ListGrowthOfflineScreen from './screen/restoration-screens/ListGrowthOfflineScreen';
 import InputGrowthScreen from './screen/restoration-screens/InputGrowthScreen';
 import InputGrowthOfflineScreen from './screen/restoration-screens/InputGrowthOfflineScreen';
+import UpdateGrowthScreen from './screen/restoration-screens/UpdateGrowthScreen';
+import UpdateGrowthOfflineScreen from './screen/restoration-screens/UpdateGrowthOfflineScreen';
 import FilterGrowthScreen from './screen/restoration-screens/FilterGrowthScreen';
 import KindGrowthScreen from './screen/restoration-screens/KindGrowthScreen';
 import KindGrowthOfflineScreen from './screen/restoration-screens/KindGrowthOfflineScreen';
@@ -90,6 +226,8 @@ import ListReplantingScreen from './screen/restoration-screens/ListReplantingScr
 import ListReplantingOfflineScreen from './screen/restoration-screens/ListReplantingOfflineScreen';
 import InputReplantingScreen from './screen/restoration-screens/InputReplantingScreen';
 import InputReplantingOfflineScreen from './screen/restoration-screens/InputReplantingOfflineScreen';
+import UpdateReplantingScreen from './screen/restoration-screens/UpdateReplantingScreen';
+import UpdateReplantingOfflineScreen from './screen/restoration-screens/UpdateReplantingOfflineScreen';
 import FilterReplantingScreen from './screen/restoration-screens/FilterReplantingScreen';
 import KindReplantingScreen from './screen/restoration-screens/KindReplantingScreen';
 import KindReplantingOfflineScreen from './screen/restoration-screens/KindReplantingOfflineScreen';
@@ -102,6 +240,7 @@ import ListSubtitutePlotScreen from './screen/restoration-screens/ListSubtituteP
 import ListSubtitutePlotOfflineScreen from './screen/restoration-screens/ListSubtitutePlotOfflineScreen';
 import InputSubtitutePlotScreen from './screen/restoration-screens/InputSubtitutePlotScreen';
 import InputSubtitutePlotOfflineScreen from './screen/restoration-screens/InputSubtitutePlotOfflineScreen';
+import UpdateSubtitutePlotScreen from './screen/restoration-screens/UpdateSubtitutePlotScreen';
 import FilterSubtitutePlotScreen from './screen/restoration-screens/FilterSubtitutePlotScreen';
 import KindSubtitutePlotScreen from './screen/restoration-screens/KindSubtitutePlotScreen';
 import KindSubtitutePlotOfflineScreen from './screen/restoration-screens/KindSubtitutePlotOfflineScreen';
@@ -114,6 +253,7 @@ import ListReplacementPlotScreen from './screen/restoration-screens/ListReplacem
 import ListReplacementPlotOfflineScreen from './screen/restoration-screens/ListReplacementPlotOfflineScreen';
 import InputReplacementPlotScreen from './screen/restoration-screens/InputReplacementPlotScreen';
 import InputReplacementPlotOfflineScreen from './screen/restoration-screens/InputReplacementPlotOfflineScreen';
+import UpdateReplacementPlotScreen from './screen/restoration-screens/UpdateReplacementPlotScreen';
 import FilterReplacementPlotScreen from './screen/restoration-screens/FilterReplacementPlotScreen';
 import KindReplacementPlotScreen from './screen/restoration-screens/KindReplacementPlotScreen';
 import KindReplacementPlotOfflineScreen from './screen/restoration-screens/KindReplacementPlotOfflineScreen';
@@ -125,12 +265,14 @@ import AssetsReplacementPlotScreen from './screen/restoration-screens/AssetsRepl
 import InputCommunityRegisterScreen from './screen/comdev-screens/InputCommunityScreen';
 import InputComunnityOfflineScreen from './screen/comdev-screens/InputCommunityOfflineScreen';
 import ListCommunityRegisterScreen from './screen/comdev-screens/ListCommunityScreen';
+import UpdateCommunityRegisterScreen from './screen/comdev-screens/UpdateCommunityScreen';
 import ListCommunityRegisterOfflineScreen from './screen/comdev-screens/ListCommunityOfflineScreen';
 import FilterCommunityScreen from './screen/comdev-screens/FilterCommunityScreen';
 import DetailCommunityRegisterScreen from './screen/comdev-screens/DetailCommunityScreen';
 
 import InputSilvosheryScreen from './screen/comdev-screens/InputSilvosheryScreen';
 import InputSilvosheryOfflineScreen from './screen/comdev-screens/InputSilvosheryOfflineScreen';
+import UpdateSilvosheryScreen from './screen/comdev-screens/UpdateSilvosheryScreen';
 import ListSilvosheryScreen from './screen/comdev-screens/ListSilvosheryScreen';
 import ListSilvosheryOfflineScreen from './screen/comdev-screens/ListSilvosheryOfflineScreen';
 import FilterSilvosheryScreen from './screen/comdev-screens/FilterSilvosheryScreen';
@@ -138,6 +280,7 @@ import DetailSilvosheryScreen from './screen/comdev-screens/DetailSilvosheryScre
 
 import InputCommunityGroupScreen from './screen/comdev-screens/InputCommunityGroupScreen';
 import InputComunnityGroupOfflineScreen from './screen/comdev-screens/InputComunnityGroupOfflineScreen';
+import UpdateCommunityGroupScreen from './screen/comdev-screens/UpdateCommunityGroupScreen';
 import ListCommunityGroupScreen from './screen/comdev-screens/ListCommunityGroupScreen';
 import ListCommunityGroupOfflineScreen from './screen/comdev-screens/ListCommunityGroupOfflineScreen';
 import FilterCommunityGroupScreen from './screen/comdev-screens/FilterCommunityGroupScreen';
@@ -147,6 +290,7 @@ import DokumentasiCommunityGroupScreen from './screen/comdev-screens/Dokumentasi
 import ListGrowthResearchScreen from './screen/research-screens/ListGrowthResearchScreen';
 import ListGrowthResearchOfflineScreen from './screen/research-screens/ListGrowthResearchOfflineScreen';
 import InputGrowthResearchScreen from './screen/research-screens/InputGrowthResearchScreen';
+import UpdateGrowthResearchScreen from './screen/research-screens/UpdateGrowthResearchScreen';
 import InputGrowthResearchOfflineScreen from './screen/research-screens/InputGrowthResearchOfflineScreen';
 import FilterGrowthResearchScreen from './screen/research-screens/FilterGrowthResearchScreen';
 import KindGrowthResearchScreen from './screen/research-screens/KindGrowthResearchScreen';
@@ -158,6 +302,7 @@ import ListDiversityFaunaScreen from './screen/research-screens/ListDiversityFau
 import ListDiversityFaunaOfflineScreen from './screen/research-screens/ListDiversityFaunaOfflineScreen';
 import InputDiversityFaunaScreen from './screen/research-screens/InputDiversityFaunaScreen';
 import InputDiversityFaunaOfflineScreen from './screen/research-screens/InputDiversityFaunaOfflineScreen';
+import UpdateDiversityFaunaScreen from './screen/research-screens/UpdateDiversityFaunaScreen';
 import FilterDiversityFaunaScreen from './screen/research-screens/FilterDiversityFaunaScreen';
 import KindDiversityFaunaScreen from './screen/research-screens/KindDiversityFaunaScreen';
 import KindDiversityFiskimScreen from './screen/research-screens/KindDiversityFiskimScreen';
@@ -201,6 +346,7 @@ import ListCCBOfflineScreen from './screen/research-screens/ListCCBOfflineScreen
 import FilterCCBScreen from './screen/research-screens/FilterCCBScreen';
 import InputCCBScreen from './screen/research-screens/InputCCBScreen';
 import InputCCBOfflineScreen from './screen/research-screens/InputCCBOfflineScreen';
+import UpdateCCBScreen from './screen/research-screens/UpdateCCBScreen';
 import KindCarbonCCBScreen from './screen/research-screens/KindCarbonCCBScreen';
 import InputDetailCarbonCCBScreen from './screen/research-screens/InputDetailCarbonCCBScreen';
 import KindFloraCCBScreen from './screen/research-screens/KindFloraCCBScreen';
@@ -215,6 +361,7 @@ import ListPlanktonOfflineScreen from './screen/research-screens/ListPlanktonOff
 import FilterPlanktonScreen from './screen/research-screens/FilterPlanktonScreen';
 import InputPlanktonScreen from './screen/research-screens/InputPlanktonScreen';
 import InputPlanktonOfflineScreen from './screen/research-screens/InputPlanktonOfflineScreen';
+import UpdatePlanktonScreen from './screen/research-screens/UpdatePlanktonScreen';
 import DetailPlanktonScreen from './screen/research-screens/DetailPlanktonScreen';
 import KindFitoplanktonScreen from './screen/research-screens/KindFitoplanktonScreen';
 import InputDetailFitoplanktonScreen from './screen/research-screens/InputDetailFitoplanktonScreen';
@@ -233,7 +380,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getTrackingStatus, getUsername, saveLocationHistory } from './utils/utils';
 import LocationUtils from './utils/LocationUtils';
 import ListPlatBoundaring from './screen/restoration-screens/ListPlatBoundaring';
+import ListPlotBoundaringScreen from './screen/restoration-screens/ListPlotBoundaringScreen';
 import InputNewPlotBoundaring from './screen/restoration-screens/InputNewPlotBoundaring';
+import InputPlotBoundaringScreen from './screen/restoration-screens/InputPlotBoundaringScreen';
+import KindPlotBoundaringScreen from './screen/restoration-screens/KindPlotBoundaringScreen';
+import InputDetailPlotBoundaringScreen from './screen/restoration-screens/InputDetailPlotBoundaringScreen';
 
 
 
@@ -362,6 +513,694 @@ function MasterNavigator() {
         }}
         name="DetailCuti" component={DetailCutiScreen} />
 
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "LIST BOUNDERING"
+        }}
+        name="ListBoundering" component={ListBounderingScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH BOUNDERING"
+        }}
+        name="InputBoundering" component={InputBounderingScreen} />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+        }}
+        name="Agroforestri" component={AgroforestriScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-1"
+        }}
+        name="FilterKK1" component={FilterKK1Screen} />
+         <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-1 (SERVER)"
+        }}
+        name="ListKK1" component={ListKK1Screen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-1 (LOCAL)"
+        }}
+        name="ListKK1Offline" component={ListKK1OfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-1 (SERVER)"
+        }}
+        name="InputKK1" component={InputKK1Screen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-1 (LOCAL)"
+        }}
+        name="InputKK1Offline" component={InputKK1OfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-1"
+        }}
+        name="UpdateKK1" component={UpdateKK1Screen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-1"
+        }}
+        name="DetailKK1" component={DetailKK1Screen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "ASSET KK-1"
+        }}
+        name="AssetsKK1" component={AssetsKK1Screen} />
+      
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-2"
+        }}
+        name="FilterKK2" component={FilterKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-2 (SERVER)"
+        }}
+        name="ListKK2" component={ListKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-2 (LOCAL)"
+        }}
+        name="ListKK2Offline" component={ListKK2OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-2 (SERVER)"
+        }}
+        name="InputKK2" component={InputKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-2 (LOCAL)"
+        }}
+        name="InputKK2Offline" component={InputKK2OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-2"
+        }}
+        name="UpdateKK2" component={UpdateKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-2"
+        }}
+        name="DetailKK2" component={DetailKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "ASSET KK-2"
+        }}
+        name="AssetsKK2" component={AssetsKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK2" component={KindKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK2Offline" component={KindKK2OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK2" component={InputDetailKK2Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK2Offline" component={InputDetailKK2OfflineScreen} />
+
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-3"
+        }}
+        name="FilterKK3" component={FilterKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-3 (SERVER)"
+        }}
+        name="ListKK3" component={ListKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-3 (LOCAL)"
+        }}
+        name="ListKK3Offline" component={ListKK3OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-3 (SERVER)"
+        }}
+        name="InputKK3" component={InputKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-3 (LOCAL)"
+        }}
+        name="InputKK3Offline" component={InputKK3OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-3"
+        }}
+        name="UpdateKK3" component={UpdateKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-3"
+        }}
+        name="DetailKK3" component={DetailKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "ASSET KK-3"
+        }}
+        name="AssetsKK3" component={AssetsKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK3" component={KindKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK3Offline" component={KindKK3OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK3" component={InputDetailKK3Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK3Offline" component={InputDetailKK3OfflineScreen} />
+
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-4"
+        }}
+        name="FilterKK4" component={FilterKK4Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-4 (SERVER)"
+        }}
+        name="ListKK4" component={ListKK4Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-4 (LOCAL)"
+        }}
+        name="ListKK4Offline" component={ListKK4OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-4 (SERVER)"
+        }}
+        name="InputKK4" component={InputKK4Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-4 (LOCAL)"
+        }}
+        name="InputKK4Offline" component={InputKK4OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-4"
+        }}
+        name="UpdateKK4" component={UpdateKK4Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-4"
+        }}
+        name="DetailKK4" component={DetailKK4Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK4" component={KindKK4Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK4Offline" component={KindKK4OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK4" component={InputDetailKK4Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK4Offline" component={InputDetailKK4OfflineScreen} />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-5"
+        }}
+        name="FilterKK5" component={FilterKK5Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-5 (SERVER)"
+        }}
+        name="ListKK5" component={ListKK5Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-5 (LOCAL)"
+        }}
+        name="ListKK5Offline" component={ListKK5OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-5 (SERVER)"
+        }}
+        name="InputKK5" component={InputKK5Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-5 (LOCAL)"
+        }}
+        name="InputKK5Offline" component={InputKK5OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-5"
+        }}
+        name="UpdateKK5" component={UpdateKK5Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-5"
+        }}
+        name="DetailKK5" component={DetailKK5Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK5" component={KindKK5Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK5Offline" component={KindKK5OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK5" component={InputDetailKK5Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK5Offline" component={InputDetailKK5OfflineScreen} />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-6"
+        }}
+        name="FilterKK6" component={FilterKK6Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-6 (SERVER)"
+        }}
+        name="ListKK6" component={ListKK6Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-6 (LOCAL)"
+        }}
+        name="ListKK6Offline" component={ListKK6OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-6 (SERVER)"
+        }}
+        name="InputKK6" component={InputKK6Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-6 (LOCAL)"
+        }}
+        name="InputKK6Offline" component={InputKK6OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-6"
+        }}
+        name="UpdateKK6" component={UpdateKK6Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-6"
+        }}
+        name="DetailKK6" component={DetailKK6Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK6" component={KindKK6Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK6Offline" component={KindKK6OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK6" component={InputDetailKK6Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK6Offline" component={InputDetailKK6OfflineScreen} />
+
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-7"
+        }}
+        name="FilterKK7" component={FilterKK7Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-7 (SERVER)"
+        }}
+        name="ListKK7" component={ListKK7Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-7 (LOCAL)"
+        }}
+        name="ListKK7Offline" component={ListKK7OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-7 (SERVER)"
+        }}
+        name="InputKK7" component={InputKK7Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-7 (LOCAL)"
+        }}
+        name="InputKK7Offline" component={InputKK7OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-7"
+        }}
+        name="UpdateKK7" component={UpdateKK7Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-7"
+        }}
+        name="DetailKK7" component={DetailKK7Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK7" component={KindKK7Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK7Offline" component={KindKK7OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK7" component={InputDetailKK7Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK7Offline" component={InputDetailKK7OfflineScreen} />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-8"
+        }}
+        name="FilterKK8" component={FilterKK8Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-8 (SERVER)"
+        }}
+        name="ListKK8" component={ListKK8Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-8 (LOCAL)"
+        }}
+        name="ListKK8Offline" component={ListKK8OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-8 (SERVER)"
+        }}
+        name="InputKK8" component={InputKK8Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-8 (LOCAL)"
+        }}
+        name="InputKK8Offline" component={InputKK8OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-8"
+        }}
+        name="UpdateKK8" component={UpdateKK8Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-8"
+        }}
+        name="DetailKK8" component={DetailKK8Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK8" component={KindKK8Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK8Offline" component={KindKK8OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK8" component={InputDetailKK8Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK8Offline" component={InputDetailKK8OfflineScreen} />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-9"
+        }}
+        name="FilterKK9" component={FilterKK9Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-9 (SERVER)"
+        }}
+        name="ListKK9" component={ListKK9Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-9 (LOCAL)"
+        }}
+        name="ListKK9Offline" component={ListKK9OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-9 (SERVER)"
+        }}
+        name="InputKK9" component={InputKK9Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-9 (LOCAL)"
+        }}
+        name="InputKK9Offline" component={InputKK9OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-9"
+        }}
+        name="UpdateKK9" component={UpdateKK9Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-9"
+        }}
+        name="DetailKK9" component={DetailKK9Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK9" component={KindKK9Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK9Offline" component={KindKK9OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK9" component={InputDetailKK9Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK9Offline" component={InputDetailKK9OfflineScreen} />
+
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "FILTER KK-10"
+        }}
+        name="FilterKK10" component={FilterKK10Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-10 (SERVER)"
+        }}
+        name="ListKK10" component={ListKK10Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "KK-10 (LOCAL)"
+        }}
+        name="ListKK10Offline" component={ListKK10OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-10 (SERVER)"
+        }}
+        name="InputKK10" component={InputKK10Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH KK-10 (LOCAL)"
+        }}
+        name="InputKK10Offline" component={InputKK10OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KK-10"
+        }}
+        name="UpdateKK10" component={UpdateKK10Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "DETAIL KK-10"
+        }}
+        name="DetailKK10" component={DetailKK10Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT"
+        }}
+        name="KindKK10" component={KindKK10Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "JENIS DAN JUMLAH BIBIT (LOCAL)"
+        }}
+        name="KindKK10Offline" component={KindKK10OfflineScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailKK10" component={InputDetailKK10Screen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT (LOCAL)"
+        }}
+        name="InputDetailKK10Offline" component={InputDetailKK10OfflineScreen} />
+
+
+
+
       <Stack.Screen
         options={{
           headerShown: true,
@@ -379,6 +1218,18 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-1 (LOCAL)"
         }}
         name="InputLandAssessmentOffline" component={InputLandAssessmentOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-1 (SERVER)"
+        }}
+        name="UpdateLandAssessment" component={UpdateLandAssessmentScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-1 (LOCAL)"
+        }}
+        name="UpdateLandAssessmentOffline" component={UpdateLandAssessmentOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -429,6 +1280,18 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-2 (LOCAL)"
         }}
         name="InputSeedCollectingOffline" component={InputSeedCollectingOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Update KT-2 (SERVER)"
+        }}
+        name="UpdateSeedCollecting" component={UpdateSeedCollectingScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Update KT-2 (LOCAL)"
+        }}
+        name="UpdateSeedCollectingOffline" component={UpdateSeedCollectingOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -510,6 +1373,18 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-3 (SERVER)"
         }}
         name="InputNurseryActivity" component={InputNurseryActivityScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-3 (SERVER)"
+        }}
+        name="UpdateNurseryActivity" component={UpdateNurseryActivityScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-3 (LOCAL)"
+        }}
+        name="UpdateNurseryActivityOffline" component={UpdateNurseryActivityOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -582,6 +1457,18 @@ function MasterNavigator() {
         <Stack.Screen
         options={{
           headerShown: true,
+          headerTitle: "UPDATE KT-4 (SERVER)"
+        }}
+        name="UpdatePlantingAction" component={UpdatePlantingActionScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-4 (LOCAL)"
+        }}
+        name="UpdatePlantingActionOffline" component={UpdatePlantingActionOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
           headerTitle: "FILTER KT-4"
         }}
         name="FilterPlantingAction" component={FilterPlantingActionScreen} />
@@ -640,6 +1527,18 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-5 (SERVER)"
         }}
         name="InputTransport" component={InputTransportScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-5 (SERVER)"
+        }}
+        name="UpdateTransport" component={UpdateTransportScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-5 (LOCAL)"
+        }}
+        name="UpdateTransportOffline" component={UpdateTransportOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -694,13 +1593,25 @@ function MasterNavigator() {
           headerShown: true,
           headerTitle: "KT-6"
         }}
-        name="ListPlatBoundaring" component={ListPlatBoundaring} />
+        name="ListPlotBoundaring" component={ListPlotBoundaringScreen} />
          <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "INPUT KT-6"
         }}
-        name="InputNewPlotBoundaring" component={InputNewPlotBoundaring} />
+        name="InputPlotBoundaring" component={InputPlotBoundaringScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "Jenis & Jumlah Bibit"
+        }}
+        name="KindPlotBoundaring" component={KindPlotBoundaringScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
+        }}
+        name="InputDetailPlotBoundaring" component={InputDetailPlotBoundaringScreen} />
 
       <Stack.Screen
         options={{
@@ -726,6 +1637,18 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-7 (LOCAL)"
         }}
         name="InputGrowthOffline" component={InputGrowthOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-7 (SERVER)"
+        }}
+        name="UpdateGrowth" component={UpdateGrowthScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-7 (LOCAL)"
+        }}
+        name="UpdateGrowthOffline" component={UpdateGrowthOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -787,6 +1710,18 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-8 (LOCAL)"
         }}
         name="InputReplantingOffline" component={InputReplantingOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-8 (SERVER)"
+        }}
+        name="UpdateReplanting" component={UpdateReplantingScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-8 (LOCAL)"
+        }}
+        name="UpdateReplantingOffline" component={UpdateReplantingOfflineScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -848,6 +1783,12 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-9 (SERVER)"
         }}
         name="InputSubtitutePlot" component={InputSubtitutePlotScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UDPATE KT-9"
+        }}
+        name="UpdateSubtitutePlot" component={UpdateSubtitutePlotScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -916,6 +1857,12 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-10 (SERVER)"
         }}
         name="InputReplacementPlot" component={InputReplacementPlotScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-10"
+        }}
+        name="UpdateReplacementPlot" component={UpdateReplacementPlotScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -991,6 +1938,12 @@ function MasterNavigator() {
           headerTitle: "TAMBAH COMMUNITY (LOCAL)"
         }}
         name="InputComunnityOffline" component={InputComunnityOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE COMMUNITY"
+        }}
+        name="UpdateCommunityRegister" component={UpdateCommunityRegisterScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -1029,6 +1982,12 @@ function MasterNavigator() {
           headerTitle: "TAMBAH COMMUNITY GROUP (LOCAL)"
         }}
         name="InputComunnityGroupOffline" component={InputComunnityGroupOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE COMMUNITY GROUP"
+        }}
+        name="UpdateCommunityGroup" component={UpdateCommunityGroupScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -1067,6 +2026,13 @@ function MasterNavigator() {
           headerTitle: "TAMBAH SILVOSHERY (SERVER)"
         }}
         name="InputSilvoshery" component={InputSilvosheryScreen} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE SILVOSHERY"
+        }}
+        name="UpdateSilvoshery" component={UpdateSilvosheryScreen} />
+        
       <Stack.Screen
         options={{
           headerShown: true,
@@ -1123,6 +2089,13 @@ function MasterNavigator() {
           headerTitle: "TAMBAH KT-12 (SERVER)"
         }}
         name="InputGrowthResearch" component={InputGrowthResearchScreen} />
+       <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE KT-12"
+        }}
+        name="UpdateGrowthResearch" component={UpdateGrowthResearchScreen} />
+      
       <Stack.Screen
         options={{
           headerShown: true,
@@ -1184,6 +2157,12 @@ function MasterNavigator() {
           headerTitle: "TAMBAH BIODIVERSITY (LOCAL)"
         }}
         name="InputDiversityFaunaOffline" component={InputDiversityFaunaOfflineScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE BIODIVERSITY"
+        }}
+        name="UpdateDiversityFauna" component={UpdateDiversityFaunaScreen} />
       <Stack.Screen
         options={{
           headerShown: true,
@@ -1410,6 +2389,12 @@ function MasterNavigator() {
           headerTitle: "TAMBAH CCB (SERVER)"
         }}
         name="InputCCB" component={InputCCBScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "UPDATE CCB"
+        }}
+        name="UpdateCCB" component={UpdateCCBScreen} />
          <Stack.Screen
         options={{
           headerShown: true,
@@ -1498,6 +2483,12 @@ function MasterNavigator() {
         <Stack.Screen
         options={{
           headerShown: true,
+          headerTitle: "UPDATE PLANKTON"
+        }}
+        name="UpdatePlankton" component={UpdatePlanktonScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
           headerTitle: "DETAIL PLANKTON"
         }}
         name="DetailPlankton" component={DetailPlanktonScreen} />
@@ -1560,22 +2551,41 @@ export default function App() {
   let [localSubDistrict, setLocalSubDistrict] = useState(null);
   let [localProject, setLocalProject] = useState(null);
   let [KT1, setKT1] = useState([]);
+  let [KK1, setKK1] = useState([]);
   let [KT2, setKT2] = useState([]);
+  let [KK2, setKK2] = useState([]);
   let [KT2Kind, setKT2Kind] = useState([]);
+  let [KK2Kind, setKK2Kind] = useState([]);
   let [KT3, setKT3] = useState([]);
+  let [KK3, setKK3] = useState([]);
   let [KT3Kind, setKT3Kind] = useState([]);
+  let [KK3Kind, setKK3Kind] = useState([]);
   let [KT4, setKT4] = useState([]);
+  let [KK4, setKK4] = useState([]);
   let [KT4Kind, setKT4Kind] = useState([]);
+  let [KK4Kind, setKK4Kind] = useState([]);
   let [KT5, setKT5] = useState([]);
   let [KT5Kind, setKT5Kind] = useState([]);
+  let [KK5, setKK5] = useState([]);
+  let [KK5Kind, setKK5Kind] = useState([]);
+  let [KK6, setKK6] = useState([]);
+  let [KK6Kind, setKK6Kind] = useState([]);
   let [KT7, setKT7] = useState([]);
   let [KT7Kind, setKT7Kind] = useState([]);
+  let [KK7, setKK7] = useState([]);
+  let [KK7Kind, setKK7Kind] = useState([]);
   let [KT8, setKT8] = useState([]);
+  let [KK8, setKK8] = useState([]);
   let [KT8Kind, setKT8Kind] = useState([]);
+  let [KK8Kind, setKK8Kind] = useState([]);
   let [KT9, setKT9] = useState([]);
+  let [KK9, setKK9] = useState([]);
   let [KT9Kind, setKT9Kind] = useState([]);
+  let [KK9Kind, setKK9Kind] = useState([]);
   let [KT10, setKT10] = useState([]);
+  let [KK10, setKK10] = useState([]);
   let [KT10Kind, setKT10Kind] = useState([]);
+  let [KK10Kind, setKK10Kind] = useState([]);
   let [KT12, setKT12] = useState([]);
   let [KT13, setKT13] = useState([]);
   let [KT14, setKT14] = useState([]);
@@ -1723,6 +2733,14 @@ export default function App() {
       let parsed = JSON.parse(KT1);
       setKT1(parsed);
     }
+    let KK1 = await AsyncStorage.getItem("KK1");
+    if(KK1 === null){
+      setKK1([]);
+    }
+    else{
+      let parsed = JSON.parse(KT1);
+      setKT1(parsed);
+    }
     let KT2 = await AsyncStorage.getItem("KT2");
     if(KT2 === null){
       setKT2([]);
@@ -1730,6 +2748,14 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT2);
       setKT2(parsed);
+    }
+    let KK2 = await AsyncStorage.getItem("KK2");
+    if(KK2 === null){
+      setKK2([]);
+    }
+    else{
+      let parsed = JSON.parse(KK2);
+      setKK2(parsed);
     }
     let KT2Kind = await AsyncStorage.getItem("KT2Kind");
     if(KT2Kind === null){
@@ -1739,6 +2765,14 @@ export default function App() {
       let parsed = JSON.parse(KT2Kind);
       setKT2Kind(parsed);
     }
+    let KK2Kind = await AsyncStorage.getItem("KK2Kind");
+    if(KK2Kind === null){
+      setKK2Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK2Kind);
+      setKK2Kind(parsed);
+    }
     let KT3 = await AsyncStorage.getItem("KT3");
     if(KT3 === null){
       setKT3([]);
@@ -1746,6 +2780,14 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT3);
       setKT3(parsed);
+    }
+    let KK3 = await AsyncStorage.getItem("KK3");
+    if(KK3 === null){
+      setKK3([]);
+    }
+    else{
+      let parsed = JSON.parse(KK3);
+      setKK3(parsed);
     }
     let KT3Kind = await AsyncStorage.getItem("KT3Kind");
     if(KT3Kind === null){
@@ -1755,6 +2797,14 @@ export default function App() {
       let parsed = JSON.parse(KT3Kind);
       setKT3Kind(parsed);
     }
+    let KK3Kind = await AsyncStorage.getItem("KK3Kind");
+    if(KK3Kind === null){
+      setKK3Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK3Kind);
+      setKK3Kind(parsed);
+    }
     let KT4 = await AsyncStorage.getItem("KT4");
     if(KT4 === null){
       setKT4([]);
@@ -1762,6 +2812,14 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT4);
       setKT4(parsed);
+    }
+    let KK4 = await AsyncStorage.getItem("KK4");
+    if(KK4 === null){
+      setKK4([]);
+    }
+    else{
+      let parsed = JSON.parse(KK4);
+      setKK4(parsed);
     }
     let KT4Kind = await AsyncStorage.getItem("KT4Kind");
     if(KT4Kind === null){
@@ -1771,6 +2829,14 @@ export default function App() {
       let parsed = JSON.parse(KT4Kind);
       setKT4Kind(parsed);
     }
+    let KK4Kind = await AsyncStorage.getItem("KK4Kind");
+    if(KK4Kind === null){
+      setKK4Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK4Kind);
+      setKK4Kind(parsed);
+    }
     let KT5 = await AsyncStorage.getItem("KT5");
     if(KT5 === null){
       setKT5([]);
@@ -1779,6 +2845,14 @@ export default function App() {
       let parsed = JSON.parse(KT5);
       setKT5(parsed);
     }
+    let KK5 = await AsyncStorage.getItem("KK5");
+    if(KK5 === null){
+      setKK5([]);
+    }
+    else{
+      let parsed = JSON.parse(KK5);
+      setKK5(parsed);
+    }
     let KT5Kind = await AsyncStorage.getItem("KT5Kind");
     if(KT5Kind === null){
       setKT5Kind([]);
@@ -1786,6 +2860,30 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT5Kind);
       setKT5Kind(parsed);
+    }
+    let KK5Kind = await AsyncStorage.getItem("KK5Kind");
+    if(KK5Kind === null){
+      setKK5Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK5Kind);
+      setKK5Kind(parsed);
+    }
+    let KK6 = await AsyncStorage.getItem("KK6");
+    if(KK6 === null){
+      setKK6([]);
+    }
+    else{
+      let parsed = JSON.parse(KK6);
+      setKK6(parsed);
+    }
+    let KK6Kind = await AsyncStorage.getItem("KK6Kind");
+    if(KK6Kind === null){
+      setKK6Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK6Kind);
+      setKK6Kind(parsed);
     }
     let KT7 = await AsyncStorage.getItem("KT7");
     if(KT7 === null){
@@ -1803,6 +2901,14 @@ export default function App() {
       let parsed = JSON.parse(KT7Kind);
       setKT7Kind(parsed);
     }
+    let KK7 = await AsyncStorage.getItem("KK7");
+    if(KK7 === null){
+      setKK7([]);
+    }
+    else{
+      let parsed = JSON.parse(KK7);
+      setKK7(parsed);
+    }
     let KT8 = await AsyncStorage.getItem("KT8");
     if(KT8 === null){
       setKT8([]);
@@ -1810,6 +2916,14 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT8);
       setKT8(parsed);
+    }
+    let KK8 = await AsyncStorage.getItem("KK8");
+    if(KK8 === null){
+      setKK8([]);
+    }
+    else{
+      let parsed = JSON.parse(KK8);
+      setKK8(parsed);
     }
     let KT8Kind = await AsyncStorage.getItem("KT8Kind");
     if(KT8Kind === null){
@@ -1819,6 +2933,14 @@ export default function App() {
       let parsed = JSON.parse(KT8Kind);
       setKT8Kind(parsed);
     }
+    let KK8Kind = await AsyncStorage.getItem("KK8Kind");
+    if(KK8Kind === null){
+      setKK8Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK8Kind);
+      setKK8Kind(parsed);
+    }
     let KT9 = await AsyncStorage.getItem("KT9");
     if(KT9 === null){
       setKT9([]);
@@ -1826,6 +2948,13 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT9);
       setKT9(parsed);
+    }
+    let KK9 = await AsyncStorage.getItem("KK9");
+    if(KK9 === null){
+      setKK9([]);
+    }
+    else{
+      let parsed = JSON.parse(KK9);
     }
     let KT9Kind = await AsyncStorage.getItem("KT9Kind");
     if(KT9Kind === null){
@@ -1835,6 +2964,14 @@ export default function App() {
       let parsed = JSON.parse(KT9Kind);
       setKT9Kind(parsed);
     }
+    let KK9Kind = await AsyncStorage.getItem("KK9Kind");
+    if(KK9Kind === null){
+      setKK9Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK9Kind);
+      setKK9Kind(parsed);
+    }
     let KT10 = await AsyncStorage.getItem("KT10");
     if(KT10 === null){
       setKT10([]);
@@ -1843,6 +2980,14 @@ export default function App() {
       let parsed = JSON.parse(KT10);
       setKT10(parsed);
     }
+    let KK10 = await AsyncStorage.getItem("KK10");
+    if(KK10 === null){
+      setKK10([]);
+    }
+    else{
+      let parsed = JSON.parse(KK10);
+      setKK10(parsed);
+    }
     let KT10Kind = await AsyncStorage.getItem("KT10Kind");
     if(KT10Kind === null){
       setKT10Kind([]);
@@ -1850,6 +2995,14 @@ export default function App() {
     else{
       let parsed = JSON.parse(KT10Kind);
       setKT10Kind(parsed);
+    }
+    let KK10Kind = await AsyncStorage.getItem("KK10Kind");
+    if(KK10Kind === null){
+      setKK10Kind([]);
+    }
+    else{
+      let parsed = JSON.parse(KK10Kind);
+      setKK10Kind(parsed);
     }
     let KT12 = await AsyncStorage.getItem("KT12");
     if(KT12 === null){
@@ -1968,9 +3121,13 @@ export default function App() {
       let response = await request.json();
 
       if(Platform.OS === "android"){
-        if (response.buildnumber.toString() !== Application.nativeBuildVersion.toString()) {
-          setIsNeedUpdate(true);
-          setChangelog(response.changelog_mobile);
+        if(response.production == "1"){
+          if (response.buildnumber.toString() !== Application.nativeBuildVersion.toString()) {
+            setIsNeedUpdate(true);
+            setChangelog(response.changelog_mobile);
+          }
+        }else{
+            setIsNeedUpdate(false);
         }
       }else{
         if(response.production == "1"){
@@ -2037,7 +3194,7 @@ export default function App() {
 
   if (!credentials) {
     return (
-      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT2Kind, setKT2Kind, KT3, setKT3, KT3Kind, setKT3Kind, KT4, setKT4, KT4Kind, setKT4Kind, KT5, setKT5, KT5Kind, setKT5Kind, KT7, setKT7, KT7Kind, setKT7Kind, KT8, setKT8, KT8Kind, setKT8Kind, KT9, setKT9, KT9Kind, setKT9Kind, KT10, setKT10, KT10Kind, setKT10Kind, KT12, setKT12, KT13, setKT13, KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup, ccb, setCCB, plankton, setPlankton }}>
+      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KK1, setKK1, KT2, setKT2, KT2Kind, setKT2Kind, KK2, setKK2, KK2Kind, setKK2Kind, KT3, setKT3, KT3Kind, setKT3Kind, KK3, setKK3, KK3Kind, setKK3Kind, KT4, setKT4, KT4Kind, setKT4Kind, KK4, setKK4, KK4Kind, setKK4Kind, KT5, setKT5, KT5Kind, setKT5Kind, KK5, setKK5, KK5Kind, setKK5Kind, KK6, setKK6, KK6Kind, setKK6Kind, KT7, setKT7, KT7Kind, setKT7Kind, KK7, setKK7, KK7Kind, setKK7Kind, KT8, setKT8, KT8Kind, setKT8Kind, KK8, setKK8, KK8Kind, setKK8Kind, KT9, setKT9, KT9Kind, setKT9Kind, KK9, setKK9, KK9Kind, setKK9Kind, KT10, setKT10, KT10Kind, setKT10Kind, KK10, setKK10, KK10Kind, setKK10Kind, KT12, setKT12, KT13, setKT13, KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup, ccb, setCCB, plankton, setPlankton }}>
         <NavigationContainer>
           <AuthNavigator />
         </NavigationContainer>
@@ -2046,7 +3203,7 @@ export default function App() {
   }
   else {
     return (
-      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KT2, setKT2, KT2Kind, setKT2Kind, KT3, setKT3, KT3Kind, setKT3Kind, KT4, setKT4, KT4Kind, setKT4Kind,  KT5, setKT5, KT5Kind, setKT5Kind, KT7, setKT7, KT7, setKT7Kind, KT8, setKT8, KT8Kind, setKT8Kind, KT9, setKT9,  KT9Kind, setKT9Kind, KT10, setKT10,  KT10Kind, setKT10Kind, KT12, setKT12, KT13, setKT13,  KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup, ccb, setCCB, plankton, setPlankton }}>
+      <GlobalContext.Provider value={{ credentials, setCredentials,intervalTrackingPosition, localProject, setLocalProject, localProvince, setLocalProvince, localDistrict, setLocalDistrict, localSubDistrict, setLocalSubDistrict, KT1, setKT1, KK1, setKK1, KT2, setKT2, KT2Kind, setKT2Kind, KK2, setKK2, KK2Kind, setKK2Kind, KT3, setKT3, KT3Kind, setKT3Kind, KK3, setKK3, KK3Kind, setKK3Kind, KT4, setKT4, KT4Kind, setKT4Kind, KK4, setKK4, KK4Kind, setKK4Kind,  KT5, setKT5, KT5Kind, setKT5Kind, KK5, setKK5, KK5Kind, setKK5Kind, KK6, setKK6, KK6Kind, setKK6Kind, KT7, setKT7, KT7Kind, setKT7Kind, KK7, setKK7, KK7Kind, setKK7Kind, KT8, setKT8, KT8Kind, setKT8Kind, KK8, setKK8, KK8Kind, setKK8Kind, KT9, setKT9,  KT9Kind, setKT9Kind, KK9, setKK9, KK9Kind, setKK9Kind, KT10, setKT10,  KT10Kind, setKT10Kind,KK10, setKK10, KK10Kind, setKK10Kind, KT12, setKT12, KT13, setKT13,  KT14, setKT14, KT15, setKT15, KT16, setKT16, comdev, setComdev, silvoshery, setSilvoshery,communityGroup,setCommunityGroup, ccb, setCCB, plankton, setPlankton }}>
         <NavigationContainer>
           <MasterNavigator />
         </NavigationContainer>

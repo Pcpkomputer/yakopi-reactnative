@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect, useRef, useContext} from 'react';
-import { StyleSheet, Modal,TouchableOpacity, Text, View, Dimensions, ScrollView, FlatList, Image, Pressable, BackHandler, ActivityIndicator, Linking, TextInput, ToastAndroid } from 'react-native';
+import { StyleSheet, Modal,TouchableOpacity, Text, View, Dimensions, ScrollView, FlatList, Image, Pressable, BackHandler, ActivityIndicator, Linking, TextInput, ToastAndroid, Platform } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Entypo, Feather, Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons'; 
@@ -117,7 +117,7 @@ export default function ProfileScreen(props){
         setUsername(response.username);
         setNamaLengkap(response.nama_lengkap);
         setJenkel(response.jenkel);
-        setTanggalLahir(new Date(response.tgl_lahir.replace(/-/g,"/")));
+        setTanggalLahir(response.tgl_lahir);
         setAlamat(response.alamat);
         setEmail(response.email);
         setNoTelepon(response.no_hp);
@@ -127,6 +127,8 @@ export default function ProfileScreen(props){
         setDataLoaded(true);
     }
 
+    console.log(tanggalLahir);
+
     let [calendarOpened, setCalendarOpened] = useState(false);
 
     useEffect(()=>{
@@ -135,8 +137,54 @@ export default function ProfileScreen(props){
         }
     },[focused])
 
+    const [modalJenkelIosOpened, setModalJenkelIosOpened] = useState(false);
+
     return (
         <View style={{flex:1,backgroundColor:"white"}}>
+            {modalJenkelIosOpened && (
+                <View style={{ position: "absolute", justifyContent: "center", alignItems: "center", width: "100%", height: "100%", zIndex: 999 }}>
+                    <View
+                        style={{
+                            ...shadow,
+                            width: Dimensions.get("screen").width - EStyleSheet.value("50rem"),
+                            padding: EStyleSheet.value("20rem"),
+                            backgroundColor: "white",
+                            borderRadius: EStyleSheet.value("5rem"),
+                        }}
+                    >
+                        <View style={{ flexDirection: "row", marginBottom: EStyleSheet.value("15rem") }}>
+                            <Text style={{ fontWeight: "bold", flex: 1, marginBottom: EStyleSheet.value("0rem") }}>Pilih Jenis Kelamin</Text>
+                            <TouchableOpacity onPress={() => setModalJenkelIosOpened(false)}>
+                                <AntDesign name="closecircle" size={24} color="red" />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ height: EStyleSheet.value("250rem") }}>
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={() => {
+                                    setJenkel("L");
+                                    setModalJenkelIosOpened(false);
+                                }}
+                                style={{ borderBottomWidth: 1, flexDirection: "row", alignItems: "center", paddingVertical: EStyleSheet.value("15rem") }}
+                            >
+                                <Text style={{ flex: 1 }}>Laki-Laki</Text>
+                                <AntDesign name="right" size={EStyleSheet.value("12rem")} color="black" />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={() => {
+                                    setJenkel("P");
+                                    setModalJenkelIosOpened(false);
+                                }}
+                                style={{ borderBottomWidth: 1, flexDirection: "row", alignItems: "center", paddingVertical: EStyleSheet.value("15rem") }}
+                            >
+                                <Text style={{ flex: 1 }}>Perempuan</Text>
+                                <AntDesign name="right" size={EStyleSheet.value("12rem")} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            )}
 
             
             {
@@ -169,7 +217,7 @@ export default function ProfileScreen(props){
                                 onPress={async ()=>{
                                     let result = await ImagePicker.launchImageLibraryAsync();
 
-                                    if(!result.cancelled){
+                                    if(!result.canceled){
 
                                         setSmokeScreenOpened(true);
 
@@ -211,29 +259,56 @@ export default function ProfileScreen(props){
                             }}
                             style={{fontSize:EStyleSheet.value("15rem"),flex:1,color:"grey"}} value={namaLengkap}/>
                         </View>
-                        <View style={{...shadow,flexDirection:"row",height:EStyleSheet.value("48rem"),marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
-                            <Text style={{marginRight:EStyleSheet.value("5rem"),color:"#5daa5f",fontWeight:"bold"}}>Jenkel :</Text>
+                        <View
+                            style={{
+                                ...shadow,
+                                flexDirection: "row",
+                                height: EStyleSheet.value("48rem"),
+                                marginBottom: EStyleSheet.value("15rem"),
+                                alignItems: "center",
+                                borderRadius: EStyleSheet.value("5rem"),
+                                paddingVertical: EStyleSheet.value("10rem"),
+                                backgroundColor: "white",
+                                paddingHorizontal: EStyleSheet.value("15rem"),
+                            }}
+                        >
+                            <Text style={{ marginRight: EStyleSheet.value("5rem"), color: "#5daa5f", fontWeight: "bold" }}>Jenkel :</Text>
+                            {Platform.OS === "android" ? (
                                 <Picker
-                                style={{flex:1,color:"grey"}}
-                                selectedValue={jenkel}
-                                onValueChange={(val)=>{
-                                    setJenkel(val);
-                                }}
-                               >
-                                <Picker.Item label="Laki-Laki" value="L" />
-                                <Picker.Item label="Perempuan" value="P" />
+                                    style={{ flex: 1, color: "grey" }}
+                                    selectedValue={jenkel}
+                                    onValueChange={(val) => {
+                                        setJenkel(val);
+                                    }}
+                                >
+                                    <Picker.Item label="Laki-Laki" value="L" />
+                                    <Picker.Item label="Perempuan" value="P" />
                                 </Picker>
+                            ) : (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        setModalJenkelIosOpened(true);
+                                    }}
+                                    style={{ flexDirection: "row", flex: 1, alignItems: "center" }}
+                                >
+                                    <Text
+                                        style={{
+                                            color: "grey",
+                                            width: Dimensions.get("screen").width - EStyleSheet.value("150rem"),
+                                            fontSize: EStyleSheet.value("15rem"),
+                                        }}
+                                    >
+                                        {jenkel === "L" ? "Laki-Laki" : "Perempuan"}
+                                    </Text>
+                                    <AntDesign
+                                        name="caretdown"
+                                        style={{ paddingHorizontal: EStyleSheet.value("10rem") }}
+                                        size={EStyleSheet.value("10rem")}
+                                        color="#053488"
+                                    />
+                                </TouchableOpacity>
+                            )}
                         </View>
-                        <TouchableOpacity 
-                        activeOpacity={0.9}
-                        onPress={()=>{
-                            setCalendarOpened(true);
-                        }}
-                        style={{...shadow,flexDirection:"row",height:EStyleSheet.value("48rem"),marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
-                            <Text style={{marginRight:EStyleSheet.value("5rem"),color:"#5daa5f",fontWeight:"bold"}}>Tanggal Lahir :</Text>
-                            <Text style={{color:"grey"}}>
-                            {toLocaleTimestamp(tanggalLahir.getTime())}</Text>
-                        </TouchableOpacity>
                         <View style={{...shadow,flexDirection:"row",marginBottom:EStyleSheet.value("15rem"),alignItems:"center",borderRadius:EStyleSheet.value("5rem"),paddingVertical:EStyleSheet.value("10rem"),backgroundColor:"white",paddingHorizontal:EStyleSheet.value("15rem")}}>
                             <Text style={{marginRight:EStyleSheet.value("5rem"),color:"#5daa5f",fontWeight:"bold"}}>Alamat :</Text>
                             <TextInput 
@@ -302,7 +377,6 @@ export default function ProfileScreen(props){
                                         username:username,
                                         namalengkap:namaLengkap,
                                         jenkel:jenkel,
-                                        tanggallahir:`${tanggalLahir.getFullYear()}-${tanggalLahir.getMonth()+1}-${tanggalLahir.getDate()}`,
                                         alamat:alamat,
                                         email:email,
                                         notelepon:notelepon,
@@ -348,8 +422,13 @@ export default function ProfileScreen(props){
                                         let res = await req.json();
 
                                         if(res.success){
-                                            ToastAndroid.show(res.msg,500);
-                                            fetchProfil();
+                                            if(Platform==="android"){
+                                                ToastAndroid.show(res.msg,500);
+                                                fetchProfil();
+                                            }else{
+                                                alert(res.msg);
+                                                fetchProfil();
+                                            }
                                         }
 
                                         globalContext.setCredentials(res.credentials);
@@ -372,8 +451,13 @@ export default function ProfileScreen(props){
                                         let res = await req.json();
 
                                         if(res.success){
-                                            ToastAndroid.show(res.msg,500);
-                                            fetchProfil();
+                                            if(Platform==="android"){
+                                                ToastAndroid.show(res.msg,500);
+                                                fetchProfil();
+                                            }else{
+                                                alert(res.msg);
+                                                fetchProfil();
+                                            }
                                         }
 
                                         globalContext.setCredentials(res.credentials);
@@ -384,8 +468,12 @@ export default function ProfileScreen(props){
 
                                     
                                 } catch (error) {
-                                    ToastAndroid.show(error.message,500);
-                                     setSimpanLoading(false);
+                                    setSimpanLoading(false);
+                                    if(Platform==="android"){
+                                        ToastAndroid.show(error.message,500);
+                                    }else{
+                                        alert(error.message);
+                                    }
                                 }
 
                                 
@@ -431,20 +519,16 @@ export default function ProfileScreen(props){
             <DateTimePicker
             testID="dateTimePicker"
             value={tanggalLahir}
-            mode={"date"}
+            mode="date"
             is24Hour={true}
             display="default"
-            onChange={(value)=>{
-                if(value.type==="set"){
-                    let date = new Date(value.nativeEvent.timestamp);
-
-                    setTanggalLahir(date);
-                
-                }
-
+            onChange={(event,selectedDate)=>{
                 setCalendarOpened(false);
-               
-            }}
+                if(selectedDate){
+                    setTanggalLahir(selectedDate);
+                }
+            }
+            }
             />
             }
             <View style={{...shadow,position:"absolute",height:EStyleSheet.value("50rem"),backgroundColor:"white",alignItems:"center",width:"100%",flexDirection:"row",justifyContent:"space-between",bottom:0,paddingHorizontal:EStyleSheet.value("20rem"),marginTop:EStyleSheet.value("20rem")}}>

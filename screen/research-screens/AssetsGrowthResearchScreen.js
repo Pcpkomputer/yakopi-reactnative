@@ -134,7 +134,7 @@ function AssetsImage(props){
                         <TouchableOpacity 
                         onPress={async ()=>{
                             let gambar = await ImagePicker.launchImageLibraryAsync();
-                            if(!gambar.cancelled){
+                            if(!gambar.canceled){
 
                                 setImageLoading(true);
                                 setModalKeteranganOpened(false);
@@ -142,7 +142,7 @@ function AssetsImage(props){
                                 let uuid = createUUID();
             
                                 var photo = {
-                                    uri: gambar.uri,
+                                    uri: gambar.assets[0].uri,
                                     type: 'image/jpeg',
                                     name: `${uuid}.jpg`,
                                   };

@@ -64,8 +64,7 @@ export default function ListLandAssessmentOfflineScreen(props){
             list = [];
         }
         setList(list);
-        console.log(list);
-
+        
       
         setListLoading(false);
       };
@@ -197,6 +196,23 @@ export default function ListLandAssessmentOfflineScreen(props){
                                 >
                                 <MaterialIcons name="delete-outline"  size={EStyleSheet.value("15rem")} color="white" />
                             </TouchableOpacity>
+                            {/* Button untuk update local storage */}
+                            <TouchableOpacity
+                                onPress={() => {
+                                    props.navigation.navigate("UpdateLandAssessmentOffline", {
+                                    index: index,
+                                    });
+                                }}
+                                style={{
+                                    backgroundColor: "#FFC542",
+                                    borderRadius: EStyleSheet.value("5rem"),
+                                    paddingHorizontal: EStyleSheet.value("10rem"),
+                                    paddingVertical: EStyleSheet.value("5rem"),
+                                }}
+                                >
+                                <MaterialIcons name="edit" size={EStyleSheet.value("15rem")} color="white" />
+                            </TouchableOpacity>
+
                                 {
                                     isConnected ? (
                                         <TouchableOpacity

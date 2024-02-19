@@ -117,6 +117,13 @@ export default function DetailGrowthResearchScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:props.route.params.item.invoice_code,
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
@@ -151,7 +158,7 @@ export default function DetailGrowthResearchScreen(props){
             type:"selectinput",
             label:"Provinsi",
             value:{
-                id:props.route.params.item.id_province || -1,
+                id:props.route.params.item.id_provinces || -1,
                 value:props.route.params.item.prov_name || "",
             },
             form:"province",

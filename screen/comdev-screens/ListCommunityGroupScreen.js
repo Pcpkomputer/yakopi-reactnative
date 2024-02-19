@@ -41,6 +41,8 @@ export default function ListCommunityGroupScreen(props){
         }
     }
 
+    console.log(list);
+
     useEffect(()=>{
         if(focused){
             fetchList();
@@ -216,6 +218,21 @@ export default function ListCommunityGroupScreen(props){
                                     <FontAwesome name="file-pdf-o" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
                             </View>
+                            {
+                            (item.created_by===globalContext.credentials.data.id_pengguna) &&
+                            <View style={{marginHorizontal:EStyleSheet.value("20rem"),justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
+                                <TouchableOpacity
+                                onPress={()=>{
+                                    props.navigation.navigate("UpdateCommunityGroup",{item:item});
+                                }}
+                                style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                    <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                                        <MaterialIcons name="update" size={EStyleSheet.value("15rem")} color="white" />
+                                        <Text style={{color:"white",fontSize:EStyleSheet.value("15rem"),fontWeight:"bold"}}>Update</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                             }
                         </TouchableOpacity>
                          )
                      })

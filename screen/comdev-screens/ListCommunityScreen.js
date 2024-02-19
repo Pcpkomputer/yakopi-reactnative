@@ -202,6 +202,21 @@ export default function ListCommunityScreen(props){
                                     </TouchableOpacity>
                                 }
                             </View>
+                            {
+                            (item.created_by===globalContext.credentials.data.id_pengguna) &&
+                            <View style={{marginHorizontal:EStyleSheet.value("20rem"),justifyContent:"space-around",padding:EStyleSheet.value("10rem"),backgroundColor:"#DDDDDD"}}>
+                                <TouchableOpacity
+                                onPress={()=>{
+                                    props.navigation.navigate("UpdateCommunityRegister",{item:item});
+                                }}
+                                style={{backgroundColor:"#05ACAC",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                    <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                                        <MaterialIcons name="update" size={EStyleSheet.value("15rem")} color="white" />
+                                        <Text style={{color:"white",fontSize:EStyleSheet.value("15rem"),fontWeight:"bold"}}>Update</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                             }
                         </TouchableOpacity>
                          )
                      })

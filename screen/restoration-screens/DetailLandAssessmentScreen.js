@@ -128,6 +128,13 @@ export default function DetailLandAssessmentScreen(props){
     const [schema, setSchema] = useState([
         {
             type:"textinput",
+            label:"Invoice Code",
+            value:props.route.params.item.invoice_code || "", 
+            form:"invoice_code",
+            required:false
+        },
+        {
+            type:"textinput",
             label:"Kode Site",
             value:props.route.params.item.site_code || "",
             form:"site_code",

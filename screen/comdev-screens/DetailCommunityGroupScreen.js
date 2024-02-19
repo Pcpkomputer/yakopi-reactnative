@@ -137,6 +137,13 @@ export default function DetailCommunityGroupScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:props.route.params.item.invoice_code,
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
@@ -192,7 +199,7 @@ export default function DetailCommunityGroupScreen(props){
             type:"selectinput",
             label:"Province",
             value:{
-                id:props.route.params.item.id_province || -1,
+                id:props.route.params.item.id_provinces || -1,
                 value:props.route.params.item.prov_name || "",
             },
             form:"province",

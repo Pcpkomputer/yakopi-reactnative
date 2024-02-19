@@ -117,6 +117,13 @@ export default function DetailSubtitutePlotScreen(props){
 
     const [schema, setSchema] = useState([
         {
+            type:"textinput",
+            label:"Invoice Code",
+            value:props.route.params.item.invoice_code,
+            form:"invoice_code",
+            required:false
+        },
+        {
             type:"selectinput",
             label:"Project",
             value:{
@@ -141,7 +148,7 @@ export default function DetailSubtitutePlotScreen(props){
             type:"selectinput",
             label:"Provinsi",
             value:{
-                id:props.route.params.item.id_province || -1,
+                id:props.route.params.item.id_provinces || -1,
                 value:props.route.params.item.prov_name || "",
             },
             form:"province",
@@ -185,7 +192,7 @@ export default function DetailSubtitutePlotScreen(props){
             type:"selectinput",
             label:"Sub-ekosistem lokasi tanam",
             value:{
-                id:"",
+                id:props.route.params.item.lokasi_tanam,
                 value:props.route.params.item.lokasi_tanam || "",
             },
             form:"lokasi_tanam",

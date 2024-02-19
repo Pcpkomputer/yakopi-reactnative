@@ -651,22 +651,27 @@ export default function InputLandAssessmentScreen(props){
                             }
                            
                         });
-                        let request = await fetch(`${endpoint}/land-assessment`,{
-                            method:"POST",
-                            headers:{
-                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                "content-type":"application/json"
-                            },
-                            body:JSON.stringify(payload)
-                        });
-                        console.log(payload);
-                        let response = await request.json();
-                        if(response.success){
+                        try{
+                            let request = await fetch(`${endpoint}/land-assessment`,{
+                                method:"POST",
+                                headers:{
+                                    "authorization":`Bearer ${globalContext.credentials.token}`,
+                                    "content-type":"application/json"
+                                },
+                                body:JSON.stringify(payload)
+                            });
+                            console.log(payload);
+                            let response = await request.json();
+                            if(response.success){
+                                setSmokeScreenOpened(false);
+                                props.navigation.goBack();
+                            }else{
+                                setSmokeScreenOpened(false);
+                                alert(response.message);
+                            }
+                        }catch(e){
                             setSmokeScreenOpened(false);
-                            props.navigation.goBack();
-                        }else{
-                            setSmokeScreenOpened(false);
-                            alert(response.message);
+                            alert(e.message);
                         }
                   
                }}

@@ -143,7 +143,7 @@ function AssetsPdf(props){
                             if(required){
                                 // pilih file
                                 let gambar = await DocumentPicker.getDocumentAsync();
-                                if(!gambar.cancelled){
+                                if(!gambar.canceled){
 
                                     setImageLoading(true);
                                     setModalKeteranganOpened(false);
@@ -151,7 +151,7 @@ function AssetsPdf(props){
                                     let uuid = createUUID();
                 
                                     var photo = {
-                                        uri: gambar.uri,
+                                        uri: gambar.assets[0].uri,
                                         type: 'application/pdf',
                                         name: `${uuid}.pdf`,
                                     };
@@ -396,7 +396,7 @@ function AssetsImage(props){
                             }
                             if(required){
                                 let gambar = await ImagePicker.launchImageLibraryAsync();
-                                if(!gambar.cancelled){
+                                if(!gambar.canceled){
 
                                     setImageLoading(true);
                                     setModalKeteranganOpened(false);
@@ -404,7 +404,7 @@ function AssetsImage(props){
                                     let uuid = createUUID();
                 
                                     var photo = {
-                                        uri: gambar.uri,
+                                        uri: gambar.assets[0].uri,
                                         type: 'image/jpeg',
                                         name: `${uuid}.jpg`,
                                     };

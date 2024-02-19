@@ -196,6 +196,21 @@ export default function ListSeedCollectingOfflineScreen(props){
                                     >
                                     <MaterialIcons name="delete-outline" size={EStyleSheet.value("15rem")} color="white" />
                                     </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            props.navigation.navigate("UpdateSeedCollectingOffline", {
+                                            index: index,
+                                            });
+                                        }}
+                                        style={{
+                                            backgroundColor: "#FFC542",
+                                            borderRadius: EStyleSheet.value("5rem"),
+                                            paddingHorizontal: EStyleSheet.value("10rem"),
+                                            paddingVertical: EStyleSheet.value("5rem"),
+                                        }}
+                                        >
+                                        <MaterialIcons name="edit" size={EStyleSheet.value("15rem")} color="white" />
+                                    </TouchableOpacity>
 
                                 {
                                     isConnected ? (

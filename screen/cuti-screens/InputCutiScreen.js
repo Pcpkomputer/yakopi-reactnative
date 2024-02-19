@@ -339,7 +339,7 @@ export default function InputCutiScreen(props){
                             if(item.label==="Provinsi"){
                                 setLocationMode("province");
                             }
-                            else if(item.label==="Kota / Kabupaten"){
+                            else if(item.label==="Kota/Kabupaten"){
                                 setLocationMode("city");
                             }
                             else if(item.label==="Kecamatan"){

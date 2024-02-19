@@ -158,6 +158,7 @@ export default function DashboardScreen(props) {
   const [thumbnailRestoration, setThumbnailRestoration] = useState([]);
   const [thumbnailComdev, setThumbnailComdev] = useState([]);
   const [thumbnailResearch, setThumbnailResearch] = useState([]);
+  const [thumbnailAgroforestri, setThumbnailAgroforestri] = useState([]);
 
   const[summaryAreaLandAssessment, setSummaryAreaLandAssessment] = useState([]);
 
@@ -242,15 +243,27 @@ export default function DashboardScreen(props) {
         let response = await request.json();
         return response.data;
     }
+    let photoAgroforestri = async()=>{
+        let request = await fetch(`${endpoint}/photo_agroforestri`,{
+            method:"GET",
+            headers:{
+                "authorization":`Bearer ${globalContext.credentials.token}`
+            }
+        });
+        let response = await request.json();
+        return response.data;
+    }
 
-    let [thumbnailRestoration, thumbnailComdev, thumbnailResearch] = await Promise.all([
+    let [thumbnailRestoration, thumbnailComdev, thumbnailResearch, thumbnailAgroforestri] = await Promise.all([
         photoRestoration(),
         photoComdev(),
-        photoResearch()
+        photoResearch(),
+        photoAgroforestri()
       ]);
     setThumbnailRestoration(thumbnailRestoration);
     setThumbnailComdev(thumbnailComdev);
     setThumbnailResearch(thumbnailResearch);
+    setThumbnailAgroforestri(thumbnailAgroforestri);
   }
 
   
@@ -520,7 +533,8 @@ export default function DashboardScreen(props) {
                                     }
                                     else{
                                         let image = await ImagePicker.launchCameraAsync();
-                                        if(!image.cancelled){
+                                        console.log(image);
+                                        if(!image.canceled){
                                                 setPresensiLoading(true);
     
                                                 // const manipResult = await manipulateAsync(
@@ -534,11 +548,11 @@ export default function DashboardScreen(props) {
                                                 let location = await Location.getLastKnownPositionAsync();
     
                                                 var photo = {
-                                                    uri: image.uri,
+                                                    uri: image.assets[0].uri,
                                                     type: 'image/jpeg',
                                                     name: `presensi-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
                                                 };
-    
+
                                                 let formdata = new FormData();
                                                 formdata.append("foto_absen_masuk",photo);
     
@@ -549,7 +563,8 @@ export default function DashboardScreen(props) {
                                                 let response = await request.json();
                                                 
                                                 let filename = response.result.file_name;
-    
+                                                
+        
                                                 let time = new Date();
                                                 let timezone = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
     
@@ -587,6 +602,9 @@ export default function DashboardScreen(props) {
                                                     alert("Terjadi kesalahan, silahkan hidupkan kembali lokasi anda");
                                                     setPresensiLoading(false);
                                                 }
+                                        }else{
+                                            setPresensiLoading(false);
+                                        
                                         }
                                     }
                                    
@@ -602,12 +620,13 @@ export default function DashboardScreen(props) {
                                 activeOpacity={0.8}
                                 onPress={async ()=>{
                                     let image = await ImagePicker.launchCameraAsync();
-                                    if(!image.cancelled){
+                                    console.log(image);
+                                    if(!image.canceled){
                                         setPresensiLoading(true);
                                         let location = await Location.getLastKnownPositionAsync();
 
                                         var photo = {
-                                            uri: image.uri,
+                                            uri: image.assets[0].uri,
                                         type: 'image/jpeg',
                                             name: `presensipulang-${globalContext.credentials.data.nama_lengkap}-${new Date().getTime()}.jpg`,
                                         };
@@ -658,6 +677,8 @@ export default function DashboardScreen(props) {
                                             alert("Terjadi kesalahan, silahkan hidupkan kembali lokasi anda");
                                             setPresensiLoading(false);
                                         }
+                                    }else{
+                                        setPresensiLoading(false);
                                     }
                                 }}
                                 style={{backgroundColor:"whitesmoke",justifyContent:"center",alignItems:"center",borderRadius:EStyleSheet.value("10rem"),flex:1,marginTop:EStyleSheet.value("10rem")}}>
@@ -729,24 +750,45 @@ export default function DashboardScreen(props) {
             }
             {
                 (globalContext.credentials.data.hak_akses !== "donor") &&
-            <View style={{paddingHorizontal:EStyleSheet.value("15rem"),marginTop:EStyleSheet.value("30rem")}}>
-                <TouchableOpacity
+            <View style={{marginTop:EStyleSheet.value("30rem"),flexDirection:"row",paddingHorizontal:EStyleSheet.value("15rem")}}>
+                <TouchableOpacity 
                 activeOpacity={0.8}
                 onPress={()=>{
                     props.navigation.navigate("Research");
                 }}
-                style={{...shadow2,backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
-                    <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
-                        <Text style={{color:"white",fontSize:EStyleSheet.value("40rem")}}>Research</Text>
-                    </View>
+                style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginRight:EStyleSheet.value("10rem")}}>
+                    <View style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
+                        <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
+                            <Text numberOfLines={2} style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Research</Text>
+                        </View>
 
-                    <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailResearch[0]?.photo_research || null}}/>
-                
-                    <LinearGradient
-                    style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
-                    colors={['transparent', 'rgba(0,0,0,1)']}>
-                    </LinearGradient>
+                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailResearch[0]?.photo_research || null}}/>
+                    
+                        <LinearGradient
+                        style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
+                        colors={['transparent', 'rgba(0,0,0,1)']}>
+                        </LinearGradient>
+                    </View>
                 </TouchableOpacity>
+                <View style={{...shadow2,flex:1,backgroundColor:"#fafafa",marginLeft:EStyleSheet.value("10rem")}}>
+                    <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={()=>{
+                        props.navigation.navigate("Agroforestri");
+                    }}
+                    style={{backgroundColor:"#fafafa",overflow:"hidden",borderRadius:EStyleSheet.value("5rem")}}>
+                        <View style={{padding:EStyleSheet.value("10rem"),zIndex:99,justifyContent:"center",alignItems:"center",height:EStyleSheet.value("140rem")}}>
+                            <Text style={{color:"white",fontSize:EStyleSheet.value("18rem"),textAlign:"center"}}>Agroforestri</Text>
+                        </View>
+
+                        <Image style={{position:"absolute",width:"100%",height:"100%"}} source={{uri:thumbnailAgroforestri[0]?.photo_agroforestri || null}}/>
+                    
+                        <LinearGradient
+                        style={{position:"absolute",bottom:0,width:"100%",height:"50%"}}
+                        colors={['transparent', 'rgba(0,0,0,1)']}>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
             </View>
             }
             {
