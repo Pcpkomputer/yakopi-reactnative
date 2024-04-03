@@ -385,6 +385,8 @@ import InputNewPlotBoundaring from './screen/restoration-screens/InputNewPlotBou
 import InputPlotBoundaringScreen from './screen/restoration-screens/InputPlotBoundaringScreen';
 import KindPlotBoundaringScreen from './screen/restoration-screens/KindPlotBoundaringScreen';
 import InputDetailPlotBoundaringScreen from './screen/restoration-screens/InputDetailPlotBoundaringScreen';
+import SeedPlotBoundaringScreen from './screen/restoration-screens/SeedPlotBoundaringScreen';
+import InputSeedPlotBoundaringScreen from './screen/restoration-screens/InputSeedPlotBoundaringScreen';
 
 
 
@@ -1612,6 +1614,18 @@ function MasterNavigator() {
           headerTitle: "TAMBAH JENIS & JUMLAH BIBIT"
         }}
         name="InputDetailPlotBoundaring" component={InputDetailPlotBoundaringScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "BIBIT"
+        }}
+        name="SeedPlotBoundaring" component={SeedPlotBoundaringScreen} />
+        <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: "TAMBAH BIBIT"
+        }}
+        name="InputSeedPlotBoundaring" component={InputSeedPlotBoundaringScreen} />
 
       <Stack.Screen
         options={{

@@ -140,7 +140,7 @@ function AssetsVideo(props){
                             }
                             if(required){
                                 let gambar = await DocumentPicker.getDocumentAsync();
-                                if(gambar.type==="success"){
+                                if(!gambar.cancelled){
 
                                     setImageLoading(true);
                                     setModalKeteranganOpened(false);
@@ -162,7 +162,7 @@ function AssetsVideo(props){
                                     });
                                     let response = await request.json();
                 
-                                    let url = `/assets/img/videoNurseryActivity/${response.result.orig_name}`;
+                                    let url = `/assets/img/videoNurseryActivity/${uuid}.mp4`;
 
                                     let id = props.route.params.id_nursery_activity;
 

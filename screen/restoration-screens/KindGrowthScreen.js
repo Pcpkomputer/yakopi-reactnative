@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { StatusBarHeight } from '../../utils/HeightUtils';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useIsFocused } from '@react-navigation/native';
 
 import { Entypo, Feather, FontAwesome, MaterialCommunityIcons,AntDesign } from '@expo/vector-icons'; 
 
@@ -16,10 +16,16 @@ import {GlobalContext} from '../../App';
 
 import { DataTable } from 'react-native-paper';
 
+import {
+  Platform
+} from 'react-native';
+
 
 
 
 export default function KindGrowthScreen(props){
+
+    const focused = useIsFocused();
 
     const globalContext = useContext(GlobalContext);
 
@@ -49,8 +55,10 @@ export default function KindGrowthScreen(props){
     }
 
     useEffect(()=>{
-        fetchList();
-    },[]);
+      if(focused){
+          fetchList();
+      }
+  },[focused]);
 
     const styles = StyleSheet.create({
         container: {
@@ -69,7 +77,6 @@ export default function KindGrowthScreen(props){
     return (
       <View style={{flex:1, backgroundColor:'#fff'}}>
         {
-        (props.route.params.status == "0") &&
         <TouchableOpacity 
             activeOpacity={0.6}
             onPress={()=>{
@@ -124,8 +131,6 @@ export default function KindGrowthScreen(props){
         list.map((item, index) => (
           <DataTable.Row key={index}>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>
-            {
-              (props.route.params.status == "0") &&
               <View style={{flexDirection:"row",alignItems:"center"}}>
               <TouchableOpacity 
               onPress={async ()=>{
@@ -169,11 +174,7 @@ export default function KindGrowthScreen(props){
               </TouchableOpacity>        
               </View>
               
-          }
-          {
-              (props.route.params.status != "0") &&
-              <Text>{index+1}</Text>
-          }
+          
             </DataTable.Cell>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.site_code}</DataTable.Cell>
             <DataTable.Cell style={{flex:1,width:Dimensions.get("window").width/3}}>{item.plot_code}</DataTable.Cell>

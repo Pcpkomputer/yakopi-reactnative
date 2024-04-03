@@ -131,6 +131,13 @@ export default function ListPlotBoundaringScreen(props){
                                 style={{backgroundColor:"#9ed649",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
                                     <MaterialCommunityIcons name="eye" size={EStyleSheet.value("15rem")} color="white" />
                                 </TouchableOpacity>
+                                <TouchableOpacity
+                                onPress={()=>{
+                                    props.navigation.navigate("SeedPlotBoundaring",{id_plot_boundaring:item.id_plot_boundaring,status:item.status});
+                                }}
+                                style={{backgroundColor:"blue",borderRadius:EStyleSheet.value("5rem"),paddingHorizontal:EStyleSheet.value("10rem"),paddingVertical:EStyleSheet.value("5rem")}}>
+                                    <MaterialCommunityIcons name="seed" size={EStyleSheet.value("15rem")} color="white" />
+                                </TouchableOpacity>
                                 {/* <TouchableOpacity 
                                 onPress={()=>{
                                     props.navigation.navigate("AssetsKK6",{type:"image",id_agroforest_kt6:item.id_agroforest_kt6,status:item.status});

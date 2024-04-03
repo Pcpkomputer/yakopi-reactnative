@@ -640,6 +640,20 @@ export default function InputKK1Screen(props){
                             }
                            
                         });
+                        // if(!check){
+                        //     setSmokeScreenOpened(false);
+                        //     let empty = required.filter((item)=>{
+                        //         if(item.type==="selectinput"){
+                        //             return item.value.value.length===0;
+                        //         }
+                        //         else{   
+                        //             return item.value.length===0;
+                        //         }
+                        //     });
+                        //     let message = empty.map((item)=>item.label).join(", ");
+                        //     alert(`Kolom ${message} tidak boleh kosong`);
+                        //     return;
+                        // }
                         try{
                             let request = await fetch(`${endpoint}/agroforest-kt1`,{
                                 method:"POST",

@@ -252,50 +252,37 @@ export default function InputDetailGrowthScreen(props){
                <TouchableOpacity 
                activeOpacity={0.8}
                onPress={async ()=>{
-                   let required = schema.filter((item)=>item.required);
-                   let check = required.every((item)=>{
+                    setSmokeScreenOpened(true);
+                    let filtered = schema.filter((item)=>item.type!=="spacer");
+                    let payload = {};
+                    filtered.forEach((item,index)=>{
                         if(item.type==="selectinput"){
-                            return item.value.value.length>0;
+                            payload[item.form]=item.value.id;
                         }
                         else{   
-                            return item.value.length>0;
+                            payload[item.form]=item.value;
                         }
-                      
-                   
-                   });
-                   if(check){   
-                        setSmokeScreenOpened(true);
-                        let filtered = schema.filter((item)=>item.type!=="spacer");
-                        let payload = {};
-                        filtered.forEach((item,index)=>{
-                            if(item.type==="selectinput"){
-                                payload[item.form]=item.value.id;
-                            }
-                            else{   
-                                payload[item.form]=item.value;
-                            }
-                           
-                        });
-                        console.log(payload);
-                        let request = await fetch(`${endpoint}/add-kind-growth`,{
-                            method:"POST",
-                            headers:{
-                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                "content-type":"application/json"
-                            },
-                            body:JSON.stringify(
-                                payload
-                            )
-                        });
-                        let response = await request.json();
-                        if(response.success){
-                            setSmokeScreenOpened(false);
-                            props.navigation.goBack();
-                        }
-                   }
-                   else{
-                       alert("Isikan semua data yang diperlukan");
-                   }
+                        
+                    });
+                    console.log(payload);
+                    let request = await fetch(`${endpoint}/add-kind-growth`,{
+                        method:"POST",
+                        headers:{
+                            "authorization":`Bearer ${globalContext.credentials.token}`,
+                            "content-type":"application/json"
+                        },
+                        body:JSON.stringify(
+                            payload
+                        )
+                    });
+                    let response = await request.json();
+                    if(response.success){
+                        setSmokeScreenOpened(false);
+                        props.navigation.goBack();
+                    }else{
+                        setSmokeScreenOpened(false);
+                        alert("Gagal menambahkan data");
+                    }
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
                    <Text style={{color:"white"}}>Proses</Text>

@@ -66,6 +66,8 @@ export default function InputKK4OfflineScreen(props){
         province:[],
         city:[],
         district:[],
+        sub_ekosistem:["Ladang","Perkarangan"].map((item,_)=>{return {id:item,value:item}}),
+        transportasi:["Mobil","Sepeda Motor"].map((item,_)=>{return {id:item,value:item}}),
     });
 
     useEffect(()=>{

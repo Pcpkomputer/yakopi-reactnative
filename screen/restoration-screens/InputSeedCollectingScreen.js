@@ -504,6 +504,10 @@ export default function InputSeedCollectingScreen(props){
                       
                    
                    });
+                    if(!check){
+                        alert("Silahkan isi semua field yang wajib diisi");
+                        return;
+                    }
                    console.log(check);
                     
                     setSmokeScreenOpened(true);
@@ -518,22 +522,27 @@ export default function InputSeedCollectingScreen(props){
                         }
                         
                     });
-                    let request = await fetch(`${endpoint}/seed-collecting`,{
-                        method:"POST",
-                        headers:{
-                            "authorization":`Bearer ${globalContext.credentials.token}`,
-                            "content-type":"application/json"
-                        },
-                        body:JSON.stringify(payload)
-                    });
-                    console.log(payload);
-                    let response = await request.json();
-                    if(response.success){
+                    try{
+                        let request = await fetch(`${endpoint}/seed-collecting`,{
+                            method:"POST",
+                            headers:{
+                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                "content-type":"application/json"
+                            },
+                            body:JSON.stringify(payload)
+                        });
+                        console.log(payload);
+                        let response = await request.json();
+                        if(response.success){
+                            setSmokeScreenOpened(false);
+                            props.navigation.goBack();
+                        }else{
+                            setSmokeScreenOpened(false);
+                            alert(response.message);
+                        }
+                    }catch(err){
                         setSmokeScreenOpened(false);
-                        props.navigation.goBack();
-                    }else{
-                        setSmokeScreenOpened(false);
-                        alert(response.message);
+                        alert("Maaf, terjadi kesalahan pada upload data silahkan cek kembali kolom yang wajib diisi");
                     }
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>

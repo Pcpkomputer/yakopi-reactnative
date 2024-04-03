@@ -477,10 +477,12 @@ export default function InputReplantingScreen(props){
                         }
                         else{   
                             return item.value.length>0;
-                        }
-                      
-                   
+                        }                     
                    });
+                     if(!check){
+                        alert("Silahkan isi kolom yang wajib diisi");
+                        return;
+                    }
                         setSmokeScreenOpened(true);
                         let filtered = schema.filter((item)=>item.type!=="spacer");
                         let payload = {};
@@ -494,18 +496,27 @@ export default function InputReplantingScreen(props){
                            
                         });
                         console.log(payload);
-                        let request = await fetch(`${endpoint}/replanting`,{
-                            method:"POST",
-                            headers:{
-                                "authorization":`Bearer ${globalContext.credentials.token}`,
-                                "content-type":"application/json"
-                            },
-                            body:JSON.stringify(payload)
-                        });
-                        let response = await request.json();
-                        if(response.success){
+                        try{
+                            let request = await fetch(`${endpoint}/replanting`,{
+                                method:"POST",
+                                headers:{
+                                    "authorization":`Bearer ${globalContext.credentials.token}`,
+                                    "content-type":"application/json"
+                                },
+                                body:JSON.stringify(payload)
+                            });
+                            let response = await request.json();
+                            if(response.success){
+                                setSmokeScreenOpened(false);
+                                props.navigation.goBack();
+                            }
+                            else {
+                                setSmokeScreenOpened(false);
+                                alert("Failed to submit data");
+                            }
+                        }catch(err){
                             setSmokeScreenOpened(false);
-                            props.navigation.goBack();
+                            alert("Maaf, terjadi kesalahan pada upload data silahkan cek kembali kolom yang wajib diisi");
                         }
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>

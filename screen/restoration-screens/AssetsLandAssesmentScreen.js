@@ -140,9 +140,9 @@ function AssetsVideo(props){
                                 required = false;
                             }
                             if(required){
+                                console.log("masuk");
                                 let gambar = await DocumentPicker.getDocumentAsync();
-                                if(gambar.type==="success"){
-
+                                if(!gambar.cancelled){
                                     setImageLoading(true);
                                     setModalKeteranganOpened(false);
                 
@@ -153,23 +153,34 @@ function AssetsVideo(props){
                                         type: 'video/mp4',
                                         name: `${uuid}.mp4`,
                                     };
+
+                                    console.log(photo);
                 
                                     let form = new FormData();
                 
                                     form.append("file_land_assessment_video",photo);
-                                    let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoLandAssessment`,{
-                                        method:"POST",
-                                        body:form
-                                    });
-                                    let response = await request.json();
+                                    try{
+                                        let request = await fetch(`https://sispro-yakopi.org/endpoint/dokumentasiVideoLandAssessment`,{
+                                            method:"POST",
+                                            body:form
+                                        });
+                                        let response = await request.json();
+                                        console.log(response);
+                                    }catch(e){
+                                        console.log(e);
+                                    }
+                                    
                 
-                                    let url = `/assets/img/videoLandAssessment/${response.result.orig_name}`;
+                                    let url = `/assets/img/videoLandAssessment/${uuid}.mp4`;
 
                                     let id = props.route.params.id_land_assessment;
 
                                     // $keterangan_land_assessment_video = $request->keterangan_land_assessment_video;
                                     // $link_land_assessment_video = $request->link_land_assessment_video;
                                     // $file_land_assessment_video = $request->file_land_assessment_video;
+
+                                    // imageLoading
+                                    setImageLoading(true);
                 
                                     let req2 = await fetch(`${endpoint}/add-video-land-assessment`,{
                                         method:"POST",
@@ -185,13 +196,21 @@ function AssetsVideo(props){
                                         })
                                     });
                                     let res2 = await req2.json();
+
+                                    console.log(res2);
                                     
                                     if(res2.success){
                                         alert(res2.msg);
                                         setKeterangan("");
+                                        setImageLoading(false);
                                         await fetchVideo();
+                                    }else{
+                                        setImageLoading(false);
                                     }
                 
+                                }else{
+                                    console.log("batal");
+                                    setImageLoading(false);
                                 }
                             }else{
                                 alert("Keterangan tidak boleh kosong");

@@ -635,10 +635,12 @@ export default function InputLandAssessmentScreen(props){
                         }
                         else{   
                             return item.value.length>0;
-                        }
-                      
-                   
+                        }                   
                    });
+                     if(!check){
+                        alert("Silahkan isi semua field yang wajib diisi");
+                        return;
+                    }
                         setSmokeScreenOpened(true);
                         let filtered = schema.filter((item)=>item.type!=="spacer");
                         let payload = {};
@@ -669,9 +671,9 @@ export default function InputLandAssessmentScreen(props){
                                 setSmokeScreenOpened(false);
                                 alert(response.message);
                             }
-                        }catch(e){
+                        }catch(err){
                             setSmokeScreenOpened(false);
-                            alert(e.message);
+                            alert("Maaf, terjadi kesalahan pada upload data silahkan cek kembali kolom yang wajib diisi");
                         }
                   
                }}

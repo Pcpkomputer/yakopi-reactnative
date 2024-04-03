@@ -448,6 +448,18 @@ export default function InputGrowthScreen(props){
                     activeOpacity={0.8}
                     onPress={async () => {
                         setSmokeScreenOpened(true);
+
+                        // cek apakah required field yang true sudah terisi semua jika belum maka alert
+                        let filtered = schema.filter((item) => item.required === true);
+                        let notFilled = filtered.filter((item) => item.value === "");
+                        if (notFilled.length > 0) {
+                            setSmokeScreenOpened(false);
+                            // tampilkan alert sesuai dengan field yang belum terisi
+                            alert(`Field ${notFilled[0].label} wajib diisi`);
+                            return;
+                        }
+
+
     
                         try {
 

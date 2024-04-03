@@ -530,22 +530,27 @@ export default function InputKK4Screen(props){
                         }
                         
                     });
-                    let request = await fetch(`${endpoint}/agroforest-kt4`,{
-                        method:"POST",
-                        headers:{
-                            "authorization":`Bearer ${globalContext.credentials.token}`,
-                            "content-type":"application/json"
-                        },
-                        body:JSON.stringify(payload)
-                    });
-                    console.log(payload);
-                    let response = await request.json();
-                    if(response.success){
+                    try{
+                        let request = await fetch(`${endpoint}/agroforest-kt4`,{
+                            method:"POST",
+                            headers:{
+                                "authorization":`Bearer ${globalContext.credentials.token}`,
+                                "content-type":"application/json"
+                            },
+                            body:JSON.stringify(payload)
+                        });
+                        console.log(payload);
+                        let response = await request.json();
+                        if(response.success){
+                            setSmokeScreenOpened(false);
+                            props.navigation.goBack();
+                        }else{
+                            setSmokeScreenOpened(false);
+                            alert(response.message);
+                        }
+                    }catch(err){
+                        console.log(err);
                         setSmokeScreenOpened(false);
-                        props.navigation.goBack();
-                    }else{
-                        setSmokeScreenOpened(false);
-                        alert(response.message);
                     }
                }}
                style={{marginTop:EStyleSheet.value("20rem"),backgroundColor:"#1e915a",paddingVertical:EStyleSheet.value("15rem"),borderRadius:EStyleSheet.value("10rem"),justifyContent:"center",alignItems:"center",marginBottom:EStyleSheet.value("20rem"),marginHorizontal:EStyleSheet.value("20rem")}}>
